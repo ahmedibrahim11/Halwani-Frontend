@@ -5,13 +5,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
-import {MatIconModule  } from "@angular/material/icon";
-import {MatFormFieldModule  } from "@angular/material/form-field";
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatGridListModule } from '@angular/material/grid-list';
+
 import { MatInputModule } from '@angular/material/input';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { HomeComponent } from './home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent,
+    SidebarComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -19,12 +27,11 @@ import { MatInputModule } from '@angular/material/input';
     BrowserAnimationsModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule
+    MatGridListModule,
+    MatInputModule,
   ],
-  exports:[
-      MatIconModule,MatFormFieldModule, MatInputModule
-  ],
+  exports: [MatIconModule, MatFormFieldModule, MatInputModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

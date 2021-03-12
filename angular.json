@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "Halwani-ITSM-Frontend"
+  "defaultProject": "Halwani-ITSM-Frontend",
+  "cli": {
+    "analytics": "94099d59-1890-4ade-b6ee-ce0897b3d329"
+  }
 }

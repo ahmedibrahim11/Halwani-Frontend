@@ -1,0 +1,38 @@
+.navbar-container{
+    width: 100%;
+    height: 7%;
+    flex-grow: 0;
+    padding: 2px 32px 16px 5px;
+    box-shadow: 0 0 1px 0 rgba(9, 30, 66, 0.31),
+    0 3px 5px 0 rgba(9, 30, 66, 0.2);
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+}
+.navbar-logo{
+    width: 111.7px;
+    height: 59.5px;
+    flex-grow: 0;
+    margin: 1.6px 1070.3px 4.9px 0;
+    object-fit: contain;
+}
+.menu{
+    height: 59.5px;
+    display: flex;
+    flex-direction: row;
+}
+.red-menu{
+    background-color: #c4161c;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 5px;
+    color: #ffffff;
+    align-self: center;
+}
+.person-data-menu{
+     width: 1440px;
+     height: 1060px;
+     margin-left: 2%;
+     margin-top: 0.5%;
+     line-height: 0.5%;
+}
