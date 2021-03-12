@@ -9,7 +9,7 @@
   background-color: #ffffff;
   display: flex;
   flex-direction: row;
-  position: absolute;
+  position: relative;
   z-index: 1;
   min-height: 2.7rem;
 }
@@ -24,12 +24,13 @@
   height: 59.5px;
   display: flex;
   flex-direction: row;
+  padding-left: 100px;
 }
 .red-menu {
   background-color: #c4161c;
   border-radius: 10px;
   display: inline-block;
-  padding: 5px;
+  padding: 15px;
   color: #ffffff;
   align-self: center;
 }
@@ -37,6 +38,6 @@
   width: 1440px;
   height: 1060px;
   margin-left: 2%;
-  margin-top: 0.5%;
+  margin-top: 0;
   line-height: 0.5%;
 }

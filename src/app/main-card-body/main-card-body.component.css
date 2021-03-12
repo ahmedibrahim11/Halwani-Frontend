@@ -1,10 +1,11 @@
 .Rectangle-6 {
-  width: 80%;
+  width: 100%;
   margin: 1.5rem 0 0;
   padding: 38px 25px 34px 43px;
   min-height: 90vh;
   background-color: white;
   flex-direction: row;
+  overflow-x: hidden;
 }
 .Actions-Tickets-Queue {
   width: 235px;
@@ -106,7 +107,7 @@
 }
 
 .Rectangle-339 {
-  width: 95%;
+  width: 90%;
   height: 66vh;
   margin: 20px 16px 0 3px;
   padding: 0.9rem 1.25rem 0;
