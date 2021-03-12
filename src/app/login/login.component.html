@@ -1,0 +1,19 @@
+<div class="align-mainDev">
+<img src="assets/Group2.svg" class="Group-2">
+<div class="card-div">
+    <div class="content"><label class="Login">Login</label>
+    
+ 
+    <mat-form-field appearance="fill">
+       
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+    </mat-form-field>
+
+    </div>
+
+</div>
+</div>

@@ -1,0 +1,46 @@
+.Group-2 {
+  width: 212px;
+  height: 72.5px;
+  margin: 3rem 0 1.5rem 0;
+}
+.align-mainDev {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.card-div {
+  background-color: white;
+  width: 30.8rem;
+  height: 65vh;
+  border-radius: 32px;
+  justify-self: center;
+}
+@media only screen and (max-width: 600px) {
+  .card-div {
+    width: 75%;
+    height: 50vh;
+  }
+}
+
+.Login {
+  width: 11rem;
+  height: 2.25rem;
+
+  font-family: Poppins;
+  font-size: 32px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.06;
+  letter-spacing: 1px;
+
+  color: #14142b;
+  display: block;
+}
+.content {
+  margin: 6% 0 0 17.5%;
+}
+
+.mat-form-field {
+  width: 80%;
+}
