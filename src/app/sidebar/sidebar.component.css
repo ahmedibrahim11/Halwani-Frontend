@@ -1,0 +1,59 @@
+.sidenav-container{
+      width: 253px;
+      height: 980px;
+      margin: 80px 0 0;
+      padding: 0 10px 167px 0;
+     background-color: #fafafa;
+}
+.logo-withtext{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+.halawani-logo{
+     width: 39px;
+     height: 40px;
+}
+.action-container{
+     display: flex;
+     flex-direction: row;
+}
+.icon-img{
+     width: 24px;
+     height: 24px;
+     margin-right: 10px;
+}
+.halawani-text{
+   width: 106px;
+   height: 32px;
+   flex-grow: 0;
+   margin: 0 0 0 8px;
+}
+.halawani-title{
+     width: 106px;
+     height: 16px;
+     flex-grow: 0;
+     margin: 0 0 4px;
+     font-family: Poppins;
+     font-size: 16px;
+     font-weight: 600;
+     font-stretch: normal;
+     font-style: normal;
+     line-height: 1;
+     letter-spacing: normal;
+     text-align: left;
+     color: #000000;
+}
+.divider{
+     width: 150px;
+     height: 1px;
+     margin: 25px 0 10px 10px;
+     background-color: #edebe9;
+}
+.actions{
+    margin:10px;
+}
+.logout{
+    margin-left: 10px;
+    margin-top: 40px;
+}

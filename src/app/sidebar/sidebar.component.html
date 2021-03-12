@@ -1,4 +1,67 @@
-<mat-sidenav-container class="example-container" *ngIf="shouldRun">
-  <mat-sidenav mode="side" opened>Sidenav content</mat-sidenav>
-  <mat-sidenav-content>Main content</mat-sidenav-content>
-</mat-sidenav-container>
+<mat-drawer-container class="sidenav-container">
+  <mat-drawer mode="side" opened>
+    <div class="logo-withtext">
+      <img src="assets/halawani.png" class="halawani-logo" />
+      <div class="halawani-text">
+        <h3 class="halawani-title">Halawani Bros</h3>
+        <p style="opacity: 0.7">ITSM</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="actions">
+      <h2>ACTIONS</h2>
+      <div class="action-container">
+        <img src="assets/1.png" class="icon-img" />
+        <h4 style="opacity: 0.8">Tickets Queue</h4>
+      </div>
+      <div class="action-container">
+        <img src="assets/2.png" class="icon-img" />
+        <h4 style="opacity: 0.8">Reports DashBoard</h4>
+      </div>
+      <div class="action-container">
+        <img src="assets/3.png" class="icon-img" />
+        <h4 style="opacity: 0.8">Ticket Escalations</h4>
+      </div>
+    </div>
+    <div class="actions">
+      <h2>BROWSE BY CATEGORY</h2>
+      <div class="action-container">
+        <img src="assets/4.png" class="icon-img" />
+        <h4 style="opacity: 0.8">Service Requests</h4>
+      </div>
+      <div class="action-container">
+        <img src="assets/5.png" class="icon-img" />
+        <h4 style="opacity: 0.8">Incidents</h4>
+      </div>
+      <div class="action-container">
+        <img src="assets/6.png" class="icon-img" />
+        <h4 style="opacity: 0.8">Problems</h4>
+      </div>
+      <div class="action-container">
+        <img src="assets/7.png" class="icon-img" />
+        <h4 style="opacity: 0.8">Changes</h4>
+      </div>
+    </div>
+    <div class="actions">
+      <h2>CONFIGURATION</h2>
+      <div class="action-container">
+        <img src="assets/8.png" class="icon-img" />
+        <h4 style="opacity: 0.8">Settings</h4>
+      </div>
+      <div class="action-container">
+        <img src="assets/9.png" class="icon-img" />
+        <h4 style="opacity: 0.8">Report a Bug</h4>
+      </div>
+      <div class="action-container">
+        <img src="assets/10.png" class="icon-img" />
+        <h4 style="opacity: 0.8">Ask for Support</h4>
+      </div>
+    </div>
+    <div class="logout">
+      <div class="action-container">
+        <img src="assets/11.png" class="icon-img" />
+        <h4 style="opacity: 0.8">Logout</h4>
+      </div>
+    </div>
+  </mat-drawer>
+</mat-drawer-container>
