@@ -1,59 +1,58 @@
-.sidenav-container{
-      width: 253px;
-      height: 750px;
-      margin: 4px 0 0;
-      padding: 0 10px 167px 0;
-     background-color: #fafafa;
+.sidenav-container {
+  height: 100vh;
+  margin: 4px 0 0;
+  padding: 0 10px 167px 0;
+  background-color: #fafafa;
 }
-.logo-withtext{
-    display: flex;
-    flex-direction: row;
-    padding: 10px;
+.logo-withtext {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
 }
-.halawani-logo{
-     width: 39px;
-     height: 40px;
+.halawani-logo {
+  width: 39px;
+  height: 40px;
 }
-.action-container{
-     display: flex;
-     flex-direction: row;
+.action-container {
+  display: flex;
+  flex-direction: row;
 }
-.icon-img{
-     width: 24px;
-     height: 24px;
-     margin-right: 10px;
+.icon-img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
 }
-.halawani-text{
-   width: 106px;
-   height: 32px;
-   flex-grow: 0;
-   margin: 0 0 0 8px;
+.halawani-text {
+  width: 106px;
+  height: 32px;
+  flex-grow: 0;
+  margin: 0 0 0 8px;
 }
-.halawani-title{
-     width: 106px;
-     height: 16px;
-     flex-grow: 0;
-     margin: 0 0 4px;
-     font-family: Poppins;
-     font-size: 16px;
-     font-weight: 600;
-     font-stretch: normal;
-     font-style: normal;
-     line-height: 1;
-     letter-spacing: normal;
-     text-align: left;
-     color: #000000;
+.halawani-title {
+  width: 106px;
+  height: 16px;
+  flex-grow: 0;
+  margin: 0 0 4px;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000000;
 }
-.divider{
-     width: 150px;
-     height: 1px;
-     margin: 25px 0 10px 10px;
-     background-color: #edebe9;
+.divider {
+  width: 150px;
+  height: 1px;
+  margin: 25px 0 10px 10px;
+  background-color: #edebe9;
 }
-.actions{
-    margin:10px;
+.actions {
+  margin: 10px;
 }
-.logout{
-    margin-left: 10px;
-    margin-top: 40px;
+.logout {
+  margin-left: 10px;
+  margin-top: 40px;
 }
