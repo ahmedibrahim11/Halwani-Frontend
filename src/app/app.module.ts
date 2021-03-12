@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HomeComponent } from './home/home.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,10 @@ import { HomeComponent } from './home/home.component';
     MatFormFieldModule,
     MatGridListModule,
     MatInputModule,
+    MatInputModule,
+    ReactiveFormsModule,
   ],
+
   exports: [MatIconModule, MatFormFieldModule, MatInputModule],
   providers: [],
   bootstrap: [AppComponent],

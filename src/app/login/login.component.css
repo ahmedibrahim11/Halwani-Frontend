@@ -11,14 +11,14 @@
 .card-div {
   background-color: white;
   width: 30.8rem;
-  height: 65vh;
+  height: 55vh;
   border-radius: 32px;
   justify-self: center;
 }
 @media only screen and (max-width: 600px) {
   .card-div {
     width: 75%;
-    height: 50vh;
+    height: 40vh;
   }
 }
 
@@ -43,4 +43,25 @@
 
 .mat-form-field {
   width: 80%;
+  margin: 5% 0 0 0;
+}
+button {
+  border: none;
+  color: darkgray;
+}
+
+.Rectangle-156 {
+  width: 79%;
+  height: 64px;
+  margin: 30px 6.4px 0 0;
+  padding: 0 16.4px 0 16.4px;
+  background-color: #c4161c;
+  color: white;
+  border-radius: 15px;
+}
+.Group-3 {
+  width: 114.6px;
+  height: 26.6px;
+  margin: 56.5px 189.4px 0 189px;
+  object-fit: contain;
 }
