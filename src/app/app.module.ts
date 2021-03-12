@@ -14,6 +14,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HomeComponent } from './home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatTabsModule} from '@angular/material/tabs';
+import { MainCardBodyComponent } from './main-card-body/main-card-body.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     SidebarComponent,
     HomeComponent,
+    MainCardBodyComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +35,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatTabsModule
   ],
 
   exports: [MatIconModule, MatFormFieldModule, MatInputModule],

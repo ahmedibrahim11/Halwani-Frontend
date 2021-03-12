@@ -1,0 +1,23 @@
+<div class="Rectangle-6">
+    <div class="mainTableHeader">
+    <div class="table-header">
+    <label class="Actions-Tickets-Queue">
+        Actions / Tickets Queue
+    </label>
+    <label class="Tickets-Queue">Tickets Queue</label>
+    </div>
+    <div class="table-right-header">
+        <button type="button" class="Table-buttons">Create Ticket</button>
+        <button type="button" class="Table-buttons-Export">Export TABLE <mat-icon class="export-btn-icon">save_alt</mat-icon></button>
+        <button type="button" class="Table-buttons-settings"><mat-icon class="export-btn-icon">settings</mat-icon></button>
+    </div>
+    </div>
+    <div class="tabs">
+        <mat-tab-group  [(selectedIndex)]="SelectedTabIndex">
+            <mat-tab label="All" > <div class="Rectangle-339">Content 1</div> </mat-tab>
+            <mat-tab label="Assigned to me"> Content 2 </mat-tab>
+            <mat-tab label="In progress"> Content 3 </mat-tab>
+            <mat-tab label="Overdue"> Content 3 </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

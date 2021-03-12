@@ -1,4 +1,6 @@
-.main-container{
-    overflow-x: hidden;
-    
+.main-container {
+  overflow-x: hidden;
+  background-color: #ffffff;
+  height: 100vh;
+  overflow: hidden;
 }
