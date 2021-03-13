@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: row;
 }
+.mat-column-select {
+  overflow: initial;
+}
+
 .Filter {
   width: 7.5rem;
   height: 3.45rem;

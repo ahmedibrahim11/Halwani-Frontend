@@ -15,12 +15,15 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HomeComponent } from './home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MainCardBodyComponent } from './main-card-body/main-card-body.component';
 import { NoMoreTicketsComponent } from './no-more-tickets/no-more-tickets.component';
 import { AllTableComponentComponent } from './all-table-component/all-table-component.component';
-import { MatTableModule } from '@angular/material/table'
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,8 +46,12 @@ import { MatTableModule } from '@angular/material/table'
     MatInputModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatTabsModule,MatCheckboxModule,
-    HttpClientModule,MatTableModule
+    MatTabsModule,
+    MatCheckboxModule,
+    HttpClientModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
 
   exports: [MatIconModule, MatFormFieldModule, MatInputModule],
