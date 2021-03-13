@@ -70,14 +70,13 @@
   text-align: left;
   color: #42526e;
 }
-.Export-table-Checkbox {
-}
+
 .mat-form-field-appearance-legacy .mat-form-field-underline {
   background-color: white im !important;
 }
 /* cell 1 */
 .menu {
-  width: 20rem;
+  width: 14rem;
   display: flex;
   flex-direction: row;
 }
@@ -91,7 +90,7 @@
   margin-top: 0.5rem;
 }
 .person-data-menu {
-  width: 15rem;
+  width: 13rem;
 
   margin-top: 0;
   line-height: 0.5%;
