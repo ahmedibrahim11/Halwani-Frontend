@@ -1,5 +1,5 @@
 .sidenav-container {
-  height: 100vh;
+  height: 100%;
   margin: 4px 0 0;
   padding: 0 10px 167px 0;
   background-color: #fafafa;
@@ -51,6 +51,7 @@
 }
 .actions {
   margin: 10px;
+  font-weight: bolder;
 }
 .logout {
   margin-left: 10px;
