@@ -1,6 +1,6 @@
 .Rectangle-6 {
   width: 82vw;
-  padding: 0 25px 34px 43px;
+  padding: 0 25px 34px 15px;
   min-height: 90vh;
   background-color: white;
   flex-direction: row;
@@ -106,8 +106,8 @@
 }
 
 .Rectangle-339 {
-  width: 95%;
-  height: 85vh;
+  width: 96%;
+  height: 88vh;
   margin: 20px 16px 0 3px;
   padding: 0.9rem 1.25rem 0;
   border-radius: 8px;
