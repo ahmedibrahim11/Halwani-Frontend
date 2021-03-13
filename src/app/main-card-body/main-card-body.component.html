@@ -14,7 +14,12 @@
     </div>
     <div class="tabs">
         <mat-tab-group  [(selectedIndex)]="SelectedTabIndex">
-            <mat-tab label="All" > <div class="Rectangle-339">Content 1</div> </mat-tab>
+            <mat-tab label="All" > <div class="Rectangle-339">
+                <div *ngIf ="empty"><app-no-more-tickets ></app-no-more-tickets></div>
+                <div *ngIf="!empty">
+                    <app-all-table-component></app-all-table-component>
+                </div>
+            </div> </mat-tab>
             <mat-tab label="Assigned to me"> Content 2 </mat-tab>
             <mat-tab label="In progress"> Content 3 </mat-tab>
             <mat-tab label="Overdue"> Content 3 </mat-tab>

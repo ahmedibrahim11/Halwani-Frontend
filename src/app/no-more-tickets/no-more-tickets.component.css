@@ -1,0 +1,42 @@
+.noMore-MainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+.noMore-image {
+  width: 18.75rem;
+  height: 16.3125rem;
+  margin-top: 7.5rem;
+}
+.noMore-title {
+  width: 172px;
+  height: 20px;
+  flex-grow: 0;
+  margin: 50.6px 160px 25px 161px;
+  font-family: Poppins;
+  font-size: 36px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 0.56;
+  letter-spacing: normal;
+  text-align: center;
+  color: #000000;
+}
+.noMore-desc {
+  width: 493px;
+  height: 40px;
+  flex-grow: 0;
+  margin: 25px 0 0;
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 200;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.11;
+  letter-spacing: normal;
+  text-align: center;
+  color: #000000;
+}

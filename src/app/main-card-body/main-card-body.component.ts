@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainCardBodyComponent implements OnInit {
 public SelectedTabIndex = 0;
+ empty:boolean=false;
   constructor() { }
 
   ngOnInit(): void {

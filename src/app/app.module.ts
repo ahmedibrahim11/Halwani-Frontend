@@ -16,7 +16,10 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { HomeComponent } from './home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MainCardBodyComponent } from './main-card-body/main-card-body.component';
+import { NoMoreTicketsComponent } from './no-more-tickets/no-more-tickets.component';
+import { AllTableComponentComponent } from './all-table-component/all-table-component.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +28,8 @@ import { MainCardBodyComponent } from './main-card-body/main-card-body.component
     SidebarComponent,
     HomeComponent,
     MainCardBodyComponent,
+    NoMoreTicketsComponent,
+    AllTableComponentComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +42,7 @@ import { MainCardBodyComponent } from './main-card-body/main-card-body.component
     MatInputModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatTabsModule
+    MatTabsModule,MatCheckboxModule
   ],
 
   exports: [MatIconModule, MatFormFieldModule, MatInputModule],
