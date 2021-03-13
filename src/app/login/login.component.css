@@ -11,7 +11,8 @@
 .card-div {
   background-color: white;
   width: 30.8rem;
-  height: 55vh;
+  height: 50vh;
+
   border-radius: 32px;
   justify-self: center;
 }

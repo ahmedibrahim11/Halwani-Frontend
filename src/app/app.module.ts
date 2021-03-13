@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatSidenavModule } from '@angular/material/sidenav';
-
+import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -20,6 +20,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MainCardBodyComponent } from './main-card-body/main-card-body.component';
 import { NoMoreTicketsComponent } from './no-more-tickets/no-more-tickets.component';
 import { AllTableComponentComponent } from './all-table-component/all-table-component.component';
+import { MatTableModule } from '@angular/material/table'
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,8 @@ import { AllTableComponentComponent } from './all-table-component/all-table-comp
     MatInputModule,
     MatInputModule,
     ReactiveFormsModule,
-    MatTabsModule,MatCheckboxModule
+    MatTabsModule,MatCheckboxModule,
+    HttpClientModule,MatTableModule
   ],
 
   exports: [MatIconModule, MatFormFieldModule, MatInputModule],

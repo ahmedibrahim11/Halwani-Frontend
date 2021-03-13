@@ -71,3 +71,67 @@
 .mat-form-field-appearance-legacy .mat-form-field-underline {
   background-color: white im !important;
 }
+/* cell 1 */
+.menu {
+  width: 20rem;
+  display: flex;
+  flex-direction: row;
+}
+.red-menu {
+  background-color: #c4161c;
+  border-radius: 10px;
+  display: inline-block;
+  padding: 15px;
+  color: #ffffff;
+  height: 1.5rem;
+  margin-top: 0.5rem;
+}
+.person-data-menu {
+  width: 15rem;
+
+  margin-top: 0;
+  line-height: 0.5%;
+  margin: 0.5rem;
+}
+.Low {
+  color: #007f00;
+  width: 45px;
+  height: 22px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 5px;
+  border-radius: 10px;
+  background-color: #cdffcd;
+}
+.High {
+  width: 50px;
+  height: 22px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 5px;
+  border-radius: 10px;
+  color: #bf2600;
+  background-color: #ffcdcd;
+}
+.Medium {
+  width: 72px;
+  height: 22px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 5px;
+  border-radius: 10px;
+  background-color: #fff1cd;
+  color: #d7a500;
+}
