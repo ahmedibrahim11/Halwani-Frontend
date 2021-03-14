@@ -17,14 +17,13 @@
   width: 111.7px;
   height: 59.5px;
   flex-grow: 0;
-  margin: 1.6px 1070.3px 4.9px 0;
+  margin: .1% 75% 1% 0;
   object-fit: contain;
 }
 .menu {
   height: 59.5px;
   display: flex;
   flex-direction: row;
-  padding-left: 5rem;
 }
 .red-menu {
   background-color: #c4161c;

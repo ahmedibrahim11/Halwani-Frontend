@@ -111,7 +111,7 @@ export class AllTableComponentComponent implements OnInit {
 
   openFilterModal() {
     const dialogRef = this.dialog.open(FiltermodalComponent, {
-      position: { top: '325px', left: '255px' },
+      position: { top: '23%', left: '18.5%' },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
