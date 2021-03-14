@@ -23,6 +23,11 @@ import { AllTableComponentComponent } from './all-table-component/all-table-comp
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatButtonModule } from '@angular/material/button';
+import { CreateTicketPopupComponent } from './create-ticket-popup/create-ticket-popup.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFileUploadModule } from 'angular-material-fileupload';
 
 @NgModule({
   declarations: [
@@ -34,6 +39,7 @@ import { MatSortModule } from '@angular/material/sort';
     MainCardBodyComponent,
     NoMoreTicketsComponent,
     AllTableComponentComponent,
+    CreateTicketPopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +58,10 @@ import { MatSortModule } from '@angular/material/sort';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatSelectModule,
+    MatFileUploadModule
   ],
 
   exports: [MatIconModule, MatFormFieldModule, MatInputModule],

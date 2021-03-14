@@ -20,3 +20,18 @@ export enum SevirityEnum {
   High
  
 }
+export enum PriorityEnum {
+  Low = 0,
+  Medium,
+  High
+ 
+}
+export enum SourceEnum{
+    Phone=0,
+    Desctop,
+    Laptop
+}
+export enum ProductCategorizationEnum{
+    Software=0,
+    Hardware
+}
