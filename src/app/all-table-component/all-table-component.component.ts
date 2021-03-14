@@ -26,8 +26,8 @@ export class AllTableComponentComponent implements OnInit {
   pageIndex: any = 0;
   setDataSourceAttributes() {
     this.dataSource.paginator = this.paginator;
-    // this.pageSize = this.paginator._pageSize;
-    // this.pageIndex = this.paginator._pageIndex;
+    this.pageSize = this.paginator.pageSize;
+    this.pageIndex = this.paginator.pageIndex;
 
     this.dataSource.sort = this.sort;
   }
@@ -72,8 +72,8 @@ export class AllTableComponentComponent implements OnInit {
     this.http
       .POST('ticket/list', {
         searchText: '',
-        pageSize: 10,
-        pageNumber: 0,
+        pageSize: this.pageSize,
+        pageNumber: this.pageIndex,
         isPrint: false,
         filter: {},
         sort: 0,
