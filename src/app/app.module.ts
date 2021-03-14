@@ -23,6 +23,9 @@ import { AllTableComponentComponent } from './all-table-component/all-table-comp
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FiltermodalComponent } from './filtermodal/filtermodal.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,7 @@ import { MatSortModule } from '@angular/material/sort';
     MainCardBodyComponent,
     NoMoreTicketsComponent,
     AllTableComponentComponent,
+    FiltermodalComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +56,8 @@ import { MatSortModule } from '@angular/material/sort';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatDialogModule,
+    MatRadioModule,
   ],
 
   exports: [MatIconModule, MatFormFieldModule, MatInputModule],

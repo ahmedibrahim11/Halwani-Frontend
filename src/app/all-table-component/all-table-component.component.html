@@ -1,7 +1,8 @@
 <div class="table-header">
-  <button type="button" class="Filter">
+  <button type="button" class="Filter" (click)="openFilterModal()" mat-button>
     <mat-icon class="filter-icon">filter_list</mat-icon>Filter
   </button>
+
   <mat-form-field class="Rectangle-48">
     <mat-label>Search Users by Name or Email</mat-label>
     <input matInput [type]="'text'" formControlName="searchText" />
@@ -109,7 +110,7 @@
       </td>
     </ng-container>
     <ng-container matColumnDef="Actions">
-      <th mat-header-cell *matHeaderCellDef >Actions</th>
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let topic">
         <div class="menu">
           <img src="assets/CalendarCancel.svg" style="margin-right: 0.1rem" />
