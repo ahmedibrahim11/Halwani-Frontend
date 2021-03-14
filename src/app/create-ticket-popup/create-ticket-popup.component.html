@@ -1,10 +1,10 @@
-
+<form [formGroup]="createTicketDTOFormGroup" (ngSubmit)="submiCreate()">
 <h1 mat-dialog-title class="Create-a-ticket">Create A Ticket</h1>
 <mat-dialog-content class="mat-typography">
     <label class="Ticket-type">Ticket type <span class="mandatory"> *</span></label>
 <mat-form-field [style.width.%]="100" appearance="fill">
     
-    <mat-select>
+    <mat-select formControlName="ticketType">
         <mat-option value="one">First option</mat-option>
         <mat-option value="two">Second option</mat-option>
     </mat-select>
@@ -14,27 +14,27 @@
 
         <mat-form-field appearance="fill" [style.width.%]="100">
             
-            <input matInput>
+            <input matInput formControlName="summary">
         </mat-form-field>
     
         <label class="Ticket-type">Attachments </label>
-<div [fileUploadInputFor]="fileUploadQueue" class="upload-drop-zone">
+<div [fileUploadInputFor]="attachments" class="upload-drop-zone">
     Drag and drop files, paste screenshots, or upload attachments
 </div>
 
 
 <div style="width: 500px">
-    <mat-file-upload-queue #fileUploadQueue [fileAlias]="'file'"
-        [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'" multiple>
+    <mat-file-upload-queue  #attachments [fileAlias]="'file'"
+        [httpUrl]="'https://localhost:44345/Ticket/PostFile'" multiple formControlName="attachments" >
 
-        <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index">
+        <mat-file-upload [file]="file" [id]="i" *ngFor="let file of attachments.files; let i = index">
         </mat-file-upload>
-    </mat-file-upload-queue>
+    </mat-file-upload-queue >
 </div>
 <label class="Ticket-type">Description </label>
 <mat-form-field appearance="fill" [style.width.%]="100" >
    
-    <textarea rows="7"  matInput></textarea>
+    <textarea rows="7"  matInput formControlName="description"></textarea>
 </mat-form-field>
 
    <div class="row-ddl">
@@ -42,7 +42,7 @@
     <label class="Ticket-type">Reporter <span class="mandatory"> *</span></label>
     <mat-form-field [style.width.%]="97" appearance="fill">
     
-        <mat-select>
+        <mat-select formControlName="reporter">
             <mat-option value="one">First option</mat-option>
             <mat-option value="two">Second option</mat-option>
         </mat-select>
@@ -52,7 +52,7 @@
     <label class="Ticket-type">Source <span class="mandatory"> *</span></label>
     <mat-form-field [style.width.%]="100" appearance="fill">
     
-        <mat-select>
+        <mat-select formControlName="source">
             <mat-option value="one">First option</mat-option>
             <mat-option value="two">Second option</mat-option>
         </mat-select>
@@ -64,7 +64,7 @@
             <label class="Ticket-type">Severity <span class="mandatory"> *</span></label>
             <mat-form-field [style.width.%]="97" appearance="fill">
     
-                <mat-select>
+                <mat-select formControlName="sevirity">
                     <mat-option value="one">First option</mat-option>
                     <mat-option value="two">Second option</mat-option>
                 </mat-select>
@@ -74,7 +74,7 @@
             <label class="Ticket-type">Priority <span class="mandatory"> *</span></label>
             <mat-form-field [style.width.%]="100" appearance="fill">
     
-                <mat-select>
+                <mat-select formControlName="priority">
                     <mat-option value="one">First option</mat-option>
                     <mat-option value="two">Second option</mat-option>
                 </mat-select>
@@ -109,6 +109,6 @@
 <mat-dialog-actions align="end">
     <mat-checkbox class="checkBox" class="check-box">Create another ticket</mat-checkbox>
     <button mat-button mat-dialog-close class="cancel">Cancel request</button>
-    <button mat-button [mat-dialog-close]="true" class="send" >Send ticket</button>
+    <button mat-button [mat-dialog-close]="true" class="send" type="submit" [disabled]="!createTicketDTOFormGroup.valid">Send ticket</button>
 </mat-dialog-actions>
- 
+ </form>
