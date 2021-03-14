@@ -28,6 +28,8 @@ import { CreateTicketPopupComponent } from './create-ticket-popup/create-ticket-
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFileUploadModule } from 'angular-material-fileupload';
+import { FiltermodalComponent } from './filtermodal/filtermodal.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     NoMoreTicketsComponent,
     AllTableComponentComponent,
     CreateTicketPopupComponent,
+    FiltermodalComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,8 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatButtonModule,
     MatDialogModule,
     MatSelectModule,
-    MatFileUploadModule
+    MatFileUploadModule,
+    MatRadioModule,
   ],
 
   exports: [MatIconModule, MatFormFieldModule, MatInputModule],
