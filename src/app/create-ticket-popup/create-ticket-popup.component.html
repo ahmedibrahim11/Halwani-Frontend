@@ -18,19 +18,17 @@
         </mat-form-field>
     
         <label class="Ticket-type">Attachments </label>
-<div [fileUploadInputFor]="attachments" class="upload-drop-zone">
-    Drag and drop files, paste screenshots, or upload attachments
-</div>
+        <div class="center">
+            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)" class="upload-drop-zone"
+                (onFileLeave)="fileLeave($event)">
+                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                    Drag and drop files, paste screenshots, or upload attachments
+                    <button type="button" class="cancel" style="display: block;margin-top: 1.5rem;" (click)="openFileSelector()">Browse Files</button>
+                </ng-template>
+            </ngx-file-drop>
+           
+        </div>
 
-
-<div style="width: 500px">
-    <mat-file-upload-queue  #attachments [fileAlias]="'file'"
-        [httpUrl]="'https://localhost:44345/Ticket/PostFile'" multiple formControlName="attachments" >
-
-        <mat-file-upload [file]="file" [id]="i" *ngFor="let file of attachments.files; let i = index">
-        </mat-file-upload>
-    </mat-file-upload-queue >
-</div>
 <label class="Ticket-type">Description </label>
 <mat-form-field appearance="fill" [style.width.%]="100" >
    
@@ -87,7 +85,7 @@
             <label class="Ticket-type">Product categorization<span class="mandatory"> *</span></label>
             <mat-form-field [style.width.%]="97" appearance="fill">
     
-                <mat-select>
+                <mat-select formControlName="productCategoryName1">
                     <mat-option value="one">First option</mat-option>
                     <mat-option value="two">Second option</mat-option>
                 </mat-select>
@@ -97,7 +95,7 @@
             <label class="Ticket-type" style="margin-bottom: 2.2rem;"></label>
             <mat-form-field [style.width.%]="100" appearance="fill">
     
-                <mat-select>
+                <mat-select formControlName="productCategoryName2">
                     <mat-option value="one">First option</mat-option>
                     <mat-option value="two">Second option</mat-option>
                 </mat-select>
