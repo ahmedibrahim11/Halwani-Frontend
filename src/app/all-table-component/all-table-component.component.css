@@ -139,4 +139,10 @@
   color: #d7a500;
 }
 
-
+.ngx-file-drop__drop-zone {
+  border: none;
+  border-radius: 30px;
+  height: 100%;
+  width: 100%;
+  margin: auto;
+}

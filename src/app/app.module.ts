@@ -30,7 +30,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { FiltermodalComponent } from './filtermodal/filtermodal.component';
 import { MatRadioModule } from '@angular/material/radio';
-
+import { NgxFileDropModule } from 'ngx-file-drop';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +66,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatSelectModule,
     MatFileUploadModule,
     MatRadioModule,
+    NgxFileDropModule
   ],
 
   exports: [MatIconModule, MatFormFieldModule, MatInputModule],

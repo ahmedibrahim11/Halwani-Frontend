@@ -10,5 +10,21 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 .mat-checkbox-inner-container-no-side-margin {
-  margin-right: 15px  !important;
+  margin-right: 15px !important;
+}
+.ngx-file-drop__drop-zone {
+  border: none !important;
+  border-radius: 30px;
+  height: 100% !important;
+  width: 100%;
+  margin: auto;
+}
+.ngx-file-drop__content {
+  align-items: center;
+  color: black !important;
+  display: flex;
+
+  flex-direction: column !important;
+  height: 100px;
+  justify-content: center;
 }
