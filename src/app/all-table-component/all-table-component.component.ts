@@ -24,6 +24,69 @@ export class AllTableComponentComponent implements OnInit {
 
   pageSize: any = 10;
   pageIndex: any = 0;
+  //handle pagination server side
+  pageEvents(event: any) {
+    if (event.pageIndex > this.pageIndex) {
+      // Clicked on next button
+      this.http
+        .POST('ticket/list', {
+          searchText: '',
+          pageSize: this.pageSize,
+          pageNumber: event.pageIndex,
+          isPrint: false,
+          filter: {},
+          sort: 0,
+        })
+        .subscribe((res) => {
+          console.log(res.pageData);
+          let usersData = res.pageData;
+          this.UserViewInfoObject = usersData.map((el) => {
+            let creationDate = new Date();
+            return {
+              initials: this.initials(el['rasiedBy']['name']),
+              name: el['rasiedBy']['name'],
+              email: el['rasiedBy']['email'],
+              createdDate: creationDate.toDateString(),
+              createdTime: creationDate.toLocaleTimeString(),
+              ticketTopic: el.ticketTopic,
+              ticketCategory: el.ticketType,
+              Sevirity: el.severity,
+            };
+          });
+          this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+        });
+    } else {
+      // Clicked on previous button
+      this.http
+        .POST('ticket/list', {
+          searchText: '',
+          pageSize: this.pageSize,
+          pageNumber: event.pageIndex,
+          isPrint: false,
+          filter: {},
+          sort: 0,
+        })
+        .subscribe((res) => {
+          console.log(res.pageData);
+          let usersData = res.pageData;
+          this.UserViewInfoObject = usersData.map((el) => {
+            let creationDate = new Date();
+            return {
+              initials: this.initials(el['rasiedBy']['name']),
+              name: el['rasiedBy']['name'],
+              email: el['rasiedBy']['email'],
+              createdDate: creationDate.toDateString(),
+              createdTime: creationDate.toLocaleTimeString(),
+              ticketTopic: el.ticketTopic,
+              ticketCategory: el.ticketType,
+              Sevirity: el.severity,
+            };
+          });
+          this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+        });
+    }
+    // The code that you want to execute on clicking on next and previous buttons will be written here.
+  }
   setDataSourceAttributes() {
     this.dataSource.paginator = this.paginator;
     this.pageSize = this.paginator.pageSize;
