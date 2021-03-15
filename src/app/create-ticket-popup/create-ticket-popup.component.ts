@@ -60,7 +60,7 @@ saveAndOpenAnother:boolean=false;
   }
   submiCreate(){
 console.log(this.createTicketDTOFormGroup.value );
-       this.createTicketDTO.attachement=this.FileLinks.toString();
+       this.createTicketDTO.attachement=this.FileLinks!==undefined? this.FileLinks.toString():"";
        this.createTicketDTO.description=this.createTicketDTOFormGroup.value.description;
        
        this.createTicketDTO.productCategoryName1=this.createTicketDTOFormGroup.value.productCategoryName1.toString();
