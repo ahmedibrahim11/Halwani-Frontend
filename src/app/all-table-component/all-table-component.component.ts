@@ -42,12 +42,13 @@ export class AllTableComponentComponent implements OnInit {
           console.log(res.pageData);
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
-            return {
-              initials: this.initials(el['rasiedBy']['name']),
-              name: el['rasiedBy']['name'],
-              email: el['rasiedBy']['email'],
-              createdDate: el['creationDate'],
-              createdTime: el['creationDate'],
+           const cerationDate=new Date(el['creationDate'])
+          return {
+            initials: this.initials(el['rasiedBy']['name']),
+            name: el['rasiedBy']['name'],
+            email: el['rasiedBy']['email'],
+            createdDate: cerationDate.toDateString(),
+            createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['ticketTopic'],
               ticketCategory: el['ticketType'],
               Sevirity: el['severity'],
@@ -70,13 +71,13 @@ export class AllTableComponentComponent implements OnInit {
           console.log(res.pageData);
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
-            let creationDate = new Date();
-            return {
-              initials: this.initials(el['rasiedBy']['name']),
-              name: el['rasiedBy']['name'],
-              email: el['rasiedBy']['email'],
-              createdDate: el['creationDate'],
-              createdTime: el['creationDate'],
+            const cerationDate=new Date(el['creationDate'])
+          return {
+            initials: this.initials(el['rasiedBy']['name']),
+            name: el['rasiedBy']['name'],
+            email: el['rasiedBy']['email'],
+            createdDate: cerationDate.toDateString(),
+            createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['ticketTopic'],
               ticketCategory: el['ticketType'],
               Sevirity: el['severity'],
@@ -141,12 +142,13 @@ export class AllTableComponentComponent implements OnInit {
         console.log(res.pageData);
         let usersData = res.pageData;
         this.UserViewInfoObject = usersData.map((el) => {
+         const cerationDate=new Date(el['creationDate'])
           return {
             initials: this.initials(el['rasiedBy']['name']),
             name: el['rasiedBy']['name'],
             email: el['rasiedBy']['email'],
-            createdDate: el['creationDate'],
-            createdTime: el['creationDate'],
+            createdDate: cerationDate.toDateString(),
+            createdTime: cerationDate.toLocaleTimeString(),
             ticketTopic: el['ticketTopic'],
             ticketCategory: el['ticketType'],
             Sevirity: el['severity'],
@@ -207,12 +209,13 @@ export class AllTableComponentComponent implements OnInit {
         console.log(res.pageData);
         let usersData = res.pageData;
         this.UserViewInfoObject = usersData.map((el) => {
+          const cerationDate=new Date(el['creationDate'])
           return {
             initials: this.initials(el['rasiedBy']['name']),
             name: el['rasiedBy']['name'],
             email: el['rasiedBy']['email'],
-            createdDate: el['creationDate'],
-            createdTime: el['creationDate'],
+            createdDate: cerationDate.toDateString(),
+            createdTime: cerationDate.toLocaleTimeString(),
             ticketTopic: el['ticketTopic'],
             ticketCategory: el['ticketType'],
             Sevirity: el['severity'],
