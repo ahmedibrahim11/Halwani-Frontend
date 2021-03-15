@@ -27,7 +27,6 @@
                     <button type="button" class="cancel" style="display: block;margin-top: 1.5rem;" (click)="openFileSelector()">Browse Files</button>
                 </ng-template>
             </ngx-file-drop>
-        
         </div>
         <div class="upload-table">
             <table class="table">
@@ -49,6 +48,21 @@
    
     <textarea rows="7"  matInput formControlName="description"></textarea>
 </mat-form-field>
+
+
+
+<div class="row-ddl">
+    <div class="col-ddl">
+        <label class="Ticket-type">Team <span class="mandatory"> *</span></label>
+        <mat-form-field [style.width.%]="97" appearance="fill">
+            <mat-select formControlName="team">
+                <mat-option *ngFor="let option of teamSoruce" [value]="option['value']">
+                    {{option["label"]}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+ 
+</div>
 
    <div class="row-ddl">
        <div class="col-ddl">
@@ -77,7 +91,9 @@
         </mat-select>
     </mat-form-field>
     </div>
+
     </div>
+
     <div class="row-ddl">
         <div class="col-ddl">
             <label class="Ticket-type">Severity <span class="mandatory"> *</span></label>

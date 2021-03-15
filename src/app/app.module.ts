@@ -31,6 +31,7 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
 import { FiltermodalComponent } from './filtermodal/filtermodal.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgxFileDropModule } from 'ngx-file-drop';
+import { TicketCreationService} from "./services/ticket-creation.service"
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +71,7 @@ import { NgxFileDropModule } from 'ngx-file-drop';
   ],
 
   exports: [MatIconModule, MatFormFieldModule, MatInputModule],
-  providers: [],
+  providers: [TicketCreationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

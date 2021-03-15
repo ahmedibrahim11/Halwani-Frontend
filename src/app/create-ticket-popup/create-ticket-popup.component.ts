@@ -2,8 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder ,FormGroup, Validators} from '@angular/forms';
 import { createTicketDTO } from "../DTOs/createTicketDTO";
 import { HTTPMainServiceService } from '../services/httpmain-service.service';
+import {TicketCreationService} from "../services/ticket-creation.service"
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-create-ticket-popup',
   templateUrl: './create-ticket-popup.component.html',
@@ -12,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class CreateTicketPopupComponent implements OnInit {
   createTicketDTO: createTicketDTO = new createTicketDTO();
   createTicketDTOFormGroup: FormGroup;
-  constructor(private formBuilder: FormBuilder,private http: HTTPMainServiceService,public dialog: MatDialog) { }
+  constructor(private formBuilder: FormBuilder,private http: HTTPMainServiceService,public dialog: MatDialog,public service:TicketCreationService) { }
 private FileLinks;
 
 showSecondCategory:boolean=false;
@@ -21,6 +23,7 @@ saveAndOpenAnother:boolean=false;
 @Input() reporterDatasource;
 @Input() sourceDatasource;
 @Input() seviritysource;
+@Input() teamSoruce;
 @Input() productCategoryName1;
 @Input() productCategoryName2;
   ngOnInit(): void {
@@ -28,6 +31,7 @@ saveAndOpenAnother:boolean=false;
       ticketType: [0, [Validators.required]],
       summary: ['', [Validators.required]],
       description:[''],
+      team:['',[Validators.required]],
       reporter:[0, [Validators.required]],
       source:[0, [Validators.required]],
       sevirity:[0,[Validators.required]],
@@ -41,6 +45,7 @@ saveAndOpenAnother:boolean=false;
     this.ticketTypeDatasource=[{label:"ServiceRequest",value:0},{label:"Incident",value:1}]
     this.reporterDatasource=[{label:"Shehab Mohamed",value:"xxx,shehabharhash@gmail.com,shehab",initials:this.initials("Shehab Mohamed"),label1:"shehabharhash@gmail.com"},
     {label:"Mostafa AbdelAziz",value:"xx,MostafaAbdelAziz96@gmail.com,zozzz",initials:this.initials("Mostafa AbdelAziz"),label1:"MostafaAbdelAziz96@gmail.com"}]
+    this.teamSoruce=[{label:"Team1",value:"Team1"},{label:"Team2",value:"Team2"}],
   this.http.GET("Category/getCategory").subscribe(data=>{
       this.productCategoryName1=data.map(el=>{
         return {label:el.text,value:el.id}
@@ -81,14 +86,17 @@ console.log(this.createTicketDTOFormGroup.value );
        //still not implemented in backend
       //  this.createTicketDTO.priority=this.createTicketDTOFormGroup.value.priority;
       //  this.createTicketDTO.source=this.createTicketDTOFormGroup.value.source;
-      this.http.POST("Ticket/Create",this.createTicketDTO).subscribe(data=>console.log(data)
+      this.http.POST("Ticket/Create",this.createTicketDTO).subscribe((data)=>{
+        console.log("create tickeet");
+        this.service.setValue(true);
+      }
       )
-     
        if(this.createTicketDTOFormGroup.value.saveAndOpenAnother)
        {
          const dialogRef = this.dialog.open(CreateTicketPopupComponent);
 
     dialogRef.afterClosed().subscribe(result => {
+      debugger;
       console.log(`Dialog result: ${result}`);
     });
        }

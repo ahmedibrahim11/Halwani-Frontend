@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { HTTPMainServiceService } from '../services/httpmain-service.service';
+import {TicketCreationService} from "../services/ticket-creation.service"
 import {
   TicketListingDTO,
   TicketCategoryEnum,
@@ -18,10 +19,12 @@ import { FiltermodalComponent } from '../filtermodal/filtermodal.component';
   styleUrls: ['./all-table-component.component.css'],
 })
 export class AllTableComponentComponent implements OnInit {
- 
-  @ViewChild(MatSort) sort: MatSort;
 
+  @ViewChild(MatSort) sort: MatSort;
+  public flag: boolean;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  constructor(private http: HTTPMainServiceService, public dialog: MatDialog,private service:TicketCreationService) { }
 
   pageSize: any = 10;
   pageIndex: any = 0;
@@ -36,7 +39,7 @@ export class AllTableComponentComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {},
-          sort: 0,
+          sortvalue: 0,
         })
         .subscribe((res) => {
           console.log(res.pageData);
@@ -64,7 +67,7 @@ export class AllTableComponentComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {},
-          sort: 0,
+          sortvalue: 0,
         })
         .subscribe((res) => {
           console.log(res.pageData);
@@ -99,16 +102,17 @@ export class AllTableComponentComponent implements OnInit {
   //sort server-side
   @HostListener('matSortChange', ['$event'])
   sortChange(sort) {
+    debugger;
     // save cookie with table sort data here
     console.log(sort);
     let sortValue = 0;
     let sortDirec = 0;
     switch (sort.active) {
       case 'name':
-        sortValue = 0;
+        sortValue = 1;
         break;
       case 'createdDate':
-        sortValue = 1;
+        sortValue = 0;
         break;
       case 'ticketCategory':
         sortValue = 2;
@@ -134,7 +138,7 @@ export class AllTableComponentComponent implements OnInit {
         pageNumber: this.pageIndex,
         isPrint: false,
         filter: {},
-        sort: sortValue,
+        sortvalue: sortValue,
         sortDirection: sortDirec,
       })
       .subscribe((res) => {
@@ -186,7 +190,6 @@ export class AllTableComponentComponent implements OnInit {
       : this.UserViewInfoObject.forEach((row) => this.selection.select(row));
   }
 
-  constructor(private http: HTTPMainServiceService, public dialog: MatDialog) {}
 
   UserViewInfoObject: TicketListingDTO[] = new Array<TicketListingDTO>();
   public TicketCategory = TicketCategoryEnum;
@@ -194,6 +197,39 @@ export class AllTableComponentComponent implements OnInit {
 
   dataSource: any;
   ngOnInit(): void {
+    this.service.getValue().subscribe((value) => {
+      debugger;
+      this.flag = value;
+      if(this.flag===true){
+        this.http
+        .POST('ticket/list', {
+          searchText: '',
+          pageSize: this.pageSize,
+          pageNumber: this.pageIndex,
+          isPrint: false,
+          filter: {},
+          sortValue: 0,
+        })
+        .subscribe((res) => {
+          console.log("resulttttt",res.pageData);
+          let usersData = res.pageData;
+          this.UserViewInfoObject = usersData.map((el) => {
+            return {
+              initials: this.initials(el['rasiedBy']['name']),
+              name: el['rasiedBy']['name'],
+              email: el['rasiedBy']['email'],
+              createdDate: el['creationDate'],
+              createdTime: el['creationDate'],
+              ticketTopic: el['ticketTopic'],
+              ticketCategory: el['ticketType'],
+              Sevirity: el['severity'],
+            };
+          });
+          this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+          this.setDataSourceAttributes();
+        });
+      }
+    });
     this.http
       .POST('ticket/list', {
         searchText: '',
@@ -201,9 +237,10 @@ export class AllTableComponentComponent implements OnInit {
         pageNumber: this.pageIndex,
         isPrint: false,
         filter: {},
-        sort: 0,
+        sortValue: 0,
       })
       .subscribe((res) => {
+        debugger;
         console.log(res.pageData);
         let usersData = res.pageData;
         this.UserViewInfoObject = usersData.map((el) => {
@@ -222,6 +259,7 @@ export class AllTableComponentComponent implements OnInit {
         this.setDataSourceAttributes();
       });
   }
+
   initials(name) {
     let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
 
