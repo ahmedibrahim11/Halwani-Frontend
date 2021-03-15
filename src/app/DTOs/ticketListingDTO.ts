@@ -10,9 +10,10 @@ export class TicketListingDTO {
 }
 export enum TicketCategoryEnum {
   Servicerequest = 0,
+  Incident,
   Problem,
   Change,
-  Incident,
+  
 }
 export enum SevirityEnum {
   Low = 0,

@@ -18,6 +18,7 @@ import { FiltermodalComponent } from '../filtermodal/filtermodal.component';
   styleUrls: ['./all-table-component.component.css'],
 })
 export class AllTableComponentComponent implements OnInit {
+ 
   @ViewChild(MatSort) sort: MatSort;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

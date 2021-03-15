@@ -9,6 +9,7 @@ import { CreateTicketPopupComponent } from "../create-ticket-popup/create-ticket
 export class MainCardBodyComponent implements OnInit {
 public SelectedTabIndex = 0;
  empty:boolean=false;
+ 
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {

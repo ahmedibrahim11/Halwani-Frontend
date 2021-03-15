@@ -83,6 +83,7 @@ console.log(this.createTicketDTOFormGroup.value );
       //  this.createTicketDTO.source=this.createTicketDTOFormGroup.value.source;
       this.http.POST("Ticket/Create",this.createTicketDTO).subscribe(data=>console.log(data)
       )
+     
        if(this.createTicketDTOFormGroup.value.saveAndOpenAnother)
        {
          const dialogRef = this.dialog.open(CreateTicketPopupComponent);
@@ -144,6 +145,6 @@ console.log(this.createTicketDTOFormGroup.value );
       (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
     ).toUpperCase();
     return initials;
-  }
+  } 
 
 }
