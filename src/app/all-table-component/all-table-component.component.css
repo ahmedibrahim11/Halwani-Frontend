@@ -76,21 +76,24 @@
 }
 /* cell 1 */
 .menu {
-  width: 14rem;
+  width: 17rem;
   display: flex;
   flex-direction: row;
 }
 .red-menu {
-  background-color: #c4161c;
-  border-radius: 10px;
-  display: inline-block;
-  padding: 15px;
-  color: #ffffff;
-  height: 1.5rem;
-  margin-top: 0.5rem;
+   background-color: #c4161c;
+    border-radius: 10px;
+    display: flex;
+    padding: 15px;
+    color: #ffffff;
+    height: 1.5rem;
+    margin-top: 0.5rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 .person-data-menu {
-  width: 13rem;
+  width: 11rem;
 
   margin-top: 0;
   line-height: 0.5%;
