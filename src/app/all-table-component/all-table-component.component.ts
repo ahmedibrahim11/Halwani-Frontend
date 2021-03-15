@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { HTTPMainServiceService } from '../services/httpmain-service.service';
 import {
   TicketListingDTO,
@@ -41,16 +41,15 @@ export class AllTableComponentComponent implements OnInit {
           console.log(res.pageData);
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
-            let creationDate = new Date();
             return {
               initials: this.initials(el['rasiedBy']['name']),
               name: el['rasiedBy']['name'],
               email: el['rasiedBy']['email'],
-              createdDate: creationDate.toDateString(),
-              createdTime: creationDate.toLocaleTimeString(),
-              ticketTopic: el.ticketTopic,
-              ticketCategory: el.ticketType,
-              Sevirity: el.severity,
+              createdDate: el['creationDate'],
+              createdTime: el['creationDate'],
+              ticketTopic: el['ticketTopic'],
+              ticketCategory: el['ticketType'],
+              Sevirity: el['severity'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -75,11 +74,11 @@ export class AllTableComponentComponent implements OnInit {
               initials: this.initials(el['rasiedBy']['name']),
               name: el['rasiedBy']['name'],
               email: el['rasiedBy']['email'],
-              createdDate: creationDate.toDateString(),
-              createdTime: creationDate.toLocaleTimeString(),
-              ticketTopic: el.ticketTopic,
-              ticketCategory: el.ticketType,
-              Sevirity: el.severity,
+              createdDate: el['creationDate'],
+              createdTime: el['creationDate'],
+              ticketTopic: el['ticketTopic'],
+              ticketCategory: el['ticketType'],
+              Sevirity: el['severity'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -92,7 +91,69 @@ export class AllTableComponentComponent implements OnInit {
     this.pageSize = this.paginator.pageSize;
     this.pageIndex = this.paginator.pageIndex;
 
+    console.log(this.sort);
     this.dataSource.sort = this.sort;
+  }
+
+  //sort server-side
+  @HostListener('matSortChange', ['$event'])
+  sortChange(sort) {
+    // save cookie with table sort data here
+    console.log(sort);
+    let sortValue = 0;
+    let sortDirec = 0;
+    switch (sort.active) {
+      case 'name':
+        sortValue = 0;
+        break;
+      case 'createdDate':
+        sortValue = 1;
+        break;
+      case 'ticketCategory':
+        sortValue = 2;
+        break;
+      case 'Sevirity':
+        sortValue = 3;
+        break;
+    }
+    switch (sort.direction) {
+      case 'asc':
+        sortDirec = 0;
+        break;
+      case 'desc':
+        sortDirec = 1;
+        break;
+      default:
+        sortDirec = 0;
+    }
+    this.http
+      .POST('ticket/list', {
+        searchText: '',
+        pageSize: this.pageSize,
+        pageNumber: this.pageIndex,
+        isPrint: false,
+        filter: {},
+        sort: sortValue,
+        sortDirection: sortDirec,
+      })
+      .subscribe((res) => {
+        console.log(res.pageData);
+        let usersData = res.pageData;
+        this.UserViewInfoObject = usersData.map((el) => {
+          return {
+            initials: this.initials(el['rasiedBy']['name']),
+            name: el['rasiedBy']['name'],
+            email: el['rasiedBy']['email'],
+            createdDate: el['creationDate'],
+            createdTime: el['creationDate'],
+            ticketTopic: el['ticketTopic'],
+            ticketCategory: el['ticketType'],
+            Sevirity: el['severity'],
+          };
+        });
+        console.log(this.UserViewInfoObject);
+        this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+      });
   }
 
   displayedColumns: string[] = [
@@ -145,16 +206,15 @@ export class AllTableComponentComponent implements OnInit {
         console.log(res.pageData);
         let usersData = res.pageData;
         this.UserViewInfoObject = usersData.map((el) => {
-          let creationDate = new Date();
           return {
             initials: this.initials(el['rasiedBy']['name']),
             name: el['rasiedBy']['name'],
             email: el['rasiedBy']['email'],
-            createdDate: creationDate.toDateString(),
-            createdTime: creationDate.toLocaleTimeString(),
-            ticketTopic: el.ticketTopic,
-            ticketCategory: el.ticketType,
-            Sevirity: el.severity,
+            createdDate: el['creationDate'],
+            createdTime: el['creationDate'],
+            ticketTopic: el['ticketTopic'],
+            ticketCategory: el['ticketType'],
+            Sevirity: el['severity'],
           };
         });
         this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
