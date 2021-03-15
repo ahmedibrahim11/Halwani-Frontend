@@ -122,6 +122,7 @@
     </ng-container>
   </table>
   <mat-paginator
+    (page)="pageEvents($event)"
     [pageSizeOptions]="[5, 10, 20]"
     showFirstLastButtons
   ></mat-paginator>
