@@ -6,4 +6,5 @@
 .nav-with-table-container{
     display: flex;
     flex-direction: row;
+        height: 100vh;
 }

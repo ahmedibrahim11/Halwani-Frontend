@@ -11,7 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { HomeComponent } from './home/home.component';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -37,7 +37,7 @@ import { TicketCreationService} from "./services/ticket-creation.service"
   
     NavbarComponent,
     SidebarComponent,
-    HomeComponent,
+
     MainCardBodyComponent,
     NoMoreTicketsComponent,
     AllTableComponentComponent,
@@ -64,7 +64,8 @@ import { TicketCreationService} from "./services/ticket-creation.service"
     MatFileUploadModule,
     MatRadioModule,
     NgxFileDropModule
-  ],exports: [MatIconModule, MatFormFieldModule, MatInputModule],
+  ],exports: [MatIconModule, MatFormFieldModule, MatInputModule,NavbarComponent,
+     SidebarComponent],
   providers: [TicketCreationService],
 })
 export class ITpersonalModule { }

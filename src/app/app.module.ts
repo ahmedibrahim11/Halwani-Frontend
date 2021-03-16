@@ -12,10 +12,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
+import { ITPersinalLayoutComponent } from './itpersinal-layout/itpersinal-layout.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ITPersinalLayoutComponent
     
   ],
   imports: [
@@ -26,8 +29,9 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     HttpClientModule,
     MatInputModule,
-    ITpersonalModule,FormsModule,ReactiveFormsModule
-   
+    ITpersonalModule,FormsModule,ReactiveFormsModule,
+     
+
   ],
 
   exports: [],
