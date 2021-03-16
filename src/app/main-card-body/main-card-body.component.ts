@@ -19,12 +19,22 @@ export class MainCardBodyComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+   this.http.GET('Ticket/getCount').subscribe(res=>{
+    console.log(res)
+    res===0?this.empty=true:this.empty=false;
+    })
+
+  }
   openDialog() {
     const dialogRef = this.dialog.open(CreateTicketPopupComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
+      this.http.GET('Ticket/getCount').subscribe(res=>{
+    console.log(res)
+    res===0?this.empty=true:this.empty=false;
+    })
         
     });
   }
