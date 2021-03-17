@@ -14,6 +14,7 @@ import { SharedModule } from "../shared/shared.module";
 // import { AngalurMaterialModule } from '../angalur-material/angalur-material.module';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { SidebarComponent } from '../shared/sidebar/sidebar.component';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -27,7 +28,8 @@ import { SidebarComponent } from '../shared/sidebar/sidebar.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SharedModule,
+    SharedModule, 
+    RouterModule
     // AngalurMaterialModule
   ], exports: [SharedModule],
   providers: [TicketCreationService],
