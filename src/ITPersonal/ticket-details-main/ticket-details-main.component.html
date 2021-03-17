@@ -1,1 +1,26 @@
-<p>ticket-details-main works!</p>
+<div class="main-dev">
+    <div class="componentHeader">
+        <div class="backButton">
+        <a [routerLink]="['/itpersonal']">
+        <mat-icon>keyboard_backspace</mat-icon>
+        </a>
+        <label class="HeaderLabel">Back to tickets queue</label>
+        </div>
+        <div class="Email-Login">
+            Email Login
+        </div>
+    </div>
+    <div class="MessageListing">
+        <app-message-format [userMessage]="userMessage"></app-message-format>
+    </div>
+    <div class="MessageAdd">
+        <div class="Editor">
+            <span class="Persona-container">
+                <label class="Persona-container-label">
+                {{creatorInitials}}
+                </label>
+            </span>
+        
+        </div>
+    </div>
+</div>

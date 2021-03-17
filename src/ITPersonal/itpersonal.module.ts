@@ -32,6 +32,8 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { TicketCreationService} from "./services/ticket-creation.service";
 import { TicketDetailsMainComponent } from './ticket-details-main/ticket-details-main.component'
 import { RouterModule } from '@angular/router';
+import { MessageFormatComponent } from './ticket-details-main/message-format/message-format.component';
+import { NgxSummernoteModule } from 'ngx-summernote';
 
 @NgModule({
   declarations: [ 
@@ -44,7 +46,8 @@ import { RouterModule } from '@angular/router';
     AllTableComponentComponent,
     CreateTicketPopupComponent,
     FiltermodalComponent,
-    TicketDetailsMainComponent,],
+    TicketDetailsMainComponent,
+    MessageFormatComponent,],
   imports: [
      BrowserAnimationsModule,
     MatIconModule,

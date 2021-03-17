@@ -1,0 +1,85 @@
+.main-dev {
+  padding: 1rem;
+  width: 65vw;
+}
+.componentHeader {
+  display: flex;
+  flex-direction: column;
+}
+.backButton {
+  display: flex;
+  flex-direction: row;
+  margin-left: 2.5rem;
+}
+.HeaderLabel {
+  width: 153px;
+  height: 20px;
+  flex-grow: 0;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000000;
+  margin-left: 0.5rem;
+}
+.IT-Peronal---Inside-ticket {
+  width: 1440px;
+  height: 974px;
+  padding: 0 0 0px;
+  background-color: #ffffff;
+}
+.Email-Login {
+  width: 185px;
+  height: 20px;
+  flex-grow: 0;
+  margin: 18px 483px 36px 43px;
+  font-family: Poppins;
+  font-size: 32px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 0.63;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000000;
+}
+.MessageListing {
+  margin-top: 36px;
+  margin-bottom: 5rem;
+}
+.Editor {
+  display: flex;
+  flex-direction: column;
+}
+.Persona-container {
+  width: 48px;
+  height: 48px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  border-radius: 8px;
+  background-color: #c4161c;
+  justify-content: center;
+  margin-left: 3.5rem;
+}
+.Persona-container-label {
+  width: 32px;
+  height: 28px;
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.4;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
