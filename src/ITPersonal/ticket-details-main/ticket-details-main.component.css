@@ -1,6 +1,7 @@
 .main-dev {
   padding: 1rem;
   width: 65vw;
+  height: 100%;
 }
 .componentHeader {
   display: flex;
@@ -50,10 +51,11 @@
 .MessageListing {
   margin-top: 36px;
   margin-bottom: 5rem;
+  height: 100%;
 }
 .Editor {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 .Persona-container {
   width: 48px;
@@ -82,4 +84,118 @@
   letter-spacing: normal;
   text-align: center;
   color: #ffffff;
+}
+.NgxEditor__Wrapper {
+  height: 200px;
+  display: inline;
+  margin-left: 2rem;
+  width: 100%;
+}
+.Button {
+  width: 112px;
+  height: 44px;
+  display: flex;
+  /* align-content: end; */
+  /* flex-direction: row; */
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  /* display: flex; */
+  /* align-items: flex-end; */
+  /* position: fixed; */
+  margin: 9px 102.5px 2px 55.3rem;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: #c4161c;
+  color: white;
+}
+.sideBar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0.5rem;
+}
+.main-screen-format {
+  display: flex;
+  flex-direction: row;
+}
+.statusButton {
+  width: 212px;
+  height: 44px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #f5f6f7;
+  margin-top: 3.2rem;
+}
+.menuItemWidth {
+  width: 212px;
+}
+.Ticket-ID {
+  height: 24px;
+  margin: 38px 67.5px 8px 0;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #333333;
+}
+.ticketdev {
+  display: flex;
+  flex-direction: column;
+}
+.SR-103 {
+  height: 20px;
+  flex-grow: 0;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: left;
+  color: #696969;
+  margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+}
+.Within-2-hours {
+  height: 10px;
+  font-family: Poppins;
+  font-size: 10px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000000;
+}
+.assignmentDev {
+  display: flex;
+  flex-direction: row;
+}
+.asignee-container {
+  width: 48px;
+  height: 48px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+  border-radius: 8px;
+  background-color: #c4161c;
+  justify-content: center;
+  color: white;
 }

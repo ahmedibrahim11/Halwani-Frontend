@@ -33,8 +33,9 @@ import { TicketCreationService} from "./services/ticket-creation.service";
 import { TicketDetailsMainComponent } from './ticket-details-main/ticket-details-main.component'
 import { RouterModule } from '@angular/router';
 import { MessageFormatComponent } from './ticket-details-main/message-format/message-format.component';
-import { NgxSummernoteModule } from 'ngx-summernote';
-
+import { NgxEditorModule } from 'ngx-editor';
+import { AddedMessageComponent } from './ticket-details-main/added-message/added-message.component';
+import {MatMenuModule} from '@angular/material/menu';
 @NgModule({
   declarations: [ 
   
@@ -47,7 +48,8 @@ import { NgxSummernoteModule } from 'ngx-summernote';
     CreateTicketPopupComponent,
     FiltermodalComponent,
     TicketDetailsMainComponent,
-    MessageFormatComponent,],
+    MessageFormatComponent,
+    AddedMessageComponent,],
   imports: [
      BrowserAnimationsModule,
     MatIconModule,
@@ -68,7 +70,7 @@ import { NgxSummernoteModule } from 'ngx-summernote';
     MatSelectModule,
     MatFileUploadModule,
     MatRadioModule,
-    NgxFileDropModule,RouterModule
+    NgxFileDropModule,RouterModule,NgxEditorModule,MatMenuModule
   ],exports: [MatIconModule, MatFormFieldModule, MatInputModule,NavbarComponent,
      SidebarComponent],
   providers: [TicketCreationService],

@@ -14,5 +14,6 @@ export class createTicketDTO{
   productCategoryName2: string;
   attachement: string;
   priority:number;
+
   
 }
