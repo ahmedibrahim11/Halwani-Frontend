@@ -25,6 +25,7 @@
     "angular-material-fileupload": "^3.0.2",
     "file-saver": "^2.0.5",
     "json-server": "^0.16.3",
+    "ngx-editor": "^8.1.0",
     "ngx-file-drop": "^11.0.2",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",

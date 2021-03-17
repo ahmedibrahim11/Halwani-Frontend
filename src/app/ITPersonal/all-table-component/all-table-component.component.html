@@ -51,7 +51,9 @@
         <div class="menu">
           <div class="red-menu">{{ user.initials }}</div>
           <div class="person-data-menu">
-            <h3>{{ user.name }}</h3>
+            <a  [routerLink]="['/itpersonal/details', user.id]">
+              <h3>{{ user.name }}</h3>
+            </a>
             <p style="opacity: 0.7">{{ user.email }}</p>
           </div>
         </div>

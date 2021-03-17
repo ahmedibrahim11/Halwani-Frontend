@@ -1,0 +1,103 @@
+<div class="main-screen-format">
+<div class="main-dev">
+    <div class="componentHeader">
+        <div class="backButton">
+        <a [routerLink]="['/itpersonal']">
+        <mat-icon>keyboard_backspace</mat-icon>
+        </a>
+        <label class="HeaderLabel">Back to tickets queue</label>
+        </div>
+        <div class="Email-Login">
+            Email Login
+        </div>
+    </div>
+    <div class="MessageListing">
+        <app-message-format [userMessage]="userMessage"></app-message-format>
+        <app-added-message *ngFor="let msg of messageList" [userMessage]="msg"></app-added-message>
+        
+    </div>
+    <form [formGroup]="newMessag" (ngSubmit)="submit()">
+    <div class="MessageAdd">
+        <div class="Editor">
+            <span class="Persona-container">
+                <label class="Persona-container-label">
+                {{creatorInitials}}
+                </label>
+                
+            </span>
+        <div class="NgxEditor__Wrapper">
+            <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+            <ngx-editor [editor]="editor"  formControlName="message" ></ngx-editor>
+        </div>
+        </div>
+        <button type="submit" class="Button" [disabled]="!newMessag.valid">send reply</button>
+ </div>
+</form>
+
+</div>
+<div class="sideBar">
+    <button mat-button [matMenuTriggerFor]="menu" class="statusButton">Waiting for support <mat-icon>keyboard_arrow_down</mat-icon></button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item class="menuItemWidth">Item 1</button>
+        <button mat-menu-item class="menuItemWidth">Item 2</button>
+    </mat-menu>
+    <div class="Ticket-ID">
+        Ticket ID
+    </div>
+    <div class="ticketdev">
+        <label class="SR-103">SR-103</label>
+    </div>
+    <div class="Ticket-ID">SLAs</div>
+    <div class="ticketdev">
+        <label class="SR-103">Time to response</label>
+          <label class="Within-2-hours">Within 2 hours</label>
+    </div>
+    <div class="ticketdev">
+        <label class="SR-103">Time to resolve</label>
+        <label class="Within-2-hours">Within 2 hours</label>
+    </div>
+    <div class="assignmentDev">
+        <div class="ticketdev">
+            <label class="Ticket-ID">Assignee</label>
+            <label class="asignee-container">{{creatorInitials}}</label>
+        </div>
+        <div class="ticketdev">
+            <label class="Ticket-ID">Reporter</label>
+            <label class="asignee-container">{{reporterInitials}}</label>
+        </div>
+    </div>
+    <div class="Ticket-ID">
+        Ticket type
+    </div>
+    <div class="ticketdev">
+        <label class="SR-103">Get IT Help</label>
+    </div>
+    <div class="Ticket-ID">
+        Severity
+    </div>
+    <div class="ticketdev">
+        <label class="SR-103">Medium</label>
+    </div>
+    <div class="Ticket-ID">
+        Priority
+    </div>
+    <div class="ticketdev">
+        <label class="SR-103">High</label>
+    </div>
+    <div class="Ticket-ID">
+        Product categorization
+    </div>
+    <div class="ticketdev">
+        <label class="SR-103">Hardware - Disc</label>
+    </div>
+    <div class="Ticket-ID">Metrics</div>
+    <div class="ticketdev">
+        <label class="SR-103">Date of creation</label>
+        <label class="Within-2-hours">22/03/2021</label>
+    </div>
+    <div class="ticketdev">
+        <label class="SR-103">Date of resolving</label>
+        <label class="Within-2-hours">-</label>
+    </div>
+</div>
+</div>

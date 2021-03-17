@@ -12,9 +12,12 @@ import { FiltermodalComponent } from './filtermodal/filtermodal.component';
 import { TicketCreationService } from "../core/services/ticket-creation.service";
 import { SharedModule } from "../shared/shared.module";
 // import { AngalurMaterialModule } from '../angalur-material/angalur-material.module';
-import { NavbarComponent } from '../shared/navbar/navbar.component';
-import { SidebarComponent } from '../shared/sidebar/sidebar.component';
+import { NgxEditorModule } from 'ngx-editor';
 import { RouterModule } from '@angular/router';
+import { TicketDetailsMainComponent } from './ticket-details-main/ticket-details-main.component';
+import {AddedMessageComponent} from "./ticket-details-main/added-message/added-message.component";
+import {MessageFormatComponent} from "./ticket-details-main/message-format/message-format.component"
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -23,11 +26,15 @@ import { RouterModule } from '@angular/router';
     AllTableComponentComponent,
     CreateTicketPopupComponent,
     FiltermodalComponent,
+    TicketDetailsMainComponent,
+    AddedMessageComponent,
+    MessageFormatComponent
   ],
   imports: [
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxEditorModule,
     SharedModule, 
     RouterModule
     // AngalurMaterialModule

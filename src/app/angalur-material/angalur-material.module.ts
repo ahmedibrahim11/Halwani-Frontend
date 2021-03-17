@@ -16,11 +16,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFileUploadModule } from 'angular-material-fileupload';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgxFileDropModule } from 'ngx-file-drop';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 @NgModule({
   declarations: [],
   imports: [
     MatIconModule,
+    MatMenuModule,
     MatFormFieldModule,
     MatSidenavModule,
     MatGridListModule,
@@ -39,7 +42,9 @@ import { NgxFileDropModule } from 'ngx-file-drop';
     NgxFileDropModule,
     CommonModule
   ],
-  exports: [MatIconModule,
+  exports: [
+    MatIconModule,
+    MatMenuModule,
     MatFormFieldModule,
     MatSidenavModule,
     MatGridListModule,
