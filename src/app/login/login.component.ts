@@ -3,7 +3,7 @@ import {MatIconModule  } from "@angular/material/icon";
 import {MatFormFieldModule  } from "@angular/material/form-field";
 import { MatInputModule } from '@angular/material/input';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserLoginDTO } from "../DTOs/userLoginDTO";
+import { UserLoginDTO } from "../core/DTOs/userLoginDTO";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

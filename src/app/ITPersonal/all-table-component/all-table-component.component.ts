@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { HTTPMainServiceService } from '../services/httpmain-service.service';
-import {TicketCreationService} from "../services/ticket-creation.service"
+import { HTTPMainServiceService } from '../../core/services/httpmain-service.service';
+import {TicketCreationService} from "../../core/services/ticket-creation.service"
 import {
   TicketListingDTO,
   TicketCategoryEnum,
   SevirityEnum,
-} from '../DTOs/ticketListingDTO';
+} from '../../core/DTOs/ticketListingDTO';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -31,6 +31,7 @@ export class AllTableComponentComponent implements OnInit {
   //handle pagination server side
   pageEvents(event: any) {
     if (event.pageIndex > this.pageIndex) {
+      console.log(this.pageSize,'next')
       // Clicked on next button
       this.http
         .POST('ticket/list', {
@@ -89,11 +90,11 @@ export class AllTableComponentComponent implements OnInit {
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
         });
     }
-    // The code that you want to execute on clicking on next and previous buttons will be written here.
   }
   setDataSourceAttributes() {
     this.dataSource.paginator = this.paginator;
     this.pageSize = this.paginator.pageSize;
+    console.log('fun',this.pageSize)
     this.pageIndex = this.paginator.pageIndex;
 
     console.log(this.sort);
@@ -232,6 +233,7 @@ export class AllTableComponentComponent implements OnInit {
         });
       }
     });
+    console.log('iniy',this.pageSize)
     this.http
       .POST('ticket/list', {
         searchText: '',

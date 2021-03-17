@@ -1,11 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder ,FormGroup, Validators} from '@angular/forms';
-import { createTicketDTO } from "../DTOs/createTicketDTO";
-import { HTTPMainServiceService } from '../services/httpmain-service.service';
-import {TicketCreationService} from "../services/ticket-creation.service"
+import { createTicketDTO } from "../../core/DTOs/createTicketDTO";
+import { HTTPMainServiceService } from '../../core/services/httpmain-service.service';
+import {TicketCreationService} from "../../core/services/ticket-creation.service"
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 @Component({
   selector: 'app-create-ticket-popup',
   templateUrl: './create-ticket-popup.component.html',
@@ -67,7 +66,6 @@ saveAndOpenAnother:boolean=false;
 console.log(this.createTicketDTOFormGroup.value );
        this.createTicketDTO.attachement=this.FileLinks!==undefined? this.FileLinks.toString():"";
        this.createTicketDTO.description=this.createTicketDTOFormGroup.value.description;
-       
        this.createTicketDTO.productCategoryName1=this.createTicketDTOFormGroup.value.productCategoryName1.toString();
        this.createTicketDTO.productCategoryName2=this.createTicketDTOFormGroup.value.productCategoryName2.toString();
        let submitterArray=this.createTicketDTOFormGroup.value.reporter.split(",");
@@ -78,14 +76,13 @@ console.log(this.createTicketDTOFormGroup.value );
        this.createTicketDTO.submitDate=new Date();
        this.createTicketDTO.type=this.createTicketDTOFormGroup.value.ticketType;
        this.createTicketDTO.ticketSeverity=this.createTicketDTOFormGroup.value.sevirity;
-      
        this.createTicketDTO.ticketStatus=0;
        //will be from aad
        this.createTicketDTO.reportedSource="admin";
-       this.createTicketDTO.serviceName="service";
-       //still not implemented in backend
-      //  this.createTicketDTO.priority=this.createTicketDTOFormGroup.value.priority;
-      //  this.createTicketDTO.source=this.createTicketDTOFormGroup.value.source;
+       this.createTicketDTO.team=this.createTicketDTOFormGroup.value.team;
+       this.createTicketDTO.priority=this.createTicketDTOFormGroup.value.priority;
+       this.createTicketDTO.source=this.createTicketDTOFormGroup.value.source;
+      console.log("createDto",this.createTicketDTO);
       this.http.POST("Ticket/Create",this.createTicketDTO).subscribe((data)=>{
         console.log("create tickeet");
         this.service.setValue(true);

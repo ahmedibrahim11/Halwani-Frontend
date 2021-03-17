@@ -1,9 +1,9 @@
 export class createTicketDTO{
-      summary: string;
+  summary: string;
   submitterTeam:string;
   submitterEmail: string;
   submitterName: string;
-  serviceName: string;
+  team: string;
   reportedSource: string;
   type: number;
   ticketSeverity: number;
@@ -14,5 +14,6 @@ export class createTicketDTO{
   productCategoryName2: string;
   attachement: string;
   priority:number;
+  source:number;
   
 }

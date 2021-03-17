@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTicketPopupComponent } from '../create-ticket-popup/create-ticket-popup.component';
-import { HTTPMainServiceService } from '../services/httpmain-service.service';
-import { ExportexcelService } from '../services/exportexcel.service';
+import { HTTPMainServiceService } from '../../core/services/httpmain-service.service';
+import { ExportexcelService } from '../../core/services/exportexcel.service';
 
 @Component({
   selector: 'app-main-card-body',
