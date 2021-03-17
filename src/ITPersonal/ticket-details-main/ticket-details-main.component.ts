@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { createTicketDTO } from '../DTOs/createTicketDTO';
 import { Editor } from 'ngx-editor';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-ticket-details-main',
   templateUrl: './ticket-details-main.component.html',
@@ -35,9 +36,10 @@ export class TicketDetailsMainComponent implements OnInit,OnDestroy  {
   html: '';
 
   newMessag:FormGroup;
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,private actRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
+    console.log("id",this.actRoute.snapshot.paramMap.get("id"))
     this.creatorInitials=this.initials(this.userMessage.submitterName).toString();
     this.reporterInitials=this.initials(this.userMessage.reportedSource).toString();
     this.editor = new Editor();

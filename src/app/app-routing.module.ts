@@ -7,16 +7,14 @@ import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: 'itpersonal',component:ITPersinalLayoutComponent,children:[{
+      path: 'ticketdetails/:id',
+    component: TicketDetailsMainComponent,
+    outlet: 'itpersonal',
+    
+    },{
         path: '',
         outlet: 'itpersonal',
         component: MainCardBodyComponent,
-  
-        
-    },{
-        path: 'ticketdetails',
-        outlet: 'itpersonal',
-        component: TicketDetailsMainComponent,
-  
         
     }]  }
    ,

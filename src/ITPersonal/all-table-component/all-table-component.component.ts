@@ -47,6 +47,7 @@ export class AllTableComponentComponent implements OnInit {
           this.UserViewInfoObject = usersData.map((el) => {
            const cerationDate=new Date(el['creationDate'])
           return {
+            id:el["id"],
             initials: this.initials(el['rasiedBy']['name']),
             name: el['rasiedBy']['name'],
             email: el['rasiedBy']['email'],
@@ -76,6 +77,7 @@ export class AllTableComponentComponent implements OnInit {
           this.UserViewInfoObject = usersData.map((el) => {
             const cerationDate=new Date(el['creationDate'])
           return {
+            id:el["id"],
             initials: this.initials(el['rasiedBy']['name']),
             name: el['rasiedBy']['name'],
             email: el['rasiedBy']['email'],
@@ -148,6 +150,7 @@ export class AllTableComponentComponent implements OnInit {
         this.UserViewInfoObject = usersData.map((el) => {
          const cerationDate=new Date(el['creationDate'])
           return {
+            id:el["id"],
             initials: this.initials(el['rasiedBy']['name']),
             name: el['rasiedBy']['name'],
             email: el['rasiedBy']['email'],
@@ -217,6 +220,7 @@ export class AllTableComponentComponent implements OnInit {
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
             return {
+              id:el["id"],
               initials: this.initials(el['rasiedBy']['name']),
               name: el['rasiedBy']['name'],
               email: el['rasiedBy']['email'],
@@ -248,6 +252,7 @@ export class AllTableComponentComponent implements OnInit {
         this.UserViewInfoObject = usersData.map((el) => {
           const cerationDate=new Date(el['creationDate'])
           return {
+            id:el["id"],
             initials: this.initials(el['rasiedBy']['name']),
             name: el['rasiedBy']['name'],
             email: el['rasiedBy']['email'],

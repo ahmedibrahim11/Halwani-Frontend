@@ -1,5 +1,5 @@
 export class TicketListingDTO {
-    
+    id:number;
     name:string;
     email:string;
     createdDate:Date;
