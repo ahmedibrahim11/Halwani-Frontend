@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { ITPersinalLayoutComponent } from './itpersinal-layout/itpersinal-layout.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { ITPersinalLayoutComponent } from './itpersinal-layout/itpersinal-layout
     HttpClientModule,
     MatInputModule,
     ITpersonalModule,FormsModule,ReactiveFormsModule,
-     
+     RouterModule
 
   ],
 

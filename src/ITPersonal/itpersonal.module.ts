@@ -29,8 +29,9 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
 import { FiltermodalComponent } from './filtermodal/filtermodal.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgxFileDropModule } from 'ngx-file-drop';
-import { TicketCreationService} from "./services/ticket-creation.service"
-
+import { TicketCreationService} from "./services/ticket-creation.service";
+import { TicketDetailsMainComponent } from './ticket-details-main/ticket-details-main.component'
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [ 
@@ -42,7 +43,8 @@ import { TicketCreationService} from "./services/ticket-creation.service"
     NoMoreTicketsComponent,
     AllTableComponentComponent,
     CreateTicketPopupComponent,
-    FiltermodalComponent,],
+    FiltermodalComponent,
+    TicketDetailsMainComponent,],
   imports: [
      BrowserAnimationsModule,
     MatIconModule,
@@ -63,7 +65,7 @@ import { TicketCreationService} from "./services/ticket-creation.service"
     MatSelectModule,
     MatFileUploadModule,
     MatRadioModule,
-    NgxFileDropModule
+    NgxFileDropModule,RouterModule
   ],exports: [MatIconModule, MatFormFieldModule, MatInputModule,NavbarComponent,
      SidebarComponent],
   providers: [TicketCreationService],
