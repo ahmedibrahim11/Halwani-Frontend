@@ -1,4 +1,3 @@
-
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -9,14 +8,14 @@ import { NoMoreTicketsComponent } from './no-more-tickets/no-more-tickets.compon
 import { AllTableComponentComponent } from './all-table-component/all-table-component.component';
 import { CreateTicketPopupComponent } from './create-ticket-popup/create-ticket-popup.component';
 import { FiltermodalComponent } from './filtermodal/filtermodal.component';
-import { TicketCreationService } from "../core/services/ticket-creation.service";
-import { SharedModule } from "../shared/shared.module";
+import { TicketCreationService } from '../core/services/ticket-creation.service';
+import { SharedModule } from '../shared/shared.module';
 // import { AngalurMaterialModule } from '../angalur-material/angalur-material.module';
 import { NgxEditorModule } from 'ngx-editor';
 import { RouterModule } from '@angular/router';
 import { TicketDetailsMainComponent } from './ticket-details-main/ticket-details-main.component';
-import {AddedMessageComponent} from "./ticket-details-main/added-message/added-message.component";
-import {MessageFormatComponent} from "./ticket-details-main/message-format/message-format.component"
+import { AddedMessageComponent } from './ticket-details-main/added-message/added-message.component';
+import { MessageFormatComponent } from './ticket-details-main/message-format/message-format.component';
 
 @NgModule({
   declarations: [
@@ -28,17 +27,18 @@ import {MessageFormatComponent} from "./ticket-details-main/message-format/messa
     FiltermodalComponent,
     TicketDetailsMainComponent,
     AddedMessageComponent,
-    MessageFormatComponent
+    MessageFormatComponent,
   ],
   imports: [
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
     NgxEditorModule,
-    SharedModule, 
-    RouterModule
+    SharedModule,
+    RouterModule,
     // AngalurMaterialModule
-  ], exports: [SharedModule],
+  ],
+  exports: [SharedModule],
   providers: [TicketCreationService],
 })
-export class ITpersonalModule { }
+export class ITpersonalModule {}

@@ -4,13 +4,27 @@
   </button>
 
   <mat-form-field class="Rectangle-48">
-    <mat-label>Search Users by Name or Email</mat-label>
-    <input matInput [type]="'text'" formControlName="searchText" />
-    <button type="button" mat-icon-button matPrefix class="search-icon">
-      <mat-icon>search</mat-icon>
-    </button>
+    <mat-label>Search Tickets by..</mat-label>
+    <mat-chip-list #chipList aria-label="Tickets selection">
+      <mat-chip
+        *ngFor="let item of chipsItems"
+        [selectable]="selectable"
+        [removable]="removable"
+        (removed)="remove(item)"
+      >
+        {{ item.name }}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input
+        placeholder="New item..."
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)"
+        matInput
+        (keyup)="applyFilter($event)"
+      />
+    </mat-chip-list>
   </mat-form-field>
-
   <div class="Table-buttons">
     <label class="Export-queue">Export Selected</label
     ><img src="assets/Checkbox.svg" />

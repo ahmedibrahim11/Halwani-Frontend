@@ -8,6 +8,9 @@ import {
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { FiltermodalComponent } from '../filtermodal/filtermodal.component';
@@ -224,6 +227,38 @@ export class AllTableComponentComponent implements OnInit {
     this.allowMultiSelect,
     this.initialSelection
   );
+
+  //search by chips part
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  chipsItems: any = [];
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our item
+    if (value) {
+      this.chipsItems.push({ name: value });
+    }
+
+    // Clear the input value
+    //event.input!.remove();
+  }
+
+  remove(item: any): void {
+    const index = this.chipsItems.indexOf(item);
+
+    if (index >= 0) {
+      this.chipsItems.splice(index, 1);
+    }
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
