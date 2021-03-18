@@ -20,17 +20,55 @@ import { TicketCreationService } from 'src/app/core/services/ticket-creation.ser
   styleUrls: ['./all-table-component.component.css'],
 })
 export class AllTableComponentComponent implements OnInit {
-
   @ViewChild(MatSort) sort: MatSort;
   public flag: boolean;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private http: HTTPMainServiceService, public dialog: MatDialog,private service:TicketCreationService) { }
+  constructor(
+    private http: HTTPMainServiceService,
+    public dialog: MatDialog,
+    private service: TicketCreationService
+  ) {}
 
-  pageSize: any = 10;
+  pageLength: any = 10;
+  pageSize: any = 5;
   pageIndex: any = 0;
   //handle pagination server side
   pageEvents(event: any) {
+    console.log('wreeeny', event, this.pageSize);
+
+    if (this.pageSize !== event.pageSize) {
+      console.log('iiiii', event.pageSize);
+      this.pageSize = event.pageSize;
+      this.http
+        .POST('ticket/list', {
+          searchText: '',
+          pageSize: this.pageSize,
+          pageNumber: event.pageIndex,
+          isPrint: false,
+          filter: {},
+          sortvalue: 0,
+        })
+        .subscribe((res) => {
+          console.log(res.pageData);
+          let usersData = res.pageData;
+          this.UserViewInfoObject = usersData.map((el) => {
+            const cerationDate = new Date(el['creationDate']);
+            return {
+              id: el['id'],
+              initials: this.initials(el['rasiedBy']['name']),
+              name: el['rasiedBy']['name'],
+              email: el['rasiedBy']['email'],
+              createdDate: cerationDate.toDateString(),
+              createdTime: cerationDate.toLocaleTimeString(),
+              ticketTopic: el['ticketTopic'],
+              ticketCategory: el['ticketType'],
+              Sevirity: el['severity'],
+            };
+          });
+          this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+        });
+    }
     if (event.pageIndex > this.pageIndex) {
       // Clicked on next button
       this.http
@@ -46,14 +84,14 @@ export class AllTableComponentComponent implements OnInit {
           console.log(res.pageData);
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
-           const cerationDate=new Date(el['creationDate'])
-          return {
-            id:el["id"],
-            initials: this.initials(el['rasiedBy']['name']),
-            name: el['rasiedBy']['name'],
-            email: el['rasiedBy']['email'],
-            createdDate: cerationDate.toDateString(),
-            createdTime: cerationDate.toLocaleTimeString(),
+            const cerationDate = new Date(el['creationDate']);
+            return {
+              id: el['id'],
+              initials: this.initials(el['rasiedBy']['name']),
+              name: el['rasiedBy']['name'],
+              email: el['rasiedBy']['email'],
+              createdDate: cerationDate.toDateString(),
+              createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['ticketTopic'],
               ticketCategory: el['ticketType'],
               Sevirity: el['severity'],
@@ -76,14 +114,14 @@ export class AllTableComponentComponent implements OnInit {
           console.log(res.pageData);
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
-            const cerationDate=new Date(el['creationDate'])
-          return {
-            id:el["id"],
-            initials: this.initials(el['rasiedBy']['name']),
-            name: el['rasiedBy']['name'],
-            email: el['rasiedBy']['email'],
-            createdDate: cerationDate.toDateString(),
-            createdTime: cerationDate.toLocaleTimeString(),
+            const cerationDate = new Date(el['creationDate']);
+            return {
+              id: el['id'],
+              initials: this.initials(el['rasiedBy']['name']),
+              name: el['rasiedBy']['name'],
+              email: el['rasiedBy']['email'],
+              createdDate: cerationDate.toDateString(),
+              createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['ticketTopic'],
               ticketCategory: el['ticketType'],
               Sevirity: el['severity'],
@@ -98,7 +136,11 @@ export class AllTableComponentComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.pageSize = this.paginator.pageSize;
     this.pageIndex = this.paginator.pageIndex;
-
+    this.pageLength = this.paginator.length;
+    console.log('daaaaaat');
+    console.log('size', this.pageSize);
+    console.log('len', this.pageLength);
+    console.log('ind', this.pageIndex);
     console.log(this.sort);
     this.dataSource.sort = this.sort;
   }
@@ -149,9 +191,9 @@ export class AllTableComponentComponent implements OnInit {
         console.log(res.pageData);
         let usersData = res.pageData;
         this.UserViewInfoObject = usersData.map((el) => {
-         const cerationDate=new Date(el['creationDate'])
+          const cerationDate = new Date(el['creationDate']);
           return {
-            id:el["id"],
+            id: el['id'],
             initials: this.initials(el['rasiedBy']['name']),
             name: el['rasiedBy']['name'],
             email: el['rasiedBy']['email'],
@@ -196,77 +238,52 @@ export class AllTableComponentComponent implements OnInit {
       : this.UserViewInfoObject.forEach((row) => this.selection.select(row));
   }
 
-
   UserViewInfoObject: TicketListingDTO[] = new Array<TicketListingDTO>();
   public TicketCategory = TicketCategoryEnum;
   public sevirity = SevirityEnum;
 
   dataSource: any;
   ngOnInit(): void {
-    this.service.getValue().subscribe((value) => {
-      debugger;
-      this.flag = value;
-      if(this.flag===true){
-        this.http
+    console.log('size', this.pageSize);
+    console.log('len', this.pageLength);
+    console.log('ind', this.pageIndex);
+    this.http.GET('ticket/getCount').subscribe((res) => {
+      this.pageLength = res;
+      this.http
         .POST('ticket/list', {
           searchText: '',
-          pageSize: this.pageSize,
+          pageSize: this.pageLength,
           pageNumber: this.pageIndex,
           isPrint: false,
           filter: {},
           sortValue: 0,
         })
         .subscribe((res) => {
-          console.log("resulttttt",res.pageData);
+          console.log('resulttttt', res.pageData);
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
+            const cerationDate = new Date(el['creationDate']);
+            this.pageLength = res.pageData.length;
             return {
-              id:el["id"],
+              id: el['id'],
               initials: this.initials(el['rasiedBy']['name']),
               name: el['rasiedBy']['name'],
               email: el['rasiedBy']['email'],
-              createdDate: el['creationDate'],
-              createdTime: el['creationDate'],
+              createdDate: cerationDate.toDateString(),
+              createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['ticketTopic'],
               ticketCategory: el['ticketType'],
               Sevirity: el['severity'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+          console.log('taaaa7t');
+          console.log('size', this.pageSize);
+          console.log('len', this.pageLength);
+          console.log('ind', this.pageIndex);
           this.setDataSourceAttributes();
         });
-      }
     });
-    this.http
-      .POST('ticket/list', {
-        searchText: '',
-        pageSize: this.pageSize,
-        pageNumber: this.pageIndex,
-        isPrint: false,
-        filter: {},
-        sortValue: 0,
-      })
-      .subscribe((res) => {
-        debugger;
-        console.log(res.pageData);
-        let usersData = res.pageData;
-        this.UserViewInfoObject = usersData.map((el) => {
-          const cerationDate=new Date(el['creationDate'])
-          return {
-            id:el["id"],
-            initials: this.initials(el['rasiedBy']['name']),
-            name: el['rasiedBy']['name'],
-            email: el['rasiedBy']['email'],
-            createdDate: cerationDate.toDateString(),
-            createdTime: cerationDate.toLocaleTimeString(),
-            ticketTopic: el['ticketTopic'],
-            ticketCategory: el['ticketType'],
-            Sevirity: el['severity'],
-          };
-        });
-        this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-        this.setDataSourceAttributes();
-      });
   }
 
   initials(name) {
