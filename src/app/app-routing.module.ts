@@ -9,9 +9,9 @@ const routes: Routes = [
   {
     path: 'itpersonal', component: HomeComponent,
      children: [
-      { path: "home", component: MainCardBodyComponent },
-      { path: "details/:id", component: TicketDetailsMainComponent }
-
+      
+      { path: "details/:id", component: TicketDetailsMainComponent },
+{ path: "", component: MainCardBodyComponent },
     ]
   }
   ,

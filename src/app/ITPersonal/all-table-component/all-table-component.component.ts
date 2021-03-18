@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
-import { HTTPMainServiceService } from '../../core/services/httpmain-service.service';
-import {TicketCreationService} from "../../core/services/ticket-creation.service"
+
 import {
   TicketListingDTO,
   TicketCategoryEnum,
@@ -12,6 +11,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { FiltermodalComponent } from '../filtermodal/filtermodal.component';
+import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
+import { TicketCreationService } from 'src/app/core/services/ticket-creation.service';
 
 @Component({
   selector: 'app-all-table-component',
@@ -31,7 +32,6 @@ export class AllTableComponentComponent implements OnInit {
   //handle pagination server side
   pageEvents(event: any) {
     if (event.pageIndex > this.pageIndex) {
-      console.log(this.pageSize,'next')
       // Clicked on next button
       this.http
         .POST('ticket/list', {
@@ -48,6 +48,7 @@ export class AllTableComponentComponent implements OnInit {
           this.UserViewInfoObject = usersData.map((el) => {
            const cerationDate=new Date(el['creationDate'])
           return {
+            id:el["id"],
             initials: this.initials(el['rasiedBy']['name']),
             name: el['rasiedBy']['name'],
             email: el['rasiedBy']['email'],
@@ -77,6 +78,7 @@ export class AllTableComponentComponent implements OnInit {
           this.UserViewInfoObject = usersData.map((el) => {
             const cerationDate=new Date(el['creationDate'])
           return {
+            id:el["id"],
             initials: this.initials(el['rasiedBy']['name']),
             name: el['rasiedBy']['name'],
             email: el['rasiedBy']['email'],
@@ -90,11 +92,11 @@ export class AllTableComponentComponent implements OnInit {
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
         });
     }
+    // The code that you want to execute on clicking on next and previous buttons will be written here.
   }
   setDataSourceAttributes() {
     this.dataSource.paginator = this.paginator;
     this.pageSize = this.paginator.pageSize;
-    console.log('fun',this.pageSize)
     this.pageIndex = this.paginator.pageIndex;
 
     console.log(this.sort);
@@ -149,6 +151,7 @@ export class AllTableComponentComponent implements OnInit {
         this.UserViewInfoObject = usersData.map((el) => {
          const cerationDate=new Date(el['creationDate'])
           return {
+            id:el["id"],
             initials: this.initials(el['rasiedBy']['name']),
             name: el['rasiedBy']['name'],
             email: el['rasiedBy']['email'],
@@ -218,6 +221,7 @@ export class AllTableComponentComponent implements OnInit {
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
             return {
+              id:el["id"],
               initials: this.initials(el['rasiedBy']['name']),
               name: el['rasiedBy']['name'],
               email: el['rasiedBy']['email'],
@@ -233,7 +237,6 @@ export class AllTableComponentComponent implements OnInit {
         });
       }
     });
-    console.log('iniy',this.pageSize)
     this.http
       .POST('ticket/list', {
         searchText: '',
@@ -250,6 +253,7 @@ export class AllTableComponentComponent implements OnInit {
         this.UserViewInfoObject = usersData.map((el) => {
           const cerationDate=new Date(el['creationDate'])
           return {
+            id:el["id"],
             initials: this.initials(el['rasiedBy']['name']),
             name: el['rasiedBy']['name'],
             email: el['rasiedBy']['email'],
