@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { createTicketDTO } from '../../../core/DTOs/createTicketDTO';
+import { getTicketDTO } from 'src/app/core/DTOs/getTicketDTO';
+
 
 @Component({
   selector: 'app-message-format',
@@ -7,24 +8,14 @@ import { createTicketDTO } from '../../../core/DTOs/createTicketDTO';
   styleUrls: ['./message-format.component.css']
 })
 export class MessageFormatComponent implements OnInit {
-  @Input() userMessage:createTicketDTO;
+  @Input() userMessage:getTicketDTO;
   creatorInitials:string;
   constructor() { 
     
   }
 
   ngOnInit(): void {
-    console.log(this.userMessage)
-    this.creatorInitials=this.initials(this.userMessage.submitterName).toString()
+   
   }
- initials(name) {
-    let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
-
-    let initials = [...name.matchAll(rgx)] || [];
-
-    initials = (
-      (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
-    ).toUpperCase();
-    return initials;
-  }
+ 
 }

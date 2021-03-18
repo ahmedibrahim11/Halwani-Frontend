@@ -41,7 +41,7 @@ saveAndOpenAnother:boolean=false;
     });
     this.seviritysource=[{label:"Low",value:0},{label:"Medium",value:1},{label:"High",value:2}]
     this.sourceDatasource=[{label:"Mobile",value:0},{label:"LapTop",value:1},{label:"DeskTop",value:2}]
-    this.ticketTypeDatasource=[{label:"ServiceRequest",value:0},{label:"Incident",value:1}]
+    this.ticketTypeDatasource=[{label:"Service Request",value:0},{label:"Incident",value:1}]
     this.reporterDatasource=[{label:"Shehab Mohamed",value:"xxx,shehabharhash@gmail.com,shehab",initials:this.initials("Shehab Mohamed"),label1:"shehabharhash@gmail.com"},
     {label:"Mostafa AbdelAziz",value:"xx,MostafaAbdelAziz96@gmail.com,zozzz",initials:this.initials("Mostafa AbdelAziz"),label1:"MostafaAbdelAziz96@gmail.com"}]
     this.teamSoruce=[{label:"Team1",value:"Team1"},{label:"Team2",value:"Team2"}],

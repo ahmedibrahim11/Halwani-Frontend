@@ -8,7 +8,7 @@
         <label class="HeaderLabel">Back to tickets queue</label>
         </div>
         <div class="Email-Login">
-            Email Login
+            {{userMessage.ticketName}}
         </div>
     </div>
     <div class="MessageListing">
@@ -21,7 +21,7 @@
         <div class="Editor">
             <span class="Persona-container">
                 <label class="Persona-container-label">
-                {{creatorInitials}}
+                {{userMessage.submitterInitials}}
                 </label>
                 
             </span>
@@ -36,16 +36,17 @@
 
 </div>
 <div class="sideBar">
-    <button mat-button [matMenuTriggerFor]="menu" class="statusButton">Waiting for support <mat-icon>keyboard_arrow_down</mat-icon></button>
+    <button mat-button [matMenuTriggerFor]="menu" class="statusButton" *ngIf="userMessage.ticketStatus===0">Waiting for support <mat-icon>keyboard_arrow_down</mat-icon></button>
+    <button mat-button [matMenuTriggerFor]="menu" class="statusButton" *ngIf="userMessage.ticketStatus===1">Under Investigation <mat-icon>keyboard_arrow_down</mat-icon></button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item class="menuItemWidth">Item 1</button>
-        <button mat-menu-item class="menuItemWidth">Item 2</button>
+        <button mat-menu-item class="menuItemWidth" *ngIf="userMessage.ticketStatus===0">Under Investigation</button><button mat-menu-item class="menuItemWidth" *ngIf="userMessage.ticketStatus===1">Waiting for support</button>
+        
     </mat-menu>
     <div class="Ticket-ID">
         Ticket ID
     </div>
     <div class="ticketdev">
-        <label class="SR-103">SR-103</label>
+        <label class="SR-103">{{userMessage.ticketNo}}</label>
     </div>
     <div class="Ticket-ID">SLAs</div>
     <div class="ticketdev">
@@ -59,45 +60,49 @@
     <div class="assignmentDev">
         <div class="ticketdev">
             <label class="Ticket-ID">Assignee</label>
-            <label class="asignee-container">{{creatorInitials}}</label>
+            <label class="asignee-container">{{userMessage.submitterInitials}}</label>
         </div>
         <div class="ticketdev">
             <label class="Ticket-ID">Reporter</label>
-            <label class="asignee-container">{{reporterInitials}}</label>
+            <label class="asignee-container">{{userMessage.ReporterInitials}}</label>
         </div>
     </div>
     <div class="Ticket-ID">
         Ticket type
     </div>
     <div class="ticketdev">
-        <label class="SR-103">Get IT Help</label>
+        <label class="SR-103" *ngIf="userMessage.ticketType===0">Service Request</label><label class="SR-103" *ngIf="userMessage.ticketType===1">Incident</label>
     </div>
     <div class="Ticket-ID">
         Severity
     </div>
     <div class="ticketdev">
-        <label class="SR-103">Medium</label>
+        <label class="SR-103" *ngIf="userMessage.ticketSeverity===0">Low</label><label class="SR-103"
+            *ngIf="userMessage.ticketSeverity===1">Medium</label>
+            <label class="SR-103" *ngIf="userMessage.ticketSeverity===2">High</label>
     </div>
     <div class="Ticket-ID">
         Priority
     </div>
     <div class="ticketdev">
-        <label class="SR-103">High</label>
+    <label class="SR-103" *ngIf="userMessage.priority===0">Low</label><label class="SR-103"
+        *ngIf="userMessage.priority===1">Medium</label>
+    <label class="SR-103" *ngIf="userMessage.priority===2">High</label>
     </div>
     <div class="Ticket-ID">
         Product categorization
     </div>
     <div class="ticketdev">
-        <label class="SR-103">Hardware - Disc</label>
+        <label class="SR-103">{{userMessage.productCategoryName1}} - {{userMessage.productCategoryName2}}</label>
     </div>
     <div class="Ticket-ID">Metrics</div>
     <div class="ticketdev">
         <label class="SR-103">Date of creation</label>
-        <label class="Within-2-hours">22/03/2021</label>
+        <label class="Within-2-hours">{{userMessage.submitDate}}</label>
     </div>
     <div class="ticketdev">
         <label class="SR-103">Date of resolving</label>
-        <label class="Within-2-hours">-</label>
+        <label class="Within-2-hours" *ngIf="userMessage.resolvedDate!=='1/1/1970'">{{userMessage.resolvedDate}}</label> <label class="Within-2-hours" *ngIf="userMessage.resolvedDate==='1/1/1970'">-</label>
     </div>
 </div>
 </div>

@@ -3,30 +3,15 @@ import { createTicketDTO } from '../../core/DTOs/createTicketDTO';
 import { Editor } from 'ngx-editor';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
+import { getTicketDTO } from "src/app/core/DTOs/getTicketDTO";
 @Component({
   selector: 'app-ticket-details-main',
   templateUrl: './ticket-details-main.component.html',
   styleUrls: ['./ticket-details-main.component.css']
 })
 export class TicketDetailsMainComponent implements OnInit,OnDestroy  {
-  @Output() userMessage:createTicketDTO={
-    summary: "assasasasasa",
-  submitterTeam:"xxx",
-  submitterEmail: "shehabHarhash@gmail.com",
-  submitterName: "shehab Mohamed",
-  team: "shehab",
-  reportedSource: "Mostafa Abdelaziz",
-  type: 0,
-  source:0,
-  ticketSeverity: 0,
-  ticketStatus: 0,
-  description: "I am unable to login to my email account, please change my password and send me reset link.",
-  submitDate: new Date(),
-  productCategoryName1: "xai",
-  productCategoryName2: "xai",
-  attachement: "assasasasa",
-  priority:0,
-  };
+  @Output() userMessage:getTicketDTO;
 
   messageList:{message:any,sender:any}[]=[]
 
@@ -37,12 +22,45 @@ export class TicketDetailsMainComponent implements OnInit,OnDestroy  {
   html: '';
 
   newMessag:FormGroup;
-  constructor(private formBuilder: FormBuilder,private actRoute:ActivatedRoute) { }
+  constructor(private formBuilder: FormBuilder,
+    private actRoute:ActivatedRoute,private http:HTTPMainServiceService) { }
 
   ngOnInit(): void {
-    console.log("id",this.actRoute.snapshot.paramMap.get("id"))
-    this.creatorInitials=this.initials(this.userMessage.submitterName).toString();
-    this.reporterInitials=this.initials(this.userMessage.reportedSource).toString();
+    const id=this.actRoute.snapshot.paramMap.get("id")
+this.http.POST(`Ticket/getTicket`,{id:id}).subscribe(data=>{
+  const creationDate=new Date(data.submitDate);
+  const resolvedDate=new Date( data.resolvedDate);
+ 
+this.userMessage={
+  ticketNo: data.ticketNo,
+  ticketName: data.ticketName,
+  submitterTeam: data.submitterTeam,
+  submitterEmail: data.submitterEmail,
+  submitterName: data.submitterName,
+  serviceName: data.serviceName,
+  reportedSource: data.reportedSource,
+  priority: data.priority,
+  source: data.source,
+  ticketType: data.ticketType,
+  ticketSeverity: data.ticketSeverity,
+  ticketStatus:data.ticketStatus,
+  description: data.description,
+
+  submitDate: creationDate.toLocaleDateString(),
+  resolvedDate:resolvedDate.toLocaleDateString(),
+ 
+  id: data.id,
+  attachement:data.attachement,
+  productCategoryName1:data.productCategoryName1,
+  productCategoryName2:data.productCategoryName2,
+  lastModifiedDate:data.lastModifiedDate,
+  submitterInitials:this.initials(data.submitterName).toString(),
+  ReporterInitials:this.initials(data.reportedSource).toString(),
+}
+
+})
+    console.log("id",)
+
     this.editor = new Editor();
     this.newMessag= this.formBuilder.group({
         message:['',[Validators.required]],
