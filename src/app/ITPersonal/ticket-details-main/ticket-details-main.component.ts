@@ -20,14 +20,14 @@ export class TicketDetailsMainComponent implements OnInit,OnDestroy  {
   reporterInitials:string; 
   editor: Editor;
   html: '';
-
+ticketID:string;
   newMessag:FormGroup;
   constructor(private formBuilder: FormBuilder,
     private actRoute:ActivatedRoute,private http:HTTPMainServiceService) { }
 
   ngOnInit(): void {
-    const id=this.actRoute.snapshot.paramMap.get("id")
-this.http.POST(`Ticket/getTicket`,{id:id}).subscribe(data=>{
+    this.ticketID=this.actRoute.snapshot.paramMap.get("id")
+this.http.POST(`Ticket/getTicket`,{id:this.ticketID}).subscribe(data=>{
   const creationDate=new Date(data.submitDate);
   const resolvedDate=new Date( data.resolvedDate);
  
@@ -59,7 +59,13 @@ this.userMessage={
 }
 
 })
-    console.log("id",)
+    this.http.POST(`TicketMessage/getMessages`,{id:this.ticketID}).subscribe(data=>{
+   for (let index = 0; index < data.length; index++) {
+     const element = data[index];
+     this.messageList.push({message:element.messageText,
+    sender:element.submitter})
+   }
+  })
 
     this.editor = new Editor();
     this.newMessag= this.formBuilder.group({
@@ -82,9 +88,14 @@ this.userMessage={
   }
  
 submit(){
-  console.log(this.newMessag.value)
-  this.messageList.push({message:this.newMessag.value.message,
+ this.http.POST(`TicketMessage/create`,{
+  ticketID:Number.parseInt(this.ticketID),
+  messageText: this.newMessag.value.message,
+  submitter: this.newMessag.value.submitter
+}).subscribe(data=>{
+   this.messageList.push({message:this.newMessag.value.message,
     sender:this.newMessag.value.submitter})
     this.newMessag.setValue({message:"",submitter:"shehab"})
+  })
 }
 }
