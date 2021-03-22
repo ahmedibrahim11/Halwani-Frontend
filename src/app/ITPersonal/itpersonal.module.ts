@@ -16,6 +16,8 @@ import { RouterModule } from '@angular/router';
 import { TicketDetailsMainComponent } from './ticket-details-main/ticket-details-main.component';
 import { AddedMessageComponent } from './ticket-details-main/added-message/added-message.component';
 import { MessageFormatComponent } from './ticket-details-main/message-format/message-format.component';
+import { ResolveTicketComponent } from './resolve-ticket/resolve-ticket.component';
+import { EscalateTicketComponent } from './escalate-ticket/escalate-ticket.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { MessageFormatComponent } from './ticket-details-main/message-format/mes
     TicketDetailsMainComponent,
     AddedMessageComponent,
     MessageFormatComponent,
+    ResolveTicketComponent,
+    EscalateTicketComponent,
   ],
   imports: [
     BrowserAnimationsModule,

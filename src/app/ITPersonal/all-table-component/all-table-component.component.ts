@@ -16,6 +16,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { FiltermodalComponent } from '../filtermodal/filtermodal.component';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { TicketCreationService } from 'src/app/core/services/ticket-creation.service';
+import { ResolveTicketComponent } from '../resolve-ticket/resolve-ticket.component';
+import { EscalateTicketComponent } from '../escalate-ticket/escalate-ticket.component';
 
 @Component({
   selector: 'app-all-table-component',
@@ -341,4 +343,24 @@ export class AllTableComponentComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+
+  resolveTicket() {
+    const dialogRef = this.dialog.open(ResolveTicketComponent, {
+      position: { top: '15%', left: '22%' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  escalateTicket() {
+    const dialogRef = this.dialog.open(EscalateTicketComponent, {
+      position: { top: '15%', left: '22%' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openTicket() {}
 }
