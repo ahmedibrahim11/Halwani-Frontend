@@ -6,7 +6,9 @@
   overflow: initial;
 }
 
-
+.table{
+  height: fit-content;
+}
 .Filter {
   width: 7.5rem;
   height: 3.45rem;
