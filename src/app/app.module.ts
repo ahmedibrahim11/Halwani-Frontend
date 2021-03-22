@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { SharedComponent } from './shared/shared.component';
+import {UserModule} from'../app/UserPersonal/user.module'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +25,7 @@ import { SharedComponent } from './shared/shared.component';
     MatFormFieldModule,
     HttpClientModule,
     MatInputModule,
-    ITpersonalModule,FormsModule,ReactiveFormsModule,
+    ITpersonalModule,FormsModule,ReactiveFormsModule,UserModule
   ],
 
   exports: [],

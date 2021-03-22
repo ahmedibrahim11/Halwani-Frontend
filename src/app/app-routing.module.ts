@@ -4,7 +4,8 @@ import { HomeComponent } from './ITPersonal/home/home.component';
 import { MainCardBodyComponent } from './ITPersonal/main-card-body/main-card-body.component';
 import { TicketDetailsMainComponent } from './ITPersonal/ticket-details-main/ticket-details-main.component';
 import { LoginComponent } from './login/login.component';
-
+import {UserLayoutComponent  } from "../app/UserPersonal/user-layout/user-layout.component";
+import { MainCategoriesComponent } from "../app/UserPersonal/main-categories/main-categories.component";
 const routes: Routes = [
   {
     path: 'itpersonal', component: HomeComponent,
@@ -14,7 +15,14 @@ const routes: Routes = [
 { path: "", component: MainCardBodyComponent },
     ]
   }
-  ,
+  ,{
+    path: 'user', component: UserLayoutComponent,
+     children: [
+      
+      { path: "details/:id", component: TicketDetailsMainComponent },
+{ path: "", component: MainCategoriesComponent },
+    ]
+  },
   { path: '', component: LoginComponent },
 ];
 
