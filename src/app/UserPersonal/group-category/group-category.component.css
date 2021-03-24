@@ -1,0 +1,66 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+.main-card {
+  border-radius: 8px;
+  box-shadow: 0 0 1px 0 rgba(9, 30, 66, 0.31), 0 3px 5px 0 rgba(9, 30, 66, 0.2);
+  background-color: #ffffff;
+  height: 100%;
+  padding: 10rem;
+}
+.Back-to-help-center {
+  flex-grow: 0;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000000;
+}
+.Get-IT-Help {
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.56;
+  letter-spacing: normal;
+  text-align: left;
+  color: #333333;
+}
+.Get-assistance-for-general-IT-problems-and-questio {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.64;
+  letter-spacing: normal;
+  text-align: left;
+  color: #717171;
+  margin-left: 1.2rem;
+}
+
+.Common-Requests {
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 0.83;
+  letter-spacing: normal;
+  text-align: left;
+  color: #333333;
+}
+.What-can-i-help-you-with {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: left;
+  color: #717171;
+}

@@ -7,7 +7,7 @@
     </div>
     <div class="col-md-12 mt-5">
         <div class="row">
-            <div class="col-md-12 Rectangle-5 mb-3" *ngFor="let Group of categoriesList">
+            <div class="col-md-12 Rectangle-5 mb-3" *ngFor="let Group of categoriesList" (click)="goToDetails(Group.id)">
                 
                 <div class="col-md-11">
                 <label class="Common-Requests">{{Group.name}}</label>
@@ -17,6 +17,9 @@
                 <mat-icon>keyboard_arrow_right</mat-icon>
                 </div>
             </div>
+        </div>
+        <div class="row mt-5 mb-5 text-center" style="justify-content: center;">
+            <img src="assets/assist.svg"/>
         </div>
 
     </div>
