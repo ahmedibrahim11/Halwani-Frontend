@@ -22,7 +22,7 @@ public categoriesList
     this.http.getData().subscribe(data=>{
       this.name=data.find(el => el.id === GroupId).text
     this.categoriesList=data.find(el => el.id === GroupId).requestTypes.map((el)=>{
-          return {id:el.id,name:el.text,icon:el.icon,ticketType:el.ticketType,description:"Get assistance for general IT problems and questions."}
+     console.log(el);     return {id:el.id,name:el.text,icon:el.icon,ticketType:el.ticketType,description:el.description}
 
           });
     })
