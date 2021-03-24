@@ -23,11 +23,12 @@ createTicketDTOFormGroup: FormGroup;
    const routeParams = this.route.snapshot.paramMap;
     this.typeID = Number(routeParams.get('id'));
     this.http.getData().subscribe(data=>{
+      debugger;
       data.map(el=> el.requestTypes.filter(x=>x.id===this.typeID).map((el)=>{
-        this.type= {id:el.id,name:el.text,icon:el.icon,ticketType:el.ticketType,description:el.description}
+        this.type= {id:el.id,name:el.text,icon:el.icon,ticketType:el.ticketType,description:el.description,team:el.defaultTeam}
   console.log(this.type);
           }))
-      console.log(this.type)
+      console.log("Typeeeee",this.type)
     })
      this.createTicketDTOFormGroup = this.formBuilder.group({
       ticketType: [this.typeID],
@@ -100,8 +101,9 @@ submiCreate(){
        this.createTicketDTO.submitterName=submitterArray[2];
        this.createTicketDTO.summary=this.createTicketDTOFormGroup.value.summary;
        this.createTicketDTO.submitDate=new Date();
-       this.createTicketDTO.ServiceName="";
+       this.createTicketDTO.ServiceName=this.type.team;
        this.createTicketDTO.requestTypeId=this.createTicketDTOFormGroup.value.ticketType;
+       console.log("CreateTicket Dto",this.createTicketDTO);
        this.miainHttp.POST("Ticket/Create",this.createTicketDTO).subscribe((data)=>{
        console.log(data);
        

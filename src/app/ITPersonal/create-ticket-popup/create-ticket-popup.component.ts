@@ -84,7 +84,7 @@ console.log(this.createTicketDTOFormGroup.value );
        this.createTicketDTO.ticketStatus=0;
        //will be from aad
        this.createTicketDTO.reportedSource="admin";
-       this.createTicketDTO.team=this.createTicketDTOFormGroup.value.team;
+       this.createTicketDTO.ServiceName=this.createTicketDTOFormGroup.value.team;
        this.createTicketDTO.priority=this.createTicketDTOFormGroup.value.priority;
        this.createTicketDTO.source=this.createTicketDTOFormGroup.value.source;
       console.log("createDto",this.createTicketDTO);
