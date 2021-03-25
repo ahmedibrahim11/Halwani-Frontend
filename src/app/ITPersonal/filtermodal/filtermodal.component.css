@@ -1,32 +1,44 @@
 .filter-modal-container {
-  width: 224px;
-  height: 270px;
-  flex-grow: 0;
-  margin: 1px 0 0;
-  padding: 20px 20px 14.2px;
+  width: 50vw;
+  height: 15vh;
+  padding: 14px 27px 181px 18px;
+  border-radius: 6px;
   background-color: #ffffff;
-  overflow-y: hidden;
 }
-.sort-by {
-  width: 59px;
-  height: 15px;
-  flex-grow: 0;
-  margin: 0 110px 10px 0;
-  font-family: Inter;
+
+.filter-title-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3%;
+}
+
+.filter-title {
+  color: #717171;
+  font-family: Poppins;
   font-size: 12px;
-  font-weight: normal;
+  font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
-  letter-spacing: 0.6px;
-  text-align: left;
-  color: #717171;
 }
-.key-container {
+
+.clear {
+  color: #c4161c;
+  font-family: Poppins;
+  font-size: 10px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+}
+
+.filter-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.filter-key {
-  color: #25213b;
+
+.filter-controller {
+  display: flex;
+  flex-direction: column;
 }

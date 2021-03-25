@@ -1,29 +1,136 @@
 <div class="filter-modal-container">
-  <p class="sort-by">SORT BY</p>
-  <mat-radio-group aria-label="Select an option">
-    <div class="key-container">
-      <h4 class="filter-key">Default</h4>
-      <mat-radio-button checked value="1"></mat-radio-button>
+  <div class="filter-title-container">
+    <h4 class="filter-title">FILTER BY:</h4>
+    <p class="clear">CLEAR FILTER</p>
+  </div>
+  <div class="filter-row">
+    <div class="filter-controller">
+      <p>LOCATION</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Toppings</mat-label>
+        <mat-select [formControl]="toppings" multiple>
+          <mat-select-trigger>
+            {{ toppings.value ? toppings.value[0] : "" }}
+            <span
+              *ngIf="toppings.value?.length > 1"
+              class="example-additional-selection"
+            >
+              (+{{ toppings.value.length - 1 }}
+              {{ toppings.value?.length === 2 ? "other" : "others" }})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
+            topping
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    <div class="key-container">
-      <h4 class="filter-key">Reporter Name</h4>
-      <mat-radio-button value="2"></mat-radio-button>
+    <div class="filter-controller">
+      <p>SOURCE</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Toppings</mat-label>
+        <mat-select [formControl]="toppings" multiple>
+          <mat-select-trigger>
+            {{ toppings.value ? toppings.value[0] : "" }}
+            <span
+              *ngIf="toppings.value?.length > 1"
+              class="example-additional-selection"
+            >
+              (+{{ toppings.value.length - 1 }}
+              {{ toppings.value?.length === 2 ? "other" : "others" }})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
+            topping
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    <div class="key-container">
-      <h4 class="filter-key">Date</h4>
-      <mat-radio-button value="3"></mat-radio-button>
+    <div class="filter-controller">
+      <p>STATE</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Toppings</mat-label>
+        <mat-select [formControl]="toppings" multiple>
+          <mat-select-trigger>
+            {{ toppings.value ? toppings.value[0] : "" }}
+            <span
+              *ngIf="toppings.value?.length > 1"
+              class="example-additional-selection"
+            >
+              (+{{ toppings.value.length - 1 }}
+              {{ toppings.value?.length === 2 ? "other" : "others" }})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
+            topping
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    <div class="key-container">
-      <h4 class="filter-key">Ticket Topic</h4>
-      <mat-radio-button value="4"></mat-radio-button>
+  </div>
+  <div class="filter-row">
+    <div class="filter-controller">
+      <p>DATE</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Toppings</mat-label>
+        <mat-select [formControl]="toppings" multiple>
+          <mat-select-trigger>
+            {{ toppings.value ? toppings.value[0] : "" }}
+            <span
+              *ngIf="toppings.value?.length > 1"
+              class="example-additional-selection"
+            >
+              (+{{ toppings.value.length - 1 }}
+              {{ toppings.value?.length === 2 ? "other" : "others" }})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
+            topping
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    <div class="key-container">
-      <h4 class="filter-key">Severity</h4>
-      <mat-radio-button value="5"></mat-radio-button>
+    <div class="filter-controller">
+      <p>SEVERITY</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Toppings</mat-label>
+        <mat-select [formControl]="toppings" multiple>
+          <mat-select-trigger>
+            {{ toppings.value ? toppings.value[0] : "" }}
+            <span
+              *ngIf="toppings.value?.length > 1"
+              class="example-additional-selection"
+            >
+              (+{{ toppings.value.length - 1 }}
+              {{ toppings.value?.length === 2 ? "other" : "others" }})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
+            topping
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    <div class="key-container">
-      <h4 class="filter-key">Request Type</h4>
-      <mat-radio-button value="6"></mat-radio-button>
+    <div class="filter-controller">
+      <p>PRIORITY</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Toppings</mat-label>
+        <mat-select [formControl]="toppings" multiple>
+          <mat-select-trigger>
+            {{ toppings.value ? toppings.value[0] : "" }}
+            <span
+              *ngIf="toppings.value?.length > 1"
+              class="example-additional-selection"
+            >
+              (+{{ toppings.value.length - 1 }}
+              {{ toppings.value?.length === 2 ? "other" : "others" }})
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
+            topping
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-  </mat-radio-group>
+  </div>
 </div>
