@@ -79,12 +79,12 @@ console.log(this.createTicketDTOFormGroup.value );
        this.createTicketDTO.submitterName=submitterArray[2];
        this.createTicketDTO.summary=this.createTicketDTOFormGroup.value.summary;
        this.createTicketDTO.submitDate=new Date();
-       this.createTicketDTO.type=this.createTicketDTOFormGroup.value.ticketType;
+       this.createTicketDTO.requestTypeId=this.createTicketDTOFormGroup.value.ticketType;
        this.createTicketDTO.ticketSeverity=this.createTicketDTOFormGroup.value.sevirity;
        this.createTicketDTO.ticketStatus=0;
        //will be from aad
        this.createTicketDTO.reportedSource="admin";
-       this.createTicketDTO.team=this.createTicketDTOFormGroup.value.team;
+       this.createTicketDTO.ServiceName=this.createTicketDTOFormGroup.value.team;
        this.createTicketDTO.priority=this.createTicketDTOFormGroup.value.priority;
        this.createTicketDTO.source=this.createTicketDTOFormGroup.value.source;
       console.log("createDto",this.createTicketDTO);

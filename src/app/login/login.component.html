@@ -1,34 +1,35 @@
 <div class="align-mainDev">
-<img src="assets/Group2.svg" class="Group-2">
-<div class="card-div">
-    <div class="content"><label class="Login">Login</label>
-    <form [formGroup]="UserViewInfoFormGroup" (ngSubmit)="submitLogin()">
-        <mat-form-field appearance="fill">
-        
-            <mat-label>Email</mat-label>
-            <input matInput [type]="'email'" formControlName="email">
-            <button type="button" mat-icon-button matPrefix >
-                <mat-icon>email</mat-icon>
-            </button>
-        </mat-form-field>
- 
-    <mat-form-field appearance="fill">
-       
-        <mat-label>Password</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-        <button type="button" mat-icon-button matPrefix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-      
-    </mat-form-field>
+    <img src="assets/Group2.svg" class="Group-2">
+    <div class="card-div">
+        <div class="content"><label class="Login">Login</label>
+            <form [formGroup]="UserViewInfoFormGroup" (ngSubmit)="submitLogin()">
+                <mat-form-field appearance="fill">
 
-    <button  type="submit" class="Rectangle-156" [disabled]="!UserViewInfoFormGroup.valid">
-        Login
-    </button>
-</form>
+                    <mat-label>Email</mat-label>
+                    <input matInput [type]="'email'" formControlName="email">
+                    <button type="button" mat-icon-button matPrefix>
+                        <mat-icon>email</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+
+                    <mat-label>Password</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                    <button type="button" mat-icon-button matPrefix (click)="hide = !hide"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+
+                </mat-form-field>
+
+                <button type="submit" class="Rectangle-156" [disabled]="!UserViewInfoFormGroup.valid">
+                    Login
+                </button>
+            </form>
+        </div>
+        <div style="margin-top: 5%;">
+            <img src="assets/Group3.svg" class="Group-3" />
+        </div>
     </div>
-<div style="margin-top: 5%;">
-    <img src="assets/Group3.svg" class="Group-3"/>
-</div>
-</div>
 </div>

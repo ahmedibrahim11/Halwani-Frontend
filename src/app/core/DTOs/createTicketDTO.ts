@@ -5,7 +5,7 @@ export class createTicketDTO{
   submitterName: string;
   team: string;
   reportedSource: string;
-  type: number;
+  requestTypeId: number;
   ticketSeverity: number;
   ticketStatus: number;
   description: string;
@@ -15,5 +15,5 @@ export class createTicketDTO{
   attachement: string;
   priority:number;
   source:number;
-  
+  ServiceName:string
 }

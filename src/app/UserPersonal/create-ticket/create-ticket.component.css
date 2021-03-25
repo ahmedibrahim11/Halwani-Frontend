@@ -1,0 +1,110 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+.main-card {
+  border-radius: 8px;
+  box-shadow: 0 0 1px 0 rgba(9, 30, 66, 0.31), 0 3px 5px 0 rgba(9, 30, 66, 0.2);
+  background-color: #ffffff;
+  height: 100%;
+  padding: 10rem;
+}
+.Get-IT-Help {
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.56;
+  letter-spacing: normal;
+  text-align: left;
+  color: #333333;
+}
+.Get-assistance-for-general-IT-problems-and-questio {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.64;
+  letter-spacing: normal;
+  text-align: left;
+  color: #717171;
+  margin-left: 1.2rem;
+}
+.Rectangle-5 {
+  border-radius: 8px;
+  background-color: #ede9e9;
+}
+.mandatory {
+  color: #ed1c24;
+}
+.red-menu {
+  background-color: #c4161c;
+  border-radius: 10px;
+  display: flex;
+  padding: 15px;
+  color: #ffffff;
+  height: 3.5rem;
+  margin-top: 0.5rem;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.person-data-menu {
+  width: 13rem;
+
+  margin-top: 0;
+  line-height: 0.5%;
+  margin: 0.5rem;
+}
+.menu {
+  width: 14rem;
+  display: flex;
+  flex-direction: row;
+}
+.Ticket-type {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2;
+  letter-spacing: normal;
+  text-align: left;
+  color: #333333;
+}
+.cancel {
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #f5f6f7;
+  color: black;
+}
+.send {
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #c4161c;
+  color: white;
+}
+.upload-drop-zone {
+  width: 100%;
+  height: 157px;
+  flex-grow: 0;
+  margin: 36px 0 8px;
+  border-radius: 4px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border: solid 2px #edebe9;
+  background-color: #f5f6f7;
+}

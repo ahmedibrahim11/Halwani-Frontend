@@ -41,7 +41,7 @@ this.userMessage={
   reportedSource: data.reportedSource,
   priority: data.priority,
   source: data.source,
-  ticketType: data.ticketType,
+  ticketType: data.requestTypeId,
   ticketSeverity: data.ticketSeverity,
   ticketStatus:data.ticketStatus,
   description: data.description,
