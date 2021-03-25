@@ -1,0 +1,154 @@
+.table-header {
+  display: flex;
+  flex-direction: row;
+}
+.mat-column-select {
+  overflow: initial;
+}
+
+.table{
+  height: fit-content;
+}
+.Filter {
+  width: 7.5rem;
+  height: 3.45rem;
+  margin: 3px 0.25rem 4px 10px;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+
+  color: #25213b;
+  background-color: white;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.filter-icon {
+  padding-right: 0.5rem;
+}
+.Rectangle-48 {
+  width: 25rem;
+  height: 2.45rem;
+  margin: 2px 26.3125rem 0 8px;
+  padding: 8px 30px 8px 19.2px;
+  border-radius: 6px;
+  border: solid 1px #edebe9;
+  background-color: #ffffff;
+  display: inline;
+}
+.search-icon {
+  border: none;
+  background-color: white;
+}
+.Table-buttons {
+  width: 12rem;
+  height: 2.45rem;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  float: right;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #f5f6f7;
+}
+.Export-queue {
+  width: 141px;
+  height: 24px;
+  flex-grow: 0;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #42526e;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: white im !important;
+}
+/* cell 1 */
+.menu {
+  width: 17rem;
+  display: flex;
+  flex-direction: row;
+}
+.red-menu {
+  background-color: #c4161c;
+  border-radius: 10px;
+  display: flex;
+  padding: 15px;
+  color: #ffffff;
+  height: 1.5rem;
+  margin-top: 0.5rem;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.person-data-menu {
+  width: 11rem;
+
+  margin-top: 0;
+  line-height: 0.5%;
+  margin: 0.5rem;
+}
+.Low {
+  color: #007f00;
+  width: 45px;
+  height: 22px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 5px;
+  border-radius: 10px;
+  background-color: #cdffcd;
+}
+.High {
+  width: 50px;
+  height: 22px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 5px;
+  border-radius: 10px;
+  color: #bf2600;
+  background-color: #ffcdcd;
+}
+.Medium {
+  width: 72px;
+  height: 22px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 5px;
+  border-radius: 10px;
+  background-color: #fff1cd;
+  color: #d7a500;
+}
+
+.ngx-file-drop__drop-zone {
+  border: none;
+  border-radius: 30px;
+  height: 100%;
+  width: 100%;
+  margin: auto;
+}

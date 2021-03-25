@@ -1,0 +1,10 @@
+.main-container {
+  overflow-x: hidden;
+  background-color: #ffffff;
+  height: 100vh;
+}
+
+.nav-with-table-container {
+  display: flex;
+  flex-direction: row;
+}

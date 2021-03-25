@@ -1,0 +1,72 @@
+.cancel-modal-container {
+  border-radius: 24px;
+  background-color: #ffffff;
+  width: 50vw;
+  height: 32vh;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.cancel-title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.cancel-title {
+  font-family: Poppins;
+  font-size: 36px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.39;
+  letter-spacing: 1px;
+  text-align: left;
+  color: #14142b;
+}
+
+.cancel-text {
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 300;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  text-align: left;
+  color: #000000;
+  margin-top: 4%;
+}
+
+.cancel-text-container {
+  display: flex;
+  flex-direction: row;
+}
+
+
+
+.cancel-btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 5%;
+}
+
+.open-ticket-btn {
+  gap: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #f5f6f7;
+  color: #42526e;
+  border: none;
+}
+
+.cancel-ticket-btn {
+  margin: 0 0 0 18px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #c4161c;
+  color: #ffffff;
+  border: none;
+}

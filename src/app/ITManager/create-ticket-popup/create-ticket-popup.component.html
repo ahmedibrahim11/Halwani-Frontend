@@ -1,0 +1,155 @@
+<form [formGroup]="createTicketDTOFormGroup" (ngSubmit)="submiCreate()">
+    <h1 mat-dialog-title class="Create-a-ticket">Create A Ticket</h1>
+    <mat-dialog-content class="mat-typography">
+        <label class="Ticket-type">Ticket type <span class="mandatory"> *</span></label>
+        <mat-form-field [style.width.%]="100" appearance="fill">
+            <mat-select formControlName="ticketType" placeholder="Ticket type">
+                <mat-optgroup *ngFor="let option of ticketTypeDatasource" [label]="option.ticketType">
+                    <mat-option *ngFor="let topic of option.topics" [value]="topic['id']">
+                        {{topic["text"]}}
+                    </mat-option>
+                </mat-optgroup>
+            </mat-select>
+        </mat-form-field>
+
+        <label class="Ticket-type">Summary <span class="mandatory"> *</span></label>
+
+        <mat-form-field appearance="fill" [style.width.%]="100">
+
+            <input matInput formControlName="summary">
+        </mat-form-field>
+
+        <label class="Ticket-type">Attachments </label>
+        <div class="center">
+            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)"
+                (onFileOver)="fileOver($event)" class="upload-drop-zone" (onFileLeave)="fileLeave($event)">
+                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                    Drag and drop files, paste screenshots, or upload attachments
+                    <button type="button" class="cancel" style="display: block;margin-top: 1.5rem;"
+                        (click)="openFileSelector()">Browse Files</button>
+                </ng-template>
+            </ngx-file-drop>
+        </div>
+        <div class="upload-table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="upload-name-style">
+                    <tr *ngFor="let item of files; let i=index">
+                        <td><strong>{{ item.relativePath }}</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <label class="Ticket-type">Description </label>
+        <mat-form-field appearance="fill" [style.width.%]="100">
+
+            <textarea rows="7" matInput formControlName="description"></textarea>
+        </mat-form-field>
+
+
+
+        <div class="row-ddl">
+            <div class="col-ddl">
+                <label class="Ticket-type">Team <span class="mandatory"> *</span></label>
+                <mat-form-field [style.width.%]="97" appearance="fill">
+                    <mat-select formControlName="team">
+                        <mat-option *ngFor="let option of teamSoruce" [value]="option['value']">
+                            {{option["label"]}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+        </div>
+
+        <div class="row-ddl">
+            <div class="col-ddl">
+                <label class="Ticket-type">Reporter <span class="mandatory"> *</span></label>
+                <mat-form-field [style.width.%]="97" appearance="fill">
+
+                    <mat-select formControlName="reporter">
+                        <mat-option *ngFor="let option of reporterDatasource" [value]="option['value']"
+                            class="optionHeight">
+                            <div class="menu">
+                                <div class="red-menu">{{ option.initials }}</div>
+                                <div class="person-data-menu">
+                                    <h3>{{option["label"]}}</h3>
+                                    <p style="opacity: 0.7">{{option["label1"]}}</p>
+                                </div>
+                            </div>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-ddl">
+                <label class="Ticket-type">Source <span class="mandatory"> *</span></label>
+                <mat-form-field [style.width.%]="100" appearance="fill">
+
+                    <mat-select formControlName="source">
+                        <mat-option *ngFor="let option of sourceDatasource" [value]="option['value']">
+                            {{option["label"]}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+        </div>
+
+        <div class="row-ddl">
+            <div class="col-ddl">
+                <label class="Ticket-type">Severity <span class="mandatory"> *</span></label>
+                <mat-form-field [style.width.%]="97" appearance="fill">
+
+                    <mat-select formControlName="sevirity">
+                        <mat-option *ngFor="let option of seviritysource" [value]="option['value']">
+                            {{option["label"]}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-ddl">
+                <label class="Ticket-type">Priority <span class="mandatory"> *</span></label>
+                <mat-form-field [style.width.%]="100" appearance="fill">
+
+                    <mat-select formControlName="priority">
+                        <mat-option *ngFor="let option of seviritysource" [value]="option['value']">
+                            {{option["label"]}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row-ddl">
+            <div class="col-ddl">
+                <label class="Ticket-type">Product categorization</label>
+                <mat-form-field [style.width.%]="97" appearance="fill">
+
+                    <mat-select formControlName="productCategoryName1" (selectionChange)="productCategoryOne($event)">
+                        <mat-option *ngFor="let option of productCategoryName1" [value]="option['value']">
+                            {{option["label"]}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-ddl" *ngIf="showSecondCategory">
+                <label class="Ticket-type" style="margin-bottom: 2.2rem;"></label>
+                <mat-form-field [style.width.%]="100" appearance="fill">
+
+                    <mat-select formControlName="productCategoryName2">
+                        <mat-option *ngFor="let option of productCategoryName2" [value]="option['value']">
+                            {{option["label"]}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <mat-checkbox class="checkBox" class="check-box" formControlName="saveAndOpenAnother">Create another ticket
+        </mat-checkbox>
+        <button mat-button mat-dialog-close class="cancel">Cancel request</button>
+        <button mat-button [mat-dialog-close]="true" class="send" type="submit"
+            [disabled]="!createTicketDTOFormGroup.valid">Send ticket</button>
+    </mat-dialog-actions>
+</form>

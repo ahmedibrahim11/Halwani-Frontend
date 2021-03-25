@@ -1,0 +1,128 @@
+.Rectangle-6 {
+  width: 82vw;
+  padding: 0 25px 34px 15px;
+  min-height: 90vh;
+  background-color: white;
+  flex-direction: row;
+  overflow-x: hidden;
+}
+
+.Actions-Tickets-Queue {
+  width: 235px;
+  height: 19px;
+  flex-grow: 0;
+  margin: 2.375rem 5px 8px 0;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000000;
+  display: block;
+}
+
+.Tickets-Queue {
+  width: 240px;
+  height: 20px;
+  flex-grow: 0;
+  margin: 8px 0 0;
+  font-family: Poppins;
+  font-size: 32px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 0.63;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000000;
+}
+
+.table-header {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+.table-right-header {
+  display: flex;
+  flex-direction: row;
+  width: 40%;
+}
+
+.Table-buttons {
+  width: 139px;
+  height: 44px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 6px;
+  background-color: #c4161c;
+  color: white;
+  margin: 2.375rem 5px 8px 6.5rem;
+}
+
+.Table-buttons-Export {
+  width: 166px;
+  height: 44px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #f5f6f7;
+  margin: 2.375rem 5px 8px 0;
+  color: #42526e;
+  align-items: flex-end;
+}
+
+.mainTableHeader {
+  display: flex;
+  flex-direction: row;
+}
+
+.export-btn-icon {
+  display: flex;
+  flex-direction: row;
+}
+
+.Table-buttons-settings {
+  width: 44px;
+  height: 44px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #f5f6f7;
+  margin: 2.375rem 5px 8px 0;
+  color: #42526e;
+}
+
+.tabs {
+  margin-top: 2%;
+  min-height: 71vh;
+}
+
+.Rectangle-339 {
+  width: 96%;
+  height: 90vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin: 20px 16px 0 3px;
+  padding: 0.9rem 1.25rem 0;
+  border-radius: 8px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+}

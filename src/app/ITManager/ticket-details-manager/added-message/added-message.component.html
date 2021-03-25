@@ -1,0 +1,14 @@
+<div class="Rectangle-342">
+  <div class="initial">
+    <span class="Rectangle-343">
+      {{ creatorInitials }}
+    </span>
+    <span class="String-name">
+      <span class="String-name-bold"> {{ userMessage.sender }} </span> added
+      comment via <span class="String-name-bold">Portal</span>
+    </span>
+  </div>
+  <div class="description" [innerHTML]="userMessage.message">
+    <!-- {{newMessage}} -->
+  </div>
+</div>

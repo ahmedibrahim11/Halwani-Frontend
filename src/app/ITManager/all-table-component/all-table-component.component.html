@@ -1,0 +1,160 @@
+<div class="table-header">
+  <button type="button" class="Filter" (click)="openFilterModal()" mat-button>
+    <mat-icon class="filter-icon">filter_list</mat-icon>Filter
+  </button>
+
+  <mat-form-field class="Rectangle-48">
+    <mat-label>Search Tickets by..</mat-label>
+    <mat-chip-list #chipList aria-label="Tickets selection">
+      <mat-chip
+        *ngFor="let item of chipsItems"
+        [selectable]="selectable"
+        [removable]="removable"
+        (removed)="remove(item)"
+      >
+        {{ item.name }}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input
+        placeholder="New item..."
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)"
+        matInput
+        (keyup)="applyFilter($event)"
+      />
+    </mat-chip-list>
+  </mat-form-field>
+  <div class="Table-buttons">
+    <label class="Export-queue">Assign Tickets</label
+    ><mat-icon (click)="assignTicket()">group_add</mat-icon>
+  </div>
+</div>
+<div class="table">
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    matSort
+    matPagination
+    (matSortChange)="sortChange($event)"
+  >
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+        >
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+        >
+        </mat-checkbox>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Raised BY</th>
+      <td mat-cell *matCellDef="let user">
+        <div class="menu">
+          <div class="red-menu">{{ user.initials }}</div>
+          <div class="person-data-menu">
+            <a [routerLink]="['details', user.id]">
+              <h3>{{ user.name }}</h3>
+            </a>
+            <p style="opacity: 0.7">{{ user.email }}</p>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="createdDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Created ON</th>
+      <td mat-cell *matCellDef="let date">
+        <div class="person-data-menu">
+          <h3>{{ date.createdDate }}</h3>
+          <p style="opacity: 0.7">{{ date.createdTime }}</p>
+        </div>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="ticketCategory">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Topic</th>
+      <td mat-cell *matCellDef="let topic">
+        <div class="person-data-menu">
+          <h3>{{ topic.ticketTopic }}</h3>
+          <p
+            style="opacity: 0.7"
+            style="display: flex; align-items: center"
+            *ngIf="topic.ticketCategory == TicketCategory.Servicerequest"
+          >
+            <img src="assets/4.png" style="padding-right: 0.25rem" />Service
+            request
+          </p>
+          <p
+            style="opacity: 0.7"
+            style="display: flex; align-items: center"
+            *ngIf="topic.ticketCategory == TicketCategory.Problem"
+          >
+            <img src="assets/6.png" style="padding-right: 0.25rem" />Problem
+          </p>
+          <p
+            style="opacity: 0.7"
+            style="display: flex; align-items: center"
+            *ngIf="topic.ticketCategory == TicketCategory.Change"
+          >
+            <img src="assets/7.png" style="padding-right: 0.25rem" />Change
+          </p>
+          <p
+            style="opacity: 0.7"
+            style="display: flex; align-items: center"
+            *ngIf="topic.ticketCategory == TicketCategory.Incident"
+          >
+            <img src="assets/5.png" style="padding-right: 0.25rem" />Incident
+          </p>
+        </div>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Sevirity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>SEVERITY</th>
+      <td mat-cell *matCellDef="let topic">
+        <div class="person-data-menu">
+          <h3 *ngIf="topic.Sevirity == sevirity.Low" class="Low">Low</h3>
+          <h3 *ngIf="topic.Sevirity == sevirity.Medium" class="Medium">
+            Medium
+          </h3>
+          <h3 *ngIf="topic.Sevirity == sevirity.High" class="High">High</h3>
+        </div>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let topic">
+        <div class="menu">
+          <mat-icon (click)="cancelTicket()"> cancel_presentation</mat-icon>
+          <mat-icon (click)="assignTicket()">group_add</mat-icon>
+
+          <img
+            (click)="openTicket()"
+            src="assets/Open.svg"
+            style="margin-right: 0.1rem"
+          />
+          <img src="assets/More.svg" />
+        </div>
+      </td>
+    </ng-container>
+  </table>
+
+  <mat-paginator
+    #paginator
+    [pageSize]="pageSize"
+    [length]="pageLength"
+    (page)="pageEvents($event)"
+    [pageSizeOptions]="[5, 10, 20, 100]"
+    showFirstLastButtons
+  ></mat-paginator>
+</div>
