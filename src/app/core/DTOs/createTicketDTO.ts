@@ -10,7 +10,6 @@ export class createTicketDTO {
   ticketStatus: number;
   description: string;
   submitDate: Date;
-  type: string;
   productCategoryName1: string;
   productCategoryName2: string;
   attachement: string;
