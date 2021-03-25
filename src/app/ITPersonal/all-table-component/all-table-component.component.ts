@@ -258,8 +258,13 @@ export class AllTableComponentComponent implements OnInit {
     }
   }
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    console.log('wreeny', event);
+    if (event['key'] === 'Enter') {
+      const filterValue = (event.target as HTMLInputElement).value;
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+    } else {
+      return null;
+    }
   }
 
   isAllSelected() {
