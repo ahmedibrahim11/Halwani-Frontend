@@ -37,8 +37,19 @@ createTicketDTOFormGroup: FormGroup;
      
       reportTo:['',[Validators.required]]
     });
-       this.reporterDatasource=[{label:"Shehab Mohamed",value:"xxx,shehabharhash@gmail.com,shehab",initials:this.initials("Shehab Mohamed"),label1:"shehabharhash@gmail.com"},
-    {label:"Mostafa AbdelAziz",value:"xx,MostafaAbdelAziz96@gmail.com,zozzz",initials:this.initials("Mostafa AbdelAziz"),label1:"MostafaAbdelAziz96@gmail.com"}]
+     this.miainHttp.GET('User/getUser').subscribe((data) => {
+      this.reporterDatasource=data.map(el=>{
+        return{
+        label:el.text,
+        value:`${el.team},${el.email},${el.userName}`,
+        initials:this.initials(el.text),
+        label1:el.email
+        }
+      })
+      
+    });
+   
+    
   }
 
  public files: NgxFileDropEntry[] = [];
@@ -101,7 +112,7 @@ submiCreate(){
        this.createTicketDTO.submitterName=submitterArray[2];
        this.createTicketDTO.summary=this.createTicketDTOFormGroup.value.summary;
        this.createTicketDTO.submitDate=new Date();
-       this.createTicketDTO.ServiceName=this.type.team;
+       this.createTicketDTO.serviceName=this.type.team;
        this.createTicketDTO.requestTypeId=this.createTicketDTOFormGroup.value.ticketType;
        console.log("CreateTicket Dto",this.createTicketDTO);
        this.miainHttp.POST("Ticket/Create",this.createTicketDTO).subscribe((data)=>{

@@ -30,7 +30,7 @@ ticketID:string;
 this.http.POST(`Ticket/getTicket`,{id:this.ticketID}).subscribe(data=>{
   const creationDate=new Date(data.submitDate);
   const resolvedDate=new Date( data.resolvedDate);
- 
+
 this.userMessage={
   ticketNo: data.ticketNo,
   ticketName: data.ticketName,

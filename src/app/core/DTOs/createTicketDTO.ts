@@ -15,5 +15,5 @@ export class createTicketDTO {
   attachement: string;
   priority: number;
   source: number;
-  ServiceName: string;
+  serviceName: string;
 }

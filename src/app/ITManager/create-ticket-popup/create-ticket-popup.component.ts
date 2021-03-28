@@ -67,24 +67,24 @@ export class CreateTicketPopupComponent implements OnInit {
       debugger;
       this.ticketTypeDatasource = data;
     });
-    this.reporterDatasource = [
-      {
-        label: 'Shehab Mohamed',
-        value: 'xxx,shehabharhash@gmail.com,shehab',
-        initials: this.initials('Shehab Mohamed'),
-        label1: 'shehabharhash@gmail.com',
-      },
-      {
-        label: 'Mostafa AbdelAziz',
-        value: 'xx,MostafaAbdelAziz96@gmail.com,zozzz',
-        initials: this.initials('Mostafa AbdelAziz'),
-        label1: 'MostafaAbdelAziz96@gmail.com',
-      },
-    ];
-    (this.teamSoruce = [
-      { label: 'Team1', value: 'Team1' },
-      { label: 'Team2', value: 'Team2' },
-    ]),
+    this.http.GET('User/getUser').subscribe((data) => {
+      this.reporterDatasource=data.map(el=>{
+        return{
+        label:el.text,
+        value:`${el.team},${el.email},${el.userName}`,
+        initials:this.initials(el.text),
+        label1:el.email
+        }
+      })
+      
+    });
+    
+    ( this.http.GET('Team/get').subscribe((data) => {
+        this.teamSoruce  = data.map((el) => {
+          return { label: el.text, value: el.text };
+        });
+      })
+     ),
       this.http.GET('Category/getCategory').subscribe((data) => {
         this.productCategoryName1 = data.map((el) => {
           return { label: el.text, value: el.id };
@@ -125,6 +125,7 @@ export class CreateTicketPopupComponent implements OnInit {
     //will be from aad
     this.createTicketDTO.reportedSource = 'admin';
     this.createTicketDTO.team = this.createTicketDTOFormGroup.value.team;
+    this.createTicketDTO.serviceName = this.createTicketDTOFormGroup.value.team;
     this.createTicketDTO.priority = this.createTicketDTOFormGroup.value.priority;
     this.createTicketDTO.source = this.createTicketDTOFormGroup.value.source;
     console.log('createDto', this.createTicketDTO);

@@ -21,9 +21,9 @@ export class MainCardBodyComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-   this.http.GET('Ticket/getCount').subscribe(res=>{
+   this.http.POST('Ticket/List',{pageSize:10}).subscribe(res=>{
     console.log(res)
-    res===0?this.empty=true:this.empty=false;
+    res.totalCount===0?this.empty=true:this.empty=false;
     })
 
   }

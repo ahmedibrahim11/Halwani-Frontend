@@ -66,8 +66,8 @@ export class AllTableComponentComponent implements OnInit {
               email: el['rasiedBy']['email'],
               createdDate: cerationDate.toDateString(),
               createdTime: cerationDate.toLocaleTimeString(),
-              ticketTopic: el['ticketTopic'],
-              ticketCategory: el['ticketType'],
+              tticketTopic: el['requestType']['name'],
+              ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
           });
@@ -97,8 +97,8 @@ export class AllTableComponentComponent implements OnInit {
               email: el['rasiedBy']['email'],
               createdDate: cerationDate.toDateString(),
               createdTime: cerationDate.toLocaleTimeString(),
-              ticketTopic: el['ticketTopic'],
-              ticketCategory: el['ticketType'],
+              ticketTopic: el['requestType']['name'],
+              ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
           });
@@ -127,8 +127,8 @@ export class AllTableComponentComponent implements OnInit {
               email: el['rasiedBy']['email'],
               createdDate: cerationDate.toDateString(),
               createdTime: cerationDate.toLocaleTimeString(),
-              ticketTopic: el['ticketTopic'],
-              ticketCategory: el['ticketType'],
+         ticketTopic: el['requestType']['name'],
+              ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
           });
@@ -204,8 +204,8 @@ export class AllTableComponentComponent implements OnInit {
             email: el['rasiedBy']['email'],
             createdDate: cerationDate.toDateString(),
             createdTime: cerationDate.toLocaleTimeString(),
-            ticketTopic: el['ticketTopic'],
-            ticketCategory: el['ticketType'],
+           ticketTopic: el['requestType']['name'],
+              ticketCategory: el['requestType']['ticketType'],
             Sevirity: el['severity'],
           };
         });
@@ -313,8 +313,8 @@ export class AllTableComponentComponent implements OnInit {
               email: el['rasiedBy']['email'],
               createdDate: cerationDate.toDateString(),
               createdTime: cerationDate.toLocaleTimeString(),
-              ticketTopic: el['ticketTopic'],
-              ticketCategory: el['ticketType'],
+              ticketTopic: el['requestType']['name'],
+              ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
           });
