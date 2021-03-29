@@ -11,6 +11,8 @@ export class getTicketDTO{
   priority: Number;
   source: Number;
   ticketType: Number;
+  ticketTypeName: String;
+  ticketTypeIcon: String;
   ticketSeverity: Number;
   ticketStatus:Number;
   description: String;
