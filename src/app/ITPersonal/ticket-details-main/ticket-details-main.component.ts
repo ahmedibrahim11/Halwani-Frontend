@@ -14,7 +14,7 @@ export class TicketDetailsMainComponent implements OnInit,OnDestroy  {
   @Output() userMessage:getTicketDTO;
 
   messageList:{message:any,sender:any}[]=[]
-
+  currentUser;
 
   creatorInitials:string; 
   reporterInitials:string; 
@@ -26,11 +26,16 @@ ticketID:string;
     private actRoute:ActivatedRoute,private http:HTTPMainServiceService) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem("userData")!==null)
+    {
+ this.currentUser=JSON.parse(localStorage.getItem("userData")).userProfile.userName
+    }
+   
     this.ticketID=this.actRoute.snapshot.paramMap.get("id")
 this.http.POST(`Ticket/getTicket`,{id:this.ticketID}).subscribe(data=>{
   const creationDate=new Date(data.submitDate);
   const resolvedDate=new Date( data.resolvedDate);
-
+console.log(data)
 this.userMessage={
   ticketNo: data.ticketNo,
   ticketName: data.ticketName,
@@ -41,7 +46,9 @@ this.userMessage={
   reportedSource: data.reportedSource,
   priority: data.priority,
   source: data.source,
-  ticketType: data.requestTypeId,
+  ticketType: data.requestType.id,
+  ticketTypeName: data.requestType.name,
+  ticketTypeIcon: data.requestType.icon,
   ticketSeverity: data.ticketSeverity,
   ticketStatus:data.ticketStatus,
   description: data.description,
@@ -54,7 +61,7 @@ this.userMessage={
   productCategoryName1:data.productCategoryName1,
   productCategoryName2:data.productCategoryName2,
   lastModifiedDate:data.lastModifiedDate,
-  submitterInitials:this.initials(data.submitterName).toString(),
+  submitterInitials:this.initials(this.currentUser).toString(),
   ReporterInitials:this.initials(data.reportedSource).toString(),
 }
 
@@ -70,7 +77,7 @@ this.userMessage={
     this.editor = new Editor();
     this.newMessag= this.formBuilder.group({
         message:['',[Validators.required]],
-        submitter:['shehab',[Validators.required]]
+        submitter:[this.currentUser,[Validators.required]]
     });
   }
    ngOnDestroy(): void {
@@ -95,7 +102,7 @@ submit(){
 }).subscribe(data=>{
    this.messageList.push({message:this.newMessag.value.message,
     sender:this.newMessag.value.submitter})
-    this.newMessag.setValue({message:"",submitter:"shehab"})
+    this.newMessag.setValue({message:"",submitter:this.currentUser})
   })
 }
 }

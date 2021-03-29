@@ -71,7 +71,7 @@
         Ticket type
     </div>
     <div class="ticketdev">
-        <label class="SR-103" *ngIf="userMessage.ticketType===0">Service Request</label><label class="SR-103" *ngIf="userMessage.ticketType===1">Incident</label>
+  <span> <img src="userMessage.ticketTypeIcon" style="margin-right:0.25rem;" />   <label class="SR-103" >{{userMessage.ticketTypeName}}</label></span>
     </div>
     <div class="Ticket-ID">
         Severity
