@@ -1,7 +1,7 @@
 <div class="assign-modal-container">
   <div class="assign-title-container">
     <h1 class="assign-title">Assign Ticket</h1>
-    <mat-icon mat-dialog-close>close</mat-icon>
+    <mat-icon class="icon" mat-dialog-close>close</mat-icon>
   </div>
 
   <div class="assign-text-container">
@@ -27,7 +27,9 @@
     </mat-select>
   </mat-form-field>
   <div class="assign-btns">
-    <button class="open-ticket-btn">GO BACK</button>
-    <button class="assign-ticket-btn">ASSIGN TICKET</button>
+    <button class="open-ticket-btn icon" (click)="backBtn()">GO BACK</button>
+    <button class="assign-ticket-btn icon" (click)="assignHandler()">
+      ASSIGN TICKET
+    </button>
   </div>
 </div>

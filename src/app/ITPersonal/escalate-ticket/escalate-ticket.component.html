@@ -1,7 +1,7 @@
 <div class="escalate-modal-container">
   <div class="escalate-title-container">
     <h1 class="escalate-title">Escalate Ticket</h1>
-    <mat-icon mat-dialog-close>close</mat-icon>
+    <mat-icon mat-dialog-close class="icon">close</mat-icon>
   </div>
 
   <div class="escalate-text-container">
@@ -27,7 +27,7 @@
     </mat-select>
   </mat-form-field>
   <div class="escalate-btns">
-    <button class="open-ticket-btn">GO BACK</button>
-    <button class="escalate-ticket-btn">ESCALATE TICKET</button>
+    <button class="open-ticket-btn icon" (click)="closeModal()">GO BACK</button>
+    <button class="escalate-ticket-btn icon">ESCALATE TICKET</button>
   </div>
 </div>

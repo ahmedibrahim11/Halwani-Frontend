@@ -16,6 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FiltermodalComponent } from '../filtermodal/filtermodal.component';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { TicketCreationService } from 'src/app/core/services/ticket-creation.service';
+import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { CancelTicketComponent } from '../cancel-ticket/cancel-ticket.component';
 import { AssignTicketComponent } from '../assign-ticket/assign-ticket.component';
 
@@ -32,7 +33,8 @@ export class AllTableComponentComponent implements OnInit {
   constructor(
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
-    private service: TicketCreationService
+    private service: TicketCreationService,
+    private share: SharingdataService
   ) {}
 
   pageLength: any = 10;
@@ -127,7 +129,7 @@ export class AllTableComponentComponent implements OnInit {
               email: el['rasiedBy']['email'],
               createdDate: cerationDate.toDateString(),
               createdTime: cerationDate.toLocaleTimeString(),
-         ticketTopic: el['requestType']['name'],
+              ticketTopic: el['requestType']['name'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
@@ -204,8 +206,8 @@ export class AllTableComponentComponent implements OnInit {
             email: el['rasiedBy']['email'],
             createdDate: cerationDate.toDateString(),
             createdTime: cerationDate.toLocaleTimeString(),
-           ticketTopic: el['requestType']['name'],
-              ticketCategory: el['requestType']['ticketType'],
+            ticketTopic: el['requestType']['name'],
+            ticketCategory: el['requestType']['ticketType'],
             Sevirity: el['severity'],
           };
         });
@@ -349,19 +351,22 @@ export class AllTableComponentComponent implements OnInit {
     });
   }
 
-  cancelTicket() {
+  cancelTicket(id: any) {
     const dialogRef = this.dialog.open(CancelTicketComponent, {
       position: { top: '15%', left: '22%' },
     });
+    this.share.setData(id);
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
   }
-  assignTicket() {
+  globalAssignTicket() {}
+  assignTicket(id: any) {
     const dialogRef = this.dialog.open(AssignTicketComponent, {
       position: { top: '15%', left: '22%' },
     });
+    this.share.setData(id);
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);

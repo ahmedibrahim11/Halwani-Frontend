@@ -152,3 +152,6 @@
   width: 100%;
   margin: auto;
 }
+.icon:hover{
+  cursor: pointer;
+}
