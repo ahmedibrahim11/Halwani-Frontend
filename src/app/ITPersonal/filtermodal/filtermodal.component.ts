@@ -26,14 +26,27 @@ export class FiltermodalComponent implements OnInit {
   priorities = new FormControl();
   priorityList: any = [];
 
-  locationChange(e) {}
-  sourceChange(e) {}
-  stateChange(e) {}
+  locationChange(e) {
+    this.updateTableByFilters('location', e.value);
+  }
+  sourceChange(e) {
+    this.updateTableByFilters('source', e.value);
+  }
+  stateChange(e) {
+    this.updateTableByFilters('state', e.value);
+  }
+  dateChange(e) {
+    console.log(e.value);
+    this.updateTableByFilters('date', e.value);
+  }
   severityChange(e) {
     console.log('ssss', e.value);
+    this.updateTableByFilters('severity', e.value);
     //this.dialog.closeAll();
   }
-  priorityChange(e) {}
+  priorityChange(e) {
+    this.updateTableByFilters('priority', e.value);
+  }
 
   clearFilters() {
     this.locationList = [];
@@ -43,6 +56,40 @@ export class FiltermodalComponent implements OnInit {
     this.priorityList = [];
   }
 
+  updateTableByFilters(key: any, value: any) {
+    this.http.GET('ticket/getCount').subscribe((res) => {
+      this.pageLength = res;
+      this.http
+        .POST('ticket/list', {
+          searchText: '',
+          pageSize: this.pageLength,
+          pageNumber: this.pageIndex,
+          isPrint: false,
+          filter: { filterType: key, filterValue: value },
+          sortValue: 0,
+        })
+        .subscribe((res) => {
+          console.log('resulttttt', res.pageData);
+          let usersData = res.pageData;
+          this.UserViewInfoObject = usersData.map((el) => {
+            const cerationDate = new Date(el['creationDate']);
+            this.pageLength = res.pageData.length;
+            return {
+              id: el['id'],
+              initials: this.initials(el['rasiedBy']['name']),
+              name: el['rasiedBy']['name'],
+              email: el['rasiedBy']['email'],
+              createdDate: cerationDate.toDateString(),
+              createdTime: cerationDate.toLocaleTimeString(),
+              ticketTopic: el['requestType']['name'],
+              ticketCategory: el['requestType']['ticketType'],
+              Sevirity: el['severity'],
+            };
+          });
+          this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+        });
+    });
+  }
   constructor(private http: HTTPMainServiceService, public dialog: MatDialog) {}
   pageLength: any = 10;
   pageSize: any = 5;
