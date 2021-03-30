@@ -28,7 +28,7 @@ const routes: Routes = [
     path: 'itmanager',
     component: ManagerhomeComponent,
     children: [
-      { path: 'details/:id', component: TicketDetailsManagerComponent },
+      { path: 'details/:id', component: TicketDetailsMainComponent },
       { path: '', component: MainCardBodyManagerComponent },
     ],
   },
