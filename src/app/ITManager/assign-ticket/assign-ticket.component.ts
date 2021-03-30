@@ -25,7 +25,7 @@ export class AssignTicketComponent implements OnInit {
       this.reporterDatasource = data.map((el) => {
         return {
           label: el.text,
-          value: `${el.team},${el.email},${el.userName}`,
+          value: el.userName,
           initials: this.initials(el.text),
           label1: el.email,
         };
