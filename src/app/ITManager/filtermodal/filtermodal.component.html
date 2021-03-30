@@ -1,47 +1,55 @@
 <div class="filter-modal-container">
   <div class="filter-title-container">
     <h4 class="filter-title">FILTER BY:</h4>
-    <p class="clear">CLEAR FILTER</p>
+    <p class="clear" (click)="clearFilters()">CLEAR FILTER</p>
   </div>
   <div class="filter-row">
     <div class="filter-controller">
       <p>LOCATION</p>
       <mat-form-field appearance="fill">
-        <mat-label>Toppings</mat-label>
-        <mat-select [formControl]="toppings" multiple>
+        <mat-label>Locations</mat-label>
+        <mat-select
+          [formControl]="locations"
+          (selectionChange)="locationChange($event)"
+        >
           <mat-select-trigger>
-            {{ toppings.value ? toppings.value[0] : "" }}
+            {{ locations.value ? locations.value[0] : "" }}
             <span
-              *ngIf="toppings.value?.length > 1"
+              *ngIf="locations.value?.length > 1"
               class="example-additional-selection"
             >
-              (+{{ toppings.value.length - 1 }}
-              {{ toppings.value?.length === 2 ? "other" : "others" }})
+              (+{{ locations.value.length - 1 }}
+              {{ locations.value?.length === 2 ? "other" : "others" }})
             </span>
           </mat-select-trigger>
-          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
-            topping
-          }}</mat-option>
+          <mat-option
+            *ngFor="let location of locationList"
+            [value]="location"
+            >{{ location }}</mat-option
+          >
         </mat-select>
       </mat-form-field>
     </div>
     <div class="filter-controller">
       <p>SOURCE</p>
       <mat-form-field appearance="fill">
-        <mat-label>Toppings</mat-label>
-        <mat-select [formControl]="toppings" multiple>
+        <mat-label>Sources</mat-label>
+        <mat-select
+          [formControl]="sources"
+          (selectionChange)="sourceChange($event)"
+        >
           <mat-select-trigger>
-            {{ toppings.value ? toppings.value[0] : "" }}
+            {{ sources.value ? sources.value[0] : "" }}
             <span
-              *ngIf="toppings.value?.length > 1"
+              *ngIf="sources.value?.length > 1"
               class="example-additional-selection"
             >
-              (+{{ toppings.value.length - 1 }}
-              {{ toppings.value?.length === 2 ? "other" : "others" }})
+              (+{{ sources.value.length - 1 }}
+              {{ sources.value?.length === 2 ? "other" : "others" }})
             </span>
           </mat-select-trigger>
-          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
-            topping
+          <mat-option *ngFor="let source of sourceList" [value]="source">{{
+            source
           }}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -49,20 +57,23 @@
     <div class="filter-controller">
       <p>STATE</p>
       <mat-form-field appearance="fill">
-        <mat-label>Toppings</mat-label>
-        <mat-select [formControl]="toppings" multiple>
+        <mat-label>States</mat-label>
+        <mat-select
+          [formControl]="states"
+          (selectionChange)="stateChange($event)"
+        >
           <mat-select-trigger>
-            {{ toppings.value ? toppings.value[0] : "" }}
+            {{ states.value ? states.value[0] : "" }}
             <span
-              *ngIf="toppings.value?.length > 1"
+              *ngIf="states.value?.length > 1"
               class="example-additional-selection"
             >
-              (+{{ toppings.value.length - 1 }}
-              {{ toppings.value?.length === 2 ? "other" : "others" }})
+              (+{{ states.value.length - 1 }}
+              {{ states.value?.length === 2 ? "other" : "others" }})
             </span>
           </mat-select-trigger>
-          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
-            topping
+          <mat-option *ngFor="let state of stateList" [value]="state">{{
+            state
           }}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -80,42 +91,52 @@
     <div class="filter-controller">
       <p>SEVERITY</p>
       <mat-form-field appearance="fill">
-        <mat-label>Toppings</mat-label>
-        <mat-select [formControl]="toppings" multiple>
+        <mat-label>Severity</mat-label>
+        <mat-select
+          (selectionChange)="severityChange($event)"
+          [formControl]="severities"
+        >
           <mat-select-trigger>
-            {{ toppings.value ? toppings.value[0] : "" }}
+            {{ severities.value ? severities.value[0] : "" }}
             <span
-              *ngIf="toppings.value?.length > 1"
+              *ngIf="severities.value?.length > 1"
               class="example-additional-selection"
             >
-              (+{{ toppings.value.length - 1 }}
-              {{ toppings.value?.length === 2 ? "other" : "others" }})
+              (+{{ severities.value.length - 1 }}
+              {{ severities.value?.length === 2 ? "other" : "others" }})
             </span>
           </mat-select-trigger>
-          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
-            topping
-          }}</mat-option>
+          <mat-option
+            *ngFor="let severity of severityList"
+            [value]="severity"
+            >{{ severity }}</mat-option
+          >
         </mat-select>
       </mat-form-field>
     </div>
     <div class="filter-controller">
       <p>PRIORITY</p>
       <mat-form-field appearance="fill">
-        <mat-label>Toppings</mat-label>
-        <mat-select [formControl]="toppings" multiple>
+        <mat-label>Priorities</mat-label>
+        <mat-select
+          [formControl]="priorities"
+          (selectionChange)="priorityChange($event)"
+        >
           <mat-select-trigger>
-            {{ toppings.value ? toppings.value[0] : "" }}
+            {{ priorities.value ? priorities.value[0] : "" }}
             <span
-              *ngIf="toppings.value?.length > 1"
+              *ngIf="priorities.value?.length > 1"
               class="example-additional-selection"
             >
-              (+{{ toppings.value.length - 1 }}
-              {{ toppings.value?.length === 2 ? "other" : "others" }})
+              (+{{ priorities.value.length - 1 }}
+              {{ priorities.value?.length === 2 ? "other" : "others" }})
             </span>
           </mat-select-trigger>
-          <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
-            topping
-          }}</mat-option>
+          <mat-option
+            *ngFor="let priority of priorityList"
+            [value]="priority"
+            >{{ priority }}</mat-option
+          >
         </mat-select>
       </mat-form-field>
     </div>
