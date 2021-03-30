@@ -24,5 +24,6 @@ export class getTicketDTO{
   id: Number;
   submitterInitials:string;
   ReporterInitials:string;
-
+ currentUserInitials:string;
+  assignedTo:string
 }

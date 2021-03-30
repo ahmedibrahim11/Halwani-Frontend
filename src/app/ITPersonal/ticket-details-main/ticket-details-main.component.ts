@@ -61,8 +61,10 @@ this.userMessage={
   productCategoryName1:data.productCategoryName1,
   productCategoryName2:data.productCategoryName2,
   lastModifiedDate:data.lastModifiedDate,
-  submitterInitials:this.initials(this.currentUser).toString(),
-  ReporterInitials:this.initials(data.reportedSource).toString(),
+  submitterInitials:this.initials(data.submitterName).toString(),
+  ReporterInitials:this.initials(data.submitterName).toString(),
+  currentUserInitials:this.initials(this.currentUser).toString(),
+  assignedTo:this.initials(data.assignedUser).toString()
 }
 
 })
@@ -104,5 +106,16 @@ submit(){
     sender:this.newMessag.value.submitter})
     this.newMessag.setValue({message:"",submitter:this.currentUser})
   })
+}
+changeStatus(status){
+  console.log(status)
+  this.http.POST(`Ticket/UpdateStatus`,{
+    ticketId:parseInt( this.ticketID),
+    status:status,
+    resolveText:""
+  }).subscribe(data=>{
+    this.userMessage.ticketStatus=status;
+  })
+
 }
 }
