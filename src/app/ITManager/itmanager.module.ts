@@ -18,6 +18,8 @@ import { AssignTicketComponent } from './assign-ticket/assign-ticket.component';
 import { TicketDetailsManagerComponent } from './ticket-details-manager/ticket-details-manager.component';
 import { MainCardBodyManagerComponent } from './main-card-body-manager/main-card-body-manager.component';
 import { FormatMessageComponent } from './ticket-details-manager/format-message/format-message.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,9 @@ import { FormatMessageComponent } from './ticket-details-manager/format-message/
     NgxEditorModule,
     SharedModule,
     RouterModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+
     // AngalurMaterialModule
   ],
   exports: [SharedModule],
