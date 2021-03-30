@@ -18,7 +18,8 @@ import { AddedMessageComponent } from './ticket-details-main/added-message/added
 import { MessageFormatComponent } from './ticket-details-main/message-format/message-format.component';
 import { ResolveTicketComponent } from './resolve-ticket/resolve-ticket.component';
 import { EscalateTicketComponent } from './escalate-ticket/escalate-ticket.component';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -40,6 +41,8 @@ import { EscalateTicketComponent } from './escalate-ticket/escalate-ticket.compo
     NgxEditorModule,
     SharedModule,
     RouterModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     // AngalurMaterialModule
   ],
   exports: [SharedModule],
