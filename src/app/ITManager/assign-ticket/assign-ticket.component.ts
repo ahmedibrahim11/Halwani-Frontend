@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
@@ -11,30 +11,38 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class AssignTicketComponent implements OnInit {
   toppings = new FormControl();
+  @Input() reporterDatasource;
+  selectedUser: any;
 
-  toppingList: string[] = [
-    'Extra cheese',
-    'Mushroom',
-    'Onion',
-    'Pepperoni',
-    'Sausage',
-    'Tomato',
-  ];
   constructor(
     private http: HTTPMainServiceService,
     private share: SharingdataService,
     public dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.http.GET('User/getUser').subscribe((data) => {
+      this.reporterDatasource = data.map((el) => {
+        return {
+          label: el.text,
+          value: `${el.team},${el.email},${el.userName}`,
+          initials: this.initials(el.text),
+          label1: el.email,
+        };
+      });
+    });
+  }
 
+  usersHandler(e) {
+    this.selectedUser = e.value;
+  }
   ticketID: any;
   assignHandler() {
     this.ticketID = this.share.getData();
     this.http
       .POST('ticket/AssignTicket', {
         ticketId: this.ticketID,
-        UserName: 'zooooz',
+        UserName: this.selectedUser,
       })
       .subscribe((res) => {
         console.log(res);
@@ -44,5 +52,16 @@ export class AssignTicketComponent implements OnInit {
 
   backBtn() {
     this.dialog.closeAll();
+  }
+
+  initials(name) {
+    let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
+
+    let initials = [...name.matchAll(rgx)] || [];
+
+    initials = (
+      (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
+    ).toUpperCase();
+    return initials;
   }
 }

@@ -8,24 +8,26 @@
     <p class="assign-text">Assigne to</p>
     <span style="color: #ed1c24">*</span>
   </div>
-  <mat-form-field appearance="fill" class="assign-ddl">
-    <mat-label>Toppings</mat-label>
-    <mat-select [formControl]="toppings" multiple>
-      <mat-select-trigger>
-        {{ toppings.value ? toppings.value[0] : "" }}
-        <span
-          *ngIf="toppings.value?.length > 1"
-          class="example-additional-selection"
-        >
-          (+{{ toppings.value.length - 1 }}
-          {{ toppings.value?.length === 2 ? "other" : "others" }})
-        </span>
-      </mat-select-trigger>
-      <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
-        topping
-      }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <mat-select
+    (selectionChange)="usersHandler($event)"
+    name="option"
+    formControlName="reporter"
+    class="users-DDL"
+  >
+    <mat-option
+      *ngFor="let option of reporterDatasource"
+      [value]="option['value']"
+      class="optionHeight"
+    >
+      <div class="menu">
+        <div class="red-menu">{{ option.initials }}</div>
+        <div class="person-data-menu">
+          <h3>{{ option["label"] }}</h3>
+          <p style="opacity: 0.7">{{ option["label1"] }}</p>
+        </div>
+      </div>
+    </mat-option>
+  </mat-select>
   <div class="assign-btns">
     <button class="open-ticket-btn icon" (click)="backBtn()">GO BACK</button>
     <button class="assign-ticket-btn icon" (click)="assignHandler()">
