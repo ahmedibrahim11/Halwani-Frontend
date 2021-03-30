@@ -18,6 +18,7 @@ import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.s
 import { TicketCreationService } from 'src/app/core/services/ticket-creation.service';
 import { ResolveTicketComponent } from '../resolve-ticket/resolve-ticket.component';
 import { EscalateTicketComponent } from '../escalate-ticket/escalate-ticket.component';
+import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 
 @Component({
   selector: 'app-all-table-component',
@@ -32,7 +33,8 @@ export class AllTableComponentComponent implements OnInit {
   constructor(
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
-    private service: TicketCreationService
+    private service: TicketCreationService,
+    private share: SharingdataService
   ) {}
 
   pageLength: any = 10;
@@ -204,8 +206,8 @@ export class AllTableComponentComponent implements OnInit {
             email: el['rasiedBy']['email'],
             createdDate: cerationDate.toDateString(),
             createdTime: cerationDate.toLocaleTimeString(),
-          ticketTopic: el['requestType']['name'],
-              ticketCategory: el['requestType']['ticketType'],
+            ticketTopic: el['requestType']['name'],
+            ticketCategory: el['requestType']['ticketType'],
             Sevirity: el['severity'],
           };
         });
@@ -313,7 +315,7 @@ export class AllTableComponentComponent implements OnInit {
               email: el['rasiedBy']['email'],
               createdDate: cerationDate.toDateString(),
               createdTime: cerationDate.toLocaleTimeString(),
-           ticketTopic: el['requestType']['name'],
+              ticketTopic: el['requestType']['name'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
@@ -349,19 +351,21 @@ export class AllTableComponentComponent implements OnInit {
     });
   }
 
-  resolveTicket() {
+  resolveTicket(id: any) {
     const dialogRef = this.dialog.open(ResolveTicketComponent, {
       position: { top: '15%', left: '22%' },
     });
+    this.share.setData(id);
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
   }
-  escalateTicket() {
+  escalateTicket(id: any) {
     const dialogRef = this.dialog.open(EscalateTicketComponent, {
       position: { top: '15%', left: '22%' },
     });
+    this.share.setData(id);
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);

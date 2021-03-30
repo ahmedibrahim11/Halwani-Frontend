@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-escalate-ticket',
@@ -7,7 +8,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./escalate-ticket.component.css'],
 })
 export class EscalateTicketComponent implements OnInit {
-  constructor() {}
+  constructor(public dialog: MatDialog) {}
   toppings = new FormControl();
 
   toppingList: string[] = [
@@ -19,4 +20,7 @@ export class EscalateTicketComponent implements OnInit {
     'Tomato',
   ];
   ngOnInit(): void {}
+  closeModal() {
+    this.dialog.closeAll();
+  }
 }

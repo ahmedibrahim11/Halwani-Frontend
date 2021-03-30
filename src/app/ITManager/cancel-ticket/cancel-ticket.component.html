@@ -1,7 +1,7 @@
 <div class="cancel-modal-container">
   <div class="cancel-title-container">
     <h1 class="cancel-title">Cancel Ticket</h1>
-    <mat-icon mat-dialog-close>close</mat-icon>
+    <mat-icon mat-dialog-close class="icon">close</mat-icon>
   </div>
 
   <div class="cancel-text-container">
@@ -12,7 +12,11 @@
   </div>
 
   <div class="cancel-btns">
-    <button class="open-ticket-btn">NO KEEP IT</button>
-    <button class="cancel-ticket-btn">YES, PLEASE CANCEL TICKET</button>
+    <button class="open-ticket-btn icon" (click)="closeModal()">
+      NO KEEP IT
+    </button>
+    <button class="cancel-ticket-btn icon" (click)="cancelHandler()">
+      YES, PLEASE CANCEL TICKET
+    </button>
   </div>
 </div>

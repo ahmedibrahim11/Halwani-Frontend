@@ -70,3 +70,6 @@
   color: #ffffff;
   border: none;
 }
+.icon:hover {
+  cursor: pointer;
+}
