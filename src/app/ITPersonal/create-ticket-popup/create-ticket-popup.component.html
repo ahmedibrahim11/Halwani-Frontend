@@ -63,7 +63,15 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-
+            <div class="col-ddl">
+                <label class="Ticket-type">Location <span class="mandatory"> *</span></label>
+                <mat-form-field [style.width.%]="97" appearance="fill">
+                    <mat-select formControlName="location">
+                        <mat-option *ngFor="let option of locationDataSoruce" [value]="option['value']">
+                            {{option["label"]}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
         </div>
 
         <div class="row-ddl">

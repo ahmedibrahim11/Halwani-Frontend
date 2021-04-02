@@ -3,7 +3,8 @@ export class createTicketDTO {
   submitterTeam: string;
   submitterEmail: string;
   submitterName: string;
-  team: string;
+  teamName: string;
+  location:string;
   reportedSource: string;
   requestTypeId: number;
   ticketSeverity: number;

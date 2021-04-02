@@ -22,7 +22,7 @@ export class CreateTicketPopupComponent implements OnInit {
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
     public service: TicketCreationService
-  ) {}
+  ) { }
   private FileLinks;
 
   showSecondCategory: boolean = false;
@@ -32,6 +32,7 @@ export class CreateTicketPopupComponent implements OnInit {
   @Input() sourceDatasource;
   @Input() seviritysource;
   @Input() teamSoruce;
+  @Input() locationDataSoruce;
   @Input() productCategoryName1;
   @Input() productCategoryName2;
   ngOnInit(): void {
@@ -40,6 +41,7 @@ export class CreateTicketPopupComponent implements OnInit {
       summary: ['', [Validators.required]],
       description: [''],
       team: ['', [Validators.required]],
+      location: ['', [Validators.required]],
       reporter: [0, [Validators.required]],
       source: [0, [Validators.required]],
       sevirity: [0, [Validators.required]],
@@ -63,28 +65,37 @@ export class CreateTicketPopupComponent implements OnInit {
       { label: 'Incident', value: 1 },
     ];
 
+    this.locationDataSoruce = [
+      {
+        label: 'Cairo', value: 'Cairo'
+      },
+      {
+        label: 'Alex', value: 'Alex'
+      },
+    ]
+
     this.http.GET('RequestType/getRequestType').subscribe((data) => {
       debugger;
       this.ticketTypeDatasource = data;
     });
     this.http.GET('User/getUser').subscribe((data) => {
-      this.reporterDatasource=data.map(el=>{
-        return{
-        label:el.text,
-        value:`${el.team},${el.email},${el.userName}`,
-        initials:this.initials(el.text),
-        label1:el.email
+      this.reporterDatasource = data.map(el => {
+        return {
+          label: el.text,
+          value: `${el.team},${el.email},${el.userName}`,
+          initials: this.initials(el.text),
+          label1: el.email
         }
       })
-      
+
     });
-    
-    ( this.http.GET('Team/get').subscribe((data) => {
-        this.teamSoruce  = data.map((el) => {
-          return { label: el.text, value: el.text };
-        });
-      })
-     ),
+
+    (this.http.GET('Team/get').subscribe((data) => {
+      this.teamSoruce = data.map((el) => {
+        return { label: el.text, value: el.text };
+      });
+    })
+    ),
       this.http.GET('Category/getCategory').subscribe((data) => {
         this.productCategoryName1 = data.map((el) => {
           return { label: el.text, value: el.id };
@@ -124,8 +135,8 @@ export class CreateTicketPopupComponent implements OnInit {
     this.createTicketDTO.ticketStatus = 0;
     //will be from aad
     this.createTicketDTO.reportedSource = 'admin';
-    this.createTicketDTO.team = this.createTicketDTOFormGroup.value.team;
-    this.createTicketDTO.serviceName = this.createTicketDTOFormGroup.value.team;
+    this.createTicketDTO.teamName = this.createTicketDTOFormGroup.value.team;
+    this.createTicketDTO.location=this.createTicketDTOFormGroup.value.location;
     this.createTicketDTO.priority = this.createTicketDTOFormGroup.value.priority;
     this.createTicketDTO.source = this.createTicketDTOFormGroup.value.source;
     console.log('createDto', this.createTicketDTO);

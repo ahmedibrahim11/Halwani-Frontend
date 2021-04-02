@@ -291,43 +291,82 @@ export class AllTableComponentComponent implements OnInit {
     console.log('size', this.pageSize);
     console.log('len', this.pageLength);
     console.log('ind', this.pageIndex);
-    this.http.GET('ticket/getCount').subscribe((res) => {
-      this.pageLength = res;
-      this.http
-        .POST('ticket/list', {
-          searchText: '',
-          pageSize: this.pageLength,
-          pageNumber: this.pageIndex,
-          isPrint: false,
-          filter: {},
-          sortValue: 0,
-        })
-        .subscribe((res) => {
-          console.log('resulttttt', res.pageData);
-          let usersData = res.pageData;
-          this.UserViewInfoObject = usersData.map((el) => {
-            const cerationDate = new Date(el['creationDate']);
-            this.pageLength = res.pageData.length;
-            return {
-              id: el['id'],
-              initials: this.initials(el['rasiedBy']['name']),
-              name: el['rasiedBy']['name'],
-              email: el['rasiedBy']['email'],
-              createdDate: cerationDate.toDateString(),
-              createdTime: cerationDate.toLocaleTimeString(),
-              ticketTopic: el['requestType']['name'],
-              ticketCategory: el['requestType']['ticketType'],
-              Sevirity: el['severity'],
-            };
+
+    if(this.service){
+      this.http.GET('ticket/getCount').subscribe((res) => {
+        this.pageLength = res;
+        this.http
+          .POST('ticket/list', {
+            searchText: '',
+            pageSize: this.pageLength,
+            pageNumber: this.pageIndex,
+            isPrint: false,
+            filter: {},
+            sortValue: 0,
+          })
+          .subscribe((res) => {
+            console.log('resulttttt', res.pageData);
+            let usersData = res.pageData;
+            this.UserViewInfoObject = usersData.map((el) => {
+              const cerationDate = new Date(el['creationDate']);
+              this.pageLength = res.pageData.length;
+              return {
+                id: el['id'],
+                initials: this.initials(el['rasiedBy']['name']),
+                name: el['rasiedBy']['name'],
+                email: el['rasiedBy']['email'],
+                createdDate: cerationDate.toDateString(),
+                createdTime: cerationDate.toLocaleTimeString(),
+                ticketTopic: el['requestType']['name'],
+                ticketCategory: el['requestType']['ticketType'],
+                Sevirity: el['severity'],
+              };
+            });
+            this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+            this.setDataSourceAttributes();
           });
-          this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-          console.log('taaaa7t');
-          console.log('size', this.pageSize);
-          console.log('len', this.pageLength);
-          console.log('ind', this.pageIndex);
-          this.setDataSourceAttributes();
-        });
-    });
+      });
+    }
+    else{
+      this.http.GET('ticket/getCount').subscribe((res) => {
+        this.pageLength = res;
+        this.http
+          .POST('ticket/list', {
+            searchText: '',
+            pageSize: this.pageLength,
+            pageNumber: this.pageIndex,
+            isPrint: false,
+            filter: {},
+            sortValue: 0,
+          })
+          .subscribe((res) => {
+            console.log('resulttttt', res.pageData);
+            let usersData = res.pageData;
+            this.UserViewInfoObject = usersData.map((el) => {
+              const cerationDate = new Date(el['creationDate']);
+              this.pageLength = res.pageData.length;
+              return {
+                id: el['id'],
+                initials: this.initials(el['rasiedBy']['name']),
+                name: el['rasiedBy']['name'],
+                email: el['rasiedBy']['email'],
+                createdDate: cerationDate.toDateString(),
+                createdTime: cerationDate.toLocaleTimeString(),
+                ticketTopic: el['requestType']['name'],
+                ticketCategory: el['requestType']['ticketType'],
+                Sevirity: el['severity'],
+              };
+            });
+            this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+            console.log('taaaa7t');
+            console.log('size', this.pageSize);
+            console.log('len', this.pageLength);
+            console.log('ind', this.pageIndex);
+            this.setDataSourceAttributes();
+          });
+      });
+    }
+    
   }
 
   initials(name) {

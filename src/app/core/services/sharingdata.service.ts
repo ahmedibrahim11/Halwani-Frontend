@@ -15,4 +15,4 @@ export class SharingdataService {
   getData(): any {
     return this.data;
   }
-}
+ }
