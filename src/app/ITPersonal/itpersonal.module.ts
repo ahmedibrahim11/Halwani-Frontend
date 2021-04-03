@@ -20,6 +20,7 @@ import { ResolveTicketComponent } from './resolve-ticket/resolve-ticket.componen
 import { EscalateTicketComponent } from './escalate-ticket/escalate-ticket.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { TicketOptionsComponent } from './ticket-options/ticket-options.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -33,6 +34,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MessageFormatComponent,
     ResolveTicketComponent,
     EscalateTicketComponent,
+    TicketOptionsComponent,
   ],
   imports: [
     BrowserAnimationsModule,
