@@ -1,8 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { MatDialog } from '@angular/material/dialog';
+
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { P } from '@angular/cdk/keycodes';
+
 
 @Component({
   selector: 'app-assign-ticket',
@@ -10,17 +14,24 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./assign-ticket.component.css'],
 })
 export class AssignTicketComponent implements OnInit {
-  toppings = new FormControl();
   @Input() reporterDatasource;
   selectedUser: any;
 
+  ticketIds = [];
+
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+
     private http: HTTPMainServiceService,
     private share: SharingdataService,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.data.forEach(element => {
+      this.ticketIds.push(element['id'])
+    });
+    console.log("ticketIDs",this.ticketIds);
     this.http.GET('User/getUser').subscribe((data) => {
       this.reporterDatasource = data.map((el) => {
         return {
@@ -38,16 +49,30 @@ export class AssignTicketComponent implements OnInit {
   }
   ticketID: any;
   assignHandler() {
-    this.ticketID = this.share.getData();
-    this.http
-      .POST('ticket/AssignTicket', {
-        ticketId: this.ticketID,
-        UserName: this.selectedUser,
-      })
-      .subscribe((res) => {
-        console.log(res);
-        this.dialog.closeAll();
-      });
+    if (this.data != null) {
+      this.ticketID = this.share.getData();
+      this.http
+        .POST('ticket/AssignTicket', {
+          ticketId: this.ticketID,
+          UserName: this.selectedUser,
+        })
+        .subscribe((res) => {
+          console.log(res);
+          this.dialog.closeAll();
+        });
+    }
+    else {
+      this.http
+        .POST('ticket/AssignTicket', {
+          ticketIds: this.ticketIds,
+          UserName: this.selectedUser,
+        })
+        .subscribe((res) => {
+          console.log(res);
+          this.dialog.closeAll();
+        });
+    }
+
   }
 
   backBtn() {

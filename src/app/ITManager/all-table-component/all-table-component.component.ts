@@ -277,6 +277,7 @@ export class AllTableComponentComponent implements OnInit {
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
+    debugger;
     this.isAllSelected()
       ? this.selection.clear()
       : this.UserViewInfoObject.forEach((row) => this.selection.select(row));
@@ -396,7 +397,14 @@ export class AllTableComponentComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
-  globalAssignTicket() {}
+  globalAssignTicket() {
+    var allTickets=this.selection.selected;
+    console.log("all",this.selection.selected);
+    const dialogRef = this.dialog.open(AssignTicketComponent, {
+      position: { top: '15%', left: '22%' },
+      data:allTickets
+    });
+  }
   assignTicket(id: any) {
     const dialogRef = this.dialog.open(AssignTicketComponent, {
       position: { top: '15%', left: '22%' },
