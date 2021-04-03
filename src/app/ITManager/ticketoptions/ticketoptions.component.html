@@ -1,0 +1,16 @@
+<img
+  src="assets/More.svg"
+  class="icon"
+  [matMenuTriggerFor]="menu"
+  mat-icon-button
+/>
+<mat-menu class="options-modal-container" #menu="matMenu">
+  <div class="edit-container" (click)="editHandler()" mat-menu-item>
+    <mat-icon>edit</mat-icon>
+    <label class="icon"> Edit Ticket </label>
+  </div>
+  <div class="cancel-container" (click)="cancelHandler()" mat-menu-item>
+    <mat-icon>cancel</mat-icon>
+    <label class="icon"> Cancel Ticket </label>
+  </div>
+</mat-menu>

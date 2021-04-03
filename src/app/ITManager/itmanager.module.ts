@@ -20,6 +20,7 @@ import { MainCardBodyManagerComponent } from './main-card-body-manager/main-card
 import { FormatMessageComponent } from './ticket-details-manager/format-message/format-message.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { TicketoptionsComponent } from './ticketoptions/ticketoptions.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     TicketDetailsManagerComponent,
     MainCardBodyManagerComponent,
     FormatMessageComponent,
+    TicketoptionsComponent,
   ],
   imports: [
     BrowserAnimationsModule,

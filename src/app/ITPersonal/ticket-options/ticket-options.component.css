@@ -1,0 +1,31 @@
+/* .options-modal-container {
+  width: fit-content;
+  height: fit-content;
+}
+
+.options-title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.options-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #14142b;
+}
+
+.options-btns {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.edit-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+} */
+.icon:hover {
+  cursor: pointer;
+}

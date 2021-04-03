@@ -19,6 +19,8 @@ import { TicketCreationService } from 'src/app/core/services/ticket-creation.ser
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { CancelTicketComponent } from '../cancel-ticket/cancel-ticket.component';
 import { AssignTicketComponent } from '../assign-ticket/assign-ticket.component';
+import { TicketoptionsComponent } from '../ticketoptions/ticketoptions.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-table-component',
@@ -34,7 +36,8 @@ export class AllTableComponentComponent implements OnInit {
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
     private service: TicketCreationService,
-    private share: SharingdataService
+    private share: SharingdataService,
+    private router: Router
   ) {}
 
   pageLength: any = 10;
@@ -415,5 +418,17 @@ export class AllTableComponentComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
-  openTicket() {}
+  openTicket(ticketID: any) {
+    this.router.navigate(['/itmanager/details/' + ticketID]);
+  }
+  openOptions(id: any) {
+    const dialogRef = this.dialog.open(TicketoptionsComponent, {
+      position: { top: '25%', right: '15%' },
+    });
+    this.share.setData(id);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 }

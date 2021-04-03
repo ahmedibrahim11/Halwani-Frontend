@@ -145,12 +145,13 @@
             class="icon"
           />
           <img
-            (click)="openTicket()"
+            (click)="openTicket(topic.id)"
             src="assets/Open.svg"
             style="margin-right: 0.1rem"
             class="icon"
           />
-          <img src="assets/More.svg" class="icon" />
+
+          <app-ticket-options [ticketID]="topic.id"></app-ticket-options>
         </div>
       </td>
     </ng-container>

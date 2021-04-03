@@ -19,6 +19,8 @@ import { TicketCreationService } from 'src/app/core/services/ticket-creation.ser
 import { ResolveTicketComponent } from '../resolve-ticket/resolve-ticket.component';
 import { EscalateTicketComponent } from '../escalate-ticket/escalate-ticket.component';
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
+import { TicketOptionsComponent } from 'src/app/ITPersonal/ticket-options/ticket-options.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-table-component',
@@ -34,8 +36,9 @@ export class AllTableComponentComponent implements OnInit {
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
     private service: TicketCreationService,
-    private share: SharingdataService
-  ) { }
+    private share: SharingdataService,
+    private router: Router
+  ) {}
 
   pageLength: any = 10;
   pageSize: any = 5;
@@ -324,7 +327,6 @@ export class AllTableComponentComponent implements OnInit {
               this.setDataSourceAttributes();
             });
         });
-
       } else {
         this.http.GET('ticket/getCount').subscribe((res) => {
           this.pageLength = res;
@@ -360,8 +362,7 @@ export class AllTableComponentComponent implements OnInit {
             });
         });
       }
-    })
-
+    });
   }
 
   initials(name) {
@@ -405,5 +406,17 @@ export class AllTableComponentComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
-  openTicket() { }
+  openTicket(ticketID: any) {
+    this.router.navigate(['/itpersonal/details/' + ticketID]);
+  }
+  openOptions(id: any) {
+    const dialogRef = this.dialog.open(TicketOptionsComponent, {
+      position: { top: '25%', right: '15%' },
+    });
+    this.share.setData(id);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 }
