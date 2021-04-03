@@ -1,12 +1,14 @@
-<div class="options-modal-container">
-  <div class="options-title-container">
-    <h1 class="options-title">Choose Action</h1>
-    <mat-icon mat-dialog-close class="icon">close</mat-icon>
+<img
+  src="assets/More.svg"
+  class="icon"
+  [matMenuTriggerFor]="menu"
+  mat-icon-button
+/>
+<mat-menu class="options-modal-container" #menu="matMenu">
+  <div class="options-btns" mat-menu-item (click)="editHandler()">
+    <div class="edit-container">
+      <mat-icon>edit</mat-icon>
+      <label class="icon"> Edit Ticket </label>
+    </div>
   </div>
-
-  <div class="options-btns">
-    <button class="edit-optios-btn icon" (click)="editHandler()">
-      Edit Ticket
-    </button>
-  </div>
-</div>
+</mat-menu>

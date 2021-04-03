@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
@@ -10,26 +10,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./ticket-options.component.css'],
 })
 export class TicketOptionsComponent implements OnInit {
-  constructor(
-    private http: HTTPMainServiceService,
-    private share: SharingdataService,
-    public dialog: MatDialog,
-    private router: Router
-  ) {}
-  toppings = new FormControl();
-
-  toppingList: string[] = [
-    'Extra cheese',
-    'Mushroom',
-    'Onion',
-    'Pepperoni',
-    'Sausage',
-    'Tomato',
-  ];
+  constructor(private http: HTTPMainServiceService, public dialog: MatDialog) {}
+  @Input() ticketID;
   ngOnInit(): void {}
-  ticketID: any;
   editHandler() {
-    this.ticketID = this.share.getData();
     this.dialog.closeAll();
   }
 }

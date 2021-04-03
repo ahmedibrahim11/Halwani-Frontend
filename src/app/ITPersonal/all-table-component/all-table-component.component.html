@@ -150,11 +150,8 @@
             style="margin-right: 0.1rem"
             class="icon"
           />
-          <img
-            src="assets/More.svg"
-            class="icon"
-            (click)="openOptions(topic.id)"
-          />
+
+          <app-ticket-options [ticketID]="topic.id"></app-ticket-options>
         </div>
       </td>
     </ng-container>
