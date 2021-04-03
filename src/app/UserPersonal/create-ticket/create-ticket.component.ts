@@ -112,7 +112,7 @@ submiCreate(){
        this.createTicketDTO.submitterName=submitterArray[2];
        this.createTicketDTO.summary=this.createTicketDTOFormGroup.value.summary;
        this.createTicketDTO.submitDate=new Date();
-       this.createTicketDTO.serviceName=this.type.team;
+       this.createTicketDTO.teamName=this.type.team;
        this.createTicketDTO.requestTypeId=this.createTicketDTOFormGroup.value.ticketType;
        console.log("CreateTicket Dto",this.createTicketDTO);
        this.miainHttp.POST("Ticket/Create",this.createTicketDTO).subscribe((data)=>{
