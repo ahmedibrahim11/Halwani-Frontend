@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { createTicketDTO } from 'src/app/core/DTOs/createTicketDTO';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
@@ -15,7 +15,7 @@ createTicketDTO: createTicketDTO = new createTicketDTO();
 public type;
 createTicketDTOFormGroup: FormGroup;
 
-  constructor(private route: ActivatedRoute,private http:UserGroupService,private formBuilder: FormBuilder,private miainHttp: HTTPMainServiceService) { }
+  constructor(public _router:Router,private route: ActivatedRoute,private http:UserGroupService,private formBuilder: FormBuilder,private miainHttp: HTTPMainServiceService) { }
      private typeID:Number
      private FileLinks;
      @Input() reporterDatasource;
@@ -117,7 +117,8 @@ submiCreate(){
        console.log("CreateTicket Dto",this.createTicketDTO);
        this.miainHttp.POST("Ticket/Create",this.createTicketDTO).subscribe((data)=>{
        console.log(data);
-       
+       this._router.navigate(["user"]);
+               
       })
 }
 }

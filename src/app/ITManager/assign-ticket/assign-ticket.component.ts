@@ -28,9 +28,7 @@ export class AssignTicketComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.data.forEach(element => {
-      this.ticketIds.push(element['id'])
-    });
+    
     console.log("ticketIDs",this.ticketIds);
     this.http.GET('User/getUser').subscribe((data) => {
       this.reporterDatasource = data.map((el) => {
@@ -49,7 +47,8 @@ export class AssignTicketComponent implements OnInit {
   }
   ticketID: any;
   assignHandler() {
-    if (this.data != null) {
+    if (this.data === null) {
+      debugger;
       this.ticketID = this.share.getData();
       this.http
         .POST('ticket/AssignTicket', {
@@ -62,8 +61,11 @@ export class AssignTicketComponent implements OnInit {
         });
     }
     else {
+      this.data.forEach(element => {
+        this.ticketIds.push(element['id'])
+      });
       this.http
-        .POST('ticket/AssignTicket', {
+        .POST('ticket/AssignTickets', {
           ticketIds: this.ticketIds,
           UserName: this.selectedUser,
         })
