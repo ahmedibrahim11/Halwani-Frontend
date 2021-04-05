@@ -29,4 +29,18 @@ export class HTTPMainServiceService {
       return this.httpClient.post<any>(environment.serverURL + route, body);
     }
   }
+  PUT(route, body) {
+    console.log(localStorage.getItem('userData'));
+    if (localStorage.getItem('userData') !== null) {
+      return this.httpClient.put<any>(environment.serverURL + route, body, {
+        headers: {
+          Authorization: `Bearer ${
+            JSON.parse(localStorage.getItem('userData')).token
+          }`,
+        },
+      });
+    } else {
+      return this.httpClient.put<any>(environment.serverURL + route, body);
+    }
+  }
 }

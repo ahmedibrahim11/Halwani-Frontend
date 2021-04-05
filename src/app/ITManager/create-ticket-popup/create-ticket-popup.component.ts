@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { createTicketDTO } from '../../core/DTOs/createTicketDTO';
+import { getTicketDTO } from '../../core/DTOs/getTicketDTO';
+
 import { HTTPMainServiceService } from '../../core/services/httpmain-service.service';
 import { TicketCreationService } from '../../core/services/ticket-creation.service';
 import {
@@ -9,6 +11,8 @@ import {
   FileSystemDirectoryEntry,
 } from 'ngx-file-drop';
 import { MatDialog } from '@angular/material/dialog';
+import { SharingdataService } from 'src/app/core/services/sharingdata.service';
+import { TicketListingDTO } from 'src/app/core/DTOs/ticketListingDTO';
 @Component({
   selector: 'app-create-ticket-popup',
   templateUrl: './create-ticket-popup.component.html',
@@ -16,12 +20,14 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class CreateTicketPopupComponent implements OnInit {
   createTicketDTO: createTicketDTO = new createTicketDTO();
+  getTicketDTO: getTicketDTO = new getTicketDTO();
   createTicketDTOFormGroup: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
-    public service: TicketCreationService
+    public service: TicketCreationService,
+    private share: SharingdataService
   ) {}
   private FileLinks;
 
@@ -34,7 +40,46 @@ export class CreateTicketPopupComponent implements OnInit {
   @Input() teamSoruce;
   @Input() productCategoryName1;
   @Input() productCategoryName2;
+
+  ticketID: any;
+  //update-default-values
+  ticketType: any;
+  summary: any;
+  attachement: any;
+  description: any;
+  teamName: any;
+  reporter: any;
+  source: any;
+  ticketSeverity: any;
+  priority: any;
+  categoryName1: any;
+  categoryName2: any;
+  ticketList: TicketListingDTO = new TicketListingDTO();
+
   ngOnInit(): void {
+    //update
+    this.ticketID = this.share.getData();
+    if (this.ticketID !== undefined) {
+      this.http
+        .POST('ticket/getTicket', { id: this.ticketID.toString() })
+        .subscribe((res) => {
+          console.log('res', res);
+          this.ticketType = res.requestType.name;
+          this.summary = res.ticketName;
+          this.attachement = res.attachement[0];
+          this.description = res.description;
+          this.teamName = res.teamName;
+          this.reporter = res.submitterEmail;
+          this.source = res.source;
+          this.ticketSeverity = res.ticketSeverity;
+          this.priority = res.priority;
+          this.categoryName1 = res.productCategoryName1;
+          this.categoryName2 = res.productCategoryName2;
+        });
+      this.share.setData(undefined);
+    }
+
+    //create
     this.createTicketDTOFormGroup = this.formBuilder.group({
       ticketType: [0, [Validators.required]],
       summary: ['', [Validators.required]],
@@ -64,27 +109,24 @@ export class CreateTicketPopupComponent implements OnInit {
     ];
 
     this.http.GET('RequestType/getRequestType').subscribe((data) => {
-      debugger;
       this.ticketTypeDatasource = data;
     });
     this.http.GET('User/getUser').subscribe((data) => {
-      this.reporterDatasource=data.map(el=>{
-        return{
-        label:el.text,
-        value:`${el.team},${el.email},${el.userName}`,
-        initials:this.initials(el.text),
-        label1:el.email
-        }
-      })
-      
+      this.reporterDatasource = data.map((el) => {
+        return {
+          label: el.text,
+          value: `${el.team},${el.email},${el.userName}`,
+          initials: this.initials(el.text),
+          label1: el.email,
+        };
+      });
     });
-    
-    ( this.http.GET('Team/get').subscribe((data) => {
-        this.teamSoruce  = data.map((el) => {
-          return { label: el.text, value: el.text };
-        });
-      })
-     ),
+
+    this.http.GET('Team/get').subscribe((data) => {
+      this.teamSoruce = data.map((el) => {
+        return { label: el.text, value: el.text };
+      });
+    }),
       this.http.GET('Category/getCategory').subscribe((data) => {
         this.productCategoryName1 = data.map((el) => {
           return { label: el.text, value: el.id };
@@ -136,10 +178,40 @@ export class CreateTicketPopupComponent implements OnInit {
       const dialogRef = this.dialog.open(CreateTicketPopupComponent);
 
       dialogRef.afterClosed().subscribe((result) => {
-        debugger;
         console.log(`Dialog result: ${result}`);
       });
     }
+  }
+
+  submitUpdate() {
+    let submitterArray = this.createTicketDTOFormGroup.value.reporter.split(
+      ','
+    );
+    this.http
+      .PUT('Ticket/UpdateTicket/' + this.ticketID, {
+        summary: this.createTicketDTOFormGroup.value.summary,
+        submitterTeam: submitterArray[0],
+        submitterEmail: submitterArray[1],
+        submitterName: submitterArray[2],
+        teamName: this.createTicketDTOFormGroup.value.team,
+        location: 'string',
+        priority: this.createTicketDTOFormGroup.value.priority,
+        source: this.createTicketDTOFormGroup.value.source,
+        reportedSource: 'admin',
+        requestTypeId: this.createTicketDTOFormGroup.value.ticketType,
+        ticketSeverity: this.createTicketDTOFormGroup.value.sevirity,
+        ticketStatus: 0,
+        description: this.createTicketDTOFormGroup.value.description,
+        submitDate: new Date(),
+        productCategoryName1: this.createTicketDTOFormGroup.value.productCategoryName1.toString(),
+        productCategoryName2: this.createTicketDTOFormGroup.value.productCategoryName2.toString(),
+        attachement:
+          this.FileLinks !== undefined ? this.FileLinks.toString() : '',
+      })
+      .subscribe((res) => {
+        alert('Ticket ' + this.ticketID + ' updated Successfully');
+        this.service.setValue(true);
+      });
   }
 
   public files: NgxFileDropEntry[] = [];
