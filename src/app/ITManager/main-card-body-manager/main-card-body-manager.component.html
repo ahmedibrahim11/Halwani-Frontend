@@ -5,19 +5,10 @@
       <label class="Tickets-Queue">Tickets Queue</label>
     </div>
     <div class="table-right-header">
-      <button
-        type="button"
-        class="Table-buttons"
-        mat-button
-        (click)="openDialog()"
-      >
+      <button type="button" class="Table-buttons" mat-button (click)="openDialog()">
         Create Ticket
       </button>
-      <button
-        type="button"
-        class="Table-buttons-Export"
-        (click)="exportTable()"
-      >
+      <button type="button" class="Table-buttons-Export" (click)="exportTable()">
         Export Table <mat-icon class="export-btn-icon">save_alt</mat-icon>
       </button>
       <button type="button" class="Table-buttons-settings">
@@ -37,10 +28,18 @@
           </div>
         </div>
       </mat-tab>
-      <mat-tab label="Service Requests"> Content 2 </mat-tab>
-      <mat-tab label="Incidents"> Content 3 </mat-tab>
-      <mat-tab label="Problems"> Content 3 </mat-tab>
-      <mat-tab label="Changes"> Content 3 </mat-tab>
+      <mat-tab label="Service Requests">
+        <app-all-table-component></app-all-table-component>
+      </mat-tab>
+      <mat-tab label="Incidents">
+        <app-all-table-component></app-all-table-component>
+      </mat-tab>
+      <mat-tab label="Problems">
+        <app-all-table-component></app-all-table-component>
+      </mat-tab>
+      <mat-tab label="Changes">
+        <app-all-table-component></app-all-table-component>
+      </mat-tab>
     </mat-tab-group>
   </div>
 </div>
