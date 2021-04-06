@@ -1,11 +1,17 @@
-<div class="main-screen-format">
+<div class="main-screen-format" *ngIf="isDataLoaded">
 <div class="main-dev">
     <div class="componentHeader">
-        <div class="backButton">
+        <div class="backButton" *ngIf="!fromManager()" >
         <a [routerLink]="['/itpersonal']">
         <mat-icon>keyboard_backspace</mat-icon>
         </a>
         <label class="HeaderLabel">Back to tickets queue</label>
+        </div>
+        <div class="backButton" *ngIf="fromManager()">
+            <a [routerLink]="['/itmanager']">
+                <mat-icon>keyboard_backspace</mat-icon>
+            </a>
+            <label class="HeaderLabel">Back to tickets queue</label>
         </div>
         <div class="Email-Login">
             {{userMessage.ticketName}}

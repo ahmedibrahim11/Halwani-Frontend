@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { SharedComponent } from './shared/shared.component';
 import { UserModule } from '../app/UserPersonal/user.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, SharedComponent],
@@ -27,6 +28,7 @@ import { UserModule } from '../app/UserPersonal/user.module';
     FormsModule,
     ReactiveFormsModule,
     UserModule,
+     MatSnackBarModule
   ],
 
   exports: [],
