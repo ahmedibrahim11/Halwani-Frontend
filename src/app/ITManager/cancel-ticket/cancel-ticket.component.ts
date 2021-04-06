@@ -3,6 +3,8 @@ import { FormControl } from '@angular/forms';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastMessageComponent } from '../toast-message/toast-message.component';
 
 @Component({
   selector: 'app-cancel-ticket',
@@ -13,7 +15,8 @@ export class CancelTicketComponent implements OnInit {
   constructor(
     private http: HTTPMainServiceService,
     private share: SharingdataService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
   ) {}
   toppings = new FormControl();
 
@@ -27,6 +30,8 @@ export class CancelTicketComponent implements OnInit {
   ];
   ngOnInit(): void {}
   ticketID: any;
+  durationInSeconds: any = 3;
+
   cancelHandler() {
     this.ticketID = this.share.getData();
     this.http
@@ -36,6 +41,9 @@ export class CancelTicketComponent implements OnInit {
       })
       .subscribe((res) => {
         console.log(res);
+        this._snackBar.openFromComponent(ToastMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+        });
         this.dialog.closeAll();
       });
   }

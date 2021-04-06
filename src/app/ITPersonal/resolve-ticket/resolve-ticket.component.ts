@@ -3,6 +3,8 @@ import { FormControl } from '@angular/forms';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastMessageComponent } from '../toast-message/toast-message.component';
 
 @Component({
   selector: 'app-resolve-ticket',
@@ -25,11 +27,14 @@ export class ResolveTicketComponent implements OnInit {
   constructor(
     private http: HTTPMainServiceService,
     private share: SharingdataService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
   ) {}
 
   ticketID: any;
   resolvedStr: any;
+  durationInSeconds: any = 3;
+
   resolveText(e) {
     this.resolvedStr = e.target.value;
   }
@@ -43,6 +48,9 @@ export class ResolveTicketComponent implements OnInit {
       })
       .subscribe((res) => {
         console.log(res);
+        this._snackBar.openFromComponent(ToastMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+        });
         this.dialog.closeAll();
       });
   }
@@ -56,6 +64,9 @@ export class ResolveTicketComponent implements OnInit {
       })
       .subscribe((res) => {
         console.log(res);
+        this._snackBar.openFromComponent(ToastMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+        });
         this.dialog.closeAll();
       });
   }
