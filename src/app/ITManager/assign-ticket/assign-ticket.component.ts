@@ -3,10 +3,11 @@ import { FormControl } from '@angular/forms';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { P } from '@angular/cdk/keycodes';
-
+import { ToastMessageComponent } from '../toast-message/toast-message.component';
 
 @Component({
   selector: 'app-assign-ticket',
@@ -24,12 +25,12 @@ export class AssignTicketComponent implements OnInit {
 
     private http: HTTPMainServiceService,
     private share: SharingdataService,
-    public dialog: MatDialog
-  ) { }
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
-    
-    console.log("ticketIDs",this.ticketIds);
+    console.log('ticketIDs', this.ticketIds);
     this.http.GET('User/getUser').subscribe((data) => {
       this.reporterDatasource = data.map((el) => {
         return {
@@ -46,6 +47,8 @@ export class AssignTicketComponent implements OnInit {
     this.selectedUser = e.value;
   }
   ticketID: any;
+  durationInSeconds: any = 3;
+
   assignHandler() {
     if (this.data === null) {
       debugger;
@@ -57,12 +60,14 @@ export class AssignTicketComponent implements OnInit {
         })
         .subscribe((res) => {
           console.log(res);
+          this._snackBar.openFromComponent(ToastMessageComponent, {
+            duration: this.durationInSeconds * 1000,
+          });
           this.dialog.closeAll();
         });
-    }
-    else {
-      this.data.forEach(element => {
-        this.ticketIds.push(element['id'])
+    } else {
+      this.data.forEach((element) => {
+        this.ticketIds.push(element['id']);
       });
       this.http
         .POST('ticket/AssignTickets', {
@@ -71,10 +76,12 @@ export class AssignTicketComponent implements OnInit {
         })
         .subscribe((res) => {
           console.log(res);
+          this._snackBar.openFromComponent(ToastMessageComponent, {
+            duration: this.durationInSeconds * 1000,
+          });
           this.dialog.closeAll();
         });
     }
-
   }
 
   backBtn() {

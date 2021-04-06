@@ -12,6 +12,7 @@ import { getTicketDTO } from "src/app/core/DTOs/getTicketDTO";
 })
 export class TicketDetailsMainComponent implements OnInit,OnDestroy  {
   @Output() userMessage:getTicketDTO;
+isDataLoaded=false;
 
   messageList:{message:any,sender:any}[]=[]
   currentUser;
@@ -64,9 +65,9 @@ this.userMessage={
   submitterInitials:this.initials(data.submitterName).toString(),
   ReporterInitials:this.initials(data.submitterName).toString(),
   currentUserInitials:this.initials(this.currentUser).toString(),
-  assignedTo:this.initials(data.assignedUser).toString()
+  assignedTo:data.assignedUser!==null?this.initials(data.assignedUser).toString():"N A"
 }
-
+  this.isDataLoaded=true;
 })
     this.http.POST(`TicketMessage/getMessages`,{id:this.ticketID}).subscribe(data=>{
    for (let index = 0; index < data.length; index++) {
@@ -86,6 +87,7 @@ this.userMessage={
     this.editor.destroy();
   }
    initials(name) {
+     console.log(name)
     let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
 
     let initials = [...name.matchAll(rgx)] || [];
@@ -117,5 +119,8 @@ changeStatus(status){
     this.userMessage.ticketStatus=status;
   })
 
+}
+fromManager(){
+ return window.location.href.includes("/itmanager")
 }
 }

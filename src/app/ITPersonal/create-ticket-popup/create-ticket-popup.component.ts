@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { createTicketDTO } from '../../core/DTOs/createTicketDTO';
 import { getTicketDTO } from '../../core/DTOs/getTicketDTO';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastMessageComponent } from '../toast-message/toast-message.component';
 
 import { HTTPMainServiceService } from '../../core/services/httpmain-service.service';
 import { TicketCreationService } from '../../core/services/ticket-creation.service';
@@ -27,9 +29,11 @@ export class CreateTicketPopupComponent implements OnInit {
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
     public service: TicketCreationService,
-    private share: SharingdataService
+    private share: SharingdataService,
+    private _snackBar: MatSnackBar
   ) {}
   private FileLinks;
+  durationInSeconds: any = 3;
 
   showSecondCategory: boolean = false;
   saveAndOpenAnother: boolean = false;
@@ -171,6 +175,9 @@ export class CreateTicketPopupComponent implements OnInit {
     console.log('createDto', this.createTicketDTO);
     this.http.POST('Ticket/Create', this.createTicketDTO).subscribe((data) => {
       console.log('create tickeet');
+      this._snackBar.openFromComponent(ToastMessageComponent, {
+        duration: this.durationInSeconds * 1000,
+      });
       this.service.setValue(true);
     });
     if (this.createTicketDTOFormGroup.value.saveAndOpenAnother) {
@@ -208,7 +215,9 @@ export class CreateTicketPopupComponent implements OnInit {
           this.FileLinks !== undefined ? this.FileLinks.toString() : '',
       })
       .subscribe((res) => {
-        alert('Ticket ' + this.ticketID + ' updated Successfully');
+        this._snackBar.openFromComponent(ToastMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+        });
         this.service.setValue(true);
       });
   }

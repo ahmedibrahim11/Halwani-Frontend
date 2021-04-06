@@ -21,6 +21,7 @@ import { EscalateTicketComponent } from './escalate-ticket/escalate-ticket.compo
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { TicketOptionsComponent } from './ticket-options/ticket-options.component';
+import { ToastMessageComponent } from './toast-message/toast-message.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -35,6 +36,7 @@ import { TicketOptionsComponent } from './ticket-options/ticket-options.componen
     ResolveTicketComponent,
     EscalateTicketComponent,
     TicketOptionsComponent,
+    ToastMessageComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -45,6 +47,7 @@ import { TicketOptionsComponent } from './ticket-options/ticket-options.componen
     RouterModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    
     // AngalurMaterialModule
   ],
   exports: [SharedModule],

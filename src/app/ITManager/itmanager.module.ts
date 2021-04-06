@@ -21,6 +21,7 @@ import { FormatMessageComponent } from './ticket-details-manager/format-message/
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { TicketoptionsComponent } from './ticketoptions/ticketoptions.component';
+import { ToastMessageComponent } from './toast-message/toast-message.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { TicketoptionsComponent } from './ticketoptions/ticketoptions.component'
     MainCardBodyManagerComponent,
     FormatMessageComponent,
     TicketoptionsComponent,
+    ToastMessageComponent,
   ],
   imports: [
     BrowserAnimationsModule,

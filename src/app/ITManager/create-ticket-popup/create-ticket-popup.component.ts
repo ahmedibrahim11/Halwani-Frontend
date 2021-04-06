@@ -13,6 +13,9 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { TicketListingDTO } from 'src/app/core/DTOs/ticketListingDTO';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastMessageComponent } from '../toast-message/toast-message.component';
+
 @Component({
   selector: 'app-create-ticket-popup',
   templateUrl: './create-ticket-popup.component.html',
@@ -27,7 +30,8 @@ export class CreateTicketPopupComponent implements OnInit {
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
     public service: TicketCreationService,
-    private share: SharingdataService
+    private share: SharingdataService,
+    private _snackBar: MatSnackBar
   ) {}
   private FileLinks;
 
@@ -42,6 +46,8 @@ export class CreateTicketPopupComponent implements OnInit {
   @Input() productCategoryName2;
 
   ticketID: any;
+  durationInSeconds: any = 3;
+
   //update-default-values
   ticketType: any;
   summary: any;
@@ -172,6 +178,9 @@ export class CreateTicketPopupComponent implements OnInit {
     console.log('createDto', this.createTicketDTO);
     this.http.POST('Ticket/Create', this.createTicketDTO).subscribe((data) => {
       console.log('create tickeet');
+      this._snackBar.openFromComponent(ToastMessageComponent, {
+        duration: this.durationInSeconds * 1000,
+      });
       this.service.setValue(true);
     });
     if (this.createTicketDTOFormGroup.value.saveAndOpenAnother) {
@@ -209,7 +218,9 @@ export class CreateTicketPopupComponent implements OnInit {
           this.FileLinks !== undefined ? this.FileLinks.toString() : '',
       })
       .subscribe((res) => {
-        alert('Ticket ' + this.ticketID + ' updated Successfully');
+        this._snackBar.openFromComponent(ToastMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+        });
         this.service.setValue(true);
       });
   }
