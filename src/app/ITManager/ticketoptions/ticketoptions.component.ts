@@ -5,6 +5,7 @@ import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CreateTicketPopupComponent } from '../create-ticket-popup/create-ticket-popup.component';
+import { CancelTicketComponent } from '../cancel-ticket/cancel-ticket.component';
 
 @Component({
   selector: 'app-ticketoptions',
@@ -28,16 +29,11 @@ export class TicketoptionsComponent implements OnInit {
     });
   }
   cancelHandler() {
-    this.http
-      .POST('ticket/UpdateStatus', {
-        ticketId: this.ticketID,
-        status: 8,
-      })
-      .subscribe((res) => {
-        alert('Ticket ' + this.ticketID + ' cancelled Successfully');
+    const dialogRef = this.dialog.open(CancelTicketComponent);
+    this.share.setData(this.ticketID);
 
-        console.log(res);
-        this.dialog.closeAll();
-      });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

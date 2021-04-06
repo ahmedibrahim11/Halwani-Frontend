@@ -26,17 +26,4 @@ export class TicketOptionsComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
-  cancelHandler() {
-    this.http
-      .POST('ticket/UpdateStatus', {
-        ticketId: this.ticketID,
-        status: 8,
-      })
-      .subscribe((res) => {
-        alert('Ticket ' + this.ticketID + ' cancelled Successfully');
-
-        console.log(res);
-        this.dialog.closeAll();
-      });
-  }
 }
