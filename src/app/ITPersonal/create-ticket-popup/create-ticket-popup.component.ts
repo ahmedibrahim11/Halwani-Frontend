@@ -63,7 +63,6 @@ export class CreateTicketPopupComponent implements OnInit {
       this.http
         .POST('ticket/getTicket', { id: this.ticketID.toString() })
         .subscribe((res) => {
-          console.log('res', res);
           this.ticketType = res.requestType.name;
           this.summary = res.ticketName;
           this.attachement = res.attachement[0];

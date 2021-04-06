@@ -88,22 +88,16 @@
 .NgxEditor__Wrapper {
   height: 200px;
   display: inline;
-  margin-left: 2rem;
-  width: 100%;
+  margin-left: 1rem;
+  width: 75%;
 }
 .Button {
   width: 112px;
   height: 44px;
-  display: flex;
-  /* align-content: end; */
-  /* flex-direction: row; */
-  justify-content: center;
-  align-items: center;
   gap: 10px;
-  /* display: flex; */
-  /* align-items: flex-end; */
-  /* position: fixed; */
-  margin: 9px 102.5px 2px 55.3rem;
+  float: right;
+  margin-right: 12%;
+  margin-top: 3%;
   padding: 10px;
   border-radius: 4px;
   background-color: #c4161c;

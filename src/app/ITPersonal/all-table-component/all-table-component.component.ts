@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, Input } from '@angular/core';
 
 import {
   TicketListingDTO,
@@ -31,14 +31,14 @@ export class AllTableComponentComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   public flag: boolean;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
+  @Input() tabData: number = 0;
   constructor(
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
     private service: TicketCreationService,
     private share: SharingdataService,
     private router: Router
-  ) {}
+  ) { }
 
   pageLength: any = 10;
   pageSize: any = 5;
@@ -46,7 +46,6 @@ export class AllTableComponentComponent implements OnInit {
   //handle pagination server side
   pageEvents(event: any) {
     console.log('wreeeny', event, this.pageSize);
-
     if (this.pageSize !== event.pageSize) {
       console.log('iiiii', event.pageSize);
       this.pageSize = event.pageSize;
@@ -56,7 +55,9 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: {},
+          filter: {
+            ticketTabs: this.tabData
+          },
           sortvalue: 0,
         })
         .subscribe((res) => {
@@ -87,7 +88,9 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: {},
+          filter: {
+            ticketTabs: this.tabData
+          },
           sortvalue: 0,
         })
         .subscribe((res) => {
@@ -117,7 +120,9 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: {},
+          filter: {
+            ticketTabs: this.tabData
+          },
           sortvalue: 0,
         })
         .subscribe((res) => {
@@ -193,7 +198,9 @@ export class AllTableComponentComponent implements OnInit {
         pageSize: this.pageSize,
         pageNumber: this.pageIndex,
         isPrint: false,
-        filter: {},
+        filter: {
+          ticketTabs: this.tabData
+        },
         sortvalue: sortValue,
         sortDirection: sortDirec,
       })
@@ -291,6 +298,7 @@ export class AllTableComponentComponent implements OnInit {
 
   dataSource: any;
   ngOnInit(): void {
+    console.log("Tab", this.tabData);
     this.service.getValue().subscribe((value) => {
       this.flag == value;
       if (this.flag === true) {
@@ -302,7 +310,9 @@ export class AllTableComponentComponent implements OnInit {
               pageSize: this.pageLength,
               pageNumber: this.pageIndex,
               isPrint: false,
-              filter: {},
+              filter: {
+                ticketTabs: this.tabData
+              },
               sortValue: 0,
             })
             .subscribe((res) => {
@@ -336,8 +346,10 @@ export class AllTableComponentComponent implements OnInit {
               pageSize: this.pageLength,
               pageNumber: this.pageIndex,
               isPrint: false,
-              filter: {},
-              sortValue: 0,
+              filter: {
+                ticketTabs: this.tabData
+              },
+               sortValue: 0,
             })
             .subscribe((res) => {
               console.log('resulttttt', res.pageData);

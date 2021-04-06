@@ -28,9 +28,15 @@
           </div>
         </div>
       </mat-tab>
-      <mat-tab label="Assigned to me"> Content 2 </mat-tab>
-      <mat-tab label="In progress"> Content 3 </mat-tab>
-      <mat-tab label="Overdue"> Content 3 </mat-tab>
+      <mat-tab label="Assigned to me" >
+        <app-all-table-component [tabData]=0></app-all-table-component>
+      </mat-tab>
+      <mat-tab label="In progress" >
+        <app-all-table-component [tabData]=1></app-all-table-component>
+      </mat-tab>
+      <mat-tab label="Overdue" >
+        <app-all-table-component [tabData]=2></app-all-table-component>
+      </mat-tab>
     </mat-tab-group>
   </div>
 </div>
