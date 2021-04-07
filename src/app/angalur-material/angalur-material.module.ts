@@ -18,6 +18,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [],
@@ -62,6 +63,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatRadioModule,
     NgxFileDropModule,
     MatChipsModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class AngalurMaterialModule {}

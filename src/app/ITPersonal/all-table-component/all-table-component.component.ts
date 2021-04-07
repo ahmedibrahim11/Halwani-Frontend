@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, HostListener, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  HostListener,
+  Input,
+} from '@angular/core';
 
 import {
   TicketListingDTO,
@@ -38,7 +44,7 @@ export class AllTableComponentComponent implements OnInit {
     private service: TicketCreationService,
     private share: SharingdataService,
     private router: Router
-  ) { }
+  ) {}
 
   pageLength: any = 10;
   pageSize: any = 5;
@@ -56,7 +62,7 @@ export class AllTableComponentComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {
-            ticketTabs: this.tabData
+            ticketTabs: this.tabData,
           },
           sortvalue: 0,
         })
@@ -89,7 +95,7 @@ export class AllTableComponentComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {
-            ticketTabs: this.tabData
+            ticketTabs: this.tabData,
           },
           sortvalue: 0,
         })
@@ -121,7 +127,7 @@ export class AllTableComponentComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {
-            ticketTabs: this.tabData
+            ticketTabs: this.tabData,
           },
           sortvalue: 0,
         })
@@ -199,7 +205,7 @@ export class AllTableComponentComponent implements OnInit {
         pageNumber: this.pageIndex,
         isPrint: false,
         filter: {
-          ticketTabs: this.tabData
+          ticketTabs: this.tabData,
         },
         sortvalue: sortValue,
         sortDirection: sortDirec,
@@ -297,8 +303,10 @@ export class AllTableComponentComponent implements OnInit {
   public sevirity = SevirityEnum;
 
   dataSource: any;
+  showSpinner: Boolean = true;
+
   ngOnInit(): void {
-    console.log("Tab", this.tabData);
+    console.log('Tab', this.tabData);
     this.service.getValue().subscribe((value) => {
       this.flag == value;
       if (this.flag === true) {
@@ -311,11 +319,13 @@ export class AllTableComponentComponent implements OnInit {
               pageNumber: this.pageIndex,
               isPrint: false,
               filter: {
-                ticketTabs: this.tabData
+                ticketTabs: this.tabData,
               },
               sortValue: 0,
             })
             .subscribe((res) => {
+              this.showSpinner = false;
+
               console.log('resulttttt', res.pageData);
               let usersData = res.pageData;
               this.UserViewInfoObject = usersData.map((el) => {
@@ -347,11 +357,13 @@ export class AllTableComponentComponent implements OnInit {
               pageNumber: this.pageIndex,
               isPrint: false,
               filter: {
-                ticketTabs: this.tabData
+                ticketTabs: this.tabData,
               },
-               sortValue: 0,
+              sortValue: 0,
             })
             .subscribe((res) => {
+              this.showSpinner = false;
+
               console.log('resulttttt', res.pageData);
               let usersData = res.pageData;
               this.UserViewInfoObject = usersData.map((el) => {
