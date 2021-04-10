@@ -15,6 +15,7 @@ import { UserLayoutComponent } from '../app/UserPersonal/user-layout/user-layout
 import { MainCategoriesComponent } from '../app/UserPersonal/main-categories/main-categories.component';
 import { GroupCategoryComponent } from '../app/UserPersonal/group-category/group-category.component';
 import { CreateTicketComponent } from '../app/UserPersonal/create-ticket/create-ticket.component';
+import { ServiceRequestsComponent } from "./ITManager/service-requests/service-requests.component";
 const routes: Routes = [
   {
     path: 'itpersonal',
@@ -28,6 +29,7 @@ const routes: Routes = [
     path: 'itmanager',
     component: ManagerhomeComponent,
     children: [
+      {path:'servicerequests',component:ServiceRequestsComponent,},
       { path: 'details/:id', component: TicketDetailsMainComponent },
       { path: '', component: MainCardBodyManagerComponent },
     ],

@@ -13,4 +13,7 @@ export class SidebarComponent implements OnInit {
   shouldRun = [/(^|\.)plnkr\.co$/, /(^|\.)stackblitz\.io$/].some((h) =>
     h.test(window.location.host)
   );
+  fromManager(){
+ return window.location.href.includes("/itmanager")
+}
 }

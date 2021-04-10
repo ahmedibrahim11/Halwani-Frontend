@@ -21,6 +21,7 @@
   width: 24px;
   height: 24px;
   margin-right: 10px;
+  margin-bottom: 1rem;
 }
 .halawani-text {
   width: 106px;
@@ -56,4 +57,8 @@
 .logout {
   margin-left: 10px;
   margin-top: 10px;
+}
+.active {
+  color: red;
+  background: white !important;
 }

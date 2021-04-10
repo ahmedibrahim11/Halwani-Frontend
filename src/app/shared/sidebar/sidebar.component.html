@@ -10,25 +10,35 @@
     <div class="divider"></div>
     <div class="actions">
       <h3>ACTIONS</h3>
-      <div class="action-container">
-        <img src="assets/1.png" class="icon-img" />
+      <mat-nav-list>
+      
+      <a mat-list-item [routerLink]="['/itpersonal']"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }" class="action-container" *ngIf="!fromManager()">
+        <img src="assets/1.svg" class="icon-img" />
         <h4 style="opacity: 0.8">Tickets Queue</h4>
-      </div>
-      <div class="action-container">
+      </a>
+      <a mat-list-item [routerLink]="['/itmanager']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }" class="action-container"
+        *ngIf="fromManager()">
+        <img src="assets/1.svg" class="icon-img" />
+        <h4 style="opacity: 0.8">Tickets Queue</h4>
+      </a>
+      <a mat-list-item [routerLink]="['/assasa']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }" class="action-container">
         <img src="assets/2.png" class="icon-img" />
         <h4 style="opacity: 0.8">Reports DashBoard</h4>
-      </div>
-      <div class="action-container">
+      </a>
+      <a mat-list-item [routerLink]="['/assasa']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }" class="action-container">
         <img src="assets/3.png" class="icon-img" />
         <h4 style="opacity: 0.8">Ticket Escalations</h4>
-      </div>
+      </a>
+     </mat-nav-list>
     </div>
     <div class="actions">
       <h3>BROWSE BY CATEGORY</h3>
-      <div class="action-container">
+      <mat-nav-list>
+      <a mat-list-item [routerLink]="['/itmanager/servicerequests']" [routerLinkActive]="['active']" class="action-container"
+        *ngIf="fromManager()">
         <img src="assets/4.png" class="icon-img" />
         <h4 style="opacity: 0.8">Service Requests</h4>
-      </div>
+      </a>
       <div class="action-container">
         <img src="assets/5.png" class="icon-img" />
         <h4 style="opacity: 0.8">Incidents</h4>
@@ -41,7 +51,9 @@
         <img src="assets/7.png" class="icon-img" />
         <h4 style="opacity: 0.8">Changes</h4>
       </div>
+      </mat-nav-list>
     </div>
+
     <div class="actions">
       <h3>CONFIGURATION</h3>
       <div class="action-container">

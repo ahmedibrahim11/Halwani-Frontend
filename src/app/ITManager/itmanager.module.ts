@@ -22,6 +22,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { TicketoptionsComponent } from './ticketoptions/ticketoptions.component';
 import { ToastMessageComponent } from './toast-message/toast-message.component';
+import { ServiceRequestsComponent } from './service-requests/service-requests.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ToastMessageComponent } from './toast-message/toast-message.component';
     FormatMessageComponent,
     TicketoptionsComponent,
     ToastMessageComponent,
+    ServiceRequestsComponent,
   ],
   imports: [
     BrowserAnimationsModule,
