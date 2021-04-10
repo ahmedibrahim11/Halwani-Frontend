@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, HostListener, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  HostListener,
+  Input,
+} from '@angular/core';
 
 import {
   TicketListingDTO,
@@ -56,7 +62,7 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: {ticketType:this.tab},
+          filter: { ticketType: this.tab },
           sortvalue: 0,
         })
         .subscribe((res) => {
@@ -87,7 +93,7 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: {ticketType:this.tab},
+          filter: { ticketType: this.tab },
           sortvalue: 0,
         })
         .subscribe((res) => {
@@ -193,7 +199,7 @@ export class AllTableComponentComponent implements OnInit {
         pageSize: this.pageSize,
         pageNumber: this.pageIndex,
         isPrint: false,
-        filter: {ticketType:this.tab},
+        filter: { ticketType: this.tab },
         sortvalue: sortValue,
         sortDirection: sortDirec,
       })
@@ -291,11 +297,12 @@ export class AllTableComponentComponent implements OnInit {
   public sevirity = SevirityEnum;
 
   dataSource: any;
+  showSpinner: Boolean = true;
   ngOnInit(): void {
-    console.log("Tabbbbbb",this.tab);
-    this.service.getValue().subscribe((value)=>{
-      this.flag=value;
-      if(this.flag===true){
+    console.log('Tabbbbbb', this.tab);
+    this.service.getValue().subscribe((value) => {
+      this.flag = value;
+      if (this.flag === true) {
         this.http.GET('ticket/getCount').subscribe((res) => {
           this.pageLength = res;
           this.http
@@ -304,10 +311,11 @@ export class AllTableComponentComponent implements OnInit {
               pageSize: this.pageLength,
               pageNumber: this.pageIndex,
               isPrint: false,
-              filter: {ticketType:this.tab},
+              filter: { ticketType: this.tab },
               sortValue: 0,
             })
             .subscribe((res) => {
+              this.showSpinner = false;
               console.log('resulttttt', res.pageData);
               let usersData = res.pageData;
               this.UserViewInfoObject = usersData.map((el) => {
@@ -329,8 +337,7 @@ export class AllTableComponentComponent implements OnInit {
               this.setDataSourceAttributes();
             });
         });
-      }
-      else{
+      } else {
         this.http.GET('ticket/getCount').subscribe((res) => {
           this.pageLength = res;
           this.http
@@ -339,35 +346,35 @@ export class AllTableComponentComponent implements OnInit {
               pageSize: this.pageLength,
               pageNumber: this.pageIndex,
               isPrint: false,
-              filter: {ticketType:this.tab},
+              filter: { ticketType: this.tab },
               sortValue: 0,
             })
             .subscribe((res) => {
-              console.log('resulttttt', res.pageData);
-              let usersData = res.pageData;
-              this.UserViewInfoObject = usersData.map((el) => {
-                const cerationDate = new Date(el['creationDate']);
-                this.pageLength = res.pageData.length;
-                return {
-                  id: el['id'],
-                  initials: this.initials(el['rasiedBy']['name']),
-                  name: el['rasiedBy']['name'],
-                  email: el['rasiedBy']['email'],
-                  createdDate: cerationDate.toDateString(),
-                  createdTime: cerationDate.toLocaleTimeString(),
-                  ticketTopic: el['requestType']['name'],
-                  ticketCategory: el['requestType']['ticketType'],
-                  Sevirity: el['severity'],
-                };
-              });
-              this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-              this.setDataSourceAttributes();
-            });
-        });
-      }
-    })
+              this.showSpinner = false;
 
-    
+              console.log('resulttttt', res.pageData);
+              let usersData = res.pageData;
+              this.UserViewInfoObject = usersData.map((el) => {
+                const cerationDate = new Date(el['creationDate']);
+                this.pageLength = res.pageData.length;
+                return {
+                  id: el['id'],
+                  initials: this.initials(el['rasiedBy']['name']),
+                  name: el['rasiedBy']['name'],
+                  email: el['rasiedBy']['email'],
+                  createdDate: cerationDate.toDateString(),
+                  createdTime: cerationDate.toLocaleTimeString(),
+                  ticketTopic: el['requestType']['name'],
+                  ticketCategory: el['requestType']['ticketType'],
+                  Sevirity: el['severity'],
+                };
+              });
+              this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+              this.setDataSourceAttributes();
+            });
+        });
+      }
+    });
   }
 
   initials(name) {
@@ -402,11 +409,11 @@ export class AllTableComponentComponent implements OnInit {
     });
   }
   globalAssignTicket() {
-    var allTickets=this.selection.selected;
-    console.log("all",this.selection.selected);
+    var allTickets = this.selection.selected;
+    console.log('all', this.selection.selected);
     const dialogRef = this.dialog.open(AssignTicketComponent, {
       position: { top: '15%', left: '22%' },
-      data:allTickets
+      data: allTickets,
     });
   }
   assignTicket(id: any) {

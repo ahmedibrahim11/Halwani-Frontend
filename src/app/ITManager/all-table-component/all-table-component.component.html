@@ -27,10 +27,18 @@
   </mat-form-field>
   <div class="Table-buttons">
     <label class="Export-queue">Assign Tickets</label
-    ><mat-icon  (click)="globalAssignTicket()" class="icon">group_add</mat-icon>
+    ><mat-icon (click)="globalAssignTicket()" class="icon">group_add</mat-icon>
   </div>
 </div>
-<div class="table">
+
+<div *ngIf="showSpinner === true; then spinner; else data">here is ignored</div>
+<ng-template #spinner>
+  <div class="spinner-design">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+
+<ng-template #data class="table">
   <table
     mat-table
     [dataSource]="dataSource"
@@ -163,4 +171,4 @@
     [pageSizeOptions]="[5, 10, 20, 100]"
     showFirstLastButtons
   ></mat-paginator>
-</div>
+</ng-template>

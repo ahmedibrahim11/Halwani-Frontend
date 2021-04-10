@@ -53,10 +53,8 @@ this.userMessage={
   ticketSeverity: data.ticketSeverity,
   ticketStatus:data.ticketStatus,
   description: data.description,
-
   submitDate: creationDate.toLocaleDateString(),
   resolvedDate:resolvedDate.toLocaleDateString(),
- 
   id: data.id,
   attachement:data.attachement,
   productCategoryName1:data.productCategoryName1,
