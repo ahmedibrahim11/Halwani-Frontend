@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { createTicketDTO } from '../../core/DTOs/createTicketDTO';
 import { getTicketDTO } from '../../core/DTOs/getTicketDTO';
@@ -12,7 +12,7 @@ import {
   FileSystemFileEntry,
   FileSystemDirectoryEntry,
 } from 'ngx-file-drop';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { TicketListingDTO } from 'src/app/core/DTOs/ticketListingDTO';
 @Component({
@@ -24,14 +24,16 @@ export class CreateTicketPopupComponent implements OnInit {
   createTicketDTO: createTicketDTO = new createTicketDTO();
   getTicketDTO: getTicketDTO = new getTicketDTO();
   createTicketDTOFormGroup: FormGroup;
+  fromPage: any;
   constructor(
     private formBuilder: FormBuilder,
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
     public service: TicketCreationService,
     private share: SharingdataService,
-    private _snackBar: MatSnackBar
-  ) {}
+    private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<CreateTicketPopupComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
+  ) {this.fromPage=data.pageValue;}
   private FileLinks;
   durationInSeconds: any = 3;
 
@@ -112,7 +114,18 @@ export class CreateTicketPopupComponent implements OnInit {
     ];
 
     this.http.GET('RequestType/getRequestType').subscribe((data) => {
+     if(this.fromPage ===undefined)
+      {
       this.ticketTypeDatasource = data;
+      }
+      else{
+        console.log("else")
+             console.log(data)
+        this.ticketTypeDatasource=data.filter((el1)=>el1.ticketType===this.fromPage).map((el)=>{
+          console.log(el)
+          return {ticketType:el.ticketType,topics:el.topics}
+        })
+      }
     });
     this.http.GET('User/getUser').subscribe((data) => {
       this.reporterDatasource = data.map((el) => {
@@ -181,7 +194,7 @@ export class CreateTicketPopupComponent implements OnInit {
       this.service.setValue(true);
     });
     if (this.createTicketDTOFormGroup.value.saveAndOpenAnother) {
-      const dialogRef = this.dialog.open(CreateTicketPopupComponent);
+      const dialogRef = this.dialog.open(CreateTicketPopupComponent,{data: { pageValue: this.fromPage }});
 
       dialogRef.afterClosed().subscribe((result) => {
         console.log(`Dialog result: ${result}`);

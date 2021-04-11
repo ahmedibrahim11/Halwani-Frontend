@@ -1,8 +1,8 @@
 <div class="Rectangle-6">
     <div class="mainTableHeader">
         <div class="table-header">
-            <label class="Actions-Tickets-Queue"> Actions / Service Requests </label>
-            <label class="Tickets-Queue">Service Requests</label>
+            <label class="Actions-Tickets-Queue"> Actions / Incidents </label>
+            <label class="Tickets-Queue">Incidents</label>
         </div>
         <div class="table-right-header">
             <button type="button" class="Table-buttons" mat-button (click)="openDialog()">
@@ -17,6 +17,6 @@
         </div>
     </div>
     <div class="second-Div">
-    <app-all-table-component [tab]=0></app-all-table-component>
+        <app-all-table-component [tab]=1></app-all-table-component>
     </div>
 </div>

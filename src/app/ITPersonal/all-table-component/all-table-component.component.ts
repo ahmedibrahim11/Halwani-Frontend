@@ -38,6 +38,7 @@ export class AllTableComponentComponent implements OnInit {
   public flag: boolean;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() tabData: number = 0;
+  @Input() from: number = null;
   constructor(
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
@@ -63,6 +64,7 @@ export class AllTableComponentComponent implements OnInit {
           isPrint: false,
           filter: {
             ticketTabs: this.tabData,
+            ticketType: this.from 
           },
           sortvalue: 0,
         })
@@ -96,6 +98,7 @@ export class AllTableComponentComponent implements OnInit {
           isPrint: false,
           filter: {
             ticketTabs: this.tabData,
+             ticketType: this.from 
           },
           sortvalue: 0,
         })
@@ -128,6 +131,7 @@ export class AllTableComponentComponent implements OnInit {
           isPrint: false,
           filter: {
             ticketTabs: this.tabData,
+             ticketType: this.from 
           },
           sortvalue: 0,
         })
@@ -206,6 +210,7 @@ export class AllTableComponentComponent implements OnInit {
         isPrint: false,
         filter: {
           ticketTabs: this.tabData,
+           ticketType: this.from 
         },
         sortvalue: sortValue,
         sortDirection: sortDirec,
@@ -320,6 +325,7 @@ export class AllTableComponentComponent implements OnInit {
               isPrint: false,
               filter: {
                 ticketTabs: this.tabData,
+                 ticketType: this.from 
               },
               sortValue: 0,
             })
@@ -358,6 +364,7 @@ export class AllTableComponentComponent implements OnInit {
               isPrint: false,
               filter: {
                 ticketTabs: this.tabData,
+                 ticketType: this.from 
               },
               sortValue: 0,
             })

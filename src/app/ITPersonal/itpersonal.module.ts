@@ -22,6 +22,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { TicketOptionsComponent } from './ticket-options/ticket-options.component';
 import { ToastMessageComponent } from './toast-message/toast-message.component';
+
+import { PersonalServiceRequestComponent } from './personal-service-request/personal-service-request.component';
+import { PersonalProblemsComponent } from './personal-problems/personal-problems.component';
+import { PersonalIncidentsComponent } from './personal-incidents/personal-incidents.component';
+import { PersonalChangesComponent } from './personal-changes/personal-changes.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -37,6 +42,11 @@ import { ToastMessageComponent } from './toast-message/toast-message.component';
     EscalateTicketComponent,
     TicketOptionsComponent,
     ToastMessageComponent,
+   
+    PersonalServiceRequestComponent,
+    PersonalProblemsComponent,
+    PersonalIncidentsComponent,
+    PersonalChangesComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -39,3 +39,6 @@ body {
 .mat-list-base .mat-list-option .mat-list-item-content {
   padding: 0 0 !important;
 }
+table.mat-table {
+  width: 100% !important;
+}

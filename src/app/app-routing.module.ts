@@ -16,11 +16,22 @@ import { MainCategoriesComponent } from '../app/UserPersonal/main-categories/mai
 import { GroupCategoryComponent } from '../app/UserPersonal/group-category/group-category.component';
 import { CreateTicketComponent } from '../app/UserPersonal/create-ticket/create-ticket.component';
 import { ServiceRequestsComponent } from "./ITManager/service-requests/service-requests.component";
+import { IncidentsComponent } from "./ITManager/incidents/incidents.component";
+import { ProblemsComponent } from './ITManager/problems/problems.component';
+import { ChangesComponent } from './ITManager/changes/changes.component';
+import { PersonalServiceRequestComponent } from './ITPersonal/personal-service-request/personal-service-request.component';
+import { PersonalProblemsComponent } from './ITPersonal/personal-problems/personal-problems.component';
+import { PersonalIncidentsComponent } from './ITPersonal/personal-incidents/personal-incidents.component';
+import { PersonalChangesComponent } from './ITPersonal/personal-changes/personal-changes.component';
 const routes: Routes = [
   {
     path: 'itpersonal',
     component: HomeComponent,
     children: [
+      {path:'changes',component:PersonalChangesComponent},
+      {path:'problems',component:PersonalProblemsComponent},
+      {path:'incidents',component:PersonalIncidentsComponent},
+      {path:'servicerequests',component:PersonalServiceRequestComponent,},
       { path: 'details/:id', component: TicketDetailsMainComponent },
       { path: '', component: MainCardBodyComponent },
     ],
@@ -29,6 +40,9 @@ const routes: Routes = [
     path: 'itmanager',
     component: ManagerhomeComponent,
     children: [
+       {path:'changes',component:ChangesComponent},
+      {path:'problems',component:ProblemsComponent},
+      {path:'incidents',component:IncidentsComponent},
       {path:'servicerequests',component:ServiceRequestsComponent,},
       { path: 'details/:id', component: TicketDetailsMainComponent },
       { path: '', component: MainCardBodyManagerComponent },

@@ -5,11 +5,11 @@ import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.s
 import { CreateTicketPopupComponent } from '../create-ticket-popup/create-ticket-popup.component';
 
 @Component({
-  selector: 'app-service-requests',
-  templateUrl: './service-requests.component.html',
-  styleUrls: ['./service-requests.component.css']
+  selector: 'app-problems',
+  templateUrl: './problems.component.html',
+  styleUrls: ['./problems.component.css']
 })
-export class ServiceRequestsComponent implements OnInit {
+export class ProblemsComponent implements OnInit {
 empty: boolean = false;
   constructor( private exportService: ExportexcelService,
     private http: HTTPMainServiceService,
@@ -17,8 +17,8 @@ empty: boolean = false;
 
   ngOnInit(): void {
   }
-  openDialog() {
-    const dialogRef = this.dialog.open(CreateTicketPopupComponent,{data: { pageValue: "ServiceRequest" }});
+ openDialog() {
+    const dialogRef = this.dialog.open(CreateTicketPopupComponent,{data: { pageValue: "Problem" }});
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
@@ -33,7 +33,7 @@ empty: boolean = false;
       .POST('ticket/list', {
         searchText: '',
         isPrint: true,
-        filter: { ticketType: 0 },
+        filter: { ticketType: 2 },
       })
       .subscribe((res) => {
         let ticketsData = res.pageData.map((ticket) => {
@@ -47,7 +47,8 @@ empty: boolean = false;
             Sevirity: ticket['severity'],
           };
         });
-        this.exportService.exportAsExcelFile(ticketsData, 'Service_Requests_data');
+        this.exportService.exportAsExcelFile(ticketsData, 'Problems_data');
       });
-  }
+    }
+
 }

@@ -5,35 +5,48 @@ import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.s
 import { CreateTicketPopupComponent } from '../create-ticket-popup/create-ticket-popup.component';
 
 @Component({
-  selector: 'app-service-requests',
-  templateUrl: './service-requests.component.html',
-  styleUrls: ['./service-requests.component.css']
+  selector: 'app-personal-service-request',
+  templateUrl: './personal-service-request.component.html',
+  styleUrls: ['./personal-service-request.component.css']
 })
-export class ServiceRequestsComponent implements OnInit {
-empty: boolean = false;
-  constructor( private exportService: ExportexcelService,
+export class PersonalServiceRequestComponent implements OnInit {
+
+  public SelectedTabIndex = 0;
+  empty: boolean = false;
+
+  constructor(
+    private exportService: ExportexcelService,
     private http: HTTPMainServiceService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
+   this.http.POST('Ticket/List',{pageSize:10}).subscribe(res=>{
+    console.log(res)
+    res.totalCount===0?this.empty=true:this.empty=false;
+    })
+
   }
   openDialog() {
     const dialogRef = this.dialog.open(CreateTicketPopupComponent,{data: { pageValue: "ServiceRequest" }});
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
-      this.http.GET('Ticket/getCount').subscribe((res) => {
-        console.log(res);
-        res === 0 ? (this.empty = true) : (this.empty = false);
-      });
+      this.http.GET('Ticket/getCount').subscribe(res=>{
+    console.log(res)
+    res===0?this.empty=true:this.empty=false;
+    })
+        
     });
   }
-    exportTable() {
+
+  exportTable() {
+    
     this.http
       .POST('ticket/list', {
         searchText: '',
         isPrint: true,
-        filter: { ticketType: 0 },
+        filter: {ticketType: 0,  ticketTabs: this.SelectedTabIndex },
       })
       .subscribe((res) => {
         let ticketsData = res.pageData.map((ticket) => {
@@ -47,7 +60,7 @@ empty: boolean = false;
             Sevirity: ticket['severity'],
           };
         });
-        this.exportService.exportAsExcelFile(ticketsData, 'Service_Requests_data');
+        this.exportService.exportAsExcelFile(ticketsData, 'ServiceRequests_data');
       });
   }
 }

@@ -39,18 +39,41 @@
         <img src="assets/4.png" class="icon-img" />
         <h4 style="opacity: 0.8">Service Requests</h4>
       </a>
-      <div class="action-container">
+      <a mat-list-item [routerLink]="['/itpersonal/servicerequests']" [routerLinkActive]="['active']" class="action-container"
+        *ngIf="!fromManager()">
+        <img src="assets/4.png" class="icon-img" />
+        <h4 style="opacity: 0.8">Service Requests</h4>
+      </a>
+      <a mat-list-item [routerLink]="['/itmanager/incidents']" [routerLinkActive]="['active']" class="action-container"
+        *ngIf="fromManager()">
         <img src="assets/5.png" class="icon-img" />
         <h4 style="opacity: 0.8">Incidents</h4>
-      </div>
-      <div class="action-container">
+    </a>
+    <a mat-list-item [routerLink]="['/itpersonal/incidents']" [routerLinkActive]="['active']" class="action-container"
+      *ngIf="!fromManager()">
+      <img src="assets/5.png" class="icon-img" />
+      <h4 style="opacity: 0.8">Incidents</h4>
+    </a>
+      <a mat-list-item [routerLink]="['/itmanager/problems']" [routerLinkActive]="['active']" class="action-container"
+        *ngIf="fromManager()">
         <img src="assets/6.png" class="icon-img" />
         <h4 style="opacity: 0.8">Problems</h4>
-      </div>
-      <div class="action-container">
+  </a>
+  <a mat-list-item [routerLink]="['/itpersonal/problems']" [routerLinkActive]="['active']" class="action-container"
+    *ngIf="!fromManager()">
+    <img src="assets/6.png" class="icon-img" />
+    <h4 style="opacity: 0.8">Problems</h4>
+  </a>
+      <a mat-list-item [routerLink]="['/itmanager/changes']" [routerLinkActive]="['active']" class="action-container"
+        *ngIf="fromManager()">
         <img src="assets/7.png" class="icon-img" />
         <h4 style="opacity: 0.8">Changes</h4>
-      </div>
+</a>
+<a mat-list-item [routerLink]="['/itpersonal/changes']" [routerLinkActive]="['active']" class="action-container"
+  *ngIf="!fromManager()">
+  <img src="assets/7.png" class="icon-img" />
+  <h4 style="opacity: 0.8">Changes</h4>
+</a>
       </mat-nav-list>
     </div>
 

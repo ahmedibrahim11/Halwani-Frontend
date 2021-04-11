@@ -6,9 +6,10 @@
   overflow: initial;
 }
 
-.table{
+.table {
   height: fit-content;
 }
+
 .Filter {
   width: 7.5rem;
   height: 3.45rem;
@@ -152,12 +153,12 @@
   width: 100%;
   margin: auto;
 }
-.icon:hover{
+.icon:hover {
   cursor: pointer;
 }
-.spinner-design{
+.spinner-design {
   display: flex;
   text-align: center;
   justify-content: center;
-  padding: 5%
+  padding: 5%;
 }

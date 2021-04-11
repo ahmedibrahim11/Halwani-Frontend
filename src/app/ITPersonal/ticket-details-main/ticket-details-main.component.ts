@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { createTicketDTO } from '../../core/DTOs/createTicketDTO';
 import { Editor } from 'ngx-editor';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -11,6 +11,7 @@ import { getTicketDTO } from "src/app/core/DTOs/getTicketDTO";
   styleUrls: ['./ticket-details-main.component.css']
 })
 export class TicketDetailsMainComponent implements OnInit,OnDestroy  {
+  @Input () returnTo;
   @Output() userMessage:getTicketDTO;
 isDataLoaded=false;
 
@@ -23,10 +24,12 @@ isDataLoaded=false;
   html: '';
 ticketID:string;
   newMessag:FormGroup;
+  fragment: string;
   constructor(private formBuilder: FormBuilder,
     private actRoute:ActivatedRoute,private http:HTTPMainServiceService) { }
 
   ngOnInit(): void {
+    this.actRoute.fragment.subscribe(fragment => { this.fragment = fragment; });
     if(localStorage.getItem("userData")!==null)
     {
  this.currentUser=JSON.parse(localStorage.getItem("userData")).userProfile.userName

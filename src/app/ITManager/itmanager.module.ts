@@ -23,6 +23,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { TicketoptionsComponent } from './ticketoptions/ticketoptions.component';
 import { ToastMessageComponent } from './toast-message/toast-message.component';
 import { ServiceRequestsComponent } from './service-requests/service-requests.component';
+import { IncidentsComponent } from './incidents/incidents.component';
+import { ProblemsComponent } from './problems/problems.component';
+import { ChangesComponent } from './changes/changes.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +44,9 @@ import { ServiceRequestsComponent } from './service-requests/service-requests.co
     TicketoptionsComponent,
     ToastMessageComponent,
     ServiceRequestsComponent,
+    IncidentsComponent,
+    ProblemsComponent,
+    ChangesComponent,
   ],
   imports: [
     BrowserAnimationsModule,

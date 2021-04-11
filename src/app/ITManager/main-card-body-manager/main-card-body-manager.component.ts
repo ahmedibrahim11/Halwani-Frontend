@@ -25,7 +25,7 @@ export class MainCardBodyManagerComponent implements OnInit {
     })
   }
   openDialog() {
-    const dialogRef = this.dialog.open(CreateTicketPopupComponent);
+    const dialogRef = this.dialog.open(CreateTicketPopupComponent,{data: { pageValue: undefined }});
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
