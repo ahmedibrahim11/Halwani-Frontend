@@ -2,24 +2,30 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ExportexcelService } from 'src/app/core/services/exportexcel.service';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
+import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { CreateTicketPopupComponent } from '../create-ticket-popup/create-ticket-popup.component';
 
 @Component({
   selector: 'app-incidents',
   templateUrl: './incidents.component.html',
-  styleUrls: ['./incidents.component.css']
+  styleUrls: ['./incidents.component.css'],
 })
 export class IncidentsComponent implements OnInit {
-
- empty: boolean = false;
-  constructor( private exportService: ExportexcelService,
+  empty: boolean = false;
+  constructor(
+    private exportService: ExportexcelService,
     private http: HTTPMainServiceService,
-    public dialog: MatDialog) { }
+    private share: SharingdataService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
+    this.share.setData('Incident');
   }
- openDialog() {
-    const dialogRef = this.dialog.open(CreateTicketPopupComponent,{data: { pageValue: "Incident" }});
+  openDialog() {
+    const dialogRef = this.dialog.open(CreateTicketPopupComponent, {
+      data: { pageValue: 'Incident' },
+    });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
@@ -29,7 +35,7 @@ export class IncidentsComponent implements OnInit {
       });
     });
   }
-    exportTable() {
+  exportTable() {
     this.http
       .POST('ticket/list', {
         searchText: '',
@@ -50,5 +56,5 @@ export class IncidentsComponent implements OnInit {
         });
         this.exportService.exportAsExcelFile(ticketsData, 'Incidents_data');
       });
-    }
+  }
 }

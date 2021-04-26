@@ -2,23 +2,30 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ExportexcelService } from 'src/app/core/services/exportexcel.service';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
+import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { CreateTicketPopupComponent } from '../create-ticket-popup/create-ticket-popup.component';
 
 @Component({
   selector: 'app-service-requests',
   templateUrl: './service-requests.component.html',
-  styleUrls: ['./service-requests.component.css']
+  styleUrls: ['./service-requests.component.css'],
 })
 export class ServiceRequestsComponent implements OnInit {
-empty: boolean = false;
-  constructor( private exportService: ExportexcelService,
+  empty: boolean = false;
+  constructor(
+    private exportService: ExportexcelService,
     private http: HTTPMainServiceService,
-    public dialog: MatDialog) { }
+    private share: SharingdataService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
+    this.share.setData('ServiceRequest');
   }
   openDialog() {
-    const dialogRef = this.dialog.open(CreateTicketPopupComponent,{data: { pageValue: "ServiceRequest" }});
+    const dialogRef = this.dialog.open(CreateTicketPopupComponent, {
+      data: { pageValue: 'ServiceRequest' },
+    });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
@@ -28,7 +35,7 @@ empty: boolean = false;
       });
     });
   }
-    exportTable() {
+  exportTable() {
     this.http
       .POST('ticket/list', {
         searchText: '',
@@ -47,7 +54,10 @@ empty: boolean = false;
             Sevirity: ticket['severity'],
           };
         });
-        this.exportService.exportAsExcelFile(ticketsData, 'Service_Requests_data');
+        this.exportService.exportAsExcelFile(
+          ticketsData,
+          'Service_Requests_data'
+        );
       });
   }
 }

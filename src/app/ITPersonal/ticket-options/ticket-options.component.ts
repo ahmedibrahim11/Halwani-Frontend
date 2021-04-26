@@ -19,7 +19,10 @@ export class TicketOptionsComponent implements OnInit {
   @Input() ticketID;
   ngOnInit(): void {}
   editHandler() {
-    const dialogRef = this.dialog.open(CreateTicketPopupComponent);
+    let updateStatus = this.share.getData();
+    const dialogRef = this.dialog.open(CreateTicketPopupComponent, {
+      data: { updateValue: updateStatus },
+    });
     this.share.setData(this.ticketID);
 
     dialogRef.afterClosed().subscribe((result) => {
