@@ -84,6 +84,9 @@
               <a *ngIf="from===3" [routerLink]="['/itpersonal/details', user.id]" fragment="changes">
                 <h3>{{ user.name }}</h3>
               </a>
+              <a *ngIf="from===null" [routerLink]="['/itpersonal/details', user.id]" >
+                <h3>{{ user.name }}</h3>
+              </a>
             <p style="opacity: 0.7">{{ user.email }}</p>
           </div>
         </div>

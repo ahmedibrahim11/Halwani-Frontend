@@ -2,13 +2,19 @@
     <div class="main-dev">
         <div class="componentHeader">
             <div class="backButton" *ngIf="!fromManager()">
-                <a [routerLink]="['/itpersonal',fragment]">
+                <a *ngIf="fragment!==undefined" [routerLink]="['/itpersonal',fragment]">
+                    <mat-icon>keyboard_backspace</mat-icon>
+                </a>
+                <a *ngIf="fragment===undefined" [routerLink]="['/itpersonal']">
                     <mat-icon>keyboard_backspace</mat-icon>
                 </a>
                 <label class="HeaderLabel">Back to tickets queue</label>
             </div>
             <div class="backButton" *ngIf="fromManager()">
-                <a [routerLink]="['/itmanager',fragment]">
+                <a *ngIf="fragment!==undefined" [routerLink]="['/itmanager',fragment]">
+                    <mat-icon>keyboard_backspace</mat-icon>
+                </a>
+                <a *ngIf="fragment===undefined" [routerLink]="['/itmanager']">
                     <mat-icon>keyboard_backspace</mat-icon>
                 </a>
                 <label class="HeaderLabel">Back to tickets queue</label>

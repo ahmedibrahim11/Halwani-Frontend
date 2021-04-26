@@ -24,18 +24,18 @@
                         <app-no-more-tickets></app-no-more-tickets>
                     </div>
                     <div *ngIf="!empty">
-                        <app-all-table-component [from]="0"></app-all-table-component>
+                        <app-all-table-component [tabData]=0 [from]="0"></app-all-table-component>
                     </div>
                 </div>
             </mat-tab>
             <mat-tab label="Assigned to me">
-                <app-all-table-component [tabData]=0 [from]="0"></app-all-table-component>
-            </mat-tab>
-            <mat-tab label="In progress">
                 <app-all-table-component [tabData]=1 [from]="0"></app-all-table-component>
             </mat-tab>
+            <mat-tab label="In progress">
+                <app-all-table-component [Status]=4 [from]="0"></app-all-table-component>
+            </mat-tab>
             <mat-tab label="Overdue">
-                <app-all-table-component [tabData]=2 [from]="0"></app-all-table-component>
+                <app-all-table-component [Status]=8 [from]="0"></app-all-table-component>
             </mat-tab>
         </mat-tab-group>
     </div>

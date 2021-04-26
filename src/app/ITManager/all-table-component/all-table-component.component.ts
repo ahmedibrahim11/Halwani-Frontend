@@ -39,6 +39,7 @@ export class AllTableComponentComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() tab: number = 0;
 
+
   constructor(
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
