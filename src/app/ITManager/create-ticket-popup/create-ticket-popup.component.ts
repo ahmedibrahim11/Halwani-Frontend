@@ -10,7 +10,11 @@ import {
   FileSystemFileEntry,
   FileSystemDirectoryEntry,
 } from 'ngx-file-drop';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { TicketListingDTO } from 'src/app/core/DTOs/ticketListingDTO';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -26,6 +30,7 @@ export class CreateTicketPopupComponent implements OnInit {
   getTicketDTO: getTicketDTO = new getTicketDTO();
   createTicketDTOFormGroup: FormGroup;
   fromPage: any;
+  updateStatus: any;
   constructor(
     private formBuilder: FormBuilder,
     private http: HTTPMainServiceService,
@@ -33,9 +38,12 @@ export class CreateTicketPopupComponent implements OnInit {
     public service: TicketCreationService,
     private share: SharingdataService,
     private _snackBar: MatSnackBar,
-     public dialogRef: MatDialogRef<CreateTicketPopupComponent>,
+    public dialogRef: MatDialogRef<CreateTicketPopupComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
-  ) {this.fromPage=data.pageValue;}
+  ) {
+    this.fromPage = data.pageValue;
+    this.updateStatus = share.getData();
+  }
   private FileLinks;
 
   showSecondCategory: boolean = false;
@@ -73,6 +81,21 @@ export class CreateTicketPopupComponent implements OnInit {
         .POST('ticket/getTicket', { id: this.ticketID.toString() })
         .subscribe((res) => {
           console.log('res', res);
+          this.http.GET('RequestType/getRequestType').subscribe((data) => {
+            console.log('jdiuehfheuhf', this.updateStatus);
+            if (this.updateStatus === undefined) {
+              this.ticketTypeDatasource = data;
+            } else {
+              console.log('else');
+              console.log('eeeeee', data);
+              this.ticketTypeDatasource = data
+                .filter((el1) => el1.ticketType === this.updateStatus)
+                .map((el) => {
+                  console.log(el);
+                  return { ticketType: el.ticketType, topics: el.topics };
+                });
+            }
+          });
           this.ticketType = res.requestType.name;
           this.summary = res.ticketName;
           this.attachement = res.attachement[0];
@@ -85,6 +108,7 @@ export class CreateTicketPopupComponent implements OnInit {
           this.categoryName1 = res.productCategoryName1;
           this.categoryName2 = res.productCategoryName2;
         });
+
       this.share.setData(undefined);
     }
 
@@ -118,18 +142,18 @@ export class CreateTicketPopupComponent implements OnInit {
     ];
 
     this.http.GET('RequestType/getRequestType').subscribe((data) => {
-      console.log(this.fromPage)
-      if(this.fromPage ===undefined)
-      {
-      this.ticketTypeDatasource = data;
-      }
-      else{
-        console.log("else")
-             console.log(data)
-        this.ticketTypeDatasource=data.filter((el1)=>el1.ticketType===this.fromPage).map((el)=>{
-          console.log(el)
-          return {ticketType:el.ticketType,topics:el.topics}
-        })
+      console.log(this.fromPage);
+      if (this.fromPage === undefined) {
+        this.ticketTypeDatasource = data;
+      } else {
+        console.log('else');
+        console.log(data);
+        this.ticketTypeDatasource = data
+          .filter((el1) => el1.ticketType === this.fromPage)
+          .map((el) => {
+            console.log(el);
+            return { ticketType: el.ticketType, topics: el.topics };
+          });
       }
     });
     this.http.GET('User/getUser').subscribe((data) => {
@@ -199,7 +223,9 @@ export class CreateTicketPopupComponent implements OnInit {
       this.service.setValue(true);
     });
     if (this.createTicketDTOFormGroup.value.saveAndOpenAnother) {
-      const dialogRef = this.dialog.open(CreateTicketPopupComponent,{data: { pageValue: this.fromPage }});
+      const dialogRef = this.dialog.open(CreateTicketPopupComponent, {
+        data: { pageValue: this.fromPage },
+      });
 
       dialogRef.afterClosed().subscribe((result) => {
         console.log(`Dialog result: ${result}`);
