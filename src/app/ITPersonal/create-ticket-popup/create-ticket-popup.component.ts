@@ -12,7 +12,11 @@ import {
   FileSystemFileEntry,
   FileSystemDirectoryEntry,
 } from 'ngx-file-drop';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { TicketListingDTO } from 'src/app/core/DTOs/ticketListingDTO';
 @Component({
@@ -31,9 +35,12 @@ export class CreateTicketPopupComponent implements OnInit {
     public dialog: MatDialog,
     public service: TicketCreationService,
     private share: SharingdataService,
-    private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<CreateTicketPopupComponent>,
+    private _snackBar: MatSnackBar,
+    public dialogRef: MatDialogRef<CreateTicketPopupComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
-  ) {this.fromPage=data.pageValue;}
+  ) {
+    this.fromPage = data.pageValue;
+  }
   private FileLinks;
   durationInSeconds: any = 3;
 
@@ -61,6 +68,7 @@ export class CreateTicketPopupComponent implements OnInit {
   categoryName1: any;
   categoryName2: any;
   ticketList: TicketListingDTO = new TicketListingDTO();
+  updateStatus: any;
 
   ngOnInit(): void {
     //update
@@ -69,6 +77,21 @@ export class CreateTicketPopupComponent implements OnInit {
       this.http
         .POST('ticket/getTicket', { id: this.ticketID.toString() })
         .subscribe((res) => {
+          this.http.GET('RequestType/getRequestType').subscribe((data) => {
+            console.log('jdiuehfheuhf', this.updateStatus);
+            if (this.updateStatus === undefined) {
+              this.ticketTypeDatasource = data;
+            } else {
+              console.log('else');
+              console.log('eeeeee', data);
+              this.ticketTypeDatasource = data
+                .filter((el1) => el1.ticketType === this.updateStatus)
+                .map((el) => {
+                  console.log(el);
+                  return { ticketType: el.ticketType, topics: el.topics };
+                });
+            }
+          });
           this.ticketType = res.requestType.name;
           this.summary = res.ticketName;
           this.attachement = res.attachement[0];
@@ -114,17 +137,17 @@ export class CreateTicketPopupComponent implements OnInit {
     ];
 
     this.http.GET('RequestType/getRequestType').subscribe((data) => {
-     if(this.fromPage ===undefined)
-      {
-      this.ticketTypeDatasource = data;
-      }
-      else{
-        console.log("else")
-             console.log(data)
-        this.ticketTypeDatasource=data.filter((el1)=>el1.ticketType===this.fromPage).map((el)=>{
-          console.log(el)
-          return {ticketType:el.ticketType,topics:el.topics}
-        })
+      if (this.fromPage === undefined) {
+        this.ticketTypeDatasource = data;
+      } else {
+        console.log('else');
+        console.log(data);
+        this.ticketTypeDatasource = data
+          .filter((el1) => el1.ticketType === this.fromPage)
+          .map((el) => {
+            console.log(el);
+            return { ticketType: el.ticketType, topics: el.topics };
+          });
       }
     });
     this.http.GET('User/getUser').subscribe((data) => {
@@ -194,7 +217,9 @@ export class CreateTicketPopupComponent implements OnInit {
       this.service.setValue(true);
     });
     if (this.createTicketDTOFormGroup.value.saveAndOpenAnother) {
-      const dialogRef = this.dialog.open(CreateTicketPopupComponent,{data: { pageValue: this.fromPage }});
+      const dialogRef = this.dialog.open(CreateTicketPopupComponent, {
+        data: { pageValue: this.fromPage },
+      });
 
       dialogRef.afterClosed().subscribe((result) => {
         console.log(`Dialog result: ${result}`);
