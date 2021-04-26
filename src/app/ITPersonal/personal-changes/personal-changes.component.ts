@@ -22,7 +22,7 @@ export class PersonalChangesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.share.setData('Changes');
+    this.share.setData('Change');
 
     this.http.POST('Ticket/List', { pageSize: 10 }).subscribe((res) => {
       console.log(res);

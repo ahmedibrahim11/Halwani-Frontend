@@ -20,7 +20,7 @@ export class ChangesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.share.setData('Incident');
+    this.share.setData('Change');
   }
   openDialog() {
     const dialogRef = this.dialog.open(CreateTicketPopupComponent, {
