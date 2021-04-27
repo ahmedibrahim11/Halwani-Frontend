@@ -23,11 +23,13 @@ import { PersonalServiceRequestComponent } from './ITPersonal/personal-service-r
 import { PersonalProblemsComponent } from './ITPersonal/personal-problems/personal-problems.component';
 import { PersonalIncidentsComponent } from './ITPersonal/personal-incidents/personal-incidents.component';
 import { PersonalChangesComponent } from './ITPersonal/personal-changes/personal-changes.component';
+import { SettingsMainTabsComponent } from './shared/settings-main-tabs/settings-main-tabs.component';
 const routes: Routes = [
   {
     path: 'itpersonal',
     component: HomeComponent,
     children: [
+      {path:'settings',component:SettingsMainTabsComponent},
       {path:'changes',component:PersonalChangesComponent},
       {path:'problems',component:PersonalProblemsComponent},
       {path:'incidents',component:PersonalIncidentsComponent},
@@ -40,6 +42,7 @@ const routes: Routes = [
     path: 'itmanager',
     component: ManagerhomeComponent,
     children: [
+      {path:'settings',component:SettingsMainTabsComponent},
        {path:'changes',component:ChangesComponent},
       {path:'problems',component:ProblemsComponent},
       {path:'incidents',component:IncidentsComponent},
@@ -57,6 +60,7 @@ const routes: Routes = [
       { path: '', component: MainCategoriesComponent },
     ],
   },
+  
   { path: '', component: LoginComponent },
 ];
 
