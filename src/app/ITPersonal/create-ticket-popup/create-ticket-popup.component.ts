@@ -40,6 +40,7 @@ export class CreateTicketPopupComponent implements OnInit {
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.fromPage = data.pageValue;
+    this.updateStatus = share.getData();
   }
   private FileLinks;
   durationInSeconds: any = 3;

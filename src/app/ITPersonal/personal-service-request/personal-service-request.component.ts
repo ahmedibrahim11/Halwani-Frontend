@@ -23,11 +23,6 @@ export class PersonalServiceRequestComponent implements OnInit {
 
   ngOnInit(): void {
     this.share.setData('ServiceRequest');
-
-    this.http.POST('Ticket/List', { pageSize: 10 }).subscribe((res) => {
-      console.log(res);
-      res.totalCount === 0 ? (this.empty = true) : (this.empty = false);
-    });
   }
   openDialog() {
     const dialogRef = this.dialog.open(CreateTicketPopupComponent, {
