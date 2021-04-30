@@ -27,7 +27,8 @@ import { EscalateTicketComponent } from '../escalate-ticket/escalate-ticket.comp
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { TicketOptionsComponent } from 'src/app/ITPersonal/ticket-options/ticket-options.component';
 import { Router } from '@angular/router';
-
+import { Subscription } from 'rxjs';
+import { CommonServiceService } from 'src/app/core/services/common-service.service';
 @Component({
   selector: 'app-all-table-component',
   templateUrl: './all-table-component.component.html',
@@ -40,13 +41,38 @@ export class AllTableComponentComponent implements OnInit {
   @Input() tabData: number = undefined;
   @Input() Status: number = undefined;
   @Input() from: number = null;
+  private subscriptionName: Subscription;
+
   constructor(
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
     private service: TicketCreationService,
     private share: SharingdataService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private common: CommonServiceService
+  ) {
+    this.subscriptionName = this.common.getUpdate().subscribe((data) => {
+      this.UserViewInfoObject = data.map((el) => {
+        const cerationDate = new Date(el['creationDate']);
+        return {
+          id: el['id'],
+          initials: this.initials(el['rasiedBy']['name']),
+          name: el['rasiedBy']['name'],
+          email: el['rasiedBy']['email'],
+          createdDate: cerationDate.toDateString(),
+          createdTime: cerationDate.toLocaleTimeString(),
+          ticketTopic: el['requestType']['name'],
+          ticketCategory: el['requestType']['ticketType'],
+          Sevirity: el['severity'],
+        };
+      });
+      this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscriptionName.unsubscribe();
+  }
 
   pageLength: any = 5;
   pageSize: any = 5;
