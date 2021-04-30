@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, resolveForwardRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
+import { CommonServiceService } from 'src/app/core/services/common-service.service';
 import {
   PriorityEnum,
   SevirityEnum,
@@ -33,29 +34,125 @@ export class FiltermodalComponent implements OnInit {
   priorityList: any = [];
 
   locationChange(e) {
-    this.updateTableByFilters('location', e.value);
+    this.http.GET('ticket/getCount').subscribe((res) => {
+      this.pageLength = res;
+
+      this.http
+        .POST('ticket/list', {
+          searchText: '',
+          pageSize: this.pageLength,
+          pageNumber: this.pageIndex,
+          isPrint: false,
+          filter: { location: e.value },
+          sortValue: 0,
+        })
+        .subscribe((res) => {
+          console.log('wreeeeny', res);
+          this.common.sendUpdate(res.pageData);
+        });
+    });
     this.dialog.closeAll();
   }
   sourceChange(e) {
-    this.updateTableByFilters('source', e.value);
+    this.http.GET('ticket/getCount').subscribe((res) => {
+      this.pageLength = res;
+
+      this.http
+        .POST('ticket/list', {
+          searchText: '',
+          pageSize: this.pageLength,
+          pageNumber: this.pageIndex,
+          isPrint: false,
+          filter: { source: e.value },
+          sortValue: 0,
+        })
+        .subscribe((res) => {
+          console.log('wreeeeny', res);
+          this.common.sendUpdate(res.pageData);
+        });
+    });
     this.dialog.closeAll();
   }
   stateChange(e) {
-    this.updateTableByFilters('state', e.value);
+    this.http.GET('ticket/getCount').subscribe((res) => {
+      this.pageLength = res;
+
+      this.http
+        .POST('ticket/list', {
+          searchText: '',
+          pageSize: this.pageLength,
+          pageNumber: this.pageIndex,
+          isPrint: false,
+          filter: { state: e.value },
+          sortValue: 0,
+        })
+        .subscribe((res) => {
+          console.log('wreeeeny', res);
+          this.common.sendUpdate(res.pageData);
+        });
+    });
     this.dialog.closeAll();
   }
   dateChange(e) {
     console.log(e.value);
-    this.updateTableByFilters('date', e.value);
+    this.http.GET('ticket/getCount').subscribe((res) => {
+      this.pageLength = res;
+
+      this.http
+        .POST('ticket/list', {
+          searchText: '',
+          pageSize: this.pageLength,
+          pageNumber: this.pageIndex,
+          isPrint: false,
+          filter: { date: e.value },
+          sortValue: 0,
+        })
+        .subscribe((res) => {
+          console.log('wreeeeny', res);
+          this.common.sendUpdate(res.pageData);
+        });
+    });
     this.dialog.closeAll();
   }
   severityChange(e) {
     console.log('ssss', e.value);
-    this.updateTableByFilters('severity', e.value);
+    this.http.GET('ticket/getCount').subscribe((res) => {
+      this.pageLength = res;
+
+      this.http
+        .POST('ticket/list', {
+          searchText: '',
+          pageSize: this.pageLength,
+          pageNumber: this.pageIndex,
+          isPrint: false,
+          filter: { severity: e.value },
+          sortValue: 0,
+        })
+        .subscribe((res) => {
+          console.log('wreeeeny', res);
+          this.common.sendUpdate(res.pageData);
+        });
+    });
     this.dialog.closeAll();
   }
   priorityChange(e) {
-    this.updateTableByFilters('priority', e.value);
+    this.http.GET('ticket/getCount').subscribe((res) => {
+      this.pageLength = res;
+
+      this.http
+        .POST('ticket/list', {
+          searchText: '',
+          pageSize: this.pageLength,
+          pageNumber: this.pageIndex,
+          isPrint: false,
+          filter: { priority: e.value },
+          sortValue: 0,
+        })
+        .subscribe((res) => {
+          console.log('wreeeeny', res);
+          this.common.sendUpdate(res);
+        });
+    });
     this.dialog.closeAll();
   }
 
@@ -67,52 +164,14 @@ export class FiltermodalComponent implements OnInit {
     this.priorityList = [];
   }
 
-  updateTableByFilters(key: any, value: any) {
-    console.log('fi', key, value);
-    let filter = {};
-    filter[key] = value;
-    console.log('fillll', filter);
-    this.http.GET('ticket/getCount').subscribe((res) => {
-      this.pageLength = res;
-
-      this.http
-        .POST('ticket/list', {
-          searchText: '',
-          pageSize: this.pageLength,
-          pageNumber: this.pageIndex,
-          isPrint: false,
-          filter: filter,
-          sortValue: 0,
-        })
-        .subscribe((res) => {
-          console.log('resulttttt', res.pageData);
-          let usersData = res.pageData;
-          this.UserViewInfoObject = usersData.map((el) => {
-            const cerationDate = new Date(el['creationDate']);
-            this.pageLength = res.pageData.length;
-            return {
-              id: el['id'],
-              initials: this.initials(el['rasiedBy']['name']),
-              name: el['rasiedBy']['name'],
-              email: el['rasiedBy']['email'],
-              createdDate: cerationDate.toDateString(),
-              createdTime: cerationDate.toLocaleTimeString(),
-              ticketTopic: el['requestType']['name'],
-              ticketCategory: el['requestType']['ticketType'],
-              Sevirity: el['severity'],
-            };
-          });
-          this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-          console.log('filter result', this.dataSource);
-        });
-    });
-  }
-  constructor(private http: HTTPMainServiceService, public dialog: MatDialog) {}
+  constructor(
+    private http: HTTPMainServiceService,
+    public dialog: MatDialog,
+    private common: CommonServiceService
+  ) {}
   pageLength: any = 5;
   pageSize: any = 5;
   pageIndex: any = 0;
-  dataSource: any;
-  UserViewInfoObject: TicketListingDTO[] = new Array<TicketListingDTO>();
 
   ngOnInit(): void {
     const sevKeys = Object.keys(SevirityEnum).filter(

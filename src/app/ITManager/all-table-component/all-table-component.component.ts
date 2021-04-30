@@ -27,6 +27,8 @@ import { CancelTicketComponent } from '../cancel-ticket/cancel-ticket.component'
 import { AssignTicketComponent } from '../assign-ticket/assign-ticket.component';
 import { TicketoptionsComponent } from '../ticketoptions/ticketoptions.component';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { CommonServiceService } from 'src/app/core/services/common-service.service';
 
 @Component({
   selector: 'app-all-table-component',
@@ -44,8 +46,31 @@ export class AllTableComponentComponent implements OnInit {
     public dialog: MatDialog,
     private service: TicketCreationService,
     private share: SharingdataService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private common: CommonServiceService
+  ) {
+    this.subscriptionName = this.common.getUpdate().subscribe((data) => {
+      this.UserViewInfoObject = data.map((el) => {
+        const cerationDate = new Date(el['creationDate']);
+        return {
+          id: el['id'],
+          initials: this.initials(el['rasiedBy']['name']),
+          name: el['rasiedBy']['name'],
+          email: el['rasiedBy']['email'],
+          createdDate: cerationDate.toDateString(),
+          createdTime: cerationDate.toLocaleTimeString(),
+          ticketTopic: el['requestType']['name'],
+          ticketCategory: el['requestType']['ticketType'],
+          Sevirity: el['severity'],
+        };
+      });
+      this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscriptionName.unsubscribe();
+  }
 
   pageLength: any = 5;
   pageSize: any = 5;
@@ -298,6 +323,8 @@ export class AllTableComponentComponent implements OnInit {
 
   dataSource: any;
   showSpinner: Boolean = true;
+
+  private subscriptionName: Subscription;
   ngOnInit(): void {
     console.log('Tabbbbbb', this.tab);
     this.service.getValue().subscribe((value) => {
