@@ -5,6 +5,7 @@ import {
   PriorityEnum,
   SevirityEnum,
   SourceEnum,
+  StatusEnum,
   TicketListingDTO,
 } from '../../core/DTOs/ticketListingDTO';
 import { MatTableDataSource } from '@angular/material/table';
@@ -126,6 +127,10 @@ export class FiltermodalComponent implements OnInit {
       (k) => typeof SourceEnum[k as any] === 'number'
     );
     souKeys.map((k) => this.sourceList.push(SourceEnum[k as any]));
+    const statKeys = Object.keys(StatusEnum).filter(
+      (k) => typeof StatusEnum[k as any] === 'number'
+    );
+    statKeys.map((k) => this.stateList.push(StatusEnum[k as any]));
   }
 
   initials(name) {
