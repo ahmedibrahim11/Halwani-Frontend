@@ -2,8 +2,6 @@ import { Component, Inject, Input, OnInit, Optional } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { createTicketDTO } from '../../core/DTOs/createTicketDTO';
 import { getTicketDTO } from '../../core/DTOs/getTicketDTO';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { ToastMessageComponent } from '../toast-message/toast-message.component';
 
 import { HTTPMainServiceService } from '../../core/services/httpmain-service.service';
 import { TicketCreationService } from '../../core/services/ticket-creation.service';
@@ -19,6 +17,8 @@ import {
 } from '@angular/material/dialog';
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { TicketListingDTO } from 'src/app/core/DTOs/ticketListingDTO';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastMessageComponent } from '../toast-message/toast-message.component';
 @Component({
   selector: 'app-create-ticket-popup',
   templateUrl: './create-ticket-popup.component.html',
@@ -29,6 +29,7 @@ export class CreateTicketPopupComponent implements OnInit {
   getTicketDTO: getTicketDTO = new getTicketDTO();
   createTicketDTOFormGroup: FormGroup;
   fromPage: any;
+  updateStatus: any;
   constructor(
     private formBuilder: FormBuilder,
     private http: HTTPMainServiceService,
@@ -39,12 +40,10 @@ export class CreateTicketPopupComponent implements OnInit {
     public dialogRef: MatDialogRef<CreateTicketPopupComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.fromPage = data.pageValue;
+    this.fromPage = data ? data.pageValue : undefined;
     this.updateStatus = share.getData();
   }
   private FileLinks;
-  durationInSeconds: any = 3;
-
   showSecondCategory: boolean = false;
   saveAndOpenAnother: boolean = false;
   @Input() ticketTypeDatasource;
@@ -56,6 +55,8 @@ export class CreateTicketPopupComponent implements OnInit {
   @Input() productCategoryName2;
 
   ticketID: any;
+  durationInSeconds: any = 3;
+
   //update-default-values
   ticketType: any;
   summary: any;
@@ -69,7 +70,6 @@ export class CreateTicketPopupComponent implements OnInit {
   categoryName1: any;
   categoryName2: any;
   ticketList: TicketListingDTO = new TicketListingDTO();
-  updateStatus: any;
 
   ngOnInit(): void {
     //update
@@ -78,6 +78,7 @@ export class CreateTicketPopupComponent implements OnInit {
       this.http
         .POST('ticket/getTicket', { id: this.ticketID.toString() })
         .subscribe((res) => {
+          console.log('res', res);
           this.http.GET('RequestType/getRequestType').subscribe((data) => {
             console.log('jdiuehfheuhf', this.updateStatus);
             if (this.updateStatus === undefined) {
@@ -105,6 +106,7 @@ export class CreateTicketPopupComponent implements OnInit {
           this.categoryName1 = res.productCategoryName1;
           this.categoryName2 = res.productCategoryName2;
         });
+
       this.share.setData(undefined);
     }
 
@@ -138,6 +140,7 @@ export class CreateTicketPopupComponent implements OnInit {
     ];
 
     this.http.GET('RequestType/getRequestType').subscribe((data) => {
+      console.log(this.fromPage);
       if (this.fromPage === undefined) {
         this.ticketTypeDatasource = data;
       } else {
