@@ -15,7 +15,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { COMMA, ENTER, V } from '@angular/cdk/keycodes';
+import { COMMA, ENTER, P, V } from '@angular/cdk/keycodes';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
@@ -330,6 +330,7 @@ export class AllTableComponentComponent implements OnInit {
     this.service.getValue().subscribe((value) => {
       this.flag = value;
       if (this.flag === true) {
+        this.pageLength = this.pageLength + 1;
         this.http
           .POST('ticket/list', {
             searchText: '',

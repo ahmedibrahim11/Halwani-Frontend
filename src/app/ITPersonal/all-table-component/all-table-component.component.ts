@@ -346,6 +346,7 @@ export class AllTableComponentComponent implements OnInit {
     this.service.getValue().subscribe((value) => {
       this.flag == value;
       if (this.flag === true) {
+        this.pageLength = this.pageLength + 1;
         this.http
           .POST('ticket/list', {
             searchText: '',
