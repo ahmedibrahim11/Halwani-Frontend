@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { ExportexcelService } from 'src/app/core/services/exportexcel.service';
 import { CreateTicketPopupComponent } from '../create-ticket-popup/create-ticket-popup.component';
+import { TabscreationService } from 'src/app/core/services/tabscreation.service';
 @Component({
   selector: 'app-main-card-body-manager',
   templateUrl: './main-card-body-manager.component.html',
@@ -15,18 +16,21 @@ export class MainCardBodyManagerComponent implements OnInit {
   constructor(
     private exportService: ExportexcelService,
     private http: HTTPMainServiceService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private tabs: TabscreationService
   ) {}
 
   ngOnInit(): void {
-    this.http.POST('Ticket/List',{pageSize:10}).subscribe(res=>{
-    console.log(res)
-    res.totalCount===0?this.empty=true:this.empty=false;
-    })
+    this.http.POST('Ticket/List', { pageSize: 10 }).subscribe((res) => {
+      console.log(res);
+      res.totalCount === 0 ? (this.empty = true) : (this.empty = false);
+    });
+    this.tabs.setTabValue(undefined);
   }
   openDialog() {
-    const dialogRef = this.dialog.open(CreateTicketPopupComponent,{data: { pageValue: undefined }});
-
+    const dialogRef = this.dialog.open(CreateTicketPopupComponent, {
+      data: { pageValue: undefined },
+    });
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
       this.http.GET('Ticket/getCount').subscribe((res) => {

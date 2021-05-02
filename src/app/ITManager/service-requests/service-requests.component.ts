@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ExportexcelService } from 'src/app/core/services/exportexcel.service';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
+import { TabscreationService } from 'src/app/core/services/tabscreation.service';
 import { CreateTicketPopupComponent } from '../create-ticket-popup/create-ticket-popup.component';
 
 @Component({
@@ -15,12 +16,12 @@ export class ServiceRequestsComponent implements OnInit {
   constructor(
     private exportService: ExportexcelService,
     private http: HTTPMainServiceService,
-    private share: SharingdataService,
+    private tabs: TabscreationService,
     public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.share.setData('ServiceRequest');
+    this.tabs.setTabValue('ServiceRequest');
   }
   openDialog() {
     const dialogRef = this.dialog.open(CreateTicketPopupComponent, {

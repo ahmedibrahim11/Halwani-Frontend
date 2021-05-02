@@ -19,6 +19,7 @@ import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { TicketListingDTO } from 'src/app/core/DTOs/ticketListingDTO';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastMessageComponent } from '../toast-message/toast-message.component';
+import { TabscreationService } from 'src/app/core/services/tabscreation.service';
 @Component({
   selector: 'app-create-ticket-popup',
   templateUrl: './create-ticket-popup.component.html',
@@ -36,12 +37,13 @@ export class CreateTicketPopupComponent implements OnInit {
     public dialog: MatDialog,
     public service: TicketCreationService,
     private share: SharingdataService,
+    private tabs: TabscreationService,
     private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<CreateTicketPopupComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.fromPage = data ? data.pageValue : undefined;
-    this.updateStatus = share.getData();
+    this.updateStatus = tabs.getTabValue();
   }
   private FileLinks;
   showSecondCategory: boolean = false;
