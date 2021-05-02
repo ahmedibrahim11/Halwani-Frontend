@@ -93,8 +93,21 @@ export class FiltermodalComponent implements OnInit {
     });
     this.dialog.closeAll();
   }
+
+  formatDate(date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
   dateChange(e) {
-    console.log(e.value);
+    let ticketDate = this.formatDate(e.value.toDateString());
+    console.log('dateee', ticketDate);
     this.http.GET('ticket/getCount').subscribe((res) => {
       this.pageLength = res;
 
@@ -104,7 +117,7 @@ export class FiltermodalComponent implements OnInit {
           pageSize: this.pageLength,
           pageNumber: this.pageIndex,
           isPrint: false,
-          filter: { date: e.value },
+          filter: { date: ticketDate },
           sortValue: 0,
         })
         .subscribe((res) => {
