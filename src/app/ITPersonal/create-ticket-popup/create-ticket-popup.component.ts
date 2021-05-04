@@ -27,8 +27,11 @@ import { TabscreationService } from 'src/app/core/services/tabscreation.service'
 })
 export class CreateTicketPopupComponent implements OnInit {
   createTicketDTO: createTicketDTO = new createTicketDTO();
+  updateTicketDto:createTicketDTO=new createTicketDTO();
   getTicketDTO: getTicketDTO = new getTicketDTO();
   createTicketDTOFormGroup: FormGroup;
+  formData:FormData=new FormData();
+  updateFormData:FormData=new FormData();
   fromPage: any;
   updateStatus: any;
   constructor(
@@ -76,6 +79,7 @@ export class CreateTicketPopupComponent implements OnInit {
   ngOnInit(): void {
     //update
     this.ticketID = this.share.getData();
+    console.log("ticketId",this.ticketID);
     if (this.ticketID !== undefined) {
       this.http
         .POST('ticket/getTicket', { id: this.ticketID.toString() })
@@ -214,8 +218,10 @@ export class CreateTicketPopupComponent implements OnInit {
     this.createTicketDTO.teamName = this.createTicketDTOFormGroup.value.team;
     this.createTicketDTO.priority = this.createTicketDTOFormGroup.value.priority;
     this.createTicketDTO.source = this.createTicketDTOFormGroup.value.source;
-    console.log('createDto', this.createTicketDTO);
-    this.http.POST('Ticket/Create', this.createTicketDTO).subscribe((data) => {
+    var requestData=JSON.stringify(this.createTicketDTO);
+    this.formData.append("data",requestData);
+    console.log('createDto', requestData);
+    this.http.POST('Ticket/CreateTicket', this.formData).subscribe((data) => {
       console.log('create tickeet');
       this._snackBar.openFromComponent(ToastMessageComponent, {
         duration: this.durationInSeconds * 1000,
@@ -237,27 +243,31 @@ export class CreateTicketPopupComponent implements OnInit {
     let submitterArray = this.createTicketDTOFormGroup.value.reporter.split(
       ','
     );
+    console.log("a7mos",this.createTicketDTOFormGroup.value);
+    this.updateTicketDto.attachement =
+      this.FileLinks !== undefined ? this.FileLinks.toString() : '';
+      this.updateTicketDto.id =this.ticketID;
+    this.updateTicketDto.description = this.createTicketDTOFormGroup.value.description;
+    this.updateTicketDto.productCategoryName1 = this.createTicketDTOFormGroup.value.productCategoryName1.toString();
+    this.updateTicketDto.productCategoryName2 = this.createTicketDTOFormGroup.value.productCategoryName2.toString();
+    this.updateTicketDto.submitterTeam = submitterArray[0];
+    this.updateTicketDto.submitterEmail = submitterArray[1];
+    this.updateTicketDto.submitterName = submitterArray[2];
+    this.updateTicketDto.summary = this.createTicketDTOFormGroup.value.summary;
+    this.updateTicketDto.submitDate = new Date();
+    this.updateTicketDto.requestTypeId = this.createTicketDTOFormGroup.value.ticketType;
+    this.updateTicketDto.ticketSeverity = this.createTicketDTOFormGroup.value.sevirity;
+    this.updateTicketDto.ticketStatus = 0;
+    //will be from aad
+    this.updateTicketDto.reportedSource = 'admin';
+    this.updateTicketDto.teamName = this.createTicketDTOFormGroup.value.team;
+    this.updateTicketDto.priority = this.createTicketDTOFormGroup.value.priority;
+    this.updateTicketDto.source = this.createTicketDTOFormGroup.value.source;
+
+    var updated=JSON.stringify(this.updateTicketDto);
+     this.updateFormData.append("data",updated);
     this.http
-      .PUT('Ticket/UpdateTicket/' + this.ticketID, {
-        summary: this.createTicketDTOFormGroup.value.summary,
-        submitterTeam: submitterArray[0],
-        submitterEmail: submitterArray[1],
-        submitterName: submitterArray[2],
-        teamName: this.createTicketDTOFormGroup.value.team,
-        location: 'string',
-        priority: this.createTicketDTOFormGroup.value.priority,
-        source: this.createTicketDTOFormGroup.value.source,
-        reportedSource: 'admin',
-        requestTypeId: this.createTicketDTOFormGroup.value.ticketType,
-        ticketSeverity: this.createTicketDTOFormGroup.value.sevirity,
-        ticketStatus: 0,
-        description: this.createTicketDTOFormGroup.value.description,
-        submitDate: new Date(),
-        productCategoryName1: this.createTicketDTOFormGroup.value.productCategoryName1.toString(),
-        productCategoryName2: this.createTicketDTOFormGroup.value.productCategoryName2.toString(),
-        attachement:
-          this.FileLinks !== undefined ? this.FileLinks.toString() : '',
-      })
+      .PUT('Ticket/UpdateTic/',this.updateFormData)
       .subscribe((res) => {
         this._snackBar.openFromComponent(ToastMessageComponent, {
           duration: this.durationInSeconds * 1000,
@@ -268,23 +278,20 @@ export class CreateTicketPopupComponent implements OnInit {
 
   public files: NgxFileDropEntry[] = [];
 
-  public dropped(files: NgxFileDropEntry[]) {
+  public dropped(files: NgxFileDropEntry[],value:any) {
+    console.log("valueee",value);
     this.files = files;
     for (const droppedFile of files) {
       // Is it a file?
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
-          const formData = new FormData();
-          formData.append(file.name, file);
-          this.http.POST('Ticket/PostFile', formData).subscribe((data) => {
-            this.FileLinks = data;
-            if (this.FileLinks.length !== 0) {
-              let newLink = data[0];
-              this.FileLinks.push(newLink);
-            }
-            console.log(this.FileLinks);
-          });
+          if(value===0){
+            this.formData.append(file.name, file);
+          }
+          else{
+            this.updateFormData.append(file.name, file);
+          }
         });
       } else {
         // It was a directory (empty directories are added, otherwise only files)

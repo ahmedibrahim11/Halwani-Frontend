@@ -1,4 +1,5 @@
 export class createTicketDTO {
+  id:number;
   summary: string;
   submitterTeam: string;
   submitterEmail: string;
