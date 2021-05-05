@@ -37,7 +37,7 @@
       <div class="center">
         <ngx-file-drop
           dropZoneLabel="Drop files here"
-          (onFileDrop)="dropped($event)"
+          (onFileDrop)="dropped($event,0)"
           (onFileOver)="fileOver($event)"
           class="upload-drop-zone"
           (onFileLeave)="fileLeave($event)"
@@ -257,7 +257,7 @@
       <div class="center">
         <ngx-file-drop
           dropZoneLabel="Drop files here"
-          (onFileDrop)="dropped($event)"
+          (onFileDrop)="dropped($event,1)"
           (onFileOver)="fileOver($event)"
           class="upload-drop-zone"
           (onFileLeave)="fileLeave($event)"
