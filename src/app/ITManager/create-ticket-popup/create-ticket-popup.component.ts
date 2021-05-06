@@ -28,11 +28,11 @@ import { TabscreationService } from 'src/app/core/services/tabscreation.service'
 })
 export class CreateTicketPopupComponent implements OnInit {
   createTicketDTO: createTicketDTO = new createTicketDTO();
-  updateTicketDto:createTicketDTO=new createTicketDTO();
+  updateTicketDto: createTicketDTO = new createTicketDTO();
   getTicketDTO: getTicketDTO = new getTicketDTO();
   createTicketDTOFormGroup: FormGroup;
-  formData:FormData=new FormData();
-  updateFormData:FormData=new FormData();
+  formData: FormData = new FormData();
+  updateFormData: FormData = new FormData();
   fromPage: any;
   updateStatus: any;
   constructor(
@@ -69,6 +69,8 @@ export class CreateTicketPopupComponent implements OnInit {
   ticketType: any;
   summary: any;
   attachement: any;
+  filePath: any;
+  fileName: any;
   description: any;
   teamName: any;
   reporter: any;
@@ -105,6 +107,10 @@ export class CreateTicketPopupComponent implements OnInit {
           this.ticketType = res.requestType.name;
           this.summary = res.ticketName;
           this.attachement = res.attachement[0];
+          this.imageurls.push({ base64String: this.attachement });
+
+          this.filePath = this.attachement.split('/');
+          this.fileName = this.filePath[4];
           this.description = res.description;
           this.teamName = res.teamName;
           this.reporter = res.submitterEmail;
@@ -200,7 +206,7 @@ export class CreateTicketPopupComponent implements OnInit {
   submiCreate() {
     console.log(this.createTicketDTOFormGroup.value);
     this.createTicketDTO.attachement =
-      this.FileLinks !== undefined ? this.FileLinks.toString() : '';
+      this.imageurls !== undefined ? this.imageurls.toString() : '';
     this.createTicketDTO.description = this.createTicketDTOFormGroup.value.description;
     this.createTicketDTO.productCategoryName1 = this.createTicketDTOFormGroup.value.productCategoryName1.toString();
     this.createTicketDTO.productCategoryName2 = this.createTicketDTOFormGroup.value.productCategoryName2.toString();
@@ -221,8 +227,8 @@ export class CreateTicketPopupComponent implements OnInit {
     this.createTicketDTO.priority = this.createTicketDTOFormGroup.value.priority;
     this.createTicketDTO.source = this.createTicketDTOFormGroup.value.source;
     console.log('createDto', this.createTicketDTO);
-    var requestData=JSON.stringify(this.createTicketDTO);
-    this.formData.append("data",requestData);
+    var requestData = JSON.stringify(this.createTicketDTO);
+    this.formData.append('data', requestData);
     this.http.POST('Ticket/CreateTicket', this.formData).subscribe((data) => {
       console.log('create tickeet');
       this._snackBar.openFromComponent(ToastMessageComponent, {
@@ -244,10 +250,10 @@ export class CreateTicketPopupComponent implements OnInit {
     let submitterArray = this.createTicketDTOFormGroup.value.reporter.split(
       ','
     );
-    console.log("a7mos",this.createTicketDTOFormGroup.value);
+    console.log('a7mos', this.createTicketDTOFormGroup.value);
     this.updateTicketDto.attachement =
-      this.FileLinks !== undefined ? this.FileLinks.toString() : '';
-      this.updateTicketDto.id =this.ticketID;
+      this.imageurls !== undefined ? this.imageurls.toString() : '';
+    this.updateTicketDto.id = this.ticketID;
     this.updateTicketDto.description = this.createTicketDTOFormGroup.value.description;
     this.updateTicketDto.productCategoryName1 = this.createTicketDTOFormGroup.value.productCategoryName1.toString();
     this.updateTicketDto.productCategoryName2 = this.createTicketDTOFormGroup.value.productCategoryName2.toString();
@@ -265,10 +271,10 @@ export class CreateTicketPopupComponent implements OnInit {
     this.updateTicketDto.priority = this.createTicketDTOFormGroup.value.priority;
     this.updateTicketDto.source = this.createTicketDTOFormGroup.value.source;
 
-    var updated=JSON.stringify(this.updateTicketDto);
-     this.updateFormData.append("data",updated);
+    var updated = JSON.stringify(this.updateTicketDto);
+    this.updateFormData.append('data', updated);
     this.http
-      .PUT('Ticket/UpdateTic/',this.updateFormData)
+      .PUT('Ticket/UpdateTicket/', this.updateFormData)
       .subscribe((res) => {
         this._snackBar.openFromComponent(ToastMessageComponent, {
           duration: this.durationInSeconds * 1000,
@@ -277,37 +283,33 @@ export class CreateTicketPopupComponent implements OnInit {
       });
   }
 
-  public files: NgxFileDropEntry[] = [];
+  imageDeleteFrom: FormGroup;
+  imageurls = [];
+  base64String: string;
+  name: string;
+  imagePath: string;
 
-  public dropped(files: NgxFileDropEntry[],value:any) {
-    console.log("valueee",value);
-    this.files = files;
-    for (const droppedFile of files) {
-      // Is it a file?
-      if (droppedFile.fileEntry.isFile) {
-        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        fileEntry.file((file: File) => {
-          if(value===0){
-            this.formData.append(file.name, file);
-          }
-          else{
-            this.updateFormData.append(file.name, file);
-          }
-        });
-      } else {
-        // It was a directory (empty directories are added, otherwise only files)
-        const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
-        console.log(droppedFile.relativePath, fileEntry);
+  removeImageEdit(i, imagepath) {
+    this.imageDeleteFrom.value.id = i;
+    this.imageDeleteFrom.value.ImagePath = imagepath;
+  }
+
+  removeImage(i) {
+    this.imageurls.splice(i, 1);
+    console.log('iiii', this.imageurls);
+  }
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      var filesAmount = event.target.files.length;
+      for (let i = 0; i < filesAmount; i++) {
+        var reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.imageurls.push({ base64String: event.target.result });
+        };
+        console.log('fileeee', this.imageurls);
+        reader.readAsDataURL(event.target.files[i]);
       }
     }
-  }
-
-  public fileOver(event) {
-    console.log(event);
-  }
-
-  public fileLeave(event) {
-    console.log(event);
   }
   initials(name) {
     let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
