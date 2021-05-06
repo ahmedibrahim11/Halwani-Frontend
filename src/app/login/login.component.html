@@ -1,4 +1,6 @@
 <div class="align-mainDev">
+
+ 
     <img src="assets/Group2.svg" class="Group-2">
     <div class="card-div">
         <div class="content"><label class="Login">Login</label>
@@ -32,4 +34,10 @@
             <img src="assets/Group3.svg" class="Group-3" />
         </div>
     </div>
+</div>
+<div  class="overlay" *ngIf="showSpinner === true">
+    <div class="center" >
+       <mat-spinner color="warn"></mat-spinner>
+       <p style="font-size: large; padding: 2%;">Please Wait...</p>
+   </div>
 </div>
