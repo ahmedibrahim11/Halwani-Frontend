@@ -105,7 +105,7 @@ export class CreateTicketPopupComponent implements OnInit {
                 });
             }
           });
-          this.ticketType = res.requestType.name;
+          this.ticketType = res.requestType.id;
           this.summary = res.ticketName;
           for (let i = 0; i < res.attachement.length; i++) {
             this.attachement.push(res.attachement[i]);
