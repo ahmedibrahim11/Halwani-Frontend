@@ -321,6 +321,7 @@ export class CreateTicketPopupComponent implements OnInit {
             this.formData.append(file.name, file);
           } else {
             this.updateFormData.append(file.name, file);
+            this.FileLinks.push(file.name);
           }
         });
       } else {

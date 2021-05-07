@@ -283,34 +283,13 @@
         </ngx-file-drop>
       </div>
       <div class="Upcard" *ngFor="let url of FileLinks | slice: 1">
-        <img [src]="FileLinks" />{{ url
+        <img [src]="url" />{{ url
         }}<span
           class="delete-entry"
           style="cursor: pointer; color: red; margin-left: 2%"
           (click)="deleteImage(url, 1)"
           >remove</span
         >
-      </div>
-      <div class="upload-table">
-        <table class="table">
-          <thead>
-            <tr>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody class="upload-name-style">
-            <tr>
-              <td>
-                {{ fileName }}
-              </td>
-            </tr>
-            <tr *ngFor="let item of files; let i = index">
-              <td>
-                <strong>{{ item.relativePath }}</strong>
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
 
       <label class="Ticket-type">Description </label>
