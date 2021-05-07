@@ -60,14 +60,16 @@
       </div>
 
       <div class="Upcard" *ngFor="let item of FileLinks; let i = index">
-        <img [src]="item" />
-        {{ item
-        }}<span
-          class="delete-entry"
-          style="cursor: pointer; color: red; margin-left: 2%"
-          (click)="deleteImage(item)"
-          >remove</span
-        >
+        <div class="attachment-container">
+          <mat-icon>attachment</mat-icon>
+          {{ item
+          }}<span
+            class="delete-entry"
+            style="cursor: pointer; color: red; margin-left: 2%"
+            (click)="deleteImage(item)"
+            >remove</span
+          >
+        </div>
       </div>
 
       <label class="Ticket-type">Description </label>
@@ -283,13 +285,16 @@
         </ngx-file-drop>
       </div>
       <div class="Upcard" *ngFor="let url of FileLinks; let i = index">
-        <img [src]="url" />{{ url
-        }}<span
-          class="delete-entry"
-          style="cursor: pointer; color: red; margin-left: 2%"
-          (click)="deleteImage(url)"
-          >remove</span
-        >
+        <div class="attachment-container">
+          <mat-icon>attachment</mat-icon>
+          {{ url
+          }}<span
+            class="delete-entry"
+            style="cursor: pointer; color: red; margin-left: 2%"
+            (click)="deleteImage(url)"
+            >remove</span
+          >
+        </div>
       </div>
 
       <label class="Ticket-type">Description </label>

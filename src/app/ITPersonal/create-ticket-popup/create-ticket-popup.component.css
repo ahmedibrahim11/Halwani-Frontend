@@ -136,3 +136,8 @@ mat-select {
   line-height: 0.5%;
   margin: 0.5rem;
 }
+
+.attachment-container {
+  display: flex;
+  flex-direction: row;
+}
