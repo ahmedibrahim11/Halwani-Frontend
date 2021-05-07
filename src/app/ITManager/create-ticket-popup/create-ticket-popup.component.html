@@ -65,7 +65,7 @@
         }}<span
           class="delete-entry"
           style="cursor: pointer; color: red; margin-left: 2%"
-          (click)="deleteImage(item)"
+          (click)="deleteImage(item, 0)"
           >remove</span
         >
       </div>
@@ -221,13 +221,17 @@
 </ng-template>
 
 <ng-template #update>
-  <form [formGroup]="createTicketDTOFormGroup" (ngSubmit)="submitUpdate()">
+  <form [formGroup]="updateTicketDTOFormGroup" (ngSubmit)="submitUpdate()">
     <h1 mat-dialog-title class="Create-a-ticket">Update A Ticket</h1>
     <mat-dialog-content class="mat-typography">
       <label class="Ticket-type">Ticket type</label>
       <mat-form-field [style.width.%]="100" appearance="fill">
         <mat-label>{{ ticketType }}</mat-label>
-        <mat-select formControlName="ticketType" placeholder="Ticket type">
+        <mat-select
+          formControlName="ticketType"
+          [(ngModel)]="ticketType"
+          placeholder="Ticket type"
+        >
           <mat-optgroup
             *ngFor="let option of ticketTypeDatasource"
             [label]="option.ticketType"
@@ -245,7 +249,12 @@
       <label class="Ticket-type">Summary</label>
 
       <mat-form-field appearance="fill" [style.width.%]="100">
-        <input matInput formControlName="summary" [value]="summary" />
+        <textarea
+          matInput
+          formControlName="summary"
+          [value]="summary"
+          [(ngModel)]="summary"
+        ></textarea>
       </mat-form-field>
 
       <label class="Ticket-type">Attachments </label>
@@ -278,7 +287,7 @@
         }}<span
           class="delete-entry"
           style="cursor: pointer; color: red; margin-left: 2%"
-          (click)="deleteImage(url)"
+          (click)="deleteImage(url, 1)"
           >remove</span
         >
       </div>
@@ -320,7 +329,7 @@
           <mat-form-field [style.width.%]="97" appearance="fill">
             <mat-label>{{ teamName }}</mat-label>
 
-            <mat-select formControlName="team">
+            <mat-select formControlName="team" [(ngModel)]="team">
               <mat-option
                 *ngFor="let option of teamSoruce"
                 [value]="option['value']"
@@ -337,7 +346,7 @@
           <label class="Ticket-type">Reporter</label>
           <mat-form-field [style.width.%]="97" appearance="fill">
             <mat-label>{{ reporter }}</mat-label>
-            <mat-select formControlName="reporter">
+            <mat-select formControlName="reporter" [(ngModel)]="reporter">
               <mat-option
                 *ngFor="let option of reporterDatasource"
                 [value]="option['value']"
@@ -359,7 +368,7 @@
           <mat-form-field [style.width.%]="100" appearance="fill">
             <mat-label>{{ source }}</mat-label>
 
-            <mat-select formControlName="source">
+            <mat-select formControlName="source" [(ngModel)]="source">
               <mat-option
                 *ngFor="let option of sourceDatasource"
                 [value]="option['value']"
@@ -375,9 +384,9 @@
         <div class="col-ddl">
           <label class="Ticket-type">Severity</label>
           <mat-form-field [style.width.%]="97" appearance="fill">
-            <mat-label>{{ ticketSeverity }}</mat-label>
+            <mat-label>{{ sevirity }}</mat-label>
 
-            <mat-select formControlName="sevirity">
+            <mat-select formControlName="sevirity" [(ngModel)]="sevirity">
               <mat-option
                 *ngFor="let option of seviritysource"
                 [value]="option['value']"
@@ -392,7 +401,7 @@
           <mat-form-field [style.width.%]="100" appearance="fill">
             <mat-label>{{ priority }}</mat-label>
 
-            <mat-select formControlName="priority">
+            <mat-select formControlName="priority" [(ngModel)]="priority">
               <mat-option
                 *ngFor="let option of seviritysource"
                 [value]="option['value']"
@@ -411,7 +420,8 @@
             <mat-label>{{ categoryName1 }}</mat-label>
 
             <mat-select
-              formControlName="productCategoryName1"
+              formControlName="categoryName1"
+              [(ngModel)]="categoryName1"
               (selectionChange)="productCategoryOne($event)"
             >
               <mat-option
@@ -423,12 +433,15 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-ddl" *ngIf="showSecondCategory">
+        <div class="col-ddl">
           <label class="Ticket-type" style="margin-bottom: 2.2rem"></label>
           <mat-form-field [style.width.%]="100" appearance="fill">
             <mat-label>{{ categoryName2 }}</mat-label>
 
-            <mat-select formControlName="productCategoryName2">
+            <mat-select
+              formControlName="categoryName2"
+              [(ngModel)]="categoryName2"
+            >
               <mat-option
                 *ngFor="let option of productCategoryName2"
                 [value]="option['value']"
@@ -443,13 +456,7 @@
 
     <mat-dialog-actions align="end">
       <button mat-button mat-dialog-close class="cancel">Cancel request</button>
-      <button
-        mat-button
-        [mat-dialog-close]="true"
-        class="send"
-        type="submit"
-        [disabled]="!createTicketDTOFormGroup.valid"
-      >
+      <button mat-button [mat-dialog-close]="true" class="send" type="submit">
         Update ticket
       </button>
     </mat-dialog-actions>

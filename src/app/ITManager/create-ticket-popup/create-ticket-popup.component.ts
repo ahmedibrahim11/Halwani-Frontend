@@ -30,6 +30,8 @@ export class CreateTicketPopupComponent implements OnInit {
   updateTicketDto: createTicketDTO = new createTicketDTO();
   getTicketDTO: getTicketDTO = new getTicketDTO();
   createTicketDTOFormGroup: FormGroup;
+  updateTicketDTOFormGroup: FormGroup;
+
   formData: FormData = new FormData();
   updateFormData: FormData = new FormData();
   fromPage: any;
@@ -62,15 +64,15 @@ export class CreateTicketPopupComponent implements OnInit {
   ticketID: any;
   durationInSeconds: any = 3;
 
-  //update-default-values
+  //update-controls-values
   ticketType: any;
   summary: any;
   attachement: any = [];
   description: any;
-  teamName: any;
+  team: any;
   reporter: any;
   source: any;
-  ticketSeverity: any;
+  sevirity: any;
   priority: any;
   categoryName1: any;
   categoryName2: any;
@@ -109,18 +111,29 @@ export class CreateTicketPopupComponent implements OnInit {
             this.attachement.push(res.attachement[i]);
             this.filePath = this.attachement[i].split('/');
             this.fileName.push(this.filePath[4]);
-            this.FileLinks.push(this.attachement[i]);
+            this.FileLinks.push(res.attachement[i]);
           }
           this.description = res.description;
-          this.teamName = res.teamName;
+          this.team = res.teamName;
           this.reporter = res.submitterEmail;
           this.source = res.source;
-          this.ticketSeverity = res.ticketSeverity;
+          this.sevirity = res.ticketSeverity;
           this.priority = res.priority;
           this.categoryName1 = res.productCategoryName1;
           this.categoryName2 = res.productCategoryName2;
         });
-
+      this.updateTicketDTOFormGroup = this.formBuilder.group({
+        ticketType: [this.ticketType],
+        summary: [this.summary],
+        description: [this.description],
+        team: [this.team],
+        reporter: [this.reporter],
+        source: [this.source],
+        sevirity: [this.sevirity],
+        priority: [this.priority],
+        categoryName1: [this.categoryName1],
+        categoryName2: [this.categoryName2],
+      });
       this.share.setData(undefined);
     }
 
@@ -206,7 +219,7 @@ export class CreateTicketPopupComponent implements OnInit {
   submiCreate() {
     console.log(this.createTicketDTOFormGroup.value);
     this.createTicketDTO.attachement =
-      this.FileLinks !== undefined ? this.FileLinks.toString() : '';
+      this.files !== undefined ? this.files.toString() : '';
     this.createTicketDTO.description = this.createTicketDTOFormGroup.value.description;
     this.createTicketDTO.productCategoryName1 = this.createTicketDTOFormGroup.value.productCategoryName1.toString();
     this.createTicketDTO.productCategoryName2 = this.createTicketDTOFormGroup.value.productCategoryName2.toString();
@@ -248,29 +261,31 @@ export class CreateTicketPopupComponent implements OnInit {
   }
 
   submitUpdate() {
-    let submitterArray = this.createTicketDTOFormGroup.value.reporter.split(
+    console.log('a7mos', this.updateTicketDTOFormGroup.value);
+
+    let submitterArray = this.updateTicketDTOFormGroup.value.reporter.split(
       ','
     );
-    console.log('a7mos', this.createTicketDTOFormGroup.value);
     this.updateTicketDto.attachement =
       this.FileLinks !== undefined ? this.FileLinks.toString() : '';
+    console.log('eeee', this.updateTicketDto.attachement);
     this.updateTicketDto.id = this.ticketID;
-    this.updateTicketDto.description = this.createTicketDTOFormGroup.value.description;
-    this.updateTicketDto.productCategoryName1 = this.createTicketDTOFormGroup.value.productCategoryName1.toString();
-    this.updateTicketDto.productCategoryName2 = this.createTicketDTOFormGroup.value.productCategoryName2.toString();
+    this.updateTicketDto.description = this.updateTicketDTOFormGroup.value.description;
+    this.updateTicketDto.productCategoryName1 = this.updateTicketDTOFormGroup.value.categoryName1.toString();
+    this.updateTicketDto.productCategoryName2 = this.updateTicketDTOFormGroup.value.categoryName2.toString();
     this.updateTicketDto.submitterTeam = submitterArray[0];
     this.updateTicketDto.submitterEmail = submitterArray[1];
     this.updateTicketDto.submitterName = submitterArray[2];
-    this.updateTicketDto.summary = this.createTicketDTOFormGroup.value.summary;
+    this.updateTicketDto.summary = this.updateTicketDTOFormGroup.value.summary;
     this.updateTicketDto.submitDate = new Date();
-    this.updateTicketDto.requestTypeId = this.createTicketDTOFormGroup.value.ticketType;
-    this.updateTicketDto.ticketSeverity = this.createTicketDTOFormGroup.value.sevirity;
+    this.updateTicketDto.requestTypeId = this.updateTicketDTOFormGroup.value.ticketType;
+    this.updateTicketDto.ticketSeverity = this.updateTicketDTOFormGroup.value.sevirity;
     this.updateTicketDto.ticketStatus = 0;
     //will be from aad
     this.updateTicketDto.reportedSource = 'admin';
-    this.updateTicketDto.teamName = this.createTicketDTOFormGroup.value.team;
-    this.updateTicketDto.priority = this.createTicketDTOFormGroup.value.priority;
-    this.updateTicketDto.source = this.createTicketDTOFormGroup.value.source;
+    this.updateTicketDto.teamName = this.updateTicketDTOFormGroup.value.team;
+    this.updateTicketDto.priority = this.updateTicketDTOFormGroup.value.priority;
+    this.updateTicketDto.source = this.updateTicketDTOFormGroup.value.source;
 
     var updated = JSON.stringify(this.updateTicketDto);
     this.updateFormData.append('data', updated);
@@ -282,20 +297,18 @@ export class CreateTicketPopupComponent implements OnInit {
     });
   }
 
-  private deleteImage(url: any): void {
-    this.FileLinks = this.FileLinks.filter((a) => a !== url);
-    alert(this.files);
-
-    this.files = this.files.filter((a) => a !== url);
-
-    alert(this.files);
+  private deleteImage(url: any, value: any): void {
+    if (value === 0) {
+      this.files = this.files.filter((a) => a !== url);
+    } else {
+      this.FileLinks = this.FileLinks.filter((a) => a !== url);
+    }
     console.log('files deleted', this.files);
     console.log('after deleted', this.FileLinks);
   }
   public files: NgxFileDropEntry[] = [];
 
   public dropped(files: NgxFileDropEntry[], value: any) {
-    alert(files);
     console.log('valueee', value, files);
     this.files = files;
     for (const droppedFile of files) {
