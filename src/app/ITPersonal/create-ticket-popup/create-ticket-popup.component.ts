@@ -215,7 +215,8 @@ export class CreateTicketPopupComponent implements OnInit {
   submiCreate() {
     console.log(this.createTicketDTOFormGroup.value);
     this.createTicketDTO.attachement =
-      this.files !== undefined ? this.files.toString() : '';
+      this.FileLinks !== undefined ? this.FileLinks.toString() : '';
+    console.log('creaaate file', this.createTicketDTO.attachement);
     this.createTicketDTO.description = this.createTicketDTOFormGroup.value.description;
     this.createTicketDTO.productCategoryName1 = this.createTicketDTOFormGroup.value.productCategoryName1.toString();
     this.createTicketDTO.productCategoryName2 = this.createTicketDTOFormGroup.value.productCategoryName2.toString();
@@ -267,6 +268,7 @@ export class CreateTicketPopupComponent implements OnInit {
     let submitterArray = this.updateTicketDTOFormGroup.value.reporter.split(
       ','
     );
+    console.log('array', submitterArray);
     this.updateTicketDto.attachement =
       this.FileLinks !== undefined ? this.FileLinks.toString() : '';
     console.log('eeee', this.updateTicketDto.attachement);
@@ -275,8 +277,8 @@ export class CreateTicketPopupComponent implements OnInit {
     this.updateTicketDto.productCategoryName1 = this.updateTicketDTOFormGroup.value.categoryName1.toString();
     this.updateTicketDto.productCategoryName2 = this.updateTicketDTOFormGroup.value.categoryName2.toString();
     this.updateTicketDto.submitterTeam = submitterArray[0];
-    this.updateTicketDto.submitterEmail = submitterArray[1];
-    this.updateTicketDto.submitterName = submitterArray[2];
+    this.updateTicketDto.submitterEmail = submitterArray[0];
+    this.updateTicketDto.submitterName = submitterArray[0];
     this.updateTicketDto.summary = this.updateTicketDTOFormGroup.value.summary;
     this.updateTicketDto.submitDate = new Date();
     this.updateTicketDto.requestTypeId = this.updateTicketDTOFormGroup.value.ticketType;
@@ -299,9 +301,10 @@ export class CreateTicketPopupComponent implements OnInit {
   }
 
   private deleteImage(url: any): void {
-    this.files = this.files.filter((a) => a !== url);
     this.FileLinks = this.FileLinks.filter((a) => a !== url);
-    console.log('files deleted', this.files);
+    this.formData.delete(url);
+    this.updateFormData.delete(url);
+    console.log('formdata', this.formData);
     console.log('after deleted', this.FileLinks);
   }
   public files: NgxFileDropEntry[] = [];
@@ -317,6 +320,9 @@ export class CreateTicketPopupComponent implements OnInit {
           console.log('eeee', file);
           if (value === 0) {
             this.formData.append(file.name, file);
+            console.log('insert', this.formData);
+            this.FileLinks.push(file.name);
+            console.log('fillllll', this.FileLinks);
           } else {
             this.updateFormData.append(file.name, file);
             this.FileLinks.push(file.name);

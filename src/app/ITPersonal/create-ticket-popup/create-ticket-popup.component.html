@@ -59,9 +59,9 @@
         </ngx-file-drop>
       </div>
 
-      <div class="Upcard" *ngFor="let item of files; let i = index">
+      <div class="Upcard" *ngFor="let item of FileLinks; let i = index">
         <img [src]="item" />
-        {{ item.relativePath
+        {{ item
         }}<span
           class="delete-entry"
           style="cursor: pointer; color: red; margin-left: 2%"
