@@ -35,49 +35,39 @@
 
       <label class="Ticket-type">Attachments </label>
       <div class="center">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="row">
-              <div
-                class="col-md-2 productAddfromImages"
-                *ngFor="let url of imageurls; let i = index"
-              >
-                <img class="img-fluid" [src]="url.base64String" />
-                <a (click)="removeImage(i)" class="delete-file">Remove</a>
-              </div>
-            </div>
-          </div>
-          <div class="card main-title">
-            <div class="col-md-12">
-              <div class="form-group">
-                <br />
-                <input
-                  type="file"
-                  class="form-control"
-                  (change)="onSelectFile($event)"
-                  multiple
-                  accept="*"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        <ngx-file-drop
+          dropZoneLabel="Drop files here"
+          (onFileDrop)="dropped($event, 0)"
+          (onFileOver)="fileOver($event)"
+          class="upload-drop-zone"
+          (onFileLeave)="fileLeave($event)"
+        >
+          <ng-template
+            ngx-file-drop-content-tmp
+            let-openFileSelector="openFileSelector"
+          >
+            Drag and drop files, paste screenshots, or upload attachments
+            <button
+              type="button"
+              class="cancel"
+              style="display: block; margin-top: 1.5rem"
+              (click)="openFileSelector()"
+            >
+              Browse Files
+            </button>
+          </ng-template>
+        </ngx-file-drop>
       </div>
-      <div class="upload-table">
-        <table class="table">
-          <thead>
-            <tr>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody class="upload-name-style">
-            <tr *ngFor="let item of files; let i = index">
-              <td>
-                <strong>{{ item.relativePath }}</strong>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+
+      <div class="Upcard" *ngFor="let item of files; let i = index">
+        <img [src]="item" />
+        {{ item.relativePath
+        }}<span
+          class="delete-entry"
+          style="cursor: pointer; color: red; margin-left: 2%"
+          (click)="deleteImage(item)"
+          >remove</span
+        >
       </div>
 
       <label class="Ticket-type">Description </label>
@@ -260,34 +250,58 @@
 
       <label class="Ticket-type">Attachments </label>
       <div class="center">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="row">
-              <div
-                class="col-md-2 productAddfromImages"
-                *ngFor="let url of imageurls; let i = index"
-              >
-                <img class="img-fluid" [src]="url.base64String" />
+        <ngx-file-drop
+          dropZoneLabel="Drop files here"
+          (onFileDrop)="dropped($event, 1)"
+          (onFileOver)="fileOver($event)"
+          class="upload-drop-zone"
+          (onFileLeave)="fileLeave($event)"
+        >
+          <ng-template
+            ngx-file-drop-content-tmp
+            let-openFileSelector="openFileSelector"
+          >
+            Drag and drop files, paste screenshots, or upload attachments
+            <button
+              type="button"
+              class="cancel"
+              style="display: block; margin-top: 1.5rem"
+              (click)="openFileSelector()"
+            >
+              Browse Files
+            </button>
+          </ng-template>
+        </ngx-file-drop>
+      </div>
+      <div class="Upcard" *ngFor="let url of FileLinks | slice: 1">
+        <img [src]="FileLinks" />{{ url
+        }}<span
+          class="delete-entry"
+          style="cursor: pointer; color: red; margin-left: 2%"
+          (click)="deleteImage(url)"
+          >remove</span
+        >
+      </div>
+      <div class="upload-table">
+        <table class="table">
+          <thead>
+            <tr>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="upload-name-style">
+            <tr>
+              <td>
                 {{ fileName }}
-                <a (click)="removeImage(i)" class="delete-file">Remove</a>
-              </div>
-            </div>
-          </div>
-          <div class="card main-title">
-            <div class="col-md-12">
-              <div class="form-group">
-                <br />
-                <input
-                  type="file"
-                  class="form-control"
-                  (change)="onSelectFile($event)"
-                  multiple
-                  accept="*"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+              </td>
+            </tr>
+            <tr *ngFor="let item of files; let i = index">
+              <td>
+                <strong>{{ item.relativePath }}</strong>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <label class="Ticket-type">Description </label>
