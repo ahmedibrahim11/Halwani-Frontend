@@ -107,12 +107,8 @@ export class CreateTicketPopupComponent implements OnInit {
           });
           this.ticketType = res.requestType.id;
           this.summary = res.ticketName;
-          for (let i = 0; i < res.attachement.length; i++) {
-            this.attachement.push(res.attachement[i]);
-            this.filePath = this.attachement[i].split('/');
-            this.fileName.push(this.filePath[4]);
-            this.FileLinks.push(res.attachement[i]);
-          }
+          this.FileLinks = res.attachement;
+          console.log('ttt', this.FileLinks);
           this.description = res.description;
           this.team = res.teamName;
           this.reporter = res.submitterEmail;
@@ -261,7 +257,12 @@ export class CreateTicketPopupComponent implements OnInit {
   }
 
   submitUpdate() {
-    console.log('a7mos', this.updateTicketDTOFormGroup.value);
+    console.log(
+      'a7mos',
+      this.updateTicketDTOFormGroup.value,
+      'ffffff',
+      this.FileLinks
+    );
 
     let submitterArray = this.updateTicketDTOFormGroup.value.reporter.split(
       ','
@@ -297,12 +298,9 @@ export class CreateTicketPopupComponent implements OnInit {
     });
   }
 
-  private deleteImage(url: any, value: any): void {
-    if (value === 0) {
-      this.files = this.files.filter((a) => a !== url);
-    } else {
-      this.FileLinks = this.FileLinks.filter((a) => a !== url);
-    }
+  private deleteImage(url: any): void {
+    this.files = this.files.filter((a) => a !== url);
+    this.FileLinks = this.FileLinks.filter((a) => a !== url);
     console.log('files deleted', this.files);
     console.log('after deleted', this.FileLinks);
   }

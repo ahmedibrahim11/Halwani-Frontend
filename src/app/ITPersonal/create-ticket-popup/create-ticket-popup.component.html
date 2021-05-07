@@ -65,7 +65,7 @@
         }}<span
           class="delete-entry"
           style="cursor: pointer; color: red; margin-left: 2%"
-          (click)="deleteImage(item, 0)"
+          (click)="deleteImage(item)"
           >remove</span
         >
       </div>
@@ -282,12 +282,12 @@
           </ng-template>
         </ngx-file-drop>
       </div>
-      <div class="Upcard" *ngFor="let url of FileLinks | slice: 1">
+      <div class="Upcard" *ngFor="let url of FileLinks; let i = index">
         <img [src]="url" />{{ url
         }}<span
           class="delete-entry"
           style="cursor: pointer; color: red; margin-left: 2%"
-          (click)="deleteImage(url, 1)"
+          (click)="deleteImage(url)"
           >remove</span
         >
       </div>
