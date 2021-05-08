@@ -1,10 +1,16 @@
 <div class="navbar-container">
   <img src="assets/Group2.svg" class="navbar-logo" />
   <div class="menu">
-    <div class="red-menu">ME</div>
-    <div class="person-data-menu">
-      <h3>Mohamed ElBana</h3>
-      <p style="opacity: 0.7">IT manager</p>
+    <div class="red-menu">
+      <label>{{ firstCharacter }}</label>
+      <label> {{ secondCharacter }}</label>
+    </div>
+    <div class="person-container">
+      <div class="person-data-menu">
+        <h3 style="width: max-content">{{ userName }}</h3>
+        <p style="opacity: 0.7">{{ userRole }}</p>
+      </div>
+      <app-user-menu></app-user-menu>
     </div>
   </div>
 </div>

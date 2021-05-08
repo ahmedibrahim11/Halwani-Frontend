@@ -73,16 +73,32 @@
         <div class="menu">
           <div class="red-menu">{{ user.initials }}</div>
           <div class="person-data-menu">
-            <a *ngIf="tab===0" [routerLink]="['/itmanager/details', user.id]" fragment="servicerequests">
+            <a
+              *ngIf="tab === 0"
+              [routerLink]="['/itmanager/details', user.id]"
+              fragment="servicerequests"
+            >
               <h3>{{ user.name }}</h3>
             </a>
-            <a *ngIf="tab===1" [routerLink]="['/itmanager/details', user.id]" fragment="incidents">
+            <a
+              *ngIf="tab === 1"
+              [routerLink]="['/itmanager/details', user.id]"
+              fragment="incidents"
+            >
               <h3>{{ user.name }}</h3>
             </a>
-            <a *ngIf="tab===2" [routerLink]="['/itmanager/details', user.id]" fragment="problems">
+            <a
+              *ngIf="tab === 2"
+              [routerLink]="['/itmanager/details', user.id]"
+              fragment="problems"
+            >
               <h3>{{ user.name }}</h3>
             </a>
-            <a *ngIf="tab===3" [routerLink]="['/itmanager/details', user.id]" fragment="changes">
+            <a
+              *ngIf="tab === 3"
+              [routerLink]="['/itmanager/details', user.id]"
+              fragment="changes"
+            >
               <h3>{{ user.name }}</h3>
             </a>
             <p style="opacity: 0.7">{{ user.email }}</p>
