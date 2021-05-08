@@ -88,13 +88,11 @@
   background-color: #c4161c;
   border-radius: 10px;
   display: flex;
-  padding: 15px;
+  flex-direction: row;
+  padding: 8%;
+  margin-top: 4%;
   color: #ffffff;
-  height: 1.5rem;
-  margin-top: 0.5rem;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
+  align-self: center;
 }
 .person-data-menu {
   width: 11rem;
@@ -162,3 +160,4 @@
   justify-content: center;
   padding: 5%;
 }
+

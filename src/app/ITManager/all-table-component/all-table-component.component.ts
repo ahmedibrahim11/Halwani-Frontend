@@ -325,6 +325,8 @@ export class AllTableComponentComponent implements OnInit {
   showSpinner: Boolean = true;
 
   private subscriptionName: Subscription;
+
+  usersName: any = [];
   ngOnInit(): void {
     console.log('Tabbbbbb', this.tab);
     this.service.getValue().subscribe((value) => {
@@ -348,7 +350,11 @@ export class AllTableComponentComponent implements OnInit {
             console.log('resulttttt', res.pageData);
             let usersData = res.pageData;
             this.UserViewInfoObject = usersData.map((el) => {
+              this.usersName.push(el['rasiedBy']['name']);
+              console.log('list abl', this.usersName);
+
               const cerationDate = new Date(el['creationDate']);
+
               return {
                 id: el['id'],
                 initials: this.initials(el['rasiedBy']['name']),
@@ -361,6 +367,8 @@ export class AllTableComponentComponent implements OnInit {
                 Sevirity: el['severity'],
               };
             });
+            this.getRedMenuCharacters(this.usersName);
+
             this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
             this.setDataSourceAttributes();
           });
@@ -383,6 +391,8 @@ export class AllTableComponentComponent implements OnInit {
             console.log('resulttttt', res.pageData);
             let usersData = res.pageData;
             this.UserViewInfoObject = usersData.map((el) => {
+              this.usersName.push(el['rasiedBy']['name']);
+              console.log('list abl', this.usersName);
               const cerationDate = new Date(el['creationDate']);
               return {
                 id: el['id'],
@@ -396,11 +406,21 @@ export class AllTableComponentComponent implements OnInit {
                 Sevirity: el['severity'],
               };
             });
+            this.getRedMenuCharacters(this.usersName);
             this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
             this.setDataSourceAttributes();
           });
       }
     });
+  }
+
+  firstCharacter: any;
+  getRedMenuCharacters(names: any = []) {
+    let allNames: any = [];
+    for (let i = 0; i < names.length; i++) {
+      allNames.push(names[i].split('@'));
+      this.firstCharacter = allNames[i][0].charAt(0).toUpperCase();
+    }
   }
 
   initials(name) {

@@ -38,8 +38,8 @@ export class NavbarComponent implements OnInit {
 
   getRedMenuCharacters() {
     let allName = this.userName.split(' ');
-    this.firstCharacter = allName[0].charAt(0);
-    this.secondCharacter = allName[1].charAt(0);
+    this.firstCharacter = allName[0].charAt(0).toUpperCase();
+    this.secondCharacter = allName[1].charAt(0).toUpperCase();
   }
   ngOnInit(): void {
     this.getTokenPayloads();

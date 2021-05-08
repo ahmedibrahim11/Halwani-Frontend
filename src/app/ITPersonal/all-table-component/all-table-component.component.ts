@@ -340,6 +340,7 @@ export class AllTableComponentComponent implements OnInit {
 
   dataSource: any;
   showSpinner: Boolean = true;
+  usersName: any = [];
 
   ngOnInit(): void {
     console.log('Tab', this.tabData);
@@ -366,6 +367,8 @@ export class AllTableComponentComponent implements OnInit {
             console.log('resulttttt', res.pageData);
             let usersData = res.pageData;
             this.UserViewInfoObject = usersData.map((el) => {
+              this.usersName.push(el['rasiedBy']['name']);
+
               const cerationDate = new Date(el['creationDate']);
               return {
                 id: el['id'],
@@ -379,6 +382,8 @@ export class AllTableComponentComponent implements OnInit {
                 Sevirity: el['severity'],
               };
             });
+            this.getRedMenuCharacters(this.usersName);
+
             this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
             this.setDataSourceAttributes();
           });
@@ -403,6 +408,8 @@ export class AllTableComponentComponent implements OnInit {
             console.log('resulttttt', res.pageData);
             let usersData = res.pageData;
             this.UserViewInfoObject = usersData.map((el) => {
+              this.usersName.push(el['rasiedBy']['name']);
+
               const cerationDate = new Date(el['creationDate']);
               return {
                 id: el['id'],
@@ -416,11 +423,22 @@ export class AllTableComponentComponent implements OnInit {
                 Sevirity: el['severity'],
               };
             });
+            this.getRedMenuCharacters(this.usersName);
+
             this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
             this.setDataSourceAttributes();
           });
       }
     });
+  }
+
+  firstCharacter: any;
+  getRedMenuCharacters(names: any = []) {
+    let allNames: any = [];
+    for (let i = 0; i < names.length; i++) {
+      allNames.push(names[i].split('@'));
+      this.firstCharacter = allNames[i][0].charAt(0).toUpperCase();
+    }
   }
 
   initials(name) {
