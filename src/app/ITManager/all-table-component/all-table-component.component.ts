@@ -41,6 +41,7 @@ export class AllTableComponentComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() tab: number = 0;
 
+  dataLoaded: boolean = false;
   constructor(
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
@@ -345,35 +346,40 @@ export class AllTableComponentComponent implements OnInit {
             sortValue: 0,
           })
           .subscribe((res) => {
-            this.showSpinner = false;
-            this.spinnerFlag.setSpinnerValue(this.showSpinner);
-            this.pageLength = res.totalCount;
-            console.log('eeeee', res);
+            if (res.totalCount !== 0) {
+              this.showSpinner = false;
+              this.spinnerFlag.setSpinnerValue(this.showSpinner);
+              this.dataLoaded = true;
+              this.pageLength = res.totalCount;
+              console.log('eeeee', res);
 
-            console.log('resulttttt', res.pageData);
-            let usersData = res.pageData;
-            this.UserViewInfoObject = usersData.map((el) => {
-              this.usersName.push(el['rasiedBy']['name']);
-              console.log('list abl', this.usersName);
+              console.log('resulttttt', res.pageData);
+              let usersData = res.pageData;
+              this.UserViewInfoObject = usersData.map((el) => {
+                this.usersName.push(el['rasiedBy']['name']);
+                console.log('list abl', this.usersName);
 
-              const cerationDate = new Date(el['creationDate']);
+                const cerationDate = new Date(el['creationDate']);
 
-              return {
-                id: el['id'],
-                initials: this.initials(el['rasiedBy']['name']),
-                name: el['rasiedBy']['name'],
-                email: el['rasiedBy']['email'],
-                createdDate: cerationDate.toDateString(),
-                createdTime: cerationDate.toLocaleTimeString(),
-                ticketTopic: el['requestType']['name'],
-                ticketCategory: el['requestType']['ticketType'],
-                Sevirity: el['severity'],
-              };
-            });
-            this.getRedMenuCharacters(this.usersName);
+                return {
+                  id: el['id'],
+                  initials: this.initials(el['rasiedBy']['name']),
+                  name: el['rasiedBy']['name'],
+                  email: el['rasiedBy']['email'],
+                  createdDate: cerationDate.toDateString(),
+                  createdTime: cerationDate.toLocaleTimeString(),
+                  ticketTopic: el['requestType']['name'],
+                  ticketCategory: el['requestType']['ticketType'],
+                  Sevirity: el['severity'],
+                };
+              });
+              this.getRedMenuCharacters(this.usersName);
 
-            this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-            this.setDataSourceAttributes();
+              this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+              this.setDataSourceAttributes();
+            } else {
+              this.dataLoaded = false;
+            }
           });
       } else {
         this.http
@@ -386,33 +392,38 @@ export class AllTableComponentComponent implements OnInit {
             sortValue: 0,
           })
           .subscribe((res) => {
-            console.log('eeeee', res);
+            if (res.totalCount !== 0) {
+              console.log('eeeee', res);
 
-            this.showSpinner = false;
-            this.spinnerFlag.setSpinnerValue(this.showSpinner);
-            this.pageLength = res.totalCount;
+              this.showSpinner = false;
+              this.spinnerFlag.setSpinnerValue(this.showSpinner);
+              this.dataLoaded = true;
+              this.pageLength = res.totalCount;
 
-            console.log('resulttttt', res.pageData);
-            let usersData = res.pageData;
-            this.UserViewInfoObject = usersData.map((el) => {
-              this.usersName.push(el['rasiedBy']['name']);
-              console.log('list abl', this.usersName);
-              const cerationDate = new Date(el['creationDate']);
-              return {
-                id: el['id'],
-                initials: this.initials(el['rasiedBy']['name']),
-                name: el['rasiedBy']['name'],
-                email: el['rasiedBy']['email'],
-                createdDate: cerationDate.toDateString(),
-                createdTime: cerationDate.toLocaleTimeString(),
-                ticketTopic: el['requestType']['name'],
-                ticketCategory: el['requestType']['ticketType'],
-                Sevirity: el['severity'],
-              };
-            });
-            this.getRedMenuCharacters(this.usersName);
-            this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-            this.setDataSourceAttributes();
+              console.log('resulttttt', res.pageData);
+              let usersData = res.pageData;
+              this.UserViewInfoObject = usersData.map((el) => {
+                this.usersName.push(el['rasiedBy']['name']);
+                console.log('list abl', this.usersName);
+                const cerationDate = new Date(el['creationDate']);
+                return {
+                  id: el['id'],
+                  initials: this.initials(el['rasiedBy']['name']),
+                  name: el['rasiedBy']['name'],
+                  email: el['rasiedBy']['email'],
+                  createdDate: cerationDate.toDateString(),
+                  createdTime: cerationDate.toLocaleTimeString(),
+                  ticketTopic: el['requestType']['name'],
+                  ticketCategory: el['requestType']['ticketType'],
+                  Sevirity: el['severity'],
+                };
+              });
+              this.getRedMenuCharacters(this.usersName);
+              this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+              this.setDataSourceAttributes();
+            } else {
+              this.dataLoaded = false;
+            }
           });
       }
     });

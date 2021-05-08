@@ -1,9 +1,15 @@
 <div class="table-header">
-  <button type="button" class="Filter" (click)="openFilterModal()" mat-button>
+  <button
+    type="button"
+    class="Filter"
+    (click)="openFilterModal()"
+    mat-button
+    *ngIf="dataLoaded"
+  >
     <mat-icon class="filter-icon icon">filter_list</mat-icon>Filter
   </button>
 
-  <mat-form-field class="Rectangle-48">
+  <mat-form-field class="Rectangle-48" *ngIf="dataLoaded">
     <mat-label>Search Tickets by..</mat-label>
     <mat-chip-list #chipList aria-label="Tickets selection">
       <mat-chip
@@ -25,7 +31,7 @@
       />
     </mat-chip-list>
   </mat-form-field>
-  <div class="Table-buttons" *ngIf="!showSpinner">
+  <div class="Table-buttons" *ngIf="!showSpinner && dataLoaded">
     <label class="Export-queue">Assign Tickets</label
     ><mat-icon (click)="globalAssignTicket()" class="icon">group_add</mat-icon>
   </div>
