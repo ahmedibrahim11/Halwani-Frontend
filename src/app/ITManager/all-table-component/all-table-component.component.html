@@ -25,7 +25,7 @@
       />
     </mat-chip-list>
   </mat-form-field>
-  <div class="Table-buttons">
+  <div class="Table-buttons" *ngIf="!showSpinner">
     <label class="Export-queue">Assign Tickets</label
     ><mat-icon (click)="globalAssignTicket()" class="icon">group_add</mat-icon>
   </div>

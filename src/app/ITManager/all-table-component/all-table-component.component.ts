@@ -29,7 +29,7 @@ import { TicketoptionsComponent } from '../ticketoptions/ticketoptions.component
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CommonServiceService } from 'src/app/core/services/common-service.service';
-
+import { SpinnerFlagService } from 'src/app/core/services/spinner-flag.service';
 @Component({
   selector: 'app-all-table-component',
   templateUrl: './all-table-component.component.html',
@@ -47,7 +47,8 @@ export class AllTableComponentComponent implements OnInit {
     private service: TicketCreationService,
     private share: SharingdataService,
     private router: Router,
-    private common: CommonServiceService
+    private common: CommonServiceService,
+    private spinnerFlag: SpinnerFlagService
   ) {
     this.subscriptionName = this.common.getUpdate().subscribe((data) => {
       this.UserViewInfoObject = data.map((el) => {
@@ -329,6 +330,7 @@ export class AllTableComponentComponent implements OnInit {
   usersName: any = [];
   ngOnInit(): void {
     console.log('Tabbbbbb', this.tab);
+    this.spinnerFlag.setSpinnerValue(this.showSpinner);
     this.service.getValue().subscribe((value) => {
       this.flag = value;
       if (this.flag === true) {
@@ -344,6 +346,7 @@ export class AllTableComponentComponent implements OnInit {
           })
           .subscribe((res) => {
             this.showSpinner = false;
+            this.spinnerFlag.setSpinnerValue(this.showSpinner);
             this.pageLength = res.totalCount;
             console.log('eeeee', res);
 
@@ -386,6 +389,7 @@ export class AllTableComponentComponent implements OnInit {
             console.log('eeeee', res);
 
             this.showSpinner = false;
+            this.spinnerFlag.setSpinnerValue(this.showSpinner);
             this.pageLength = res.totalCount;
 
             console.log('resulttttt', res.pageData);

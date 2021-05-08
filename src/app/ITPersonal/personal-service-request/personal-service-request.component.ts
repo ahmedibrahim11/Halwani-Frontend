@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ExportexcelService } from 'src/app/core/services/exportexcel.service';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
+import { SpinnerFlagService } from 'src/app/core/services/spinner-flag.service';
 import { TabscreationService } from 'src/app/core/services/tabscreation.service';
 import { CreateTicketPopupComponent } from '../create-ticket-popup/create-ticket-popup.component';
 
@@ -14,16 +15,21 @@ import { CreateTicketPopupComponent } from '../create-ticket-popup/create-ticket
 export class PersonalServiceRequestComponent implements OnInit {
   public SelectedTabIndex = 0;
   empty: boolean = false;
+  showSpinner: boolean = true;
 
   constructor(
     private exportService: ExportexcelService,
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
-    private tabs: TabscreationService
+    private tabs: TabscreationService,
+    private spinner: SpinnerFlagService
   ) {}
 
   ngOnInit(): void {
     this.tabs.setTabValue('ServiceRequest');
+    this.spinner.getSpinnerValue().subscribe((flag) => {
+      this.showSpinner = flag;
+    });
   }
   openDialog() {
     const dialogRef = this.dialog.open(CreateTicketPopupComponent, {

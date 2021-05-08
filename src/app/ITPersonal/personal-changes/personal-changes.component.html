@@ -1,42 +1,63 @@
 <div class="Rectangle-6">
-    <div class="mainTableHeader">
-        <div class="table-header">
-            <label class="Actions-Tickets-Queue"> Actions / Changes </label>
-            <label class="Tickets-Queue">Changes</label>
-        </div>
-        <div class="table-right-header">
-            <button type="button" class="Table-buttons" mat-button (click)="openDialog()">
-                Create Ticket
-            </button>
-            <button type="button" class="Table-buttons-Export" (click)="exportTable()">
-                Export Table <mat-icon class="export-btn-icon">save_alt</mat-icon>
-            </button>
-            <button type="button" class="Table-buttons-settings">
-                <img src="assets/More.png" class="icon-img" />
-            </button>
-        </div>
+  <div class="mainTableHeader">
+    <div class="table-header">
+      <label class="Actions-Tickets-Queue"> Actions / Changes </label>
+      <label class="Tickets-Queue">Changes</label>
     </div>
-    <div class="tabs">
-        <mat-tab-group [(selectedIndex)]="SelectedTabIndex">
-            <mat-tab label="All">
-                <div class="Rectangle-339">
-                    <div *ngIf="empty">
-                        <app-no-more-tickets></app-no-more-tickets>
-                    </div>
-                    <div *ngIf="!empty">
-                        <app-all-table-component [tabData]=0 [from]="3"></app-all-table-component>
-                    </div>
-                </div>
-            </mat-tab>
-            <mat-tab label="Assigned to me">
-                <app-all-table-component [tabData]=1 [from]="3"></app-all-table-component>
-            </mat-tab>
-            <mat-tab label="In progress">
-                <app-all-table-component [Status]=4 [from]="3"></app-all-table-component>
-            </mat-tab>
-            <mat-tab label="Overdue">
-                <app-all-table-component [Status]=8 [from]="3"></app-all-table-component>
-            </mat-tab>
-        </mat-tab-group>
+    <div class="table-right-header" *ngIf="!showSpinner">
+      <button
+        type="button"
+        class="Table-buttons"
+        mat-button
+        (click)="openDialog()"
+      >
+        Create Ticket
+      </button>
+      <button
+        type="button"
+        class="Table-buttons-Export icon"
+        (click)="exportTable()"
+      >
+        Export Table <mat-icon class="export-btn-icon">save_alt</mat-icon>
+      </button>
+      <button type="button" class="Table-buttons-settings icon">
+        <img src="assets/More.png" class="icon-img" />
+      </button>
     </div>
+  </div>
+  <div class="tabs">
+    <mat-tab-group [(selectedIndex)]="SelectedTabIndex">
+      <mat-tab label="All">
+        <div class="Rectangle-339">
+          <div *ngIf="empty">
+            <app-no-more-tickets></app-no-more-tickets>
+          </div>
+          <div *ngIf="!empty">
+            <app-all-table-component
+              [tabData]="0"
+              [from]="3"
+            ></app-all-table-component>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Assigned to me">
+        <app-all-table-component
+          [tabData]="1"
+          [from]="3"
+        ></app-all-table-component>
+      </mat-tab>
+      <mat-tab label="In progress">
+        <app-all-table-component
+          [Status]="4"
+          [from]="3"
+        ></app-all-table-component>
+      </mat-tab>
+      <mat-tab label="Overdue">
+        <app-all-table-component
+          [Status]="8"
+          [from]="3"
+        ></app-all-table-component>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>

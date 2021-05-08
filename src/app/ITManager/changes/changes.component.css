@@ -23,7 +23,9 @@
   color: #000000;
   display: block;
 }
-
+.icon:hover {
+  cursor: pointer;
+}
 .Tickets-Queue {
   width: 240px;
   height: 20px;

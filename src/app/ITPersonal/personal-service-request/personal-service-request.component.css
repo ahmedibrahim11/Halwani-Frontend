@@ -6,6 +6,9 @@
   flex-direction: row;
   overflow-x: hidden;
 }
+.icon:hover {
+  cursor: pointer;
+}
 .Actions-Tickets-Queue {
   width: 235px;
   height: 19px;

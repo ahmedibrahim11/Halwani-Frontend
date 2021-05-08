@@ -4,6 +4,7 @@ import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.s
 import { ExportexcelService } from 'src/app/core/services/exportexcel.service';
 import { CreateTicketPopupComponent } from '../create-ticket-popup/create-ticket-popup.component';
 import { TabscreationService } from 'src/app/core/services/tabscreation.service';
+import { SpinnerFlagService } from 'src/app/core/services/spinner-flag.service';
 
 @Component({
   selector: 'app-main-card-body',
@@ -13,12 +14,14 @@ import { TabscreationService } from 'src/app/core/services/tabscreation.service'
 export class MainCardBodyComponent implements OnInit {
   public SelectedTabIndex = 0;
   empty: boolean = false;
+  showSpinner: boolean = true;
 
   constructor(
     private exportService: ExportexcelService,
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
-    private tabs: TabscreationService
+    private tabs: TabscreationService,
+    private spinner: SpinnerFlagService
   ) {}
 
   ngOnInit(): void {
@@ -27,6 +30,9 @@ export class MainCardBodyComponent implements OnInit {
       res.totalCount === 0 ? (this.empty = true) : (this.empty = false);
     });
     this.tabs.setTabValue(undefined);
+    this.spinner.getSpinnerValue().subscribe((flag) => {
+      this.showSpinner = flag;
+    });
   }
   openDialog() {
     const dialogRef = this.dialog.open(CreateTicketPopupComponent);
