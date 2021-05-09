@@ -4,7 +4,7 @@
       <label class="Actions-Tickets-Queue"> Actions / Incidents </label>
       <label class="Tickets-Queue">Incidents</label>
     </div>
-    <div class="table-right-header" *ngIf="!showSpinner">
+    <div class="table-right-header">
       <button
         type="button"
         class="Table-buttons"
@@ -17,10 +17,15 @@
         type="button"
         class="Table-buttons-Export icon"
         (click)="exportTable()"
+        *ngIf="!showSpinner"
       >
         Export Table <mat-icon class="export-btn-icon">save_alt</mat-icon>
       </button>
-      <button type="button" class="Table-buttons-settings icon">
+      <button
+        type="button"
+        class="Table-buttons-settings icon"
+        *ngIf="!showSpinner"
+      >
         <img src="assets/More.png" class="icon-img" />
       </button>
     </div>
