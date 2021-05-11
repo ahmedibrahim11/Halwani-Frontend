@@ -44,6 +44,7 @@ export class AllTableComponentComponent implements OnInit {
   @Input() from: number = null;
   private subscriptionName: Subscription;
   dataLoaded: boolean = false;
+  empty: boolean = true;
 
   constructor(
     private http: HTTPMainServiceService,
@@ -371,6 +372,8 @@ export class AllTableComponentComponent implements OnInit {
               this.spinner.setSpinnerValue(this.showSpinner);
               this.dataLoaded = true;
               this.pageLength = res.totalCount;
+              this.empty = false;
+
               console.log('resulttttt', res.pageData);
               let usersData = res.pageData;
               this.UserViewInfoObject = usersData.map((el) => {
@@ -395,6 +398,8 @@ export class AllTableComponentComponent implements OnInit {
               this.setDataSourceAttributes();
             } else {
               this.dataLoaded = false;
+              this.empty = true;
+              this.showSpinner = false;
             }
           });
       } else {
@@ -417,6 +422,7 @@ export class AllTableComponentComponent implements OnInit {
               this.spinner.setSpinnerValue(this.showSpinner);
               this.dataLoaded = true;
               this.pageLength = res.totalCount;
+              this.empty = false;
 
               console.log('resulttttt', res.pageData);
               let usersData = res.pageData;
@@ -442,6 +448,8 @@ export class AllTableComponentComponent implements OnInit {
               this.setDataSourceAttributes();
             } else {
               this.dataLoaded = false;
+              this.empty = true;
+              this.showSpinner = false;
             }
           });
       }

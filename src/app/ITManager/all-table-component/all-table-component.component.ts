@@ -41,6 +41,7 @@ export class AllTableComponentComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() tab: number = 0;
 
+  empty: boolean = true;
   dataLoaded: boolean = false;
   constructor(
     private http: HTTPMainServiceService,
@@ -351,6 +352,7 @@ export class AllTableComponentComponent implements OnInit {
               this.spinnerFlag.setSpinnerValue(this.showSpinner);
               this.dataLoaded = true;
               this.pageLength = res.totalCount;
+              this.empty = false;
               console.log('eeeee', res);
 
               console.log('resulttttt', res.pageData);
@@ -379,6 +381,8 @@ export class AllTableComponentComponent implements OnInit {
               this.setDataSourceAttributes();
             } else {
               this.dataLoaded = false;
+              this.empty = true;
+              this.showSpinner = false;
             }
           });
       } else {
@@ -399,7 +403,7 @@ export class AllTableComponentComponent implements OnInit {
               this.spinnerFlag.setSpinnerValue(this.showSpinner);
               this.dataLoaded = true;
               this.pageLength = res.totalCount;
-
+              this.empty = false;
               console.log('resulttttt', res.pageData);
               let usersData = res.pageData;
               this.UserViewInfoObject = usersData.map((el) => {
@@ -423,6 +427,8 @@ export class AllTableComponentComponent implements OnInit {
               this.setDataSourceAttributes();
             } else {
               this.dataLoaded = false;
+              this.empty = true;
+              this.showSpinner = false;
             }
           });
       }
