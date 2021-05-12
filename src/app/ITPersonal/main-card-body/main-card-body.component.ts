@@ -5,6 +5,7 @@ import { ExportexcelService } from 'src/app/core/services/exportexcel.service';
 import { CreateTicketPopupComponent } from '../create-ticket-popup/create-ticket-popup.component';
 import { TabscreationService } from 'src/app/core/services/tabscreation.service';
 import { SpinnerFlagService } from 'src/app/core/services/spinner-flag.service';
+import { TicketCreationService } from 'src/app/core/services/ticket-creation.service';
 
 @Component({
   selector: 'app-main-card-body',
@@ -21,14 +22,23 @@ export class MainCardBodyComponent implements OnInit {
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
     private tabs: TabscreationService,
-    private spinner: SpinnerFlagService
+    private spinner: SpinnerFlagService,
+    private service: TicketCreationService
   ) {}
 
+  flag: any;
+
   ngOnInit(): void {
-    this.http.POST('Ticket/List', { pageSize: 10 }).subscribe((res) => {
-      console.log(res);
-      res.totalCount === 0 ? (this.empty = true) : (this.empty = false);
+    this.service.getValue().subscribe((value) => {
+      this.flag = value;
+      if (this.flag === true) {
+        this.http.POST('Ticket/List', { pageSize: 10 }).subscribe((res) => {
+          console.log(res);
+          res.totalCount === 0 ? (this.empty = true) : (this.empty = false);
+        });
+      }
     });
+
     this.tabs.setTabValue(undefined);
     this.spinner.getSpinnerValue().subscribe((flag) => {
       this.showSpinner = flag;
