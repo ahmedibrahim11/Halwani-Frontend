@@ -93,6 +93,19 @@
             </mat-select>
           </mat-form-field>
         </div>
+        <div class="col-ddl">
+          <label class="Ticket-type">Location</label>
+          <mat-form-field [style.width.%]="100" appearance="fill">
+            <mat-label>{{ location }}</mat-label>
+
+            <mat-select formControlName="location" [(ngModel)]="location">
+              <mat-option *ngFor="let option of locationList" [value]="option">
+                <img src="../../../assets/Location.png" />
+                {{ option }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
 
       <div class="row-ddl">
@@ -124,11 +137,8 @@
           >
           <mat-form-field [style.width.%]="100" appearance="fill">
             <mat-select formControlName="source">
-              <mat-option
-                *ngFor="let option of sourceDatasource"
-                [value]="option['value']"
-              >
-                {{ option["label"] }}</mat-option
+              <mat-option *ngFor="let option of sourceList" [value]="option">
+                {{ option }}</mat-option
               >
             </mat-select>
           </mat-form-field>
@@ -141,12 +151,9 @@
             >Severity <span class="mandatory"> *</span></label
           >
           <mat-form-field [style.width.%]="97" appearance="fill">
-            <mat-select formControlName="sevirity">
-              <mat-option
-                *ngFor="let option of seviritysource"
-                [value]="option['value']"
-              >
-                {{ option["label"] }}</mat-option
+            <mat-select formControlName="sevirity" [(ngModel)]="sevirity">
+              <mat-option *ngFor="let option of severityList" [value]="option">
+                {{ option }}</mat-option
               >
             </mat-select>
           </mat-form-field>
@@ -156,12 +163,9 @@
             >Priority <span class="mandatory"> *</span></label
           >
           <mat-form-field [style.width.%]="100" appearance="fill">
-            <mat-select formControlName="priority">
-              <mat-option
-                *ngFor="let option of seviritysource"
-                [value]="option['value']"
-              >
-                {{ option["label"] }}</mat-option
+            <mat-select formControlName="priority" [(ngModel)]="priority">
+              <mat-option *ngFor="let option of priorityList" [value]="option">
+                {{ option }}</mat-option
               >
             </mat-select>
           </mat-form-field>
@@ -175,6 +179,7 @@
             <mat-select
               formControlName="productCategoryName1"
               (selectionChange)="productCategoryOne($event)"
+              [(ngModel)]="categoryName1"
             >
               <mat-option
                 *ngFor="let option of productCategoryName1"
@@ -188,7 +193,10 @@
         <div class="col-ddl" *ngIf="showSecondCategory">
           <label class="Ticket-type" style="margin-bottom: 2.2rem"></label>
           <mat-form-field [style.width.%]="100" appearance="fill">
-            <mat-select formControlName="productCategoryName2">
+            <mat-select
+              formControlName="productCategoryName2"
+              [(ngModel)]="categoryName2"
+            >
               <mat-option
                 *ngFor="let option of productCategoryName2"
                 [value]="option['value']"
@@ -323,6 +331,18 @@
             </mat-select>
           </mat-form-field>
         </div>
+        <div class="col-ddl">
+          <label class="Ticket-type">Location</label>
+          <mat-form-field [style.width.%]="100" appearance="fill">
+            <mat-label>{{ location }}</mat-label>
+            <mat-select formControlName="location" [(ngModel)]="location">
+              <mat-option *ngFor="let option of locationList" [value]="option">
+                <img src="../../../assets/Location.png" />
+                {{ option }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
 
       <div class="row-ddl">
@@ -353,11 +373,8 @@
             <mat-label>{{ source }}</mat-label>
 
             <mat-select formControlName="source" [(ngModel)]="source">
-              <mat-option
-                *ngFor="let option of sourceDatasource"
-                [value]="option['value']"
-              >
-                {{ option["label"] }}</mat-option
+              <mat-option *ngFor="let option of sourceList" [value]="option">
+                {{ option }}</mat-option
               >
             </mat-select>
           </mat-form-field>
@@ -371,11 +388,8 @@
             <mat-label>{{ sevirity }}</mat-label>
 
             <mat-select formControlName="sevirity" [(ngModel)]="sevirity">
-              <mat-option
-                *ngFor="let option of seviritysource"
-                [value]="option['value']"
-              >
-                {{ option["label"] }}</mat-option
+              <mat-option *ngFor="let option of severityList" [value]="option">
+                {{ option }}</mat-option
               >
             </mat-select>
           </mat-form-field>
@@ -386,11 +400,8 @@
             <mat-label>{{ priority }}</mat-label>
 
             <mat-select formControlName="priority" [(ngModel)]="priority">
-              <mat-option
-                *ngFor="let option of seviritysource"
-                [value]="option['value']"
-              >
-                {{ option["label"] }}</mat-option
+              <mat-option *ngFor="let option of priorityList" [value]="option">
+                {{ option }}</mat-option
               >
             </mat-select>
           </mat-form-field>

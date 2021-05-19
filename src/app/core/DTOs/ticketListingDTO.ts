@@ -17,6 +17,11 @@ export enum SevirityEnum {
   Medium,
   High,
 }
+export enum LocationEnum {
+  _6OfOctober = 0,
+  _10OfRamadan,
+  NewCairo,
+}
 export enum PriorityEnum {
   Low = 0,
   Medium,

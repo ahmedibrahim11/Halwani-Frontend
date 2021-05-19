@@ -1,8 +1,18 @@
 import { Component, Inject, Input, OnInit, Optional } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { createTicketDTO } from '../../core/DTOs/createTicketDTO';
 import { getTicketDTO } from '../../core/DTOs/getTicketDTO';
-
+import {
+  PriorityEnum,
+  SevirityEnum,
+  SourceEnum,
+  LocationEnum,
+} from '../../core/DTOs/ticketListingDTO';
 import { HTTPMainServiceService } from '../../core/services/httpmain-service.service';
 import { TicketCreationService } from '../../core/services/ticket-creation.service';
 import {
@@ -55,6 +65,7 @@ export class CreateTicketPopupComponent implements OnInit {
   saveAndOpenAnother: boolean = false;
   @Input() ticketTypeDatasource;
   @Input() reporterDatasource;
+  @Input() locationDatasource;
   @Input() sourceDatasource;
   @Input() seviritysource;
   @Input() teamSoruce;
@@ -70,6 +81,7 @@ export class CreateTicketPopupComponent implements OnInit {
   attachement: any = [];
   description: any;
   team: any;
+  location: any;
   reporter: any;
   source: any;
   sevirity: any;
@@ -80,6 +92,15 @@ export class CreateTicketPopupComponent implements OnInit {
 
   filePath: any;
   fileName: any = [];
+
+  locations = new FormControl();
+  locationList: any = [];
+  sources = new FormControl();
+  sourceList: any = [];
+  severities = new FormControl();
+  severityList: any = [];
+  priorities = new FormControl();
+  priorityList: any = [];
 
   ngOnInit(): void {
     //update
@@ -111,6 +132,7 @@ export class CreateTicketPopupComponent implements OnInit {
           console.log('ttt', this.FileLinks);
           this.description = res.description;
           this.team = res.teamName;
+          this.location = res.location;
           this.reporter = res.submitterEmail;
           this.source = res.source;
           this.sevirity = res.ticketSeverity;
@@ -123,6 +145,7 @@ export class CreateTicketPopupComponent implements OnInit {
         summary: [this.summary],
         description: [this.description],
         team: [this.team],
+        location: [this.location],
         reporter: [this.reporter],
         source: [this.source],
         sevirity: [this.sevirity],
@@ -135,32 +158,39 @@ export class CreateTicketPopupComponent implements OnInit {
 
     //create
     this.createTicketDTOFormGroup = this.formBuilder.group({
-      ticketType: [0, [Validators.required]],
+      ticketType: ['', [Validators.required]],
       summary: ['', [Validators.required]],
       description: [''],
       team: ['', [Validators.required]],
+      location: ['', [Validators.required]],
       reporter: [0, [Validators.required]],
       source: [0, [Validators.required]],
       sevirity: [0, [Validators.required]],
       priority: [0, [Validators.required]],
-      productCategoryName1: [0],
-      productCategoryName2: [0],
+      productCategoryName1: [0, [Validators.required]],
+      productCategoryName2: [0, [Validators.required]],
       saveAndOpenAnother: [false],
     });
-    this.seviritysource = [
-      { label: 'Low', value: 0 },
-      { label: 'Medium', value: 1 },
-      { label: 'High', value: 2 },
-    ];
-    this.sourceDatasource = [
-      { label: 'Mobile', value: 0 },
-      { label: 'LapTop', value: 1 },
-      { label: 'DeskTop', value: 2 },
-    ];
-    this.ticketTypeDatasource = [
-      { label: 'Service Request', value: 0 },
-      { label: 'Incident', value: 1 },
-    ];
+    const sevKeys = Object.keys(SevirityEnum).filter(
+      (k) => typeof SevirityEnum[k as any] === 'string'
+    );
+    sevKeys.map((k) => this.severityList.push(SevirityEnum[k as any]));
+
+    console.log('seeeeeeev', this.severityList);
+    const priKeys = Object.keys(PriorityEnum).filter(
+      (k) => typeof PriorityEnum[k as any] === 'string'
+    );
+    priKeys.map((k) => this.priorityList.push(PriorityEnum[k as any]));
+
+    const souKeys = Object.keys(SourceEnum).filter(
+      (k) => typeof SourceEnum[k as any] === 'string'
+    );
+    souKeys.map((k) => this.sourceList.push(SourceEnum[k as any]));
+
+    const locationKeys = Object.keys(LocationEnum).filter(
+      (k) => typeof LocationEnum[k as any] === 'string'
+    );
+    locationKeys.map((k) => this.locationList.push(LocationEnum[k as any]));
 
     this.http.GET('RequestType/getRequestType').subscribe((data) => {
       console.log(this.fromPage);
@@ -213,46 +243,61 @@ export class CreateTicketPopupComponent implements OnInit {
     this.showSecondCategory = true;
   }
   submiCreate() {
-    console.log(this.createTicketDTOFormGroup.value);
+    console.log('creaaation', this.createTicketDTOFormGroup.value);
     this.createTicketDTO.attachement =
       this.FileLinks !== undefined ? this.FileLinks.toString() : '';
     console.log('creaaate file', this.createTicketDTO.attachement);
-    this.createTicketDTO.description = this.createTicketDTOFormGroup.value.description;
-    this.createTicketDTO.productCategoryName1 = this.createTicketDTOFormGroup.value.productCategoryName1.toString();
-    this.createTicketDTO.productCategoryName2 = this.createTicketDTOFormGroup.value.productCategoryName2.toString();
-    let submitterArray = this.createTicketDTOFormGroup.value.reporter.split(
-      ','
-    );
+    this.createTicketDTO.description =
+      this.createTicketDTOFormGroup.value.description;
+    this.createTicketDTO.productCategoryName1 =
+      this.createTicketDTOFormGroup.value.productCategoryName1.toString();
+    this.createTicketDTO.productCategoryName2 =
+      this.createTicketDTOFormGroup.value.productCategoryName2.toString();
+    let submitterArray =
+      this.createTicketDTOFormGroup.value.reporter.split(',');
     this.createTicketDTO.submitterTeam = submitterArray[0];
     this.createTicketDTO.submitterEmail = submitterArray[1];
     this.createTicketDTO.submitterName = submitterArray[2];
+    this.createTicketDTO.location =
+      this.createTicketDTOFormGroup.value.location;
     this.createTicketDTO.summary = this.createTicketDTOFormGroup.value.summary;
     this.createTicketDTO.submitDate = new Date();
-    this.createTicketDTO.requestTypeId = this.createTicketDTOFormGroup.value.ticketType;
-    this.createTicketDTO.ticketSeverity = this.createTicketDTOFormGroup.value.sevirity;
+    this.createTicketDTO.requestTypeId = Number(
+      this.createTicketDTOFormGroup.value.ticketType
+    );
+    this.createTicketDTO.ticketSeverity =
+      this.createTicketDTOFormGroup.value.sevirity;
     this.createTicketDTO.ticketStatus = 0;
     //will be from aad
     this.createTicketDTO.reportedSource = 'admin';
     this.createTicketDTO.teamName = this.createTicketDTOFormGroup.value.team;
-    this.createTicketDTO.priority = this.createTicketDTOFormGroup.value.priority;
+    this.createTicketDTO.priority =
+      this.createTicketDTOFormGroup.value.priority;
     this.createTicketDTO.source = this.createTicketDTOFormGroup.value.source;
     var requestData = JSON.stringify(this.createTicketDTO);
     this.formData.append('data', requestData);
     console.log('createDto', requestData);
-    this.http.POST('Ticket/CreateTicket', this.formData).subscribe((data) => {
-      console.log('create tickeet');
-      this._snackBar.openFromComponent(ToastMessageComponent, {
-        duration: this.durationInSeconds * 1000,
-      });
-      this.service.setValue(true);
-    });
+
+    this.http.POST('Ticket/CreateTicket', this.formData).subscribe(
+      (data) => {
+        console.log('create tickeet');
+        this._snackBar.openFromComponent(ToastMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+        });
+        this.service.setValue(true);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        this.dialogRef.afterClosed().subscribe((result) => {
+          console.log(`Dialog result: ${result}`);
+        });
+      }
+    );
     if (this.createTicketDTOFormGroup.value.saveAndOpenAnother) {
       const dialogRef = this.dialog.open(CreateTicketPopupComponent, {
         data: { pageValue: this.fromPage },
-      });
-
-      dialogRef.afterClosed().subscribe((result) => {
-        console.log(`Dialog result: ${result}`);
       });
     }
   }
@@ -265,29 +310,37 @@ export class CreateTicketPopupComponent implements OnInit {
       this.FileLinks
     );
 
-    let submitterArray = this.updateTicketDTOFormGroup.value.reporter.split(
-      ','
-    );
+    let submitterArray =
+      this.updateTicketDTOFormGroup.value.reporter.split(',');
     console.log('array', submitterArray);
     this.updateTicketDto.attachement =
       this.FileLinks !== undefined ? this.FileLinks.toString() : '';
     console.log('eeee', this.updateTicketDto.attachement);
     this.updateTicketDto.id = this.ticketID;
-    this.updateTicketDto.description = this.updateTicketDTOFormGroup.value.description;
-    this.updateTicketDto.productCategoryName1 = this.updateTicketDTOFormGroup.value.categoryName1.toString();
-    this.updateTicketDto.productCategoryName2 = this.updateTicketDTOFormGroup.value.categoryName2.toString();
+    this.updateTicketDto.description =
+      this.updateTicketDTOFormGroup.value.description;
+    this.updateTicketDto.productCategoryName1 =
+      this.updateTicketDTOFormGroup.value.categoryName1.toString();
+    this.updateTicketDto.productCategoryName2 =
+      this.updateTicketDTOFormGroup.value.categoryName2.toString();
     this.updateTicketDto.submitterTeam = submitterArray[0];
     this.updateTicketDto.submitterEmail = submitterArray[0];
     this.updateTicketDto.submitterName = submitterArray[0];
+    this.updateTicketDto.location =
+      this.updateTicketDTOFormGroup.value.location;
     this.updateTicketDto.summary = this.updateTicketDTOFormGroup.value.summary;
     this.updateTicketDto.submitDate = new Date();
-    this.updateTicketDto.requestTypeId = this.updateTicketDTOFormGroup.value.ticketType;
-    this.updateTicketDto.ticketSeverity = this.updateTicketDTOFormGroup.value.sevirity;
+    this.updateTicketDto.requestTypeId = Number(
+      this.updateTicketDTOFormGroup.value.ticketType
+    );
+    this.updateTicketDto.ticketSeverity =
+      this.updateTicketDTOFormGroup.value.sevirity;
     this.updateTicketDto.ticketStatus = 0;
     //will be from aad
     this.updateTicketDto.reportedSource = 'admin';
     this.updateTicketDto.teamName = this.updateTicketDTOFormGroup.value.team;
-    this.updateTicketDto.priority = this.updateTicketDTOFormGroup.value.priority;
+    this.updateTicketDto.priority =
+      this.updateTicketDTOFormGroup.value.priority;
     this.updateTicketDto.source = this.updateTicketDTOFormGroup.value.source;
 
     var updated = JSON.stringify(this.updateTicketDto);

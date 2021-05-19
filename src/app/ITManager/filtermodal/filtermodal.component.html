@@ -22,10 +22,9 @@
               {{ locations.value?.length === 2 ? "other" : "others" }})
             </span>
           </mat-select-trigger>
-          <mat-option
-            *ngFor="let location of locationList"
-            [value]="location"
-            >{{ location }}</mat-option
+          <mat-option *ngFor="let location of locationList" [value]="location">
+            <img src="../../../assets/Location.png" />
+            {{ location }}</mat-option
           >
         </mat-select>
       </mat-form-field>
