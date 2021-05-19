@@ -10,6 +10,7 @@ import { SettingsMainTabsComponent } from './settings-main-tabs/settings-main-ta
 import { ProfileSettingsComponent } from './settings-main-tabs/profile-settings/profile-settings.component';
 import { HelpCenterConfigComponent } from './settings-main-tabs/help-center-config/help-center-config.component';
 import { UserMenuComponent } from './user-menu/user-menu.component';
+import { UserSideBarComponent } from './user-side-bar/user-side-bar.component';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -18,6 +19,7 @@ import { UserMenuComponent } from './user-menu/user-menu.component';
     ProfileSettingsComponent,
     HelpCenterConfigComponent,
     UserMenuComponent,
+    UserSideBarComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,6 @@ import { UserMenuComponent } from './user-menu/user-menu.component';
   exports:[ 
     AngalurMaterialModule,
     NavbarComponent,
-    SidebarComponent]
+    SidebarComponent,UserSideBarComponent]
 })
 export class SharedModule { }

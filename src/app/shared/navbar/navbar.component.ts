@@ -13,8 +13,7 @@ export class NavbarComponent implements OnInit {
   token: any;
   userName: any;
   userRole: any;
-  firstCharacter: any;
-  secondCharacter: any;
+  nameInitials:any;
 
   getTokenPayloads() {
     this.token = localStorage.getItem('userData');
@@ -38,15 +37,17 @@ export class NavbarComponent implements OnInit {
 
   getRedMenuCharacters() {
     let allName = this.userName.split(' ');
-    this.firstCharacter = allName[0].charAt(0).toUpperCase();
-    this.secondCharacter = allName[1].charAt(0).toUpperCase();
+    this.nameInitials = this.initials(allName[0]);
+  
   }
+  
   ngOnInit(): void {
     this.getTokenPayloads();
     this.getRedMenuCharacters();
   }
 
   initials(name) {
+    console.log(name)
     let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
 
     let initials = [...name.matchAll(rgx)] || [];

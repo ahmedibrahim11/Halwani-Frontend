@@ -1,0 +1,22 @@
+<div class="Rectangle-6">
+    <div class="mainTableHeader">
+        <div class="table-header">
+            <label class="Actions-Tickets-Queue"> Actions / My Tickets </label>
+            <label class="Tickets-Queue">My Tickets</label>
+        </div>
+        <div class="table-right-header">
+            <button type="button" class="Table-buttons" mat-button (click)="openDialog()">
+                Create Ticket
+            </button>
+          
+            <button type="button" class="Table-buttons-settings icon" *ngIf="!showSpinner">
+                <img src="assets/More.png" class="icon-img" />
+            </button>
+        </div>
+    </div>
+  <div class="Rectangle-339">
+      
+    <app-tickets-table></app-tickets-table>
+      </div>
+
+</div>

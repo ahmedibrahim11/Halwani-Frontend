@@ -33,6 +33,12 @@
   border-radius: 8px;
   background-color: #ede9e9;
 }
+.Rectangle-6 {
+  margin: 6px 0 16px;
+  padding: 22px 16px;
+  border-radius: 8px;
+  border: solid 1px #696969;
+}
 .mandatory {
   color: #ed1c24;
 }
@@ -56,7 +62,7 @@
   margin: 0.5rem;
 }
 .menu {
-  width: 14rem;
+  width: 100%;
   display: flex;
   flex-direction: row;
 }
