@@ -11,7 +11,6 @@ import {
   PriorityEnum,
   SevirityEnum,
   SourceEnum,
-  LocationEnum,
 } from '../../core/DTOs/ticketListingDTO';
 import { HTTPMainServiceService } from '../../core/services/httpmain-service.service';
 import { TicketCreationService } from '../../core/services/ticket-creation.service';
@@ -187,10 +186,12 @@ export class CreateTicketPopupComponent implements OnInit {
     );
     souKeys.map((k) => this.sourceList.push(SourceEnum[k as any]));
 
-    const locationKeys = Object.keys(LocationEnum).filter(
-      (k) => typeof LocationEnum[k as any] === 'string'
-    );
-    locationKeys.map((k) => this.locationList.push(LocationEnum[k as any]));
+    this.http.GET('api/Location/getLocations').subscribe((data) => {
+      console.log('locations', data);
+      data.map((location) => {
+        this.locationList.push(location['text']);
+      });
+    });
 
     this.http.GET('RequestType/getRequestType').subscribe((data) => {
       console.log(this.fromPage);

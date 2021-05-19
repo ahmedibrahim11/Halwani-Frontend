@@ -17,20 +17,16 @@ export enum SevirityEnum {
   Medium,
   High,
 }
-export enum LocationEnum {
-  _6OfOctober = 0,
-  _10OfRamadan,
-  NewCairo,
-}
+
 export enum PriorityEnum {
   Low = 0,
   Medium,
   High,
 }
 export enum SourceEnum {
-  Phone = 0,
-  Desktop,
+  Mobile = 0,
   Laptop,
+  Desktop,
 }
 export enum ProductCategorizationEnum {
   Software = 0,
