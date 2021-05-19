@@ -24,6 +24,8 @@ import { PersonalProblemsComponent } from './ITPersonal/personal-problems/person
 import { PersonalIncidentsComponent } from './ITPersonal/personal-incidents/personal-incidents.component';
 import { PersonalChangesComponent } from './ITPersonal/personal-changes/personal-changes.component';
 import { SettingsMainTabsComponent } from './shared/settings-main-tabs/settings-main-tabs.component';
+import { UserLayoutMainComponent } from './UserPersonal/user-layout-main/user-layout-main.component';
+import { MyTicketsComponent } from './UserPersonal/my-tickets/my-tickets.component';
 const routes: Routes = [
   {
     path: 'itpersonal',
@@ -52,12 +54,19 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'user',
+    path: 'user/helpCenter',
     component: UserLayoutComponent,
     children: [
       { path: 'create/:id', component: CreateTicketComponent },
       { path: 'groupdetails/:id', component: GroupCategoryComponent },
       { path: '', component: MainCategoriesComponent },
+    ],
+  },{
+    path: 'user',
+    component: UserLayoutMainComponent,
+    children: [
+      
+       { path: '', component: MyTicketsComponent },
     ],
   },
   

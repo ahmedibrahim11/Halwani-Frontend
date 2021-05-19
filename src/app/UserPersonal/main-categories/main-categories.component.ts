@@ -33,7 +33,7 @@ export class MainCategoriesComponent implements OnInit {
    goToDetails(GroupID)
    {
         console.log(GroupID)
-        this.router.navigate(["/user/groupdetails",GroupID]);
+        this.router.navigate(["/user/helpCenter/groupdetails",GroupID]);
    }
 
 }

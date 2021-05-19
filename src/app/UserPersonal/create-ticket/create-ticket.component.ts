@@ -19,7 +19,36 @@ createTicketDTOFormGroup: FormGroup;
      private typeID:Number
      private FileLinks;
      @Input() reporterDatasource;
+     submitterTeam:any;
+  submitterName:any;
+  token:any;
+  submitterInitials:any;
+  reporter:any;
+  getTokenPayloads() {
+    this.token = localStorage.getItem('userData');
+    var base64Url = this.token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map(function (c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join('')
+    );
+    this.submitterName = JSON.parse(jsonPayload)[
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
+    ];
+        this.reporter = JSON.parse(jsonPayload)[
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
+    ];
+     this.submitterTeam = JSON.parse(jsonPayload)[
+      'Teams'
+    ];
+    this.submitterInitials=this.initials(this.submitterName)
+  }
   ngOnInit(): void {
+    this.getTokenPayloads();
    const routeParams = this.route.snapshot.paramMap;
     this.typeID = Number(routeParams.get('id'));
     this.http.getData().subscribe(data=>{
@@ -35,7 +64,7 @@ createTicketDTOFormGroup: FormGroup;
       summary: ['', [Validators.required]],
       description:[''],
      
-      reportTo:['',[Validators.required]]
+     
     });
      this.miainHttp.GET('User/getUser').subscribe((data) => {
       this.reporterDatasource=data.map(el=>{
@@ -106,10 +135,10 @@ createTicketDTOFormGroup: FormGroup;
 submiCreate(){
    this.createTicketDTO.attachement=this.FileLinks!==undefined? this.FileLinks.toString():"";
        this.createTicketDTO.description=this.createTicketDTOFormGroup.value.description;
-       let submitterArray=this.createTicketDTOFormGroup.value.reportTo.split(",");
-       this.createTicketDTO.submitterTeam=submitterArray[0];
-       this.createTicketDTO.submitterEmail=submitterArray[1];
-       this.createTicketDTO.submitterName=submitterArray[2];
+      
+       this.createTicketDTO.submitterTeam=this.submitterTeam;
+       this.createTicketDTO.submitterEmail=this.reporter;
+       this.createTicketDTO.submitterName=this.submitterName;
        this.createTicketDTO.summary=this.createTicketDTOFormGroup.value.summary;
        this.createTicketDTO.submitDate=new Date();
        this.createTicketDTO.teamName=this.type.team;

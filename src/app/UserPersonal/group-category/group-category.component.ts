@@ -31,6 +31,6 @@ public categoriesList
  add(GroupID)
    {
         console.log(GroupID)
-        this.router.navigate(["/user/create",GroupID]);
+        this.router.navigate(["/user/helpCenter/create",GroupID]);
    }
 }

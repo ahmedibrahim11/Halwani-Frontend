@@ -19,7 +19,9 @@ export class TicketoptionsComponent implements OnInit {
     private share: SharingdataService
   ) {}
   @Input() ticketID;
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.ticketID)
+  }
   editHandler() {
     let updateStatus = this.share.getData();
     const dialogRef = this.dialog.open(CreateTicketPopupComponent, {
