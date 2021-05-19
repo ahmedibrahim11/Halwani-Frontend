@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { CommonServiceService } from 'src/app/core/services/common-service.service';
 import {
+  LocationEnum,
   PriorityEnum,
   SevirityEnum,
   SourceEnum,
@@ -203,6 +204,10 @@ export class FiltermodalComponent implements OnInit {
       (k) => typeof StatusEnum[k as any] === 'number'
     );
     statKeys.map((k) => this.stateList.push(StatusEnum[k as any]));
+    const locationKeys = Object.keys(LocationEnum).filter(
+      (k) => typeof LocationEnum[k as any] === 'string'
+    );
+    locationKeys.map((k) => this.locationList.push(LocationEnum[k as any]));
   }
 
   initials(name) {

@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { CommonServiceService } from 'src/app/core/services/common-service.service';
 import {
+  LocationEnum,
   PriorityEnum,
   SevirityEnum,
   SourceEnum,
@@ -93,8 +94,21 @@ export class FiltermodalComponent implements OnInit {
     });
     this.dialog.closeAll();
   }
+
+  formatDate(date) {
+    var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+  }
   dateChange(e) {
-    console.log(e.value);
+    let ticketDate = this.formatDate(e.value.toDateString());
+    console.log('dateee', ticketDate);
     this.http.GET('ticket/getCount').subscribe((res) => {
       this.pageLength = res;
 
@@ -104,7 +118,7 @@ export class FiltermodalComponent implements OnInit {
           pageSize: this.pageLength,
           pageNumber: this.pageIndex,
           isPrint: false,
-          filter: { date: e.value },
+          filter: { date: ticketDate },
           sortValue: 0,
         })
         .subscribe((res) => {
@@ -190,6 +204,10 @@ export class FiltermodalComponent implements OnInit {
       (k) => typeof StatusEnum[k as any] === 'number'
     );
     statKeys.map((k) => this.stateList.push(StatusEnum[k as any]));
+    const locationKeys = Object.keys(LocationEnum).filter(
+      (k) => typeof LocationEnum[k as any] === 'string'
+    );
+    locationKeys.map((k) => this.locationList.push(LocationEnum[k as any]));
   }
 
   initials(name) {
