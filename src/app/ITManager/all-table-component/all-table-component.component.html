@@ -90,29 +90,26 @@
                 [routerLink]="['/itmanager/details', user.id]"
                 fragment="servicerequests"
               >
-                <h3>{{ user.name }}</h3>
               </a>
               <a
                 *ngIf="tab === 1"
                 [routerLink]="['/itmanager/details', user.id]"
                 fragment="incidents"
               >
-                <h3>{{ user.name }}</h3>
               </a>
               <a
                 *ngIf="tab === 2"
                 [routerLink]="['/itmanager/details', user.id]"
                 fragment="problems"
               >
-                <h3>{{ user.name }}</h3>
               </a>
               <a
                 *ngIf="tab === 3"
                 [routerLink]="['/itmanager/details', user.id]"
                 fragment="changes"
               >
-                <h3>{{ user.name }}</h3>
               </a>
+              <h3>{{ user.name }}</h3>
               <p style="opacity: 0.7">{{ user.email }}</p>
             </div>
           </div>

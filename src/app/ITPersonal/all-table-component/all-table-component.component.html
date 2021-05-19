@@ -19,7 +19,7 @@
         (removed)="remove(item)"
       >
         {{ item.name }}
-        <mat-icon class="icon" matChipRemove *ngIf="removable">cancel</mat-icon>
+        <mat-icon matChipRemove *ngIf="removable" class="icon">cancel</mat-icon>
       </mat-chip>
       <input
         placeholder="New item..."
@@ -31,9 +31,9 @@
       />
     </mat-chip-list>
   </mat-form-field>
-  <div class="Table-buttons" *ngIf="dataLoaded">
-    <label class="Export-queue">Export Selected</label
-    ><img src="assets/Checkbox.svg" />
+  <div class="Table-buttons" *ngIf="!showSpinner && dataLoaded">
+    <label class="Export-queue">Assign Tickets</label
+    ><mat-icon (click)="globalAssignTicket()" class="icon">group_add</mat-icon>
   </div>
 </div>
 
@@ -43,6 +43,7 @@
     <mat-spinner></mat-spinner>
   </div>
 </ng-template>
+
 <ng-template #data class="table">
   <div *ngIf="empty">
     <app-no-more-tickets></app-no-more-tickets>
@@ -85,39 +86,30 @@
             </div>
             <div class="person-data-menu">
               <a
-                *ngIf="from === 0"
-                [routerLink]="['/itpersonal/details', user.id]"
+                *ngIf="tab === 0"
+                [routerLink]="['/itmanager/details', user.id]"
                 fragment="servicerequests"
               >
-                <h3>{{ user.name }}</h3>
               </a>
               <a
-                *ngIf="from === 1"
-                [routerLink]="['/itpersonal/details', user.id]"
+                *ngIf="tab === 1"
+                [routerLink]="['/itmanager/details', user.id]"
                 fragment="incidents"
               >
-                <h3>{{ user.name }}</h3>
               </a>
               <a
-                *ngIf="from === 2"
-                [routerLink]="['/itpersonal/details', user.id]"
+                *ngIf="tab === 2"
+                [routerLink]="['/itmanager/details', user.id]"
                 fragment="problems"
               >
-                <h3>{{ user.name }}</h3>
               </a>
               <a
-                *ngIf="from === 3"
-                [routerLink]="['/itpersonal/details', user.id]"
+                *ngIf="tab === 3"
+                [routerLink]="['/itmanager/details', user.id]"
                 fragment="changes"
               >
-                <h3>{{ user.name }}</h3>
               </a>
-              <a
-                *ngIf="from === null"
-                [routerLink]="['/itpersonal/details', user.id]"
-              >
-                <h3>{{ user.name }}</h3>
-              </a>
+              <h3>{{ user.name }}</h3>
               <p style="opacity: 0.7">{{ user.email }}</p>
             </div>
           </div>
@@ -185,23 +177,21 @@
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let topic">
           <div class="menu">
-            <mat-icon (click)="resolveTicket(topic.id)" class="icon"
-              >assignment_turned_in</mat-icon
+            <mat-icon (click)="cancelTicket(topic.id)" class="icon"
+              >cancel</mat-icon
             >
-            <img
-              (click)="escalateTicket(topic.id)"
-              src="assets/PeopleError.svg"
-              style="margin-right: 0.1rem"
-              class="icon"
-            />
+
+            <mat-icon (click)="assignTicket(topic.id)" class="icon"
+              >group_add</mat-icon
+            >
+
             <img
               (click)="openTicket(topic.id)"
               src="assets/Open.svg"
               style="margin-right: 0.1rem"
               class="icon"
             />
-
-            <app-ticket-options [ticketID]="topic.id"></app-ticket-options>
+            <app-ticketoptions [ticketID]="topic.id"></app-ticketoptions>
           </div>
         </td>
       </ng-container>
