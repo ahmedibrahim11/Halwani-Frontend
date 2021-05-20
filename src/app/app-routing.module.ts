@@ -26,6 +26,9 @@ import { PersonalChangesComponent } from './ITPersonal/personal-changes/personal
 import { SettingsMainTabsComponent } from './shared/settings-main-tabs/settings-main-tabs.component';
 import { UserLayoutMainComponent } from './UserPersonal/user-layout-main/user-layout-main.component';
 import { MyTicketsComponent } from './UserPersonal/my-tickets/my-tickets.component';
+import { TicketsHistoryComponent } from './UserPersonal/tickets-history/tickets-history.component';
+import { MyEsclationsComponent } from './UserPersonal/my-esclations/my-esclations.component';
+import { UserDetailsComponent } from './UserPersonal/user-details/user-details.component';
 const routes: Routes = [
   {
     path: 'itpersonal',
@@ -65,7 +68,9 @@ const routes: Routes = [
     path: 'user',
     component: UserLayoutMainComponent,
     children: [
-      
+       { path: 'details/:id', component: UserDetailsComponent },
+       { path: 'myesclations', component: MyEsclationsComponent },
+      { path: 'ticketshistory', component: TicketsHistoryComponent },
        { path: '', component: MyTicketsComponent },
     ],
   },

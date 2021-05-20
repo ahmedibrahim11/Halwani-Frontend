@@ -119,22 +119,45 @@ export class FiltermodalComponent implements OnInit {
   pageIndex: any = 0;
 
   ngOnInit(): void {
-    const sevKeys = Object.keys(SevirityEnum).filter(
+    const sevVal = Object.keys(SevirityEnum).filter(
       (k) => typeof SevirityEnum[k as any] === 'number'
     );
-    sevKeys.map((k) => this.severityList.push(SevirityEnum[k as any]));
-    const priKeys = Object.keys(PriorityEnum).filter(
+    const sevkeys = Object.keys(SevirityEnum).filter(
+      (k) => typeof SevirityEnum[k as any] === 'string'
+    );
+    for (let i = 0; i < sevVal.length; i++) {
+      this.severityList.push({ text: sevVal[i], value: Number(sevkeys[i]) });
+    }
+
+    const priVal = Object.keys(PriorityEnum).filter(
       (k) => typeof PriorityEnum[k as any] === 'number'
     );
-    priKeys.map((k) => this.priorityList.push(PriorityEnum[k as any]));
-    const souKeys = Object.keys(SourceEnum).filter(
+    const priKeys = Object.keys(PriorityEnum).filter(
+      (k) => typeof PriorityEnum[k as any] === 'string'
+    );
+    for (let i = 0; i < priVal.length; i++) {
+      this.priorityList.push({ text: priVal[i], value: Number(priKeys[i]) });
+    }
+
+    const souVal = Object.keys(SourceEnum).filter(
       (k) => typeof SourceEnum[k as any] === 'number'
     );
-    souKeys.map((k) => this.sourceList.push(SourceEnum[k as any]));
-    const statKeys = Object.keys(StatusEnum).filter(
+    const souKeys = Object.keys(SourceEnum).filter(
+      (k) => typeof SourceEnum[k as any] === 'string'
+    );
+    for (let i = 0; i < souVal.length; i++) {
+      this.sourceList.push({ text: souVal[i], value: Number(souKeys[i]) });
+    }
+
+    const statVal = Object.keys(StatusEnum).filter(
       (k) => typeof StatusEnum[k as any] === 'number'
     );
-    statKeys.map((k) => this.stateList.push(StatusEnum[k as any]));
+    const statKeys = Object.keys(StatusEnum).filter(
+      (k) => typeof StatusEnum[k as any] === 'string'
+    );
+    for (let i = 0; i < statVal.length; i++) {
+      this.stateList.push({ text: statVal[i], value: Number(statKeys[i]) });
+    }
     this.http.GET('api/Location/getLocations').subscribe((data) => {
       console.log('locations', data);
       data.map((location) => {

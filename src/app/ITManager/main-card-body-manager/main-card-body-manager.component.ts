@@ -42,6 +42,25 @@ export class MainCardBodyManagerComponent implements OnInit {
       this.showSpinner = flag;
     });
   }
+  tabIndex: number = 0;
+  onTabChanged(e: any) {
+    this.tabIndex = e.index;
+
+    switch (e.index) {
+      case 1:
+        this.tabs.setTabValue('ServiceRequest');
+        break;
+      case 2:
+        this.tabs.setTabValue('Incident');
+        break;
+      case 3:
+        this.tabs.setTabValue('Problems');
+        break;
+      case 4:
+        this.tabs.setTabValue('Change');
+        break;
+    }
+  }
   openDialog() {
     const dialogRef = this.dialog.open(CreateTicketPopupComponent, {
       data: { pageValue: undefined },

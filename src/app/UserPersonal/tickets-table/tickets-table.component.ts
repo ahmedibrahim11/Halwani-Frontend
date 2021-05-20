@@ -33,6 +33,7 @@ export class TicketsTableComponent implements OnInit {
   @Input() tabData: number = undefined;
   @Input() Status: number = undefined;
   @Input() from: number = null;
+  @Input() withActions:Boolean=true;
   private subscriptionName: Subscription;
   dataLoaded: boolean = false;
   empty: boolean = true;
@@ -49,6 +50,7 @@ token:any;
     private spinner: SpinnerFlagService
   ) {
     this.subscriptionName = this.common.getUpdate().subscribe((data) => {
+      console.log("from subscribtion",data)
       this.UserViewInfoObject = data.map((el) => {
         const cerationDate = new Date(el['creationDate']);
         return {
@@ -61,6 +63,7 @@ token:any;
           ticketTopic: el['requestType']['name'],
           ticketCategory: el['requestType']['ticketType'],
           Sevirity: el['severity'],
+          status:el['status']
         };
       });
       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -109,7 +112,8 @@ getTokenPayloads() {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {
-            submitterName:this.userName
+            submitterName:this.userName,
+            State: this.Status,
           },
           sortvalue: 0,
         })
@@ -128,6 +132,7 @@ getTokenPayloads() {
               ticketTopic: el['requestType']['name'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
+              status:el['status']
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -142,7 +147,7 @@ getTokenPayloads() {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {
-            submitterName:this.userName
+            submitterName:this.userName,State: this.Status,
           },
           sortvalue: 0,
         })
@@ -161,6 +166,7 @@ getTokenPayloads() {
               ticketTopic: el['requestType']['name'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
+              status:el['status']
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -193,6 +199,7 @@ getTokenPayloads() {
               ticketTopic: el['requestType']['name'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
+              status:el['status']
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -202,9 +209,9 @@ getTokenPayloads() {
   }
   setDataSourceAttributes() {
     this.dataSource.paginator = this.paginator;
-    this.pageSize = this.paginator!==undefined?this.paginator.pageSize:5;
-    this.pageIndex = this.paginator!==undefined?this.paginator.pageIndex:5;
-    this.pageLength = this.paginator!==undefined?this.paginator.length:5;
+    this.pageSize = this.paginator.pageSize;
+    this.pageIndex = this.paginator.pageIndex;
+    this.pageLength = this.paginator.length;
     console.log('daaaaaat');
     console.log('size', this.pageSize);
     console.log('len', this.pageLength);
@@ -231,7 +238,7 @@ getTokenPayloads() {
       case 'ticketCategory':
         sortValue = 2;
         break;
-      case 'Sevirity':
+      case 'Status':
         sortValue = 3;
         break;
     }
@@ -252,7 +259,7 @@ getTokenPayloads() {
         pageNumber: this.pageIndex,
         isPrint: false,
         filter: {
-        submitterName:this.userName
+        submitterName:this.userName,State: this.Status,
         },
         sortvalue: sortValue,
         sortDirection: sortDirec,
@@ -272,6 +279,7 @@ getTokenPayloads() {
             ticketTopic: el['requestType']['name'],
             ticketCategory: el['requestType']['ticketType'],
             Sevirity: el['severity'],
+            status:el['status']
           };
         });
         console.log(this.UserViewInfoObject);
@@ -284,9 +292,10 @@ getTokenPayloads() {
     'name',
     'createdDate',
     'ticketCategory',
-    'Sevirity',
-    'Actions',
+    'Status',
+    
   ];
+  
   //check boxes part
   initialSelection = [];
   allowMultiSelect = true;
@@ -356,10 +365,15 @@ email:any;
 team:any;
 
   ngOnInit(): void {
+    if(this.withActions){
+    console.log("with",this.withActions)
+    this.displayedColumns.push('Actions');
+  }
     this.getTokenPayloads();
     console.log('Tab', this.tabData);
     this.spinner.setSpinnerValue(this.showSpinner);
     this.service.getValue().subscribe((value) => {
+      console.log(value);
       this.flag == value;
       if (this.flag === true) {
         this.pageLength = this.pageLength + 1;
@@ -370,7 +384,7 @@ team:any;
             pageNumber: this.pageIndex,
             isPrint: false,
             filter: {
-              submitterName:this.userName
+              submitterName:this.userName,State: this.Status,
             },
             sortValue: 0,
           })
@@ -398,6 +412,7 @@ team:any;
                   ticketTopic: el['requestType']['name'],
                   ticketCategory: el['requestType']['ticketType'],
                   Sevirity: el['severity'],
+                  status:el['status']
                 };
               });
               this.getRedMenuCharacters(this.usersName);
@@ -418,7 +433,7 @@ team:any;
             pageNumber: this.pageIndex,
             isPrint: false,
             filter: {
-             submitterName:this.userName
+             submitterName:this.userName,State: this.Status,
             },
             sortValue: 0,
           })
@@ -448,6 +463,7 @@ team:any;
                   ticketTopic: el['requestType']['name'],
                   ticketCategory: el['requestType']['ticketType'],
                   Sevirity: el['severity'],
+                  status:el['status']
                 };
               });
               this.getRedMenuCharacters(this.usersName);

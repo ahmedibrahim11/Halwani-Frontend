@@ -44,6 +44,7 @@ export class MainCardBodyComponent implements OnInit {
       this.showSpinner = flag;
     });
   }
+
   openDialog() {
     const dialogRef = this.dialog.open(CreateTicketPopupComponent);
 
