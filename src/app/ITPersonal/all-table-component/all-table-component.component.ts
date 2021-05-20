@@ -350,7 +350,7 @@ export class AllTableComponentComponent implements OnInit {
     console.log('Tab', this.tabData);
     this.spinner.setSpinnerValue(this.showSpinner);
     this.service.getValue().subscribe((value) => {
-      this.flag == value;
+      this.flag = value;
       if (this.flag === true) {
         this.pageLength = this.pageLength + 1;
         this.http
