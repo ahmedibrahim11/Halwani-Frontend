@@ -44,11 +44,7 @@ export class MainCardBodyComponent implements OnInit {
       this.showSpinner = flag;
     });
   }
-  tabIndex: number = 0;
-  onTabChanged(e: any) {
-    console.log('tabaaaaa', e.index);
-    this.tabIndex = e.index;
-  }
+
   openDialog() {
     const dialogRef = this.dialog.open(CreateTicketPopupComponent);
 
