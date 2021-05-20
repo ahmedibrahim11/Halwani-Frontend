@@ -151,7 +151,7 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: {},
+          filter: { ticketType: this.tab },
           sortvalue: 0,
         })
         .subscribe((res) => {

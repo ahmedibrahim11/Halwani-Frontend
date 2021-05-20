@@ -95,7 +95,7 @@ export class AllTableComponentComponent implements OnInit {
           isPrint: false,
           filter: {
             ticketTabs: this.tabData,
-            State: this.Status,
+            state: this.Status,
             ticketType: this.from,
           },
           sortvalue: 0,
@@ -130,7 +130,7 @@ export class AllTableComponentComponent implements OnInit {
           isPrint: false,
           filter: {
             ticketTabs: this.tabData,
-            State: this.Status,
+            state: this.Status,
             ticketType: this.from,
           },
           sortvalue: 0,
@@ -164,7 +164,7 @@ export class AllTableComponentComponent implements OnInit {
           isPrint: false,
           filter: {
             ticketTabs: this.tabData,
-            State: this.Status,
+            state: this.Status,
             ticketType: this.from,
           },
           sortvalue: 0,
@@ -244,7 +244,7 @@ export class AllTableComponentComponent implements OnInit {
         isPrint: false,
         filter: {
           ticketTabs: this.tabData,
-          State: this.Status,
+          state: this.Status,
           ticketType: this.from,
         },
         sortvalue: sortValue,
@@ -361,7 +361,7 @@ export class AllTableComponentComponent implements OnInit {
             isPrint: false,
             filter: {
               ticketTabs: this.tabData,
-              State: this.Status,
+              state: this.Status,
               ticketType: this.from,
             },
             sortValue: 0,
@@ -411,7 +411,7 @@ export class AllTableComponentComponent implements OnInit {
             isPrint: false,
             filter: {
               ticketTabs: this.tabData,
-              State: this.Status,
+              state: this.Status,
               ticketType: this.from,
             },
             sortValue: 0,
