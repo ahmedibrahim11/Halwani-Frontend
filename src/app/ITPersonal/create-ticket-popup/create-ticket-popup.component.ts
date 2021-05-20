@@ -117,6 +117,7 @@ export class CreateTicketPopupComponent implements OnInit {
             } else {
               console.log('else');
               console.log('eeeeee', data);
+
               this.ticketTypeDatasource = data
                 .filter((el1) => el1.ticketType === this.updateStatus)
                 .map((el) => {
@@ -189,7 +190,10 @@ export class CreateTicketPopupComponent implements OnInit {
     this.http.GET('api/Location/getLocations').subscribe((data) => {
       console.log('locations', data);
       data.map((location) => {
-        this.locationList.push(location['text']);
+        this.locationList.push({
+          label: location['text'],
+          value: location['id'],
+        });
       });
     });
 
@@ -234,7 +238,7 @@ export class CreateTicketPopupComponent implements OnInit {
     this.http.GET('Category/getCategory').subscribe((data) => {
       this.productCategoryName2 = data
         .find((el) => {
-          return el.id === event.value;
+          return el.text === event.value;
         })
         .children.map((el) => {
           return { label: el.text, value: el.id };
