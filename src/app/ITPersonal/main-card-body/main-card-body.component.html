@@ -31,25 +31,59 @@
     </div>
   </div>
   <div class="tabs">
-    <mat-tab-group [(selectedIndex)]="SelectedTabIndex">
+    <mat-tab-group
+      [(selectedIndex)]="SelectedTabIndex"
+      (selectedTabChange)="onTabChanged($event)"
+    >
       <mat-tab label="All">
-        <div class="Rectangle-339">
+        <div class="Rectangle-339" *ngIf="tabIndex === 0">
           <div *ngIf="empty">
             <app-no-more-tickets></app-no-more-tickets>
           </div>
           <div *ngIf="!empty">
-            <app-all-table-component [tabData]="0"></app-all-table-component>
+            <app-all-table-component [tab]="-1"></app-all-table-component>
           </div>
         </div>
       </mat-tab>
-      <mat-tab label="Assigned to me">
-        <app-all-table-component [tabData]="1"></app-all-table-component>
+      <mat-tab label="Service Requests">
+        <div class="Rectangle-339" *ngIf="tabIndex === 1">
+          <div *ngIf="empty">
+            <app-no-more-tickets></app-no-more-tickets>
+          </div>
+          <div *ngIf="!empty">
+            <app-all-table-component [tab]="0"></app-all-table-component>
+          </div>
+        </div>
       </mat-tab>
-      <mat-tab label="In progress">
-        <app-all-table-component [Status]="4"></app-all-table-component>
+      <mat-tab label="Incidents">
+        <div class="Rectangle-339" *ngIf="tabIndex === 2">
+          <div *ngIf="empty">
+            <app-no-more-tickets></app-no-more-tickets>
+          </div>
+          <div *ngIf="!empty">
+            <app-all-table-component [tab]="1"></app-all-table-component>
+          </div>
+        </div>
       </mat-tab>
-      <mat-tab label="Overdue">
-        <app-all-table-component [Status]="8"></app-all-table-component>
+      <mat-tab label="Problems">
+        <div class="Rectangle-339" *ngIf="tabIndex === 3">
+          <div *ngIf="empty">
+            <app-no-more-tickets></app-no-more-tickets>
+          </div>
+          <div *ngIf="!empty">
+            <app-all-table-component [tab]="2"></app-all-table-component>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Changes">
+        <div class="Rectangle-339" *ngIf="tabIndex === 4">
+          <div *ngIf="empty">
+            <app-no-more-tickets></app-no-more-tickets>
+          </div>
+          <div *ngIf="!empty">
+            <app-all-table-component [tab]="3"></app-all-table-component>
+          </div>
+        </div>
       </mat-tab>
     </mat-tab-group>
   </div>
