@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { createTicketDTO } from 'src/app/core/DTOs/createTicketDTO';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
+import { ToastMessageComponent } from 'src/app/ITPersonal/toast-message/toast-message.component';
 import { UserGroupService } from "../../core/services/user-group.service";
 @Component({
   selector: 'app-create-ticket',
@@ -14,8 +16,9 @@ export class CreateTicketComponent implements OnInit {
 createTicketDTO: createTicketDTO = new createTicketDTO();
 public type;
 createTicketDTOFormGroup: FormGroup;
+  durationInSeconds: any = 3;
 
-  constructor(public _router:Router,private route: ActivatedRoute,private http:UserGroupService,private formBuilder: FormBuilder,private miainHttp: HTTPMainServiceService) { }
+  constructor(private _snackBar: MatSnackBar,public _router:Router,private route: ActivatedRoute,private http:UserGroupService,private formBuilder: FormBuilder,private miainHttp: HTTPMainServiceService) { }
      private typeID:Number
      private FileLinks;
      @Input() reporterDatasource;
@@ -146,6 +149,10 @@ submiCreate(){
        console.log("CreateTicket Dto",this.createTicketDTO);
        this.miainHttp.POST("Ticket/Create",this.createTicketDTO).subscribe((data)=>{
        console.log(data);
+       this._snackBar.openFromComponent(ToastMessageComponent, {
+        duration: this.durationInSeconds * 1000,
+      });
+      
        this._router.navigate(["user"]);
                
       })

@@ -9,14 +9,17 @@
                 Create Ticket
             </button>
           
-            <button type="button" class="Table-buttons-settings icon" *ngIf="!showSpinner">
+            <button type="button" class="Table-buttons-settings icon" >
                 <img src="assets/More.png" class="icon-img" />
             </button>
         </div>
     </div>
   <div class="Rectangle-339">
       
-    <app-tickets-table></app-tickets-table>
+    <app-tickets-table *ngIf="!empty" [withActions]="withActions"></app-tickets-table>
+    <div *ngIf="empty">
+    <app-nomore-tickets></app-nomore-tickets>
+    </div>
       </div>
 
 </div>

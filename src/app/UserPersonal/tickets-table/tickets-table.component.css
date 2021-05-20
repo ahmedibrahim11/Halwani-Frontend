@@ -100,56 +100,7 @@
   line-height: 0.5%;
   margin: 0.5rem;
 }
-.Low {
-  color: #007f00;
-  width: 45px;
-  height: 22px;
-  flex-grow: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  padding: 2px 5px;
-  border-radius: 10px;
-  background-color: #cdffcd;
-}
-.High {
-  width: 50px;
-  height: 22px;
-  flex-grow: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  padding: 2px 5px;
-  border-radius: 10px;
-  color: #bf2600;
-  background-color: #ffcdcd;
-}
-.Medium {
-  width: 72px;
-  height: 22px;
-  flex-grow: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  padding: 2px 5px;
-  border-radius: 10px;
-  background-color: #fff1cd;
-  color: #d7a500;
-}
 
-.ngx-file-drop__drop-zone {
-  border: none;
-  border-radius: 30px;
-  height: 100%;
-  width: 100%;
-  margin: auto;
-}
 .icon:hover {
   cursor: pointer;
 }
@@ -158,4 +109,38 @@
   text-align: center;
   justify-content: center;
   padding: 5%;
+}
+.Created {
+  background-color: rgb(42, 102, 42);
+}
+.Waiting {
+  background-color: #fae295;
+}
+.InProgress {
+  background-color: #a998fd;
+}
+.esclated {
+  background-color: #ec5b60;
+}
+.reOpened {
+  background-color: #5eb0e7;
+}
+.resolved {
+  background-color: #45b685;
+}
+.Cancelled {
+  background-color: rgb(143, 48, 48);
+}
+.statusBubble {
+  width: 140px;
+  height: 22px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 5px;
+  border-radius: 10px;
+  color: white;
 }
