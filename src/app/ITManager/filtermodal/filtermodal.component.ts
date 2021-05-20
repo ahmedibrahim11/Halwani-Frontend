@@ -33,7 +33,11 @@ export class FiltermodalComponent implements OnInit {
   priorities = new FormControl();
   priorityList: any = [];
 
-  locationChange(e) {
+  filterHandler(filterKey: any, filterValue: any) {
+    let key = filterKey;
+    let filterObject = {};
+    filterObject[key] = filterValue.value;
+    console.log('filter', filterObject);
     this.http.GET('ticket/getCount').subscribe((res) => {
       this.pageLength = res;
 
@@ -43,7 +47,7 @@ export class FiltermodalComponent implements OnInit {
           pageSize: this.pageLength,
           pageNumber: this.pageIndex,
           isPrint: false,
-          filter: { location: e.value },
+          filter: filterObject,
           sortValue: 0,
         })
         .subscribe((res) => {
@@ -51,47 +55,6 @@ export class FiltermodalComponent implements OnInit {
           this.common.sendUpdate(res.pageData);
         });
     });
-    this.dialog.closeAll();
-  }
-  sourceChange(e) {
-    this.http.GET('ticket/getCount').subscribe((res) => {
-      this.pageLength = res;
-
-      this.http
-        .POST('ticket/list', {
-          searchText: '',
-          pageSize: this.pageLength,
-          pageNumber: this.pageIndex,
-          isPrint: false,
-          filter: { source: e.value },
-          sortValue: 0,
-        })
-        .subscribe((res) => {
-          console.log('wreeeeny', res);
-          this.common.sendUpdate(res.pageData);
-        });
-    });
-    this.dialog.closeAll();
-  }
-  stateChange(e) {
-    this.http.GET('ticket/getCount').subscribe((res) => {
-      this.pageLength = res;
-
-      this.http
-        .POST('ticket/list', {
-          searchText: '',
-          pageSize: this.pageLength,
-          pageNumber: this.pageIndex,
-          isPrint: false,
-          filter: { state: e.value },
-          sortValue: 0,
-        })
-        .subscribe((res) => {
-          console.log('wreeeeny', res);
-          this.common.sendUpdate(res.pageData);
-        });
-    });
-    this.dialog.closeAll();
   }
 
   formatDate(date) {
@@ -125,20 +88,18 @@ export class FiltermodalComponent implements OnInit {
           this.common.sendUpdate(res.pageData);
         });
     });
-    this.dialog.closeAll();
   }
-  severityChange(e) {
-    console.log('ssss', e.value);
+
+  clearFilters() {
     this.http.GET('ticket/getCount').subscribe((res) => {
       this.pageLength = res;
-
       this.http
         .POST('ticket/list', {
           searchText: '',
           pageSize: this.pageLength,
           pageNumber: this.pageIndex,
           isPrint: false,
-          filter: { severity: e.value },
+          filter: {},
           sortValue: 0,
         })
         .subscribe((res) => {
@@ -146,35 +107,6 @@ export class FiltermodalComponent implements OnInit {
           this.common.sendUpdate(res.pageData);
         });
     });
-    this.dialog.closeAll();
-  }
-  priorityChange(e) {
-    this.http.GET('ticket/getCount').subscribe((res) => {
-      this.pageLength = res;
-
-      this.http
-        .POST('ticket/list', {
-          searchText: '',
-          pageSize: this.pageLength,
-          pageNumber: this.pageIndex,
-          isPrint: false,
-          filter: { priority: e.value },
-          sortValue: 0,
-        })
-        .subscribe((res) => {
-          console.log('wreeeeny', res);
-          this.common.sendUpdate(res);
-        });
-    });
-    this.dialog.closeAll();
-  }
-
-  clearFilters() {
-    this.locationList = [];
-    this.sourceList = [];
-    this.stateList = [];
-    this.severityList = [];
-    this.priorityList = [];
   }
 
   constructor(
@@ -206,7 +138,10 @@ export class FiltermodalComponent implements OnInit {
     this.http.GET('api/Location/getLocations').subscribe((data) => {
       console.log('locations', data);
       data.map((location) => {
-        this.locationList.push(location['text']);
+        this.locationList.push({
+          label: location['text'],
+          value: location['id'],
+        });
       });
     });
   }

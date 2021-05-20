@@ -32,6 +32,10 @@
   line-height: normal;
 }
 
+.clear:hover {
+  cursor: pointer;
+}
+
 .filter-row {
   display: flex;
   flex-direction: row;
