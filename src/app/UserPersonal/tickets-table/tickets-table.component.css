@@ -9,6 +9,9 @@
 .table {
   height: fit-content;
 }
+.mat-spinner::ng-deep circle {
+  stroke: #c4161c;
+}
 .Filter {
   width: 7.5rem;
   height: 3.45rem;

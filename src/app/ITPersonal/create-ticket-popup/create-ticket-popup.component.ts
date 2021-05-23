@@ -45,6 +45,7 @@ export class CreateTicketPopupComponent implements OnInit {
   updateFormData: FormData = new FormData();
   fromPage: any;
   updateStatus: any;
+  createTabsStatus: any;
   constructor(
     private formBuilder: FormBuilder,
     private http: HTTPMainServiceService,
@@ -58,6 +59,7 @@ export class CreateTicketPopupComponent implements OnInit {
   ) {
     this.fromPage = data ? data.pageValue : undefined;
     this.updateStatus = tabs.getTabValue();
+    this.createTabsStatus = tabs.getTabValue();
   }
   private FileLinks = [];
   showSecondCategory: boolean = false;
@@ -81,7 +83,7 @@ export class CreateTicketPopupComponent implements OnInit {
   description: any;
   team: any;
   location: any;
-  reporter: any;
+  reporter = new FormControl();
   source: any;
   sevirity: any;
   priority: any;
@@ -101,6 +103,12 @@ export class CreateTicketPopupComponent implements OnInit {
   priorities = new FormControl();
   priorityList: any = [];
 
+  reporterNewValue: any;
+  reporterFlag: boolean = false;
+  reporterChanged(e: any) {
+    this.reporterFlag = true;
+    this.reporterNewValue = e.split(',')[1];
+  }
   ngOnInit(): void {
     //update
     this.ticketID = this.share.getData();
@@ -109,7 +117,7 @@ export class CreateTicketPopupComponent implements OnInit {
       this.http
         .POST('ticket/getTicket', { id: this.ticketID.toString() })
         .subscribe((res) => {
-          console.log('res', res);
+          console.log('resoooo', res);
           this.http.GET('RequestType/getRequestType').subscribe((data) => {
             console.log('jdiuehfheuhf', this.updateStatus);
             if (this.updateStatus === undefined) {
@@ -199,13 +207,17 @@ export class CreateTicketPopupComponent implements OnInit {
 
     this.http.GET('RequestType/getRequestType').subscribe((data) => {
       console.log(this.fromPage);
-      if (this.fromPage === undefined) {
+      if (this.fromPage === undefined && this.createTabsStatus === undefined) {
         this.ticketTypeDatasource = data;
       } else {
         console.log('else');
         console.log(data);
         this.ticketTypeDatasource = data
-          .filter((el1) => el1.ticketType === this.fromPage)
+          .filter((el1) =>
+            this.createTabsStatus === undefined
+              ? el1.ticketType === this.fromPage
+              : el1.ticketType === this.createTabsStatus
+          )
           .map((el) => {
             console.log(el);
             return { ticketType: el.ticketType, topics: el.topics };

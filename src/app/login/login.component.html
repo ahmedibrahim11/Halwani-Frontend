@@ -1,43 +1,53 @@
 <div class="align-mainDev">
+  <img src="assets/Group2.svg" class="Group-2" />
+  <div class="card-div">
+    <div class="content">
+      <label class="Login">Login</label>
+      <form [formGroup]="UserViewInfoFormGroup" (ngSubmit)="submitLogin()">
+        <mat-form-field appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput [type]="'text'" formControlName="email" />
+          <button type="button" mat-icon-button matPrefix>
+            <mat-icon>email</mat-icon>
+          </button>
+        </mat-form-field>
 
- 
-    <img src="assets/Group2.svg" class="Group-2">
-    <div class="card-div">
-        <div class="content"><label class="Login">Login</label>
-            <form [formGroup]="UserViewInfoFormGroup" (ngSubmit)="submitLogin()">
-                <mat-form-field appearance="fill">
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            [type]="hide ? 'password' : 'text'"
+            formControlName="password"
+          />
+          <button
+            type="button"
+            mat-icon-button
+            matPrefix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field>
 
-                    <mat-label>Username</mat-label>
-                    <input matInput [type]="'text'" formControlName="email">
-                    <button type="button" mat-icon-button matPrefix>
-                        <mat-icon>email</mat-icon>
-                    </button>
-                </mat-form-field>
-
-                <mat-form-field appearance="fill">
-
-                    <mat-label>Password</mat-label>
-                    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-                    <button type="button" mat-icon-button matPrefix (click)="hide = !hide"
-                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    </button>
-
-                </mat-form-field>
-
-                <button type="submit" class="Rectangle-156" [disabled]="!UserViewInfoFormGroup.valid">
-                    Login
-                </button>
-            </form>
-        </div>
-        <div style="margin-top: 5%;">
-            <img src="assets/Group3.svg" class="Group-3" />
-        </div>
+        <button
+          type="submit"
+          class="Rectangle-156"
+          [disabled]="!UserViewInfoFormGroup.valid"
+        >
+          Login
+        </button>
+      </form>
     </div>
+    <div style="margin-top: 5%">
+      <img src="assets/Group3.svg" class="Group-3" />
+    </div>
+  </div>
 </div>
-<div  class="overlay" *ngIf="showSpinner === true">
-    <div class="center" >
-       <mat-spinner color="warn"></mat-spinner>
-       <p style="font-size: large; padding: 2%;">Please Wait...</p>
-   </div>
+<div class="overlay" *ngIf="showSpinner === true">
+  <div class="center">
+    <mat-spinner [diameter]="50"></mat-spinner>
+    <p style="font-size: small; padding: 2%">Please Wait...</p>
+  </div>
 </div>

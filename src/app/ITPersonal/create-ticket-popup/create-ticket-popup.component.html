@@ -117,7 +117,15 @@
             >Reporter <span class="mandatory"> *</span></label
           >
           <mat-form-field [style.width.%]="97" appearance="fill">
-            <mat-select formControlName="reporter">
+            <mat-select [formControl]="reporter">
+              <mat-select-trigger>
+                {{ reporter.value ? reporter.value.split(",")[1] : "" }}
+                <span
+                  *ngIf="reporter.value?.length > 1"
+                  class="example-additional-selection"
+                >
+                </span>
+              </mat-select-trigger>
               <mat-option
                 *ngFor="let option of reporterDatasource"
                 [value]="option['value']"
@@ -125,10 +133,9 @@
               >
                 <div class="menu">
                   <div class="red-menu">{{ option.initials }}</div>
-                  <div class="person-data-menu">
-                    <h3>{{ option["label"] }}</h3>
-                    <p style="opacity: 0.7">{{ option["label1"] }}</p>
-                  </div>
+                  <p style="opacity: 0.7">
+                    {{ option["label1"] }}
+                  </p>
                 </div>
               </mat-option>
             </mat-select>
@@ -364,8 +371,23 @@
         <div class="col-ddl">
           <label class="Ticket-type">Reporter</label>
           <mat-form-field [style.width.%]="97" appearance="fill">
-            <mat-label>{{ reporter }}</mat-label>
-            <mat-select formControlName="reporter" [(ngModel)]="reporter">
+            <mat-label *ngIf="reporterFlag === false">{{ reporter }}</mat-label>
+            <mat-select
+              (selectionChange)="reporterChanged($event.value)"
+              formControlName="reporter"
+              [(ngModel)]="reporter"
+            >
+              <mat-select-trigger>
+                <label *ngIf="reporterFlag === true">{{
+                  reporterNewValue
+                }}</label>
+
+                <span
+                  *ngIf="reporter.value?.length > 1"
+                  class="example-additional-selection"
+                >
+                </span>
+              </mat-select-trigger>
               <mat-option
                 *ngFor="let option of reporterDatasource"
                 [value]="option['value']"
@@ -374,7 +396,6 @@
                 <div class="menu">
                   <div class="red-menu">{{ option.initials }}</div>
                   <div class="person-data-menu">
-                    <h3>{{ option["label"] }}</h3>
                     <p style="opacity: 0.7">{{ option["label1"] }}</p>
                   </div>
                 </div>

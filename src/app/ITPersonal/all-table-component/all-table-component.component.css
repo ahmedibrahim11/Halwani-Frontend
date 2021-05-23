@@ -83,6 +83,9 @@
   display: flex;
   flex-direction: row;
 }
+.mat-spinner::ng-deep circle {
+  stroke: #c4161c;
+}
 .red-menu {
   background-color: #c4161c;
   border-radius: 10px;

@@ -83,7 +83,7 @@ export class CreateTicketPopupComponent implements OnInit {
   description: any;
   team: any;
   location: any;
-  reporter: any;
+  reporter = new FormControl();
   source: any;
   sevirity: any;
   priority: any;
@@ -103,6 +103,12 @@ export class CreateTicketPopupComponent implements OnInit {
   priorities = new FormControl();
   priorityList: any = [];
 
+  reporterNewValue: any;
+  reporterFlag: boolean = false;
+  reporterChanged(e: any) {
+    this.reporterFlag = true;
+    this.reporterNewValue = e.split(',')[1];
+  }
   ngOnInit(): void {
     //update
     this.ticketID = this.share.getData();
@@ -111,7 +117,7 @@ export class CreateTicketPopupComponent implements OnInit {
       this.http
         .POST('ticket/getTicket', { id: this.ticketID.toString() })
         .subscribe((res) => {
-          console.log('res', res);
+          console.log('resoooo', res);
           this.http.GET('RequestType/getRequestType').subscribe((data) => {
             console.log('jdiuehfheuhf', this.updateStatus);
             if (this.updateStatus === undefined) {

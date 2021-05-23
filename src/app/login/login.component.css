@@ -70,6 +70,9 @@ button {
   border: none;
   color: darkgray;
 }
+.mat-spinner::ng-deep circle {
+  stroke: #c4161c;
+}
 
 .Rectangle-156 {
   width: 79%;
@@ -79,6 +82,7 @@ button {
   background-color: #c4161c;
   color: white;
   border-radius: 15px;
+  cursor: pointer;
 }
 .Group-3 {
   width: 114.6px;

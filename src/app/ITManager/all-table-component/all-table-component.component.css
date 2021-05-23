@@ -154,6 +154,9 @@
 .icon:hover {
   cursor: pointer;
 }
+.mat-spinner::ng-deep circle {
+  stroke: #c4161c;
+}
 .spinner-design {
   display: flex;
   text-align: center;

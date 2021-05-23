@@ -40,7 +40,7 @@
 <div *ngIf="showSpinner === true; then spinner; else data">here is ignored</div>
 <ng-template #spinner>
   <div class="spinner-design">
-    <mat-spinner></mat-spinner>
+    <mat-spinner [diameter]="50"></mat-spinner>
   </div>
 </ng-template>
 
