@@ -23,7 +23,7 @@ isDataLoaded=false;
   html: '';
 ticketID:string;
   newMessag:FormGroup;
-  fragment: string;
+  fragment: string=null;
   constructor(private formBuilder: FormBuilder,
     private actRoute:ActivatedRoute,private http:HTTPMainServiceService) { }
 

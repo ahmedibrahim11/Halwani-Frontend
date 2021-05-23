@@ -58,8 +58,10 @@
                                 </tr>
                             </thead>
                             <tbody class="upload-name-style">
-                                <tr *ngFor="let item of files; let i=index">
-                                    <td><strong>{{ item.relativePath }}</strong></td>
+                                <tr *ngFor="let item of FileLinks; let i=index">
+                                    <td><strong>{{ item }}</strong></td>
+                                    <td><span class="delete-entry" style="cursor: pointer; color: red; margin-left: 2%"
+                                        (click)="deleteImage(item)">remove</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -67,8 +69,8 @@
                 </div>
 
                 <div class="col-md-8" style="margin-left: 50%;" align="end">
-                    <button class="cancel btn" style="display: inline;">Cancel request</button>
-                    <button class="send btn ml-4" type="submit" style="display: inline;"
+                    <a [routerLink]="['/user/helpCenter']" class="cancel btn" style="display: inline;">Cancel request</a>
+                    <button  class="send btn ml-4" type="submit" style="display: inline;"
                         [disabled]="!createTicketDTOFormGroup.valid">Send ticket</button>
                 </div>
             </form>

@@ -2,10 +2,10 @@
     <div class="main-dev">
         <div class="componentHeader">
             <div class="backButton" >
-                <a *ngIf="fragment!==undefined||fragment!==null" [routerLink]="['/user',fragment]">
+                <a *ngIf="fragment!=null" [routerLink]="['/user',fragment]">
                     <mat-icon>keyboard_backspace</mat-icon>
                 </a>
-                <a *ngIf="fragment===undefined||fragment===null" [routerLink]="['/user']">
+                <a *ngIf="fragment==null" [routerLink]="['/user']">
                     <mat-icon>keyboard_backspace</mat-icon>
                 </a>
                 <label class="HeaderLabel">Back to tickets queue</label>
@@ -40,7 +40,7 @@
 
     </div>
     <div class="sideBar">
-        <div *ngIf="fragment!==undefined||fragment!==null">
+        <div *ngIf="fragment!=null">
             <div *ngIf="userMessage.ticketStatus===0||userMessage.ticketStatus===1">
                 <p  class="statusButton" style="background-color: darkgreen;">Created
                   
@@ -78,7 +78,7 @@
                     </p>
                 </div>
         </div>
-        <div *ngIf="fragment===undefined||fragment===null">
+        <div *ngIf="fragment==null">
             <div *ngIf="userMessage.ticketStatus===1">
                 <p class="statusButton" style="background-color: darkgreen;">Created
                 
