@@ -49,13 +49,13 @@ getTokenPayloads() {
     this.getTokenPayloads();
     this.service.getValue().subscribe((value) => {
       this.flag = value;
-      if (this.flag === true) {
+ 
         this.http.POST('Ticket/List', { pageSize: 10, filter: {
             submitterName:this.userName,State: 7} }).subscribe((res) => {
-          console.log(res);
+          console.log("empty",res.totalCount === 0 ? (this.empty = true) : (this.empty = false));
           res.totalCount === 0 ? (this.empty = true) : (this.empty = false);
         });
-      }
+      
     });
 
     this.tabs.setTabValue(undefined);
