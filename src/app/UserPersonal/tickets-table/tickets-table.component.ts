@@ -531,7 +531,12 @@ team:any;
     });
   }
   openTicket(ticketID: any) {
-    this.router.navigate(['/itpersonal/details/' + ticketID]);
+    if(this.from === null)
+    {this.router.navigate(['/user/details/' + ticketID]);}
+    else if(this.from === 0)
+    {this.router.navigate(['/user/details/' + ticketID],{fragment:"ticketshistory"});}
+    else if(this.from === 0)
+    {this.router.navigate(['/user/details/' + ticketID],{fragment:"myesclations"});}
   }
   openOptions(id: any) {
     const dialogRef = this.dialog.open(TicketOptionsComponent, {

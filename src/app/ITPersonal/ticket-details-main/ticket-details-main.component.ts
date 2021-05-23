@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { getTicketDTO } from "src/app/core/DTOs/getTicketDTO";
 
-import {StatusEnum} from "src/app/core/DTOs/ticketListingDTO"
+import { StatusEnum } from "src/app/core/DTOs/ticketListingDTO"
 
 enum tikcetStatus {
   Created,
@@ -42,7 +42,7 @@ export class TicketDetailsMainComponent implements OnInit, OnDestroy {
   status: any;
   ticketStatusList: any;
   selectedColor: string = '';
-  currentStatus:string='';
+  currentStatus: string = '';
 
   constructor(private formBuilder: FormBuilder,
     private actRoute: ActivatedRoute, private http: HTTPMainServiceService) { }
@@ -53,7 +53,7 @@ export class TicketDetailsMainComponent implements OnInit, OnDestroy {
     ).map(key => ({ value: definition[key], title: key }));
   }
 
-  checkTicketStatusColor(status){
+ async checkTicketStatusColor(status) {
     switch (status) {
       case 0:
         this.selectedColor = "darkgreen";
@@ -133,8 +133,8 @@ export class TicketDetailsMainComponent implements OnInit, OnDestroy {
       this.isDataLoaded = true;
 
       this.checkTicketStatusColor(this.userMessage.ticketStatus);
-     this.currentStatus= this.status.find(s=>s.value===this.userMessage.ticketStatus).title;
-     debugger;
+      this.currentStatus = this.status.find(s => s.value === this.userMessage.ticketStatus).title;
+      debugger;
     })
     this.http.POST(`TicketMessage/getMessages`, { id: this.ticketID }).subscribe(data => {
       for (let index = 0; index < data.length; index++) {
@@ -151,65 +151,24 @@ export class TicketDetailsMainComponent implements OnInit, OnDestroy {
       message: ['', [Validators.required]],
       submitter: [this.currentUser, [Validators.required]]
     });
-
-
   }
   ngOnDestroy(): void {
     this.editor.destroy();
   }
-
-   changeStatus(status: any) {
-    switch (status) {
-      case 0:
-        this.selectedColor = "darkgreen";
-        break;
-      case 1:
-        this.selectedColor = "green";
-        break;
-      case 2:
-        this.selectedColor = "#ffd23e";
-
-        break;
-      case 3:
-        this.selectedColor = "green";
-
-        break;
-      case 4:
-        this.selectedColor = "#7b61ff";
-        break;
-      case 5:
-        this.selectedColor = "#ed1c24";
-        break;
-      case 6:
-        this.selectedColor = "#1793e8";
-        break;
-      case 7:
-        this.selectedColor = "#00b668";
-        break;
-      case 8:
-        this.selectedColor = "darkred";
-        break;
-      default:
-        break;
-
-
-    }
-     this.http.POST(`Ticket/UpdateStatus`, {
+  async changeStatus(status: any) {
+   await this.http.POST(`Ticket/UpdateStatus`, {
       ticketId: parseInt(this.ticketID),
       status: status,
       resolveText: ""
     }).subscribe(data => {
-      this.currentStatus= this.status.find(s=>s.value===status).title;
+      this.currentStatus = this.status.find(s => s.value === status).title;
       this.checkTicketStatusColor(status);
     })
-    debugger;
   }
   initials(name) {
     console.log(name)
     let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
-
     let initials = [...name.matchAll(rgx)] || [];
-
     initials = (
       (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
     ).toUpperCase();

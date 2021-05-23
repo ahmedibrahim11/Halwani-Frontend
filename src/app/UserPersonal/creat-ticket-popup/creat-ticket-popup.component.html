@@ -112,7 +112,7 @@
         </mat-form-field>
         <label class="Ticket-type">Attachments </label>
         <div class="center">
-            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event, 0)" (onFileOver)="fileOver($event)"
+            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event, 1)" (onFileOver)="fileOver($event)"
                 class="upload-drop-zone" (onFileLeave)="fileLeave($event)">
                 <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
                     Drag and drop files, paste screenshots, or upload attachments
