@@ -1,5 +1,11 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -7,7 +13,11 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { SevirityEnum, TicketCategoryEnum, TicketListingDTO } from 'src/app/core/DTOs/ticketListingDTO';
+import {
+  SevirityEnum,
+  TicketCategoryEnum,
+  TicketListingDTO,
+} from 'src/app/core/DTOs/ticketListingDTO';
 import { CommonServiceService } from 'src/app/core/services/common-service.service';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
@@ -24,21 +34,21 @@ import { CreatTicketPopupComponent } from '../creat-ticket-popup/creat-ticket-po
 @Component({
   selector: 'app-tickets-table',
   templateUrl: './tickets-table.component.html',
-  styleUrls: ['./tickets-table.component.css']
+  styleUrls: ['./tickets-table.component.css'],
 })
 export class TicketsTableComponent implements OnInit {
-@ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
   public flag: boolean;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() tabData: number = undefined;
   @Input() Status: number = undefined;
   @Input() from: number = null;
-  @Input() withActions:Boolean=true;
+  @Input() withActions: Boolean = true;
   private subscriptionName: Subscription;
   dataLoaded: boolean = false;
   empty: boolean = true;
-userName:any;
-token:any;
+  userName: any;
+  token: any;
 
   constructor(
     private http: HTTPMainServiceService,
@@ -50,7 +60,7 @@ token:any;
     private spinner: SpinnerFlagService
   ) {
     this.subscriptionName = this.common.getUpdate().subscribe((data) => {
-      console.log("from subscribtion",data)
+      console.log('from subscribtion', data);
       this.UserViewInfoObject = data.map((el) => {
         const cerationDate = new Date(el['creationDate']);
         return {
@@ -63,7 +73,7 @@ token:any;
           ticketTopic: el['requestType']['name'],
           ticketCategory: el['requestType']['ticketType'],
           Sevirity: el['severity'],
-          status:el['status']
+          status: el['status'],
         };
       });
       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -73,7 +83,7 @@ token:any;
   ngOnDestroy() {
     this.subscriptionName.unsubscribe();
   }
-getTokenPayloads() {
+  getTokenPayloads() {
     this.token = localStorage.getItem('userData');
     var base64Url = this.token.split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -85,15 +95,15 @@ getTokenPayloads() {
         })
         .join('')
     );
-    this.userName = JSON.parse(jsonPayload)[
-      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
-    ];
-        this.email = JSON.parse(jsonPayload)[
-      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
-    ];
-     this.team = JSON.parse(jsonPayload)[
-      'Teams'
-    ];
+    this.userName =
+      JSON.parse(jsonPayload)[
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
+      ];
+    this.email =
+      JSON.parse(jsonPayload)[
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
+      ];
+    this.team = JSON.parse(jsonPayload)['Teams'];
   }
 
   pageLength: any = 5;
@@ -107,12 +117,12 @@ getTokenPayloads() {
       this.pageSize = event.pageSize;
       this.http
         .POST('ticket/list', {
-          searchText: '',
+          searchText: [],
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {
-            submitterName:this.userName,
+            submitterName: this.userName,
             State: this.Status,
           },
           sortvalue: 0,
@@ -132,7 +142,7 @@ getTokenPayloads() {
               ticketTopic: el['requestType']['name'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
-              status:el['status']
+              status: el['status'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -142,12 +152,13 @@ getTokenPayloads() {
       // Clicked on next button
       this.http
         .POST('ticket/list', {
-          searchText: '',
+          searchText: [],
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {
-            submitterName:this.userName,State: this.Status,
+            submitterName: this.userName,
+            State: this.Status,
           },
           sortvalue: 0,
         })
@@ -166,7 +177,7 @@ getTokenPayloads() {
               ticketTopic: el['requestType']['name'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
-              status:el['status']
+              status: el['status'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -175,12 +186,12 @@ getTokenPayloads() {
       // Clicked on previous button
       this.http
         .POST('ticket/list', {
-          searchText: '',
+          searchText: [],
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {
-            submitterName:this.userName
+            submitterName: this.userName,
           },
           sortvalue: 0,
         })
@@ -199,7 +210,7 @@ getTokenPayloads() {
               ticketTopic: el['requestType']['name'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
-              status:el['status']
+              status: el['status'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -254,12 +265,13 @@ getTokenPayloads() {
     }
     this.http
       .POST('ticket/list', {
-        searchText: '',
+        searchText: [],
         pageSize: this.pageSize,
         pageNumber: this.pageIndex,
         isPrint: false,
         filter: {
-        submitterName:this.userName,State: this.Status,
+          submitterName: this.userName,
+          State: this.Status,
         },
         sortvalue: sortValue,
         sortDirection: sortDirec,
@@ -279,7 +291,7 @@ getTokenPayloads() {
             ticketTopic: el['requestType']['name'],
             ticketCategory: el['requestType']['ticketType'],
             Sevirity: el['severity'],
-            status:el['status']
+            status: el['status'],
           };
         });
         console.log(this.UserViewInfoObject);
@@ -293,9 +305,8 @@ getTokenPayloads() {
     'createdDate',
     'ticketCategory',
     'Status',
-    
   ];
-  
+
   //check boxes part
   initialSelection = [];
   allowMultiSelect = true;
@@ -360,15 +371,15 @@ getTokenPayloads() {
 
   dataSource: any;
   showSpinner: Boolean = true;
-  usersName: any=[] ;
-email:any;
-team:any;
+  usersName: any = [];
+  email: any;
+  team: any;
 
   ngOnInit(): void {
-    if(this.withActions){
-    console.log("with",this.withActions)
-    this.displayedColumns.push('Actions');
-  }
+    if (this.withActions) {
+      console.log('with', this.withActions);
+      this.displayedColumns.push('Actions');
+    }
     this.getTokenPayloads();
     console.log('Tab', this.tabData);
     this.spinner.setSpinnerValue(this.showSpinner);
@@ -379,12 +390,13 @@ team:any;
         this.pageLength = this.pageLength + 1;
         this.http
           .POST('ticket/list', {
-            searchText: '',
+            searchText: [],
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
             filter: {
-              submitterName:this.userName,State: this.Status,
+              submitterName: this.userName,
+              State: this.Status,
             },
             sortValue: 0,
           })
@@ -412,7 +424,7 @@ team:any;
                   ticketTopic: el['requestType']['name'],
                   ticketCategory: el['requestType']['ticketType'],
                   Sevirity: el['severity'],
-                  status:el['status']
+                  status: el['status'],
                 };
               });
               this.getRedMenuCharacters(this.usersName);
@@ -428,12 +440,13 @@ team:any;
       } else {
         this.http
           .POST('ticket/list', {
-            searchText: '',
+            searchText: [],
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
             filter: {
-             submitterName:this.userName,State: this.Status,
+              submitterName: this.userName,
+              State: this.Status,
             },
             sortValue: 0,
           })
@@ -445,11 +458,10 @@ team:any;
               this.pageLength = res.totalCount;
               this.empty = false;
 
-            
               let usersData = res.pageData;
-              
+
               this.UserViewInfoObject = usersData.map((el) => {
-                console.log(this.usersName)
+                console.log(this.usersName);
                 this.usersName.push(el['rasiedBy']['name']);
 
                 const cerationDate = new Date(el['creationDate']);
@@ -463,7 +475,7 @@ team:any;
                   ticketTopic: el['requestType']['name'],
                   ticketCategory: el['requestType']['ticketType'],
                   Sevirity: el['severity'],
-                  status:el['status']
+                  status: el['status'],
                 };
               });
               this.getRedMenuCharacters(this.usersName);
@@ -531,12 +543,17 @@ team:any;
     });
   }
   openTicket(ticketID: any) {
-    if(this.from === null)
-    {this.router.navigate(['/user/details/' + ticketID]);}
-    else if(this.from === 0)
-    {this.router.navigate(['/user/details/' + ticketID],{fragment:"ticketshistory"});}
-    else if(this.from === 0)
-    {this.router.navigate(['/user/details/' + ticketID],{fragment:"myesclations"});}
+    if (this.from === null) {
+      this.router.navigate(['/user/details/' + ticketID]);
+    } else if (this.from === 0) {
+      this.router.navigate(['/user/details/' + ticketID], {
+        fragment: 'ticketshistory',
+      });
+    } else if (this.from === 0) {
+      this.router.navigate(['/user/details/' + ticketID], {
+        fragment: 'myesclations',
+      });
+    }
   }
   openOptions(id: any) {
     const dialogRef = this.dialog.open(TicketOptionsComponent, {
@@ -548,7 +565,7 @@ team:any;
       console.log(`Dialog result: ${result}`);
     });
   }
-   cancelTicket(id: any) {
+  cancelTicket(id: any) {
     const dialogRef = this.dialog.open(CancelTicketComponent, {
       position: { top: '15%', left: '22%' },
     });
@@ -557,7 +574,6 @@ team:any;
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
-    
   }
   editHandler(id: any) {
     let updateStatus = this.share.getData();

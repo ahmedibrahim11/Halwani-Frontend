@@ -77,7 +77,7 @@ export class MainCardBodyManagerComponent implements OnInit {
   exportTable() {
     this.http
       .POST('ticket/list', {
-        searchText: '',
+        searchText: [],
         isPrint: true,
         filter: {},
       })

@@ -43,8 +43,8 @@ export class FiltermodalComponent implements OnInit {
 
       this.http
         .POST('ticket/list', {
-          searchText: '',
-          pageSize: this.pageLength,
+          searchText: [],
+          pageSize: this.pageSize,
           pageNumber: this.pageIndex,
           isPrint: false,
           filter: filterObject,
@@ -76,8 +76,8 @@ export class FiltermodalComponent implements OnInit {
 
       this.http
         .POST('ticket/list', {
-          searchText: '',
-          pageSize: this.pageLength,
+          searchText: [],
+          pageSize: this.pageSize,
           pageNumber: this.pageIndex,
           isPrint: false,
           filter: { date: ticketDate },
@@ -95,8 +95,8 @@ export class FiltermodalComponent implements OnInit {
       this.pageLength = res;
       this.http
         .POST('ticket/list', {
-          searchText: '',
-          pageSize: this.pageLength,
+          searchText: [],
+          pageSize: this.pageSize,
           pageNumber: this.pageIndex,
           isPrint: false,
           filter: {},

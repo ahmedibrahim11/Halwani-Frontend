@@ -89,7 +89,7 @@ export class AllTableComponentComponent implements OnInit {
       this.pageSize = event.pageSize;
       this.http
         .POST('ticket/list', {
-          searchText: '',
+          searchText: [],
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
@@ -124,7 +124,7 @@ export class AllTableComponentComponent implements OnInit {
       // Clicked on next button
       this.http
         .POST('ticket/list', {
-          searchText: '',
+          searchText: [],
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
@@ -158,7 +158,7 @@ export class AllTableComponentComponent implements OnInit {
       // Clicked on previous button
       this.http
         .POST('ticket/list', {
-          searchText: '',
+          searchText: [],
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
@@ -238,7 +238,7 @@ export class AllTableComponentComponent implements OnInit {
     }
     this.http
       .POST('ticket/list', {
-        searchText: '',
+        searchText: [],
         pageSize: this.pageSize,
         pageNumber: this.pageIndex,
         isPrint: false,
@@ -355,7 +355,7 @@ export class AllTableComponentComponent implements OnInit {
         this.pageLength = this.pageLength + 1;
         this.http
           .POST('ticket/list', {
-            searchText: '',
+            searchText: [],
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
@@ -405,7 +405,7 @@ export class AllTableComponentComponent implements OnInit {
       } else {
         this.http
           .POST('ticket/list', {
-            searchText: '',
+            searchText: [],
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,

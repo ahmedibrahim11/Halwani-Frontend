@@ -48,7 +48,7 @@ export class PersonalServiceRequestComponent implements OnInit {
   exportTable() {
     this.http
       .POST('ticket/list', {
-        searchText: '',
+        searchText: [],
         isPrint: true,
         filter: { ticketType: 0, ticketTabs: this.SelectedTabIndex },
       })

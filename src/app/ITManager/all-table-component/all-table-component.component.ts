@@ -86,7 +86,7 @@ export class AllTableComponentComponent implements OnInit {
       this.pageSize = event.pageSize;
       this.http
         .POST('ticket/list', {
-          searchText: '',
+          searchText: [],
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
@@ -117,7 +117,7 @@ export class AllTableComponentComponent implements OnInit {
       // Clicked on next button
       this.http
         .POST('ticket/list', {
-          searchText: '',
+          searchText: [],
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
@@ -147,7 +147,7 @@ export class AllTableComponentComponent implements OnInit {
       // Clicked on previous button
       this.http
         .POST('ticket/list', {
-          searchText: '',
+          searchText: [],
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
@@ -223,7 +223,7 @@ export class AllTableComponentComponent implements OnInit {
     }
     this.http
       .POST('ticket/list', {
-        searchText: '',
+        searchText: [],
         pageSize: this.pageSize,
         pageNumber: this.pageIndex,
         isPrint: false,
@@ -291,16 +291,86 @@ export class AllTableComponentComponent implements OnInit {
 
   remove(item: any): void {
     const index = this.chipsItems.indexOf(item);
-
     if (index >= 0) {
       this.chipsItems.splice(index, 1);
+      for (let i = 0; i < this.filterKeys.length; i++) {
+        if (this.filterKeys[i] === item.name) {
+          this.filterKeys.splice(i, 1);
+          this.http
+            .POST('ticket/list', {
+              searchText: this.filterKeys,
+              pageSize: 5,
+              pageNumber: this.pageIndex,
+              isPrint: false,
+              filter: { ticketType: this.tab },
+              sortValue: 0,
+            })
+            .subscribe((res) => {
+              console.log('search remove rsut', res);
+              let usersData = res.pageData;
+              this.UserViewInfoObject = usersData.map((el) => {
+                const cerationDate = new Date(el['creationDate']);
+                return {
+                  id: el['id'],
+                  initials: this.initials(el['rasiedBy']['name']),
+                  name: el['rasiedBy']['name'],
+                  email: el['rasiedBy']['email'],
+                  createdDate: cerationDate.toDateString(),
+                  createdTime: cerationDate.toLocaleTimeString(),
+                  tticketTopic: el['requestType']['name'],
+                  ticketCategory: el['requestType']['ticketType'],
+                  Sevirity: el['severity'],
+                };
+              });
+              this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+            });
+        }
+      }
     }
+    // console.log('after', this.filterKeys, this.filterKeys.length);
+    // if (this.filterKeys.length === 0) {
+    //   console.log('mmmmm', this.dataSource);
+    // } else {
+    //   this.filterKeys.map((item) => {
+    //     this.dataSource.filter = item.trim().toLowerCase();
+    //   });
+    // }
   }
+  filterKeys: any = [];
   applyFilter(event: Event) {
-    console.log('wreeny', event);
     if (event['key'] === 'Enter') {
       const filterValue = (event.target as HTMLInputElement).value;
-      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.filterKeys.push(filterValue);
+      console.log('awaaal', this.filterKeys);
+      (event.target as HTMLInputElement).value = '';
+      this.http
+        .POST('ticket/list', {
+          searchText: this.filterKeys,
+          pageSize: this.pageLength,
+          pageNumber: this.pageIndex,
+          isPrint: false,
+          filter: { ticketType: this.tab },
+          sortValue: 0,
+        })
+        .subscribe((res) => {
+          console.log('search rsut', res);
+          let usersData = res.pageData;
+          this.UserViewInfoObject = usersData.map((el) => {
+            const cerationDate = new Date(el['creationDate']);
+            return {
+              id: el['id'],
+              initials: this.initials(el['rasiedBy']['name']),
+              name: el['rasiedBy']['name'],
+              email: el['rasiedBy']['email'],
+              createdDate: cerationDate.toDateString(),
+              createdTime: cerationDate.toLocaleTimeString(),
+              tticketTopic: el['requestType']['name'],
+              ticketCategory: el['requestType']['ticketType'],
+              Sevirity: el['severity'],
+            };
+          });
+          this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+        });
     } else {
       return null;
     }
@@ -339,7 +409,7 @@ export class AllTableComponentComponent implements OnInit {
         this.pageLength = this.pageLength + 1;
         this.http
           .POST('ticket/list', {
-            searchText: '',
+            searchText: [],
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
@@ -388,7 +458,7 @@ export class AllTableComponentComponent implements OnInit {
       } else {
         this.http
           .POST('ticket/list', {
-            searchText: '',
+            searchText: [],
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
