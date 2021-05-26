@@ -89,6 +89,8 @@ export class CreateTicketPopupComponent implements OnInit {
   priority: any;
   categoryName1: any;
   categoryName2: any;
+  ticketNumber: any;
+
   ticketList: TicketListingDTO = new TicketListingDTO();
 
   filePath: any;
@@ -147,6 +149,7 @@ export class CreateTicketPopupComponent implements OnInit {
           this.priority = res.priority;
           this.categoryName1 = res.productCategoryName1;
           this.categoryName2 = res.productCategoryName2;
+          this.ticketNumber = res.ticketNumber;
         });
       this.updateTicketDTOFormGroup = this.formBuilder.group({
         ticketType: [this.ticketType],
