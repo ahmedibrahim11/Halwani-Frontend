@@ -1,125 +1,148 @@
 <div class="main-screen-format" *ngIf="isDataLoaded">
-    <div class="main-dev">
-        <div class="componentHeader">
-            <div class="backButton" *ngIf="!fromManager()">
-                <a *ngIf="fragment!==undefined" [routerLink]="['/itpersonal',fragment]">
-                    <mat-icon>keyboard_backspace</mat-icon>
-                </a>
-                <a *ngIf="fragment===undefined" [routerLink]="['/itpersonal']">
-                    <mat-icon>keyboard_backspace</mat-icon>
-                </a>
-                <label class="HeaderLabel">Back to tickets queue</label>
-            </div>
-            <div class="backButton" *ngIf="fromManager()">
-                <a *ngIf="fragment!==undefined" [routerLink]="['/itmanager',fragment]">
-                    <mat-icon>keyboard_backspace</mat-icon>
-                </a>
-                <a *ngIf="fragment===undefined" [routerLink]="['/itmanager']">
-                    <mat-icon>keyboard_backspace</mat-icon>
-                </a>
-                <label class="HeaderLabel">Back to tickets queue</label>
-            </div>
-            <div class="Email-Login">
-                {{userMessage.ticketName}}
-            </div>
-        </div>
-        <div class="MessageListing">
-            <app-message-format [userMessage]="userMessage"></app-message-format>
-            <app-added-message *ngFor="let msg of messageList" [userMessage]="msg"></app-added-message>
-
-        </div>
-        <form [formGroup]="newMessag" (ngSubmit)="submit()">
-            <div class="MessageAdd">
-                <div class="Editor">
-                    <span class="Persona-container">
-                        <label class="Persona-container-label">
-                            {{userMessage.currentUserInitials}}
-                        </label>
-
-                    </span>
-                    <div class="NgxEditor__Wrapper">
-                        <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
-                        <ngx-editor [editor]="editor" formControlName="message"></ngx-editor>
-                    </div>
-                </div>
-                <button type="submit" class="Button" [disabled]="!newMessag.valid">send reply</button>
-            </div>
-        </form>
-
+  <div class="main-dev">
+    <div class="componentHeader">
+      <div class="backButton" *ngIf="!fromManager()">
+        <a
+          *ngIf="fragment !== undefined"
+          [routerLink]="['/itpersonal', fragment]"
+        >
+          <mat-icon>keyboard_backspace</mat-icon>
+        </a>
+        <a *ngIf="fragment === undefined" [routerLink]="['/itpersonal']">
+          <mat-icon>keyboard_backspace</mat-icon>
+        </a>
+        <label class="HeaderLabel">Back to tickets queue</label>
+      </div>
+      <div class="backButton" *ngIf="fromManager()">
+        <a
+          *ngIf="fragment !== undefined"
+          [routerLink]="['/itmanager', fragment]"
+        >
+          <mat-icon>keyboard_backspace</mat-icon>
+        </a>
+        <a *ngIf="fragment === undefined" [routerLink]="['/itmanager']">
+          <mat-icon>keyboard_backspace</mat-icon>
+        </a>
+        <label class="HeaderLabel">Back to tickets queue</label>
+      </div>
+      <div class="Email-Login">
+        {{ userMessage.ticketName }}
+      </div>
     </div>
-    <div class="sideBar">
-        <mat-form-field style="height: 50px;" [ngStyle]="{'background-color':selectedColor}" appearance="fill">
-            <mat-label>{{currentStatus}}</mat-label>
-            <mat-select  (selectionChange)="changeStatus($event.source.value)">
-              <mat-option [value]="status['value']" *ngFor="let status of status">
-                  {{ status["title"]}}
-              </mat-option>
-              </mat-select>
-              </mat-form-field>
-        <div class="Ticket-ID">
-            Ticket ID
-        </div>
-        <div class="ticketdev">
-            <label class="SR-103">{{userMessage.ticketNo}}</label>
-        </div>
-        <div class="Ticket-ID">SLAs</div>
-        <div class="ticketdev">
-            <label class="SR-103">Time to response</label>
-            <label class="Within-2-hours">Within 2 hours</label>
-        </div>
-        <div class="ticketdev">
-            <label class="SR-103">Time to resolve</label>
-            <label class="Within-2-hours">Within 2 hours</label>
-        </div>
-        <div class="assignmentDev">
-            <div class="ticketdev">
-                <label class="Ticket-ID">Assignee</label>
-                <label class="asignee-container">{{userMessage.assignedTo}}</label>
-            </div>
-            <div class="ticketdev">
-                <label class="Ticket-ID">Reporter</label>
-                <label class="asignee-container">{{userMessage.ReporterInitials}}</label>
-            </div>
-        </div>
-        <div class="Ticket-ID">
-            Ticket type
-        </div>
-        <div class="ticketdev">
-            <span> <img src="userMessage.ticketTypeIcon" style="margin-right:0.25rem;" /> <label
-                    class="SR-103">{{userMessage.ticketTypeName}}</label></span>
-        </div>
-        <div class="Ticket-ID">
-            Severity
-        </div>
-        <div class="ticketdev">
-            <label class="SR-103" *ngIf="userMessage.ticketSeverity===0">Low</label><label class="SR-103"
-                *ngIf="userMessage.ticketSeverity===1">Medium</label>
-            <label class="SR-103" *ngIf="userMessage.ticketSeverity===2">High</label>
-        </div>
-        <div class="Ticket-ID">
-            Priority
-        </div>
-        <div class="ticketdev">
-            <label class="SR-103" *ngIf="userMessage.priority===0">Low</label><label class="SR-103"
-                *ngIf="userMessage.priority===1">Medium</label>
-            <label class="SR-103" *ngIf="userMessage.priority===2">High</label>
-        </div>
-        <div class="Ticket-ID">
-            Product categorization
-        </div>
-        <div class="ticketdev">
-            <label class="SR-103">{{userMessage.productCategoryName1}} - {{userMessage.productCategoryName2}}</label>
-        </div>
-        <div class="Ticket-ID">Metrics</div>
-        <div class="ticketdev">
-            <label class="SR-103">Date of creation</label>
-            <label class="Within-2-hours">{{userMessage.submitDate}}</label>
-        </div>
-        <div class="ticketdev">
-            <label class="SR-103">Date of resolving</label>
-            <label class="Within-2-hours"
-                *ngIf="userMessage.resolvedDate!=='1/1/1970'">{{userMessage.resolvedDate}}</label> <label
-                class="Within-2-hours" *ngIf="userMessage.resolvedDate==='1/1/1970'">-</label>
-        </div>
+    <div class="MessageListing">
+      <app-message-format [userMessage]="userMessage"></app-message-format>
+      <app-added-message
+        *ngFor="let msg of messageList"
+        [userMessage]="msg"
+      ></app-added-message>
     </div>
+    <form [formGroup]="newMessag" (ngSubmit)="submit()">
+      <div class="MessageAdd">
+        <div class="Editor">
+          <span class="Persona-container">
+            <label class="Persona-container-label">
+              {{ userMessage.currentUserInitials }}
+            </label>
+          </span>
+          <div class="NgxEditor__Wrapper">
+            <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+            <ngx-editor
+              [editor]="editor"
+              formControlName="message"
+            ></ngx-editor>
+          </div>
+        </div>
+        <button type="submit" class="Button" [disabled]="!newMessag.valid">
+          send reply
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="sideBar">
+    <mat-form-field
+      style="height: 50px"
+      [ngStyle]="{ 'background-color': selectedColor }"
+      appearance="fill"
+    >
+      <mat-label>{{ currentStatus }}</mat-label>
+      <mat-select (selectionChange)="changeStatus($event.source.value)">
+        <mat-option [value]="status['value']" *ngFor="let status of status">
+          {{ status["title"] }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="Ticket-ID">Ticket ID</div>
+    <div class="ticketdev">
+      <label class="SR-103">{{ userMessage.ticketNumber }}</label>
+    </div>
+    <div class="Ticket-ID">SLAs</div>
+    <div class="ticketdev">
+      <label class="SR-103">Time to response</label>
+      <label class="Within-2-hours">Within 2 hours</label>
+    </div>
+    <div class="ticketdev">
+      <label class="SR-103">Time to resolve</label>
+      <label class="Within-2-hours">Within 2 hours</label>
+    </div>
+    <div class="assignmentDev">
+      <div class="ticketdev">
+        <label class="Ticket-ID">Assignee</label>
+        <label class="asignee-container">{{ userMessage.assignedTo }}</label>
+      </div>
+      <div class="ticketdev">
+        <label class="Ticket-ID">Reporter</label>
+        <label class="asignee-container">{{
+          userMessage.ReporterInitials
+        }}</label>
+      </div>
+    </div>
+    <div class="Ticket-ID">Ticket type</div>
+    <div class="ticketdev">
+      <span>
+        <img src="userMessage.ticketTypeIcon" style="margin-right: 0.25rem" />
+        <label class="SR-103">{{ userMessage.ticketTypeName }}</label></span
+      >
+    </div>
+    <div class="Ticket-ID">Severity</div>
+    <div class="ticketdev">
+      <label class="SR-103" *ngIf="userMessage.ticketSeverity === 0">Low</label
+      ><label class="SR-103" *ngIf="userMessage.ticketSeverity === 1"
+        >Medium</label
+      >
+      <label class="SR-103" *ngIf="userMessage.ticketSeverity === 2"
+        >High</label
+      >
+    </div>
+    <div class="Ticket-ID">Priority</div>
+    <div class="ticketdev">
+      <label class="SR-103" *ngIf="userMessage.priority === 0">Low</label
+      ><label class="SR-103" *ngIf="userMessage.priority === 1">Medium</label>
+      <label class="SR-103" *ngIf="userMessage.priority === 2">High</label>
+    </div>
+    <div class="Ticket-ID">Product categorization</div>
+    <div class="ticketdev">
+      <label class="SR-103"
+        >{{ userMessage.productCategoryName1 }} -
+        {{ userMessage.productCategoryName2 }}</label
+      >
+    </div>
+    <div class="Ticket-ID">Metrics</div>
+    <div class="ticketdev">
+      <label class="SR-103">Date of creation</label>
+      <label class="Within-2-hours">{{ userMessage.submitDate }}</label>
+    </div>
+    <div class="ticketdev">
+      <label class="SR-103">Date of resolving</label>
+      <label
+        class="Within-2-hours"
+        *ngIf="userMessage.resolvedDate !== '1/1/1970'"
+        >{{ userMessage.resolvedDate }}</label
+      >
+      <label
+        class="Within-2-hours"
+        *ngIf="userMessage.resolvedDate === '1/1/1970'"
+        >-</label
+      >
+    </div>
+  </div>
 </div>

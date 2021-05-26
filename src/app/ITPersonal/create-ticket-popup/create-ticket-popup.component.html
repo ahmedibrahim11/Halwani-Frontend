@@ -117,7 +117,10 @@
             >Reporter <span class="mandatory"> *</span></label
           >
           <mat-form-field [style.width.%]="97" appearance="fill">
-            <mat-select [formControl]="reporter">
+            <mat-select
+              formControlName="reporter"
+              [(ngModel)]="reporter['value']"
+            >
               <mat-select-trigger>
                 {{ reporter.value ? reporter.value.split(",")[1] : "" }}
                 <span

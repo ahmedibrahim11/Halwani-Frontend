@@ -5,6 +5,7 @@ import {
   HostListener,
   Input,
 } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 import {
   TicketListingDTO,
@@ -30,6 +31,11 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CommonServiceService } from 'src/app/core/services/common-service.service';
 import { SpinnerFlagService } from 'src/app/core/services/spinner-flag.service';
+import { debounceTime, mergeMap, tap } from 'rxjs/operators';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Observable, of } from 'rxjs';
 @Component({
   selector: 'app-all-table-component',
   templateUrl: './all-table-component.component.html',
@@ -105,7 +111,7 @@ export class AllTableComponentComponent implements OnInit {
               email: el['rasiedBy']['email'],
               createdDate: cerationDate.toDateString(),
               createdTime: cerationDate.toLocaleTimeString(),
-              tticketTopic: el['requestType']['name'],
+              ticketTopic: el['requestType']['name'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
@@ -400,7 +406,79 @@ export class AllTableComponentComponent implements OnInit {
   private subscriptionName: Subscription;
 
   usersName: any = [];
+  ticketsNO: any = [];
+
+  ticketForm: FormGroup = new FormGroup({ ticket: new FormControl() });
+  filteredTickets: Observable<any[]>;
+  @Output() optionSelected = new EventEmitter();
+  private filter(value: string | any): Observable<any[]> {
+    const val = typeof value === 'string' ? value : value.ticketName;
+    console.log('inside filter, value is: ', value);
+    return of(
+      this.ticketsNO.filter((ticket) =>
+        ticket.toLowerCase().includes(val.toLowerCase())
+      )
+    );
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.ticketName) {
+      console.log(changes.ticketName.currentValue);
+    }
+  }
+
+  onSelectionChanged(event: MatAutocompleteSelectedEvent) {
+    console.log('event: option selected is ', event.option.value);
+    this.optionSelected.emit(event);
+    this.http
+      .POST('ticket/list', {
+        searchText: [event.option.value],
+        pageSize: 5,
+        pageNumber: this.pageIndex,
+        isPrint: false,
+        filter: { ticketType: this.tab },
+        sortValue: 0,
+      })
+      .subscribe((res) => {
+        console.log('search rsut', res);
+        let usersData = res.pageData;
+        this.UserViewInfoObject = usersData.map((el) => {
+          const cerationDate = new Date(el['creationDate']);
+          return {
+            id: el['id'],
+            initials: this.initials(el['rasiedBy']['name']),
+            name: el['rasiedBy']['name'],
+            email: el['rasiedBy']['email'],
+            createdDate: cerationDate.toDateString(),
+            createdTime: cerationDate.toLocaleTimeString(),
+            tticketTopic: el['requestType']['name'],
+            ticketCategory: el['requestType']['ticketType'],
+            Sevirity: el['severity'],
+          };
+        });
+        this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+      });
+  }
+
+  displayCo(ticket?: any): string | undefined {
+    return ticket ? ticket : undefined;
+  }
   ngOnInit(): void {
+    this.http.GET('ticket/getTicketNumbers').subscribe((res) => {
+      res.map((d) => {
+        this.ticketsNO.push(d);
+      });
+    });
+    this.filteredTickets = this.ticketForm
+      .get('ticket')
+      .valueChanges.pipe(
+        tap((val) =>
+          console.log('inside valueChanges Observable, val is: ', val)
+        ),
+        debounceTime(200)
+      )
+      .pipe(mergeMap((val) => this.filter(val)));
+
     console.log('Tabbbbbb', this.tab);
     this.spinnerFlag.setSpinnerValue(this.showSpinner);
     this.service.getValue().subscribe((value) => {
