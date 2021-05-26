@@ -1,0 +1,84 @@
+.Rectangle-339 {
+  width: 99%;
+  padding-left: 0.5rem;
+  height: 100vh;
+  flex-grow: 0;
+  margin: 24px 3px 0 0;
+
+  border-radius: 8px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+}
+.fullheaderClass {
+  display: flex;
+  flex-direction: row;
+  padding-top: 0.5rem;
+}
+.Filter {
+  width: 7.5rem;
+  height: 3.45rem;
+  margin: 3px 0.25rem 4px 10px;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+
+  color: #25213b;
+  background-color: white;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.filter-icon {
+  padding-right: 0.5rem;
+}
+.Rectangle-48 {
+  width: 25rem;
+  height: 2.45rem;
+  margin: 2px 26.3125rem 0 8px;
+  padding: 8px 30px 8px 19.2px;
+  border-radius: 6px;
+  border: solid 1px #edebe9;
+  background-color: #ffffff;
+  display: inline;
+}
+.search-icon {
+  border: none;
+  background-color: white;
+}
+.Table-buttons {
+  width: 12rem;
+  height: 2.45rem;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  float: right;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #f5f6f7;
+}
+.Export-queue {
+  width: 150px;
+  height: 24px;
+  flex-grow: 0;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #42526e;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: white im !important;
+}
