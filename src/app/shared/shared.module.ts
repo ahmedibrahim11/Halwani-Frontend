@@ -11,6 +11,8 @@ import { ProfileSettingsComponent } from './settings-main-tabs/profile-settings/
 import { HelpCenterConfigComponent } from './settings-main-tabs/help-center-config/help-center-config.component';
 import { UserMenuComponent } from './user-menu/user-menu.component';
 import { UserSideBarComponent } from './user-side-bar/user-side-bar.component';
+import { AddSettingsComponent } from './settings-main-tabs/help-center-config/add-settings/add-settings.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -20,11 +22,12 @@ import { UserSideBarComponent } from './user-side-bar/user-side-bar.component';
     HelpCenterConfigComponent,
     UserMenuComponent,
     UserSideBarComponent,
+    AddSettingsComponent,
   ],
   imports: [
     CommonModule,
     AngalurMaterialModule,
-    MatSidenavModule,MatListModule,RouterModule
+    MatSidenavModule,MatListModule,RouterModule,ReactiveFormsModule
   ],
   exports:[ 
     AngalurMaterialModule,
