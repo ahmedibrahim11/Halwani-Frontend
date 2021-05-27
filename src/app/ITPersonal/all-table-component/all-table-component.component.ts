@@ -361,6 +361,40 @@ export class AllTableComponentComponent implements OnInit {
   private filter(value: string | any): Observable<any[]> {
     const val = typeof value === 'string' ? value : value.ticketName;
     console.log('inside filter, value is: ', value);
+    if (value === '') {
+      this.http
+        .POST('ticket/list', {
+          searchText: [],
+          pageSize: this.pageLength,
+          pageNumber: this.pageIndex,
+          isPrint: false,
+          filter: {
+            ticketTabs: this.tabData,
+            state: this.Status,
+            ticketType: this.from,
+          },
+          sortValue: 0,
+        })
+        .subscribe((res) => {
+          console.log('search rsut', res);
+          let usersData = res.pageData;
+          this.UserViewInfoObject = usersData.map((el) => {
+            const cerationDate = new Date(el['creationDate']);
+            return {
+              id: el['id'],
+              initials: this.initials(el['rasiedBy']['name']),
+              name: el['rasiedBy']['name'],
+              email: el['rasiedBy']['email'],
+              createdDate: cerationDate.toDateString(),
+              createdTime: cerationDate.toLocaleTimeString(),
+              tticketTopic: el['requestType']['name'],
+              ticketCategory: el['requestType']['ticketType'],
+              Sevirity: el['severity'],
+            };
+          });
+          this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+        });
+    }
     return of(
       this.ticketsNO.filter((ticket) =>
         ticket.toLowerCase().includes(val.toLowerCase())
