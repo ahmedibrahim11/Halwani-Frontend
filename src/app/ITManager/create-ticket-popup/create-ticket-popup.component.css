@@ -128,7 +128,11 @@ mat-select {
   justify-content: center;
   align-items: center;
 }
-
+.update-title-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 .person-data-menu {
   width: 13rem;
 

@@ -117,7 +117,10 @@
             >Reporter <span class="mandatory"> *</span></label
           >
           <mat-form-field [style.width.%]="97" appearance="fill">
-            <mat-select [formControl]="reporter">
+            <mat-select
+              formControlName="reporter"
+              [(ngModel)]="reporter['value']"
+            >
               <mat-select-trigger>
                 {{ reporter.value ? reporter.value.split(",")[1] : "" }}
                 <span
@@ -251,7 +254,10 @@
 
 <ng-template #update>
   <form [formGroup]="updateTicketDTOFormGroup" (ngSubmit)="submitUpdate()">
-    <h1 mat-dialog-title class="Create-a-ticket">Update A Ticket</h1>
+    <div class="update-title-container">
+      <h1 mat-dialog-title class="Create-a-ticket">Update Ticket</h1>
+      <h2>Number: {{ ticketNumber }}</h2>
+    </div>
     <mat-dialog-content class="mat-typography">
       <label class="Ticket-type">Ticket type</label>
       <mat-form-field [style.width.%]="100" appearance="fill">

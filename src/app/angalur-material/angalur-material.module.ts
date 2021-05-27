@@ -19,6 +19,7 @@ import { NgxFileDropModule } from 'ngx-file-drop';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [],
@@ -42,6 +43,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatRadioModule,
     NgxFileDropModule,
     CommonModule,
+    MatAutocompleteModule,
   ],
   exports: [
     MatIconModule,
@@ -64,6 +66,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     NgxFileDropModule,
     MatChipsModule,
     MatProgressSpinnerModule,
+    MatAutocompleteModule,
   ],
 })
 export class AngalurMaterialModule {}
