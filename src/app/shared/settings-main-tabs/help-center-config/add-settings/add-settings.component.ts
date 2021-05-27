@@ -1,35 +1,90 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
+import { PriorityEnum, SevirityEnum } from 'src/app/core/DTOs/ticketListingDTO';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
-
+import {SettingDTO  } from "src/app/core/DTOs/settingDTO";
+import { ToastMessageComponent } from 'src/app/ITPersonal/toast-message/toast-message.component';
+import { TicketCreationService } from 'src/app/core/services/ticket-creation.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-add-settings',
   templateUrl: './add-settings.component.html',
   styleUrls: ['./add-settings.component.css']
 })
 export class AddSettingsComponent implements OnInit {
+  severities = new FormControl();
+  severityList: any = [];
+  priorities = new FormControl();
+  priorityList: any = [];
   groups:any=[];
 settingID:any;
 createSettingsFormGroup:FormGroup;
 UpdateSettingsFormGroup:FormGroup;
 FileLinks:any=[];
-
+viewAdd:Boolean=false;
+secondPage:Boolean=false;
   formData: FormData = new FormData();
   updateFormData: FormData = new FormData();
+   checkArray: FormArray=new FormArray([]);
+   teamSoruce:any=[];
+    settingDTO: SettingDTO = new SettingDTO();
+      durationInSeconds: any = 3;
   constructor( private formBuilder: FormBuilder,
-    private http: HTTPMainServiceService) { }
+    private http: HTTPMainServiceService,public dialog: MatDialog,
+    public dialogRef: MatDialogRef<AddSettingsComponent>,
+    public service: TicketCreationService,
+  
+    private _snackBar: MatSnackBar,) { }
 
   ngOnInit(): void {
+    this.http.GET('Team/get').subscribe((data) => {
+      this.teamSoruce = data.map((el) => {
+        return { label: el.text, value: el.text };
+      });
+    })
+        const sevKeys = Object.keys(SevirityEnum).filter(
+      (k) => typeof SevirityEnum[k as any] === 'string'
+    );
+    sevKeys.map((k) => this.severityList.push(SevirityEnum[k as any]));
+
+    console.log('seeeeeeev', this.severityList);
+    const priKeys = Object.keys(PriorityEnum).filter(
+      (k) => typeof PriorityEnum[k as any] === 'string'
+    );
+    priKeys.map((k) => this.priorityList.push(PriorityEnum[k as any]));
     //create
     this.createSettingsFormGroup=this.formBuilder.group({
       name:['',[Validators.required]],
       description:['',[Validators.required]],
       type:[0,[Validators.required]],
-      groups:[[]]
+      team:[0,[Validators.required]],
+priority:[0,[Validators.required]],
+sevirity:[0,[Validators.required]],
+      groups:this.formBuilder.array([]),
+      groupName:[''],
     })
     
   }
+
+ onCreateCheckboxChange(e) {
+   
+  this.checkArray = this.createSettingsFormGroup.get('groups') as FormArray;
+    debugger;
+  if (e.checked) {
+    this.checkArray.push(new FormControl(e.source.value));
+  } else {
+    let i: number = 0;
+    this.checkArray.controls.forEach((item: FormControl) => {
+      if (item.value == e.source.value) {
+        this.checkArray.removeAt(i);
+        return;
+      }
+      i++;
+    });
+  }
+}
   private deleteImage(url: any): void {
     this.FileLinks = this.FileLinks.filter((a) => a !== url);
     this.formData.delete(url);
@@ -78,9 +133,82 @@ FileLinks:any=[];
   }
 public getGroups(){
   console.log(this.createSettingsFormGroup.value)
-  let type=this.createSettingsFormGroup.value.Type!=''?this.createSettingsFormGroup.value.Type:this.UpdateSettingsFormGroup.value.Type;
-  this.http.GET(`Group/getGroup`).subscribe((data)=>{
-    console.log(data);
-  })
+  let type=this.settingID!=''?this.createSettingsFormGroup.value.type:this.UpdateSettingsFormGroup.value.type;
+  this.http.POST(`Group/getGroupforTicketType`,{id:type}).subscribe((data)=>{
+    console.log(data)
+    
+    data.forEach(element => {
+      if(!element.selected)
+      {
+      element.selected=false
+      }
+    });
+  this.groups=data;
+
+  });
+  this.secondPage=true;
+}
+public submitCreateSetting()
+{debugger; console.log(this.createSettingsFormGroup.value)
+this.settingDTO.description=this.createSettingsFormGroup.value.description;
+this.settingDTO.name=this.createSettingsFormGroup.value.name;
+this.settingDTO.teamName=this.createSettingsFormGroup.value.team;
+this.settingDTO.priority=this.createSettingsFormGroup.value.priority;
+this.settingDTO.severity=this.createSettingsFormGroup.value.severity;
+this.settingDTO.ticketType=this.createSettingsFormGroup.value.type;
+this.settingDTO.groupIds=this.createSettingsFormGroup.value.groups;
+var requestData = JSON.stringify(this.settingDTO);
+    this.formData.append('data', requestData);
+    this.http.POST('RequestType/CreateRequestType', this.formData).subscribe(
+      (data) => {
+        console.log('create setting');
+        this._snackBar.openFromComponent(ToastMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+        });
+        this.service.setValue(true);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        this.dialogRef.afterClosed().subscribe((result) => {
+          console.log(`Dialog result: ${result}`);
+        });
+      }
+    );
+    
+}
+public goBack() {
+  this.secondPage=false;
+}
+/**
+ * addGroup
+ */
+public viewAddGroup() {
+  this.viewAdd=true;
+}
+/**
+ * addGroup
+ */
+public addGroup() {
+  debugger;
+this.http.POST(`Group/createOne`,{name:this.createSettingsFormGroup.value.groupName}).subscribe(data=>{
+  this.groups.push({id:data,name:this.createSettingsFormGroup.value.groupName,selected:true});
+  this.createSettingsFormGroup.value.groups.push(data);
+  
+  this.createSettingsFormGroup.patchValue({groupName:''});
+  console.log(this.createSettingsFormGroup.value);
+  this.viewAdd=false;
+})
+  console.log(this.createSettingsFormGroup.value.groupName)
+  
+}
+/**
+ * removeGroup
+ */
+public removeGroup() {
+  this.createSettingsFormGroup.patchValue({groupName:''});
+    this.viewAdd=false;
 }
 }
+
