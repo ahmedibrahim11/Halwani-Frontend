@@ -1,0 +1,66 @@
+<div class="filter-modal-container">
+    <div class="filter-title-container">
+        <h4 class="filter-title">FILTER BY:</h4>
+        <p class="clear" (click)="clearFilters()">CLEAR FILTER</p>
+    </div>
+        <div class="filter-row">
+<div class="filter-controller">
+    <p>Assigned Team</p>
+    <mat-form-field appearance="fill">
+        <mat-label>Assigned Team</mat-label>
+        <mat-select (selectionChange)="filterHandler('team', $event)" [formControl]="team">
+           
+            <mat-option *ngFor="let team of teamSoruce" [value]="team['value']">{{ team["text"] }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+<div class="filter-controller">
+    <p>Group</p>
+    <mat-form-field appearance="fill">
+        <mat-label>Group</mat-label>
+        <mat-select (selectionChange)="filterHandler('groupId', $event)" [formControl]="Group">
+       
+            <mat-option *ngFor="let group of GroupList" [value]="group['value']">{{ group["text"] }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+<div class="filter-controller">
+    <p>Associated issue type</p>
+    <mat-form-field appearance="fill">
+        <mat-label>Associated issue type</mat-label>
+        <mat-select (selectionChange)="filterHandler('ticketType', $event)" [formControl]="TicketType">
+            
+            <mat-option *ngFor="let TicketType of ticketTypeList" [value]="TicketType['value']">{{ TicketType["text"] }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+        </div>
+    <div class="filter-row">
+      
+        <div class="filter-controller">
+            <p>SEVERITY</p>
+            <mat-form-field appearance="fill">
+                <mat-label>Severity</mat-label>
+                <mat-select (selectionChange)="filterHandler('severity', $event)" [formControl]="severities">
+                    
+                    <mat-option *ngFor="let severity of severityList" [value]="severity['value']">{{ severity["text"] }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="filter-controller">
+            <p>PRIORITY</p>
+            <mat-form-field appearance="fill">
+                <mat-label>Priorities</mat-label>
+                <mat-select [formControl]="priorities" (selectionChange)="filterHandler('priority', $event)">
+                   
+                    <mat-option *ngFor="let priority of priorityList" [value]="priority['value']">{{ priority["text"] }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>

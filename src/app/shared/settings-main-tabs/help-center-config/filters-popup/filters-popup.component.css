@@ -1,0 +1,48 @@
+.filter-modal-container {
+  width: 50vw;
+  height: 15vh;
+  padding: 14px 27px 181px 18px;
+  border-radius: 6px;
+  background-color: #ffffff;
+}
+
+.filter-title-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3%;
+}
+
+.filter-title {
+  color: #717171;
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+}
+
+.clear {
+  color: #c4161c;
+  font-family: Poppins;
+  font-size: 10px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+}
+
+.clear:hover {
+  cursor: pointer;
+}
+
+.filter-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.filter-controller {
+  display: flex;
+  flex-direction: column;
+}

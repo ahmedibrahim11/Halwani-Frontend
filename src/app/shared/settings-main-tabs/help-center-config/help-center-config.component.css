@@ -82,3 +82,38 @@
 .mat-form-field-appearance-legacy .mat-form-field-underline {
   background-color: white im !important;
 }
+/* cell 1 */
+.menu {
+  width: 17rem;
+  display: flex;
+  flex-direction: row;
+}
+.mat-spinner::ng-deep circle {
+  stroke: #c4161c;
+}
+.red-menu {
+  background-color: #c4161c;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  padding: 8%;
+  margin-top: 4%;
+  color: #ffffff;
+  align-self: center;
+}
+.person-data-menu {
+  width: 11rem;
+
+  margin-top: 0;
+  line-height: 0.5%;
+  margin: 0.5rem;
+}
+.icon:hover {
+  cursor: pointer;
+}
+.spinner-design {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding: 5%;
+}

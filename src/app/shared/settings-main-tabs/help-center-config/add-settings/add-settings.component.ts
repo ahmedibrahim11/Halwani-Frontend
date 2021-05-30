@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
 import { PriorityEnum, SevirityEnum } from 'src/app/core/DTOs/ticketListingDTO';
@@ -7,7 +7,7 @@ import {SettingDTO  } from "src/app/core/DTOs/settingDTO";
 import { ToastMessageComponent } from 'src/app/ITPersonal/toast-message/toast-message.component';
 import { TicketCreationService } from 'src/app/core/services/ticket-creation.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-add-settings',
   templateUrl: './add-settings.component.html',
@@ -19,7 +19,7 @@ export class AddSettingsComponent implements OnInit {
   priorities = new FormControl();
   priorityList: any = [];
   groups:any=[];
-settingID:any;
+settingID:any=undefined;
 createSettingsFormGroup:FormGroup;
 UpdateSettingsFormGroup:FormGroup;
 FileLinks:any=[];
@@ -31,12 +31,15 @@ secondPage:Boolean=false;
    teamSoruce:any=[];
     settingDTO: SettingDTO = new SettingDTO();
       durationInSeconds: any = 3;
+      loading:any=true;
   constructor( private formBuilder: FormBuilder,
     private http: HTTPMainServiceService,public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddSettingsComponent>,
     public service: TicketCreationService,
-  
-    private _snackBar: MatSnackBar,) { }
+  @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+    private _snackBar: MatSnackBar,) { 
+      this.settingID = data ? data.updateValue : undefined;
+    }
 
   ngOnInit(): void {
     this.http.GET('Team/get').subscribe((data) => {
@@ -65,11 +68,44 @@ sevirity:[0,[Validators.required]],
       groups:this.formBuilder.array([]),
       groupName:[''],
     })
+     this.UpdateSettingsFormGroup=this.formBuilder.group({
+      name:['',[Validators.required]],
+      description:['',[Validators.required]],
+      type:[0,[Validators.required]],
+      team:[0,[Validators.required]],
+priority:[0,[Validators.required]],
+sevirity:[0,[Validators.required]],
+      groups:this.formBuilder.array([]),
+      groupName:[''],
+    })
+    if(this.settingID!=undefined)
+    {
+      this.http.POST(`RequestType/GetRequestType`,{id:this.settingID}).subscribe(data=>{
+        
+        
+this.UpdateSettingsFormGroup=this.formBuilder.group({
+      name:[data.title,[Validators.required]],
+      description:[data.description,[Validators.required]],
+      type:[data.ticketType,[Validators.required]],
+      team:[data.team,[Validators.required]],
+priority:[data.priority,[Validators.required]],
+sevirity:[data.sevirity,[Validators.required]],
+      groups:this.formBuilder.array([data.groupIDs]),
+      groupName:[''],
+    })
+    this.loading=false;
+    this.FileLinks.push(data.icon)
+    this.http.POST(`Group/getGroupforTicketTypeEdit`,{id:this.UpdateSettingsFormGroup.value.type,rtid:this.settingID}).subscribe(data=>{
+      this.groups=data;
+    })
+      })
+    }
+     
     
   }
 
  onCreateCheckboxChange(e) {
-   
+   debugger;
   this.checkArray = this.createSettingsFormGroup.get('groups') as FormArray;
     debugger;
   if (e.checked) {
@@ -83,6 +119,7 @@ sevirity:[0,[Validators.required]],
       }
       i++;
     });
+
   }
 }
   private deleteImage(url: any): void {
@@ -134,6 +171,8 @@ sevirity:[0,[Validators.required]],
 public getGroups(){
   console.log(this.createSettingsFormGroup.value)
   let type=this.settingID!=''?this.createSettingsFormGroup.value.type:this.UpdateSettingsFormGroup.value.type;
+  if(this.settingID===undefined)
+  {
   this.http.POST(`Group/getGroupforTicketType`,{id:type}).subscribe((data)=>{
     console.log(data)
     
@@ -145,7 +184,7 @@ public getGroups(){
     });
   this.groups=data;
 
-  });
+  });}
   this.secondPage=true;
 }
 public submitCreateSetting()
@@ -162,6 +201,38 @@ var requestData = JSON.stringify(this.settingDTO);
     this.http.POST('RequestType/CreateRequestType', this.formData).subscribe(
       (data) => {
         console.log('create setting');
+        this._snackBar.openFromComponent(ToastMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+        });
+        this.service.setValue(true);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        this.dialogRef.afterClosed().subscribe((result) => {
+          console.log(`Dialog result: ${result}`);
+        });
+      }
+    );
+    
+}
+public submitUpdateSetting()
+{debugger; console.log(this.UpdateSettingsFormGroup.value)
+  
+this.settingDTO.description=this.UpdateSettingsFormGroup.value.description;
+this.settingDTO.name=this.UpdateSettingsFormGroup.value.name;
+this.settingDTO.teamName=this.UpdateSettingsFormGroup.value.team;
+this.settingDTO.priority=this.UpdateSettingsFormGroup.value.priority;
+this.settingDTO.severity=this.UpdateSettingsFormGroup.value.severity;
+this.settingDTO.ticketType=this.UpdateSettingsFormGroup.value.type;
+this.settingDTO.groupIds=this.checkArray.value;
+this.settingDTO.id=this.settingID;
+var requestData = JSON.stringify(this.settingDTO);
+    this.updateFormData.append('data', requestData);
+    this.http.PUT('RequestType/UpdateRequestType', this.updateFormData).subscribe(
+      (data) => {
+        console.log('update setting');
         this._snackBar.openFromComponent(ToastMessageComponent, {
           duration: this.durationInSeconds * 1000,
         });

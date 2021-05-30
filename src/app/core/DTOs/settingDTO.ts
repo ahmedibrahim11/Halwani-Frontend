@@ -1,4 +1,5 @@
 export class SettingDTO{
+    id:Number;
     name:string;
     description:string;
     ticketType:Number;
