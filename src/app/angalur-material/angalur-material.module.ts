@@ -20,6 +20,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [],
@@ -44,6 +45,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     NgxFileDropModule,
     CommonModule,
     MatAutocompleteModule,
+    MatBadgeModule,
   ],
   exports: [
     MatIconModule,
@@ -67,6 +69,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatChipsModule,
     MatProgressSpinnerModule,
     MatAutocompleteModule,
+    MatBadgeModule,
   ],
 })
 export class AngalurMaterialModule {}

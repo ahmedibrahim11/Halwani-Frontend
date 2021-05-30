@@ -13,6 +13,7 @@ import { UserMenuComponent } from './user-menu/user-menu.component';
 import { UserSideBarComponent } from './user-side-bar/user-side-bar.component';
 import { AddSettingsComponent } from './settings-main-tabs/help-center-config/add-settings/add-settings.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserNotificationComponent } from './user-notification/user-notification.component';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -23,6 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     UserMenuComponent,
     UserSideBarComponent,
     AddSettingsComponent,
+    UserNotificationComponent,
   ],
   imports: [
     CommonModule,
