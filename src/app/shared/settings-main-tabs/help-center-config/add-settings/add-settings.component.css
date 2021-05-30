@@ -98,3 +98,9 @@
   flex-direction: column;
   width: 50%;
 }
+.spinner-design {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding: 5%;
+}

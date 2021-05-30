@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { AngalurMaterialModule } from '../angalur-material/angalur-material.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
 import { SettingsMainTabsComponent } from './settings-main-tabs/settings-main-tabs.component';
 import { ProfileSettingsComponent } from './settings-main-tabs/profile-settings/profile-settings.component';
@@ -14,6 +14,7 @@ import { UserSideBarComponent } from './user-side-bar/user-side-bar.component';
 import { AddSettingsComponent } from './settings-main-tabs/help-center-config/add-settings/add-settings.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserNotificationComponent } from './user-notification/user-notification.component';
+import { FiltersPopupComponent } from './settings-main-tabs/help-center-config/filters-popup/filters-popup.component';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -25,15 +26,21 @@ import { UserNotificationComponent } from './user-notification/user-notification
     UserSideBarComponent,
     AddSettingsComponent,
     UserNotificationComponent,
+    FiltersPopupComponent,
   ],
   imports: [
     CommonModule,
     AngalurMaterialModule,
-    MatSidenavModule,MatListModule,RouterModule,ReactiveFormsModule
+    MatSidenavModule,
+    MatListModule,
+    RouterModule,
+    ReactiveFormsModule,
   ],
-  exports:[ 
+  exports: [
     AngalurMaterialModule,
     NavbarComponent,
-    SidebarComponent,UserSideBarComponent]
+    SidebarComponent,
+    UserSideBarComponent,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}
