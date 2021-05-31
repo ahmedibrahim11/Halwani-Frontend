@@ -268,11 +268,11 @@ export class AllTableComponentComponent implements OnInit {
 
   displayedColumns: string[] = [
     'select',
-    'ticketNumber',
     'name',
     'createdDate',
     'ticketCategory',
     'Sevirity',
+    'ticketNumber',
     'Actions',
   ];
   //check boxes part
