@@ -1,5 +1,6 @@
 ::ng-deep.notifications {
   min-width: 30rem !important;
+  max-height: 15rem !important;
 }
 .notification-item-container{
     display: flex;
