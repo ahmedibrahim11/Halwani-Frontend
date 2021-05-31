@@ -60,6 +60,8 @@ export class PersonalProblemsComponent implements OnInit {
             createdDate: ticket['creationDate'],
             createdTime: ticket['creationDate'],
             ticketTopic: ticket['ticketTopic'],
+            ticketNumber: ticket['ticketNumber'],
+
             ticketCategory: ticket['ticketType'],
             Sevirity: ticket['severity'],
           };

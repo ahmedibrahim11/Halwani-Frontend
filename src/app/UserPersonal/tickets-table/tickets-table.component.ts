@@ -141,6 +141,8 @@ export class TicketsTableComponent implements OnInit {
               createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['requestType']['name'],
               ticketCategory: el['requestType']['ticketType'],
+              ticketNumber: el['ticketNumber'],
+
               Sevirity: el['severity'],
               status: el['status'],
             };
@@ -175,6 +177,8 @@ export class TicketsTableComponent implements OnInit {
               createdDate: cerationDate.toDateString(),
               createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['requestType']['name'],
+              ticketNumber: el['ticketNumber'],
+
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
               status: el['status'],
@@ -210,6 +214,8 @@ export class TicketsTableComponent implements OnInit {
               ticketTopic: el['requestType']['name'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
+              ticketNumber: el['ticketNumber'],
+
               status: el['status'],
             };
           });
@@ -289,6 +295,8 @@ export class TicketsTableComponent implements OnInit {
             createdDate: cerationDate.toDateString(),
             createdTime: cerationDate.toLocaleTimeString(),
             ticketTopic: el['requestType']['name'],
+            ticketNumber: el['ticketNumber'],
+
             ticketCategory: el['requestType']['ticketType'],
             Sevirity: el['severity'],
             status: el['status'],
@@ -423,6 +431,8 @@ export class TicketsTableComponent implements OnInit {
                   createdTime: cerationDate.toLocaleTimeString(),
                   ticketTopic: el['requestType']['name'],
                   ticketCategory: el['requestType']['ticketType'],
+                  ticketNumber: el['ticketNumber'],
+
                   Sevirity: el['severity'],
                   status: el['status'],
                 };
@@ -473,6 +483,8 @@ export class TicketsTableComponent implements OnInit {
                   createdDate: cerationDate.toDateString(),
                   createdTime: cerationDate.toLocaleTimeString(),
                   ticketTopic: el['requestType']['name'],
+                  ticketNumber: el['ticketNumber'],
+
                   ticketCategory: el['requestType']['ticketType'],
                   Sevirity: el['severity'],
                   status: el['status'],

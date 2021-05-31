@@ -118,6 +118,14 @@
           </mat-checkbox>
         </td>
       </ng-container>
+      <ng-container matColumnDef="ticketNumber">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Ticket Number</th>
+        <td mat-cell *matCellDef="let number">
+          <div class="person-data-menu">
+            <h3>{{ number.ticketNumber }}</h3>
+          </div>
+        </td>
+      </ng-container>
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Raised BY</th>
         <td mat-cell *matCellDef="let user">
@@ -202,6 +210,7 @@
           </div>
         </td>
       </ng-container>
+
       <ng-container matColumnDef="Sevirity">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>SEVERITY</th>
         <td mat-cell *matCellDef="let topic">

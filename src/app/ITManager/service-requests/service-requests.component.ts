@@ -59,6 +59,8 @@ export class ServiceRequestsComponent implements OnInit {
             createdTime: ticket['creationDate'],
             ticketTopic: ticket['ticketTopic'],
             ticketCategory: ticket['ticketType'],
+            ticketNumber: ticket['ticketNumber'],
+
             Sevirity: ticket['severity'],
           };
         });

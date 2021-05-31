@@ -56,6 +56,8 @@ export class ChangesComponent implements OnInit {
             email: ticket['rasiedBy']['email'],
             createdDate: ticket['creationDate'],
             createdTime: ticket['creationDate'],
+            ticketNumber: ticket['ticketNumber'],
+
             ticketTopic: ticket['ticketTopic'],
             ticketCategory: ticket['ticketType'],
             Sevirity: ticket['severity'],

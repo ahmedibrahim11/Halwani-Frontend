@@ -112,6 +112,8 @@ export class AllTableComponentComponent implements OnInit {
               createdDate: cerationDate.toDateString(),
               createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['requestType']['name'],
+              ticketNumber: el['ticketNumber'],
+
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
@@ -143,6 +145,8 @@ export class AllTableComponentComponent implements OnInit {
               createdDate: cerationDate.toDateString(),
               createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['requestType']['name'],
+              ticketNumber: el['ticketNumber'],
+
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
@@ -173,6 +177,8 @@ export class AllTableComponentComponent implements OnInit {
               createdDate: cerationDate.toDateString(),
               createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['requestType']['name'],
+              ticketNumber: el['ticketNumber'],
+
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
@@ -252,6 +258,7 @@ export class AllTableComponentComponent implements OnInit {
             ticketTopic: el['requestType']['name'],
             ticketCategory: el['requestType']['ticketType'],
             Sevirity: el['severity'],
+            ticketNumber: el['ticketNumber'],
           };
         });
         console.log(this.UserViewInfoObject);
@@ -261,6 +268,7 @@ export class AllTableComponentComponent implements OnInit {
 
   displayedColumns: string[] = [
     'select',
+    'ticketNumber',
     'name',
     'createdDate',
     'ticketCategory',
@@ -326,6 +334,7 @@ export class AllTableComponentComponent implements OnInit {
                   tticketTopic: el['requestType']['name'],
                   ticketCategory: el['requestType']['ticketType'],
                   Sevirity: el['severity'],
+                  ticketNumber: el['ticketNumber'],
                 };
               });
               this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -369,6 +378,8 @@ export class AllTableComponentComponent implements OnInit {
               name: el['rasiedBy']['name'],
               email: el['rasiedBy']['email'],
               createdDate: cerationDate.toDateString(),
+              ticketNumber: el['ticketNumber'],
+
               createdTime: cerationDate.toLocaleTimeString(),
               tticketTopic: el['requestType']['name'],
               ticketCategory: el['requestType']['ticketType'],
@@ -437,6 +448,8 @@ export class AllTableComponentComponent implements OnInit {
               createdDate: cerationDate.toDateString(),
               createdTime: cerationDate.toLocaleTimeString(),
               tticketTopic: el['requestType']['name'],
+              ticketNumber: el['ticketNumber'],
+
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
@@ -481,7 +494,9 @@ export class AllTableComponentComponent implements OnInit {
             email: el['rasiedBy']['email'],
             createdDate: cerationDate.toDateString(),
             createdTime: cerationDate.toLocaleTimeString(),
-            tticketTopic: el['requestType']['name'],
+            ticketTopic: el['requestType']['name'],
+            ticketNumber: el['ticketNumber'],
+
             ticketCategory: el['requestType']['ticketType'],
             Sevirity: el['severity'],
           };
@@ -548,6 +563,8 @@ export class AllTableComponentComponent implements OnInit {
                   email: el['rasiedBy']['email'],
                   createdDate: cerationDate.toDateString(),
                   createdTime: cerationDate.toLocaleTimeString(),
+                  ticketNumber: el['ticketNumber'],
+
                   ticketTopic: el['requestType']['name'],
                   ticketCategory: el['requestType']['ticketType'],
                   Sevirity: el['severity'],
@@ -596,7 +613,9 @@ export class AllTableComponentComponent implements OnInit {
                   createdDate: cerationDate.toDateString(),
                   createdTime: cerationDate.toLocaleTimeString(),
                   ticketTopic: el['requestType']['name'],
+
                   ticketCategory: el['requestType']['ticketType'],
+                  ticketNumber: el['ticketNumber'],
                   Sevirity: el['severity'],
                 };
               });
