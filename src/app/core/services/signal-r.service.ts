@@ -22,7 +22,8 @@ export class SignalRService {
       .withUrl(environment.signalR, {
         transport:
           signalR.HttpTransportType.WebSockets ||
-          signalR.HttpTransportType.LongPolling,
+          signalR.HttpTransportType.LongPolling ||
+          signalR.HttpTransportType.ServerSentEvents,
         accessTokenFactory: () =>
           `${JSON.parse(localStorage.getItem('userData')).token}`,
       })
