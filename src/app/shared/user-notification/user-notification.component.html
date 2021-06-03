@@ -23,12 +23,16 @@
       mat-menu-item
       *ngFor="let item of notifications"
       (click)="openTicketDetails(item['id'])"
-      style="padding-bottom: 4rem"
+      style="padding-bottom: 5rem"
     >
       <div class="notification-item-container">
-        <p style="height: 1.5rem; margin-bottom: 0px">
-          {{ item["text"] }}
-        </p>
+        <span style="display: flex; flex-direction: row">
+          <mat-icon style="padding-top: 0.7rem"> mail_outline</mat-icon>
+          <p style="height: 1.7rem; margin-bottom: 0px">
+            {{ item["text"] }}
+          </p>
+        </span>
+
         <span
           style="
             display: flex;

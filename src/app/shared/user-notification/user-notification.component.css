@@ -1,6 +1,6 @@
 ::ng-deep.notifications {
   min-width: 22rem !important;
-  max-height: 15rem !important;
+  max-height: 30rem !important;
 }
 
 .notification-item-container{
@@ -20,4 +20,10 @@
   cursor: pointer;
   text-align: center;
   width: 100%;
+  position: sticky;
+  bottom: 0;
+}
+.btn-More-Noticiation:hover{
+  cursor: pointer;
+  background-color: rgb(239, 239, 239);
 }
