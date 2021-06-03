@@ -72,13 +72,14 @@ export class UserNotificationComponent implements OnInit {
         this.badgeContent = data.unSeenNotificationsCount;
         data.pageData.map((item) => {
           diffTime = Math.abs(
-            new Date().getTime() - new Date(item['date']).getTime()
+            new Date().getDay() - new Date(item['date']).getDay()
           );
-          diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          console.log('erre', diffTime);
+          //diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
           this.notifications.push({
             text: item['text'],
             date: new Date(item['date']).toDateString(),
-            dateDiff: diffDays,
+            dateDiff: diffTime,
             id: item['objectId'],
           });
         });
@@ -93,6 +94,8 @@ export class UserNotificationComponent implements OnInit {
   //showMoreNotificationsOnIconClick
   loadMoreNotifications(e: any) {
     e.stopPropagation();
+    let diffTime: any;
+    let diffDays: any;
     this.http
       .POST('Notification/List', {
         searchText: [''],
@@ -106,9 +109,15 @@ export class UserNotificationComponent implements OnInit {
         this.badgeContent = data.unSeenNotificationsCount;
         this.pageNumber = this.pageNumber + 1;
         data.pageData.map((item) => {
+          diffTime = Math.abs(
+            new Date().getDay() - new Date(item['date']).getDay()
+          );
+          console.log('erre', diffTime);
+          //diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
           this.notifications.push({
             text: item['text'],
             date: new Date(item['date']).toDateString(),
+            dateDiff: diffTime,
             id: item['objectId'],
           });
         });
