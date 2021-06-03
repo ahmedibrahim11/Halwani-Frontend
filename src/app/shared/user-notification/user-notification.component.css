@@ -1,11 +1,11 @@
 ::ng-deep.notifications {
-  min-width: 30rem !important;
+  min-width: 22rem !important;
   max-height: 15rem !important;
 }
+
 .notification-item-container{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
 }
 .mat-spinner::ng-deep circle {
   stroke: #c4161c;

@@ -23,16 +23,24 @@
       mat-menu-item
       *ngFor="let item of notifications"
       (click)="openTicketDetails(item['id'])"
+      style="padding-bottom: 4rem"
     >
-      <div>
-        <span class="notification-item-container">
-          <p>
-            {{ item["text"] }}
-          </p>
+      <div class="notification-item-container">
+        <p style="height: 1.5rem; margin-bottom: 0px">
+          {{ item["text"] }}
+        </p>
+        <span
+          style="
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+          "
+          ><p style="opacity: 0.5">{{ item["dateDiff"] }} days ago</p>
+
           <p style="color: #c4161c">
             {{ item["date"] }}
-          </p>
-        </span>
+          </p></span
+        >
       </div>
     </button>
     <div (click)="loadMoreNotifications($event)" class="btn-More-Noticiation">
