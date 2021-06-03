@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { SignalRService } from 'src/app/core/services/signal-r.service';
 import { Router } from '@angular/router';
@@ -23,6 +23,7 @@ export class UserNotificationComponent implements OnInit {
   openFlag: boolean = false;
   showSpinner: boolean = true;
 
+  //signalR
   updateNotification(context) {
     context.http
       .POST('Notification/List', {
@@ -47,6 +48,10 @@ export class UserNotificationComponent implements OnInit {
       });
   }
 
+  menuOpened() {
+    this.notifications = this.notifications.slice(0, 5);
+  }
+  pageNumber: number = 0;
   getNotifications() {
     if (this.openFlag) {
       return null;
@@ -55,15 +60,14 @@ export class UserNotificationComponent implements OnInit {
     this.http
       .POST('Notification/List', {
         searchText: [''],
-        pageSize: 10,
-        pageNumber: 0,
+        pageSize: 5,
+        pageNumber: this.pageNumber,
         sortDirection: 0,
         isPrint: true,
       })
       .subscribe((data) => {
         console.log('notify', data);
         this.badgeContent = data.unSeenNotificationsCount;
-
         data.pageData.map((item) => {
           this.notifications.push({
             text: item['text'],
@@ -78,5 +82,66 @@ export class UserNotificationComponent implements OnInit {
   openTicketDetails(ticketID: any) {
     this.router.navigate(['/itmanager/details/' + ticketID]);
   }
-  ngOnInit(): void {}
+
+  //showMoreNotificationsOnIconClick
+  loadMoreNotifications(e: any) {
+    e.stopPropagation();
+    this.http
+      .POST('Notification/List', {
+        searchText: [''],
+        pageSize: 5,
+        pageNumber: this.pageNumber + 1,
+        sortDirection: 0,
+        isPrint: true,
+      })
+      .subscribe((data) => {
+        console.log('notify', data);
+        this.badgeContent = data.unSeenNotificationsCount;
+        this.pageNumber = this.pageNumber + 1;
+        data.pageData.map((item) => {
+          this.notifications.push({
+            text: item['text'],
+            date: new Date(item['date']).toDateString(),
+            id: item['objectId'],
+          });
+        });
+      });
+  }
+
+  ngOnInit(): void {
+    //window.addEventListener('scroll', this.scroll, true); //third parameter
+  }
+  // oldScrollTopNumber: number = 0;
+  // scroll = (event: any): void => {
+  //   let scrollTopNumber = event.srcElement.scrollTop;
+  //   if (scrollTopNumber > this.oldScrollTopNumber) {
+  //     console.log('t7t');
+  //     this.http
+  //       .POST('Notification/List', {
+  //         searchText: [''],
+  //         pageSize: 5,
+  //         pageNumber: this.pageNumber + 1,
+  //         sortDirection: 0,
+  //         isPrint: true,
+  //       })
+  //       .subscribe((data) => {
+  //         console.log('notify', data);
+  //         this.badgeContent = data.unSeenNotificationsCount;
+  //         data.pageData.map((item) => {
+  //           this.notifications.push({
+  //             text: item['text'],
+  //             date: new Date(item['date']).toDateString(),
+  //             id: item['objectId'],
+  //           });
+  //         });
+  //       });
+  //     this.oldScrollTopNumber = scrollTopNumber;
+  //   } else {
+  //     console.log('fo2');
+  //     this.oldScrollTopNumber = scrollTopNumber;
+  //   }
+
+  // console.log(event);
+  // console.log('I am scrolling ' + scrollTopNumber);
+  //  };
 }

@@ -3,6 +3,7 @@
   [matMenuTriggerFor]="menu"
   aria-label="Example icon-button with a menu"
   (click)="getNotifications()"
+  (menuOpened)="menuOpened()"
 >
   <mat-icon [matBadge]="badgeContent" matBadgeColor="warn" matBadgeSize="small"
     >notifications</mat-icon
@@ -34,5 +35,8 @@
         </span>
       </div>
     </button>
+    <div (click)="loadMoreNotifications($event)" class="btn-More-Noticiation">
+      <mat-icon>expand_more</mat-icon>
+    </div>
   </ng-template>
 </mat-menu>
