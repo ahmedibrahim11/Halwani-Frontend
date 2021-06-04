@@ -70,6 +70,7 @@ export class AllTableComponentComponent implements OnInit {
           createdTime: cerationDate.toLocaleTimeString(),
           ticketTopic: el['requestType']['name'],
           ticketCategory: el['requestType']['ticketType'],
+          ticketNumber: el['ticketNumber'],
           Sevirity: el['severity'],
         };
       });
@@ -429,7 +430,7 @@ export class AllTableComponentComponent implements OnInit {
       this.http
         .POST('ticket/list', {
           searchText: [],
-          pageSize: this.pageLength,
+          pageSize: this.pageSize,
           pageNumber: this.pageIndex,
           isPrint: false,
           filter: { ticketType: this.tab },
