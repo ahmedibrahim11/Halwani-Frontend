@@ -18,6 +18,7 @@ export class UserNotificationComponent implements OnInit {
     this.signalRService.changeNotificationCount(this, this.updateNotification);
   }
   notifications: any = [];
+  unSeenNotifications: any = [];
   badgeContent: number;
 
   openFlag: boolean = false;
@@ -76,6 +77,10 @@ export class UserNotificationComponent implements OnInit {
           );
           console.log('erre', diffTime);
           diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          this.unSeenNotifications = this.notifications.slice(
+            0,
+            this.badgeContent
+          );
           this.notifications.push({
             text: item['text'],
             date: new Date(item['date']).toDateString(),

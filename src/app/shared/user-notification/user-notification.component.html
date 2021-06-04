@@ -19,6 +19,36 @@
     </div>
   </ng-template>
   <ng-template #data>
+    <p class="notification-title">New</p>
+    <button
+      mat-menu-item
+      *ngFor="let item of unSeenNotifications"
+      (click)="openTicketDetails(item['id'])"
+      style="padding-bottom: 5rem"
+    >
+      <div class="notification-item-container">
+        <span style="display: flex; flex-direction: row">
+          <mat-icon style="padding-top: 0.7rem"> mail_outline</mat-icon>
+          <p style="height: 1.7rem; margin-bottom: 0px">
+            {{ item["text"] }}
+          </p>
+        </span>
+
+        <span
+          style="
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+          "
+          ><p style="opacity: 0.5">{{ item["dateDiff"] }} days ago</p>
+
+          <p style="color: #c4161c">
+            {{ item["date"] }}
+          </p></span
+        >
+      </div>
+    </button>
+    <p class="notification-title">Earlier</p>
     <button
       mat-menu-item
       *ngFor="let item of notifications"

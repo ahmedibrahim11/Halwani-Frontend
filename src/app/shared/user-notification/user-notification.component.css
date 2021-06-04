@@ -16,6 +16,11 @@
   justify-content: center;
   padding: 5%;
 }
+.notification-title{
+  font-weight: bold;
+  text-align: center;
+  font-size: large;
+}
 .btn-More-Noticiation{
   cursor: pointer;
   text-align: center;
