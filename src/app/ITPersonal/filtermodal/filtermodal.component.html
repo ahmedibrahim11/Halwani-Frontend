@@ -13,14 +13,14 @@
           (selectionChange)="filterHandler('location', $event)"
         >
           <mat-select-trigger>
-            {{ locations.value ? locations.value[0] : "" }}
-            <span
+            {{ locations.value ? locations.value : "" }}
+            <!-- <span
               *ngIf="locations.value?.length > 1"
               class="example-additional-selection"
             >
               (+{{ locations.value.length - 1 }}
               {{ locations.value?.length === 2 ? "other" : "others" }})
-            </span>
+            </span> -->
           </mat-select-trigger>
           <mat-option
             *ngFor="let location of locationList"
@@ -41,14 +41,14 @@
           (selectionChange)="filterHandler('source', $event)"
         >
           <mat-select-trigger>
-            {{ sources.value ? sources.value[0] : "" }}
-            <span
+            {{ sources.value ? sources.value : "" }}
+            <!-- <span
               *ngIf="sources.value?.length > 1"
               class="example-additional-selection"
             >
               (+{{ sources.value.length - 1 }}
               {{ sources.value?.length === 2 ? "other" : "others" }})
-            </span>
+            </span> -->
           </mat-select-trigger>
           <mat-option
             *ngFor="let source of sourceList"
@@ -67,14 +67,14 @@
           (selectionChange)="filterHandler('state', $event)"
         >
           <mat-select-trigger>
-            {{ states.value ? states.value[0] : "" }}
-            <span
+            {{ states.value ? states.value : "" }}
+            <!-- <span
               *ngIf="states.value?.length > 1"
               class="example-additional-selection"
             >
               (+{{ states.value.length - 1 }}
               {{ states.value?.length === 2 ? "other" : "others" }})
-            </span>
+            </span> -->
           </mat-select-trigger>
           <mat-option *ngFor="let state of stateList" [value]="state['text']">{{
             state["text"]
@@ -106,14 +106,14 @@
           [formControl]="severities"
         >
           <mat-select-trigger>
-            {{ severities.value ? severities.value[0] : "" }}
-            <span
+            {{ severities.value ? severities.value : "" }}
+            <!-- <span
               *ngIf="severities.value?.length > 1"
               class="example-additional-selection"
             >
               (+{{ severities.value.length - 1 }}
               {{ severities.value?.length === 2 ? "other" : "others" }})
-            </span>
+            </span> -->
           </mat-select-trigger>
           <mat-option
             *ngFor="let severity of severityList"
@@ -132,14 +132,14 @@
           (selectionChange)="filterHandler('priority', $event)"
         >
           <mat-select-trigger>
-            {{ priorities.value ? priorities.value[0] : "" }}
-            <span
+            {{ priorities.value ? priorities.value : "" }}
+            <!-- <span
               *ngIf="priorities.value?.length > 1"
               class="example-additional-selection"
             >
               (+{{ priorities.value.length - 1 }}
               {{ priorities.value?.length === 2 ? "other" : "others" }})
-            </span>
+            </span> -->
           </mat-select-trigger>
           <mat-option
             *ngFor="let priority of priorityList"
