@@ -35,8 +35,32 @@ export class FiltermodalComponent implements OnInit {
 
   filterHandler(filterKey: any, filterValue: any) {
     let key = filterKey;
+    let specificValue: any;
     let filterObject = {};
-    filterObject[key] = filterValue.value;
+    switch (key) {
+      case 'source':
+        specificValue = Object.keys(SourceEnum).find(
+          (s) => SourceEnum[s] === filterValue.value
+        );
+        break;
+      case 'state':
+        specificValue = Object.keys(StatusEnum).find(
+          (s) => StatusEnum[s] === filterValue.value
+        );
+        break;
+      case 'severity':
+        specificValue = Object.keys(SevirityEnum).find(
+          (s) => SevirityEnum[s] === filterValue.value
+        );
+        break;
+      case 'priority':
+        specificValue = Object.keys(PriorityEnum).find(
+          (s) => PriorityEnum[s] === filterValue.value
+        );
+        break;
+    }
+    console.log('eeeee', specificValue);
+    filterObject[key] = Number(specificValue);
     console.log('filter', filterObject);
     this.http.GET('ticket/getCount').subscribe((res) => {
       this.pageLength = res;

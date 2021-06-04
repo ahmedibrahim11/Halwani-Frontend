@@ -52,7 +52,7 @@
           </mat-select-trigger>
           <mat-option
             *ngFor="let source of sourceList"
-            [value]="source['value']"
+            [value]="source['text']"
             >{{ source["text"] }}</mat-option
           >
         </mat-select>
@@ -76,11 +76,9 @@
               {{ states.value?.length === 2 ? "other" : "others" }})
             </span>
           </mat-select-trigger>
-          <mat-option
-            *ngFor="let state of stateList"
-            [value]="state['value']"
-            >{{ state["text"] }}</mat-option
-          >
+          <mat-option *ngFor="let state of stateList" [value]="state['text']">{{
+            state["text"]
+          }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -119,7 +117,7 @@
           </mat-select-trigger>
           <mat-option
             *ngFor="let severity of severityList"
-            [value]="severity['value']"
+            [value]="severity['text']"
             >{{ severity["text"] }}</mat-option
           >
         </mat-select>
@@ -145,7 +143,7 @@
           </mat-select-trigger>
           <mat-option
             *ngFor="let priority of priorityList"
-            [value]="priority['value']"
+            [value]="priority['text']"
             >{{ priority["text"] }}</mat-option
           >
         </mat-select>
