@@ -226,23 +226,37 @@
       </ng-container>
       <ng-container matColumnDef="Actions">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
+
         <td mat-cell *matCellDef="let topic">
           <div class="menu">
-            <mat-icon (click)="cancelTicket(topic.id)" class="icon"
+            <mat-icon (click)="cancelTicket(topic.id)" class="icon cancelDiv"
               >cancel</mat-icon
             >
-
-            <mat-icon (click)="assignTicket(topic.id)" class="icon"
+            <div class="hide">
+              <p>Cancel Ticket</p>
+            </div>
+            <mat-icon (click)="assignTicket(topic.id)" class="icon assignDiv"
               >group_add</mat-icon
             >
-
+            <div class="hide">
+              <p>Assign Ticket</p>
+            </div>
             <img
               (click)="openTicket(topic.id)"
               src="assets/Open.svg"
               style="margin-right: 0.1rem"
-              class="icon"
+              class="icon detailsDiv"
             />
-            <app-ticketoptions [ticketID]="topic.id"></app-ticketoptions>
+            <div class="hide">
+              <p>Ticket details</p>
+            </div>
+            <app-ticketoptions
+              [ticketID]="topic.id"
+              class="optionsDiv"
+            ></app-ticketoptions>
+            <div class="hide">
+              <p>Ticket options</p>
+            </div>
           </div>
         </td>
       </ng-container>

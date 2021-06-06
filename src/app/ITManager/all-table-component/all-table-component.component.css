@@ -163,4 +163,38 @@
   justify-content: center;
   padding: 5%;
 }
+.menu{
+  position: relative;
+}
+
+.hide {
+   z-index: 5;
+   opacity: 0;
+   display: none;
+   position: absolute;
+}
+.cancelDiv:hover+.hide {
+  opacity: 1;
+  display: block;
+  color: #c4161c;
+  margin-top: 1.5rem;
+}
+.assignDiv:hover+.hide {
+  opacity: 1;
+  display: block;
+  color: #c4161c;
+  margin-top: 1.5rem;
+}
+.detailsDiv:hover+.hide {
+  opacity: 1;
+  display: block;
+  color: #c4161c;
+  margin-top: 1.5rem;
+}
+.optionsDiv:hover+.hide {
+  opacity: 1;
+  display: block;
+  color: #c4161c;
+  margin-top: 1.5rem;
+}
 
