@@ -4,8 +4,17 @@
 }
 
 .notification-item-container{
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 5rem;
+  border-bottom: 0.2px solid rgb(214, 213, 213);
+}
+.notification-item-container-unseen{
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 5rem;
+  border-bottom: 0.2px solid rgb(214, 213, 213);
+  background-color: rgb(239, 239, 239);
 }
 .mat-spinner::ng-deep circle {
   stroke: #c4161c;
@@ -28,7 +37,11 @@
   position: sticky;
   bottom: 0;
 }
-.btn-More-Noticiation:hover{
+.notification-item-container:hover {
   cursor: pointer;
-  background-color: rgb(239, 239, 239);
+  background-color: rgb(214, 213, 213);
+}
+.notification-item-container-unseen:hover {
+  cursor: pointer;
+  background-color: rgb(214, 213, 213);
 }

@@ -18,7 +18,7 @@ export class UserNotificationComponent implements OnInit {
     this.signalRService.changeNotificationCount(this, this.updateNotification);
   }
   notifications: any = [];
-  unSeenNotifications: any = [];
+  //unSeenNotifications: any = [];
   badgeContent: number;
 
   openFlag: boolean = false;
@@ -36,13 +36,14 @@ export class UserNotificationComponent implements OnInit {
       })
       .subscribe((data) => {
         console.log('notify', data);
-        context.badgeContent = data.unSeenNotificationsCount;
+        //context.badgeContent = data.unSeenNotificationsCount;
 
         data.pageData.map((item) => {
           context.notifications.push({
             text: item['text'],
             date: new Date(item['date']).toDateString(),
             id: item['objectId'],
+            seen: item['isSeen'],
           });
         });
         context.showSpinner = false;
@@ -70,7 +71,7 @@ export class UserNotificationComponent implements OnInit {
       })
       .subscribe((data) => {
         console.log('notify', data);
-        this.badgeContent = data.unSeenNotificationsCount;
+        //this.badgeContent = data.unSeenNotificationsCount;
         data.pageData.map((item) => {
           diffTime = Math.abs(
             new Date().getTime() - new Date(item['date']).getTime()
@@ -81,14 +82,15 @@ export class UserNotificationComponent implements OnInit {
           this.notifications.push({
             text: item['text'],
             date: new Date(item['date']).toDateString(),
-            dateDiff: diffDays,
+            dateDiff: diffDays - 1,
             id: item['objectId'],
+            seen: item['isSeen'],
           });
         });
-        this.unSeenNotifications = this.notifications.slice(
-          0,
-          this.badgeContent
-        );
+        // this.unSeenNotifications = this.notifications.slice(
+        //   0,
+        //   this.badgeContent
+        // );
         this.notifications = this.notifications.slice(this.badgeContent);
         this.showSpinner = false;
       });
@@ -113,7 +115,7 @@ export class UserNotificationComponent implements OnInit {
       })
       .subscribe((data) => {
         console.log('notify', data);
-        this.badgeContent = data.unSeenNotificationsCount;
+        //this.badgeContent = data.unSeenNotificationsCount;
         this.pageNumber = this.pageNumber + 1;
         data.pageData.map((item) => {
           diffTime = Math.abs(
@@ -124,8 +126,9 @@ export class UserNotificationComponent implements OnInit {
           this.notifications.push({
             text: item['text'],
             date: new Date(item['date']).toDateString(),
-            dateDiff: diffDays,
+            dateDiff: diffDays - 1,
             id: item['objectId'],
+            seen: item['isSeen'],
           });
         });
       });

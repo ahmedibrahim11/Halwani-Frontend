@@ -19,14 +19,18 @@
     </div>
   </ng-template>
   <ng-template #data>
-    <p class="notification-title">New</p>
+    <!-- <p class="notification-title">New</p> -->
     <button
       mat-menu-item
-      *ngFor="let item of unSeenNotifications"
+      *ngFor="let item of notifications"
       (click)="openTicketDetails(item['id'])"
-      style="padding-bottom: 5rem"
+      [ngClass]="
+        item['seen'] === true
+          ? 'notification-item-container'
+          : 'notification-item-container-unseen'
+      "
     >
-      <div class="notification-item-container">
+      <div>
         <span style="display: flex; flex-direction: row">
           <mat-icon style="padding-top: 0.7rem"> mail_outline</mat-icon>
           <p style="height: 1.7rem; margin-bottom: 0px">
@@ -48,8 +52,8 @@
         >
       </div>
     </button>
-    <p class="notification-title">Earlier</p>
-    <button
+    <!-- <p class="notification-title">Earlier</p> -->
+    <!-- <button
       mat-menu-item
       *ngFor="let item of notifications"
       (click)="openTicketDetails(item['id'])"
@@ -76,7 +80,7 @@
           </p></span
         >
       </div>
-    </button>
+    </button> -->
     <div (click)="loadMoreNotifications($event)" class="btn-More-Noticiation">
       <mat-icon>expand_more</mat-icon>
     </div>
