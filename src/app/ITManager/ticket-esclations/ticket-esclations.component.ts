@@ -5,21 +5,16 @@ import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.s
 import { SpinnerFlagService } from 'src/app/core/services/spinner-flag.service';
 import { TabscreationService } from 'src/app/core/services/tabscreation.service';
 import { TicketCreationService } from 'src/app/core/services/ticket-creation.service';
-import { CreatTicketPopupComponent } from '../creat-ticket-popup/creat-ticket-popup.component';
-
-
-
 
 @Component({
-  selector: 'app-my-tickets',
-  templateUrl: './my-tickets.component.html',
-  styleUrls: ['./my-tickets.component.css']
+  selector: 'app-ticket-esclations',
+  templateUrl: './ticket-esclations.component.html',
+  styleUrls: ['./ticket-esclations.component.css']
 })
-export class MyTicketsComponent implements OnInit {
-public SelectedTabIndex = 0;
-  empty: boolean = false;
+export class TicketEsclationsComponent implements OnInit {
+empty: boolean = false;
   showSpinner: boolean = true;
-withActions:any=true;
+
   constructor(
     private exportService: ExportexcelService,
     private http: HTTPMainServiceService,
@@ -32,6 +27,7 @@ withActions:any=true;
   flag: any;
   userName:any;
   token:any;
+  withActions:any=false;
 getTokenPayloads() {
     this.token = localStorage.getItem('userData');
     var base64Url = this.token.split('.')[1];
@@ -53,11 +49,10 @@ getTokenPayloads() {
     this.getTokenPayloads();
     this.service.getValue().subscribe((value) => {
       this.flag = value;
-      debugger;
-
+ 
         this.http.POST('Ticket/List', { pageSize: 10, filter: {
-            submitterName:this.userName} }).subscribe((res) => {
-          console.log(res);
+            State: 5} }).subscribe((res) => {
+          console.log("empty",res.totalCount === 0 ? (this.empty = true) : (this.empty = false));
           res.totalCount === 0 ? (this.empty = true) : (this.empty = false);
         });
       
@@ -68,19 +63,5 @@ getTokenPayloads() {
       this.showSpinner = flag;
     });
   }
-  openDialog() {
-    const dialogRef = this.dialog.open(CreatTicketPopupComponent);
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-      this.http.GET('Ticket/getCount').subscribe((res) => {
-        console.log(res);
-        res === 0 ? (this.empty = true) : (this.empty = false);
-      });
-    });
-  }
   
-
- 
-
 }

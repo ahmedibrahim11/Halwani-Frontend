@@ -43,13 +43,13 @@
           <img src="assets/2.png" class="icon-img" />
           <h4 style="opacity: 0.8">Reports DashBoard</h4>
         </a>
-        <a
-          mat-list-item
-          [routerLink]="['/assasa']"
-          [routerLinkActive]="['active']"
-          [routerLinkActiveOptions]="{ exact: true }"
-          class="action-container"
-        >
+      <a mat-list-item [routerLink]="['/itmanager/esclated']" [routerLinkActive]="['active']"
+        [routerLinkActiveOptions]="{ exact: true }" class="action-container" *ngIf="fromManager()">
+          <img src="assets/3.png" class="icon-img" />
+          <h4 style="opacity: 0.8">Ticket Escalations</h4>
+        </a>
+        <a mat-list-item [routerLink]="['/itpersonal/esclated']" [routerLinkActive]="['active']"
+          [routerLinkActiveOptions]="{ exact: true }" class="action-container" *ngIf="!fromManager()">
           <img src="assets/3.png" class="icon-img" />
           <h4 style="opacity: 0.8">Ticket Escalations</h4>
         </a>

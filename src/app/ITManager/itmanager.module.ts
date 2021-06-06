@@ -26,6 +26,7 @@ import { ServiceRequestsComponent } from './service-requests/service-requests.co
 import { IncidentsComponent } from './incidents/incidents.component';
 import { ProblemsComponent } from './problems/problems.component';
 import { ChangesComponent } from './changes/changes.component';
+import { TicketEsclationsComponent } from './ticket-esclations/ticket-esclations.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { ChangesComponent } from './changes/changes.component';
     IncidentsComponent,
     ProblemsComponent,
     ChangesComponent,
+    TicketEsclationsComponent,
   ],
   imports: [
     BrowserAnimationsModule,

@@ -44,9 +44,10 @@ import { Observable, of } from 'rxjs';
 export class AllTableComponentComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   public flag: boolean;
+  @Input() withActions=false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() tab: number = 0;
-
+@Input() Status: number = undefined;
   empty: boolean = true;
   dataLoaded: boolean = false;
   constructor(
@@ -97,7 +98,7 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: { ticketType: this.tab },
+          filter: { ticketType: this.tab,State: this.Status, },
           sortvalue: 0,
         })
         .subscribe((res) => {
@@ -130,7 +131,7 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: { ticketType: this.tab },
+          filter: { ticketType: this.tab,State: this.Status, },
           sortvalue: 0,
         })
         .subscribe((res) => {
@@ -162,7 +163,7 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: { ticketType: this.tab },
+          filter: { ticketType: this.tab,State: this.Status, },
           sortvalue: 0,
         })
         .subscribe((res) => {
@@ -191,9 +192,9 @@ export class AllTableComponentComponent implements OnInit {
   }
   setDataSourceAttributes() {
     this.dataSource.paginator = this.paginator;
-    this.pageSize = this.paginator.pageSize;
-    this.pageIndex = this.paginator.pageIndex;
-    this.pageLength = this.paginator.length;
+    this.pageSize = this.paginator!==undefined?this.paginator.pageSize:10;
+    this.pageIndex = this.paginator!==undefined?this.paginator.pageIndex:0;
+    this.pageLength =this.paginator!==undefined? this.paginator.length:10;
     console.log('daaaaaat');
     console.log('size', this.pageSize);
     console.log('len', this.pageLength);
@@ -240,7 +241,7 @@ export class AllTableComponentComponent implements OnInit {
         pageSize: this.pageSize,
         pageNumber: this.pageIndex,
         isPrint: false,
-        filter: { ticketType: this.tab },
+        filter: { ticketType: this.tab,State: this.Status, },
         sortvalue: sortValue,
         sortDirection: sortDirec,
       })
@@ -317,7 +318,7 @@ export class AllTableComponentComponent implements OnInit {
               pageSize: 5,
               pageNumber: this.pageIndex,
               isPrint: false,
-              filter: { ticketType: this.tab },
+              filter: { ticketType: this.tab,State: this.Status, },
               sortValue: 0,
             })
             .subscribe((res) => {
@@ -365,7 +366,7 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageLength,
           pageNumber: this.pageIndex,
           isPrint: false,
-          filter: { ticketType: this.tab },
+          filter: { ticketType: this.tab,State: this.Status, },
           sortValue: 0,
         })
         .subscribe((res) => {
@@ -433,7 +434,7 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: this.pageIndex,
           isPrint: false,
-          filter: { ticketType: this.tab },
+          filter: { ticketType: this.tab ,State: this.Status,},
           sortValue: 0,
         })
         .subscribe((res) => {
@@ -480,7 +481,7 @@ export class AllTableComponentComponent implements OnInit {
         pageSize: 5,
         pageNumber: this.pageIndex,
         isPrint: false,
-        filter: { ticketType: this.tab },
+        filter: { ticketType: this.tab,State: this.Status, },
         sortValue: 0,
       })
       .subscribe((res) => {
@@ -537,7 +538,7 @@ export class AllTableComponentComponent implements OnInit {
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
-            filter: { ticketType: this.tab },
+            filter: { ticketType: this.tab,State: this.Status, },
             sortValue: 0,
           })
           .subscribe((res) => {
@@ -588,7 +589,7 @@ export class AllTableComponentComponent implements OnInit {
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
-            filter: { ticketType: this.tab },
+            filter: { ticketType: this.tab,State: this.Status, },
             sortValue: 0,
           })
           .subscribe((res) => {
