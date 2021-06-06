@@ -133,6 +133,7 @@ export class UserNotificationComponent implements OnInit {
 
   ngOnInit(): void {
     //window.addEventListener('scroll', this.scroll, true); //third parameter
+    this.getNotifications();
   }
   // oldScrollTopNumber: number = 0;
   // scroll = (event: any): void => {
