@@ -113,6 +113,13 @@ export class FiltermodalComponent implements OnInit {
   }
 
   clearFilters() {
+    this.filterObject = {};
+    this.locations.setValue('');
+    this.sources.setValue('');
+    this.states.setValue('');
+    this.severities.setValue('');
+    this.priorities.setValue('');
+
     this.http.GET('ticket/getCount').subscribe((res) => {
       this.pageLength = res;
       this.http

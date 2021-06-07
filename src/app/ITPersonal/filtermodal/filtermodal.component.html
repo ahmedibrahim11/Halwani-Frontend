@@ -1,7 +1,6 @@
 <div class="filter-modal-container">
   <div class="filter-title-container">
     <h4 class="filter-title">FILTER BY:</h4>
-    <p class="clear" (click)="clearFilters()">CLEAR FILTER</p>
   </div>
   <div class="filter-row">
     <div class="filter-controller">
@@ -151,6 +150,7 @@
     </div>
   </div>
   <div class="filter-btn-container">
+    <button class="clear-btn" (click)="clearFilters()">Clear</button>
     <button class="filter-btn" (click)="sendFiltersObject()">Filter</button>
   </div>
 </div>
