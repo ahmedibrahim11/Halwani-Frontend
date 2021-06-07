@@ -29,11 +29,13 @@ import { MyTicketsComponent } from './UserPersonal/my-tickets/my-tickets.compone
 import { TicketsHistoryComponent } from './UserPersonal/tickets-history/tickets-history.component';
 import { MyEsclationsComponent } from './UserPersonal/my-esclations/my-esclations.component';
 import { UserDetailsComponent } from './UserPersonal/user-details/user-details.component';
+import { TicketEsclationsComponent } from './ITManager/ticket-esclations/ticket-esclations.component';
 const routes: Routes = [
   {
     path: 'itpersonal',
     component: HomeComponent,
     children: [
+      {path:'esclated',component:TicketEsclationsComponent},
       {path:'settings',component:SettingsMainTabsComponent},
       {path:'changes',component:PersonalChangesComponent},
       {path:'problems',component:PersonalProblemsComponent},
@@ -47,6 +49,7 @@ const routes: Routes = [
     path: 'itmanager',
     component: ManagerhomeComponent,
     children: [
+       {path:'esclated',component:TicketEsclationsComponent},
       {path:'settings',component:SettingsMainTabsComponent},
        {path:'changes',component:ChangesComponent},
       {path:'problems',component:ProblemsComponent},
