@@ -40,3 +40,17 @@
   display: flex;
   flex-direction: column;
 }
+.filter-btn-container{
+  display: flex;
+  justify-content: flex-end;
+}
+.filter-btn{
+  padding: 10px 15px 10px 15px;
+  border-radius: 6px;
+  background-color: #c4161c;
+  color: #ffffff;
+  border: none;
+}
+.filter-btn:hover{
+  cursor: pointer;
+}

@@ -33,10 +33,11 @@ export class FiltermodalComponent implements OnInit {
   priorities = new FormControl();
   priorityList: any = [];
 
+  filterObject: any = {};
   filterHandler(filterKey: any, filterValue: any) {
+    console.log('awaaal', filterKey, filterValue.value);
     let key = filterKey;
     let specificValue: any;
-    let filterObject = {};
     switch (key) {
       case 'source':
         specificValue = Number(
@@ -71,18 +72,20 @@ export class FiltermodalComponent implements OnInit {
         break;
     }
     console.log('eeeee', specificValue);
-    filterObject[key] = specificValue;
-    console.log('filter', filterObject);
+    this.filterObject[key] = specificValue;
+    console.log('filter', this.filterObject);
+  }
+
+  sendFiltersObject() {
     this.http.GET('ticket/getCount').subscribe((res) => {
       this.pageLength = res;
-
       this.http
         .POST('ticket/list', {
           searchText: [],
           pageSize: this.pageSize,
           pageNumber: this.pageIndex,
           isPrint: false,
-          filter: filterObject,
+          filter: this.filterObject,
           sortValue: 0,
         })
         .subscribe((res) => {
@@ -106,23 +109,7 @@ export class FiltermodalComponent implements OnInit {
   dateChange(e) {
     let ticketDate = this.formatDate(e.value.toDateString());
     console.log('dateee', ticketDate);
-    this.http.GET('ticket/getCount').subscribe((res) => {
-      this.pageLength = res;
-
-      this.http
-        .POST('ticket/list', {
-          searchText: [],
-          pageSize: this.pageSize,
-          pageNumber: this.pageIndex,
-          isPrint: false,
-          filter: { date: ticketDate },
-          sortValue: 0,
-        })
-        .subscribe((res) => {
-          console.log('wreeeeny', res);
-          this.common.sendUpdate(res.pageData);
-        });
-    });
+    this.filterObject['date'] = ticketDate;
   }
 
   clearFilters() {
