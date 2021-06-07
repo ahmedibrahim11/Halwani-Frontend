@@ -82,7 +82,7 @@ export class UserNotificationComponent implements OnInit {
           this.notifications.push({
             text: item['text'],
             date: new Date(item['date']).toDateString(),
-            dateDiff: diffDays - 1,
+            dateDiff: diffDays,
             id: item['objectId'],
             seen: item['isSeen'],
           });
@@ -126,7 +126,7 @@ export class UserNotificationComponent implements OnInit {
           this.notifications.push({
             text: item['text'],
             date: new Date(item['date']).toDateString(),
-            dateDiff: diffDays - 1,
+            dateDiff: diffDays,
             id: item['objectId'],
             seen: item['isSeen'],
           });

@@ -44,7 +44,7 @@ import { Observable, of } from 'rxjs';
 export class AllTableComponentComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   public flag: boolean;
-  @Input() withActions = false;
+  @Input() withActions = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() tab: number = 0;
   @Input() Status: number = undefined;
