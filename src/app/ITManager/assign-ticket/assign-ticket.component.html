@@ -11,9 +11,10 @@
   <mat-select
     (selectionChange)="usersHandler($event)"
     name="option"
-    formControlName="reporter"
     class="users-DDL"
+    [(value)]="selectedReporter"
   >
+    <mat-select-trigger> {{ selectedReporter }}</mat-select-trigger>
     <mat-option
       *ngFor="let option of reporterDatasource"
       [value]="option['value']"
@@ -22,7 +23,6 @@
       <div class="menu">
         <div class="red-menu">{{ option.initials }}</div>
         <div class="person-data-menu">
-          <h3>{{ option["label"] }}</h3>
           <p style="opacity: 0.7">{{ option["label1"] }}</p>
         </div>
       </div>

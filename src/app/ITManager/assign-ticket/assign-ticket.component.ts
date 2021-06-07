@@ -16,6 +16,8 @@ import { ToastMessageComponent } from '../toast-message/toast-message.component'
 })
 export class AssignTicketComponent implements OnInit {
   @Input() reporterDatasource;
+  selectedReporter = new FormControl();
+
   selectedUser: any;
 
   ticketIds = [];
@@ -44,6 +46,7 @@ export class AssignTicketComponent implements OnInit {
   }
 
   usersHandler(e) {
+    console.log('event', e);
     this.selectedUser = e.value;
   }
   ticketID: any;
