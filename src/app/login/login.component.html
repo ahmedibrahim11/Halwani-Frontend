@@ -2,8 +2,7 @@
   <img src="assets/Group2.svg" class="Group-2" />
   <div class="card-div">
     <div class="content">
-      <label class="Login">Login</label>
-      <form [formGroup]="UserViewInfoFormGroup" (ngSubmit)="submitLogin()">
+      <!-- <form [formGroup]="UserViewInfoFormGroup" (ngSubmit)="submitLogin()">
         <mat-form-field appearance="fill">
           <mat-label>Username</mat-label>
           <input matInput [type]="'text'" formControlName="email" />
@@ -31,14 +30,9 @@
           </button>
         </mat-form-field>
 
-        <button
-          type="submit"
-          class="Rectangle-156"
-          [disabled]="!UserViewInfoFormGroup.valid"
-        >
-          Login
-        </button>
-      </form>
+        
+      </form> -->
+      <button (click)="submitLogin()" class="Rectangle-156">Sign In</button>
     </div>
     <div style="margin-top: 5%">
       <img src="assets/Group3.svg" class="Group-3" />

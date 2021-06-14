@@ -15,8 +15,8 @@ import { UserLayoutComponent } from '../app/UserPersonal/user-layout/user-layout
 import { MainCategoriesComponent } from '../app/UserPersonal/main-categories/main-categories.component';
 import { GroupCategoryComponent } from '../app/UserPersonal/group-category/group-category.component';
 import { CreateTicketComponent } from '../app/UserPersonal/create-ticket/create-ticket.component';
-import { ServiceRequestsComponent } from "./ITManager/service-requests/service-requests.component";
-import { IncidentsComponent } from "./ITManager/incidents/incidents.component";
+import { ServiceRequestsComponent } from './ITManager/service-requests/service-requests.component';
+import { IncidentsComponent } from './ITManager/incidents/incidents.component';
 import { ProblemsComponent } from './ITManager/problems/problems.component';
 import { ChangesComponent } from './ITManager/changes/changes.component';
 import { PersonalServiceRequestComponent } from './ITPersonal/personal-service-request/personal-service-request.component';
@@ -30,33 +30,96 @@ import { TicketsHistoryComponent } from './UserPersonal/tickets-history/tickets-
 import { MyEsclationsComponent } from './UserPersonal/my-esclations/my-esclations.component';
 import { UserDetailsComponent } from './UserPersonal/user-details/user-details.component';
 import { TicketEsclationsComponent } from './ITManager/ticket-esclations/ticket-esclations.component';
+import { MsalGuard } from '@azure/msal-angular';
 const routes: Routes = [
   {
     path: 'itpersonal',
     component: HomeComponent,
+    canActivate: [MsalGuard],
     children: [
-      {path:'esclated',component:TicketEsclationsComponent},
-      {path:'settings',component:SettingsMainTabsComponent},
-      {path:'changes',component:PersonalChangesComponent},
-      {path:'problems',component:PersonalProblemsComponent},
-      {path:'incidents',component:PersonalIncidentsComponent},
-      {path:'servicerequests',component:PersonalServiceRequestComponent,},
-      { path: 'details/:id', component: TicketDetailsMainComponent },
-      { path: '', component: MainCardBodyComponent },
+      {
+        path: 'esclated',
+        component: TicketEsclationsComponent,
+        canActivate: [MsalGuard],
+      },
+      {
+        path: 'settings',
+        component: SettingsMainTabsComponent,
+        canActivate: [MsalGuard],
+      },
+      {
+        path: 'changes',
+        component: PersonalChangesComponent,
+        canActivate: [MsalGuard],
+      },
+      {
+        path: 'problems',
+        component: PersonalProblemsComponent,
+        canActivate: [MsalGuard],
+      },
+      {
+        path: 'incidents',
+        component: PersonalIncidentsComponent,
+        canActivate: [MsalGuard],
+      },
+      {
+        path: 'servicerequests',
+        component: PersonalServiceRequestComponent,
+        canActivate: [MsalGuard],
+      },
+      {
+        path: 'details/:id',
+        component: TicketDetailsMainComponent,
+        canActivate: [MsalGuard],
+      },
+      { path: '', component: MainCardBodyComponent, canActivate: [MsalGuard] },
     ],
   },
   {
     path: 'itmanager',
     component: ManagerhomeComponent,
+    canActivate: [MsalGuard],
     children: [
-       {path:'esclated',component:TicketEsclationsComponent},
-      {path:'settings',component:SettingsMainTabsComponent},
-       {path:'changes',component:ChangesComponent},
-      {path:'problems',component:ProblemsComponent},
-      {path:'incidents',component:IncidentsComponent},
-      {path:'servicerequests',component:ServiceRequestsComponent,},
-      { path: 'details/:id', component: TicketDetailsMainComponent },
-      { path: '', component: MainCardBodyManagerComponent },
+      {
+        path: 'esclated',
+        component: TicketEsclationsComponent,
+        canActivate: [MsalGuard],
+      },
+      {
+        path: 'settings',
+        component: SettingsMainTabsComponent,
+        canActivate: [MsalGuard],
+      },
+      {
+        path: 'changes',
+        component: ChangesComponent,
+        canActivate: [MsalGuard],
+      },
+      {
+        path: 'problems',
+        component: ProblemsComponent,
+        canActivate: [MsalGuard],
+      },
+      {
+        path: 'incidents',
+        component: IncidentsComponent,
+        canActivate: [MsalGuard],
+      },
+      {
+        path: 'servicerequests',
+        component: ServiceRequestsComponent,
+        canActivate: [MsalGuard],
+      },
+      {
+        path: 'details/:id',
+        component: TicketDetailsMainComponent,
+        canActivate: [MsalGuard],
+      },
+      {
+        path: '',
+        component: MainCardBodyManagerComponent,
+        canActivate: [MsalGuard],
+      },
     ],
   },
   {
@@ -67,18 +130,32 @@ const routes: Routes = [
       { path: 'groupdetails/:id', component: GroupCategoryComponent },
       { path: '', component: MainCategoriesComponent },
     ],
-  },{
+  },
+  {
     path: 'user',
     component: UserLayoutMainComponent,
+    canActivate: [MsalGuard],
     children: [
-       { path: 'details/:id', component: UserDetailsComponent },
-       { path: 'myesclations', component: MyEsclationsComponent },
-      { path: 'ticketshistory', component: TicketsHistoryComponent },
-       { path: '', component: MyTicketsComponent },
+      {
+        path: 'details/:id',
+        component: UserDetailsComponent,
+        canActivate: [MsalGuard],
+      },
+      {
+        path: 'myesclations',
+        component: MyEsclationsComponent,
+        canActivate: [MsalGuard],
+      },
+      {
+        path: 'ticketshistory',
+        component: TicketsHistoryComponent,
+        canActivate: [MsalGuard],
+      },
+      { path: '', component: MyTicketsComponent, canActivate: [MsalGuard] },
     ],
   },
-  
-  { path: '', component: LoginComponent },
+
+  { path: '', component: LoginComponent, canActivate: [MsalGuard] },
 ];
 
 @NgModule({
