@@ -13,81 +13,61 @@ import { MatInputModule } from '@angular/material/input';
 import { SharedComponent } from './shared/shared.component';
 import { UserModule } from '../app/UserPersonal/user.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {
-  IPublicClientApplication,
-  PublicClientApplication,
-  InteractionType,
-  BrowserCacheLocation,
-  LogLevel,
-} from '@azure/msal-browser';
-import {
-  MsalGuard,
-  MsalInterceptor,
-  MsalBroadcastService,
-  MsalInterceptorConfiguration,
-  MsalModule,
-  MsalService,
-  MSAL_GUARD_CONFIG,
-  MSAL_INSTANCE,
-  MSAL_INTERCEPTOR_CONFIG,
-  MsalGuardConfiguration,
-  MsalRedirectComponent,
-} from '@azure/msal-angular';
+import { IPublicClientApplication, PublicClientApplication, InteractionType, BrowserCacheLocation, LogLevel } from '@azure/msal-browser';
+import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
+import { HomeComponent } from './home/home.component';
 
-const isIE =
-  window.navigator.userAgent.indexOf('MSIE ') > -1 ||
-  window.navigator.userAgent.indexOf('Trident/') > -1;
+const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1;
 
 export function loggerCallback(logLevel: LogLevel, message: string) {
   console.log(message);
 }
+
 export function MSALInstanceFactory(): IPublicClientApplication {
+  debugger;
   return new PublicClientApplication({
     auth: {
       clientId: '17272d07-ae51-425d-a6e3-e0ca114adc47',
       authority:
         'https://login.microsoftonline.com/1213517f-fdb5-4592-9934-471910b55de2',
-      redirectUri: 'https://halwani-frontend.azurewebsites.net/itmanager',
-      postLogoutRedirectUri: 'https://halwani-frontend.azurewebsites.net/',
+      redirectUri: 'https://halwani-frontend.azurewebsites.net/',
+      postLogoutRedirectUri: 'https://halwani-frontend.azurewebsites.net/login',
     },
     cache: {
-      cacheLocation: 'localStorage',
+      cacheLocation: BrowserCacheLocation.LocalStorage,
       storeAuthStateInCookie: isIE, // set to true for IE 11
     },
     system: {
       loggerOptions: {
         loggerCallback,
         logLevel: LogLevel.Info,
-        piiLoggingEnabled: false,
-      },
-    },
+        piiLoggingEnabled: false
+      }
+    }
   });
 }
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
-  // protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', ['user.read']); // Prod environment. Uncomment to use.
-  protectedResourceMap.set('https://graph.microsoft-ppe.com/v1.0/me', [
-    'user.read',
-  ]);
+  protectedResourceMap.set('Enter_the_Graph_Endpoint_Herev1.0/me', ['user.read']);
 
   return {
     interactionType: InteractionType.Redirect,
-    protectedResourceMap,
+    protectedResourceMap
   };
 }
 
 export function MSALGuardConfigFactory(): MsalGuardConfiguration {
-  return {
+  return { 
     interactionType: InteractionType.Redirect,
     authRequest: {
-      scopes: ['user.read'],
-    },
+      scopes: ['user.read']
+    }
   };
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SharedComponent],
+  declarations: [AppComponent, LoginComponent, SharedComponent, HomeComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

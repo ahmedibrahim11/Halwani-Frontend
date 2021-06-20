@@ -31,6 +31,7 @@ import { MyEsclationsComponent } from './UserPersonal/my-esclations/my-esclation
 import { UserDetailsComponent } from './UserPersonal/user-details/user-details.component';
 import { TicketEsclationsComponent } from './ITManager/ticket-esclations/ticket-esclations.component';
 import { MsalGuard } from '@azure/msal-angular';
+import { SharedComponent } from './shared/shared.component';
 const routes: Routes = [
   {
     path: 'itpersonal',
@@ -154,8 +155,10 @@ const routes: Routes = [
       { path: '', component: MyTicketsComponent, canActivate: [MsalGuard] },
     ],
   },
+  { path: '', component: SharedComponent, canActivate: [MsalGuard] },
+  { path: 'login', component: LoginComponent },
 
-  { path: '', component: LoginComponent, canActivate: [MsalGuard] },
+
 ];
 
 @NgModule({

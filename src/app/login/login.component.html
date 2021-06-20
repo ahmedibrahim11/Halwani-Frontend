@@ -2,7 +2,7 @@
   <img src="assets/Group2.svg" class="Group-2" />
   <div class="card-div">
     <div class="content">
-      <!-- <form [formGroup]="UserViewInfoFormGroup" (ngSubmit)="submitLogin()">
+      <form [formGroup]="UserViewInfoFormGroup" (ngSubmit)="login()">
         <mat-form-field appearance="fill">
           <mat-label>Username</mat-label>
           <input matInput [type]="'text'" formControlName="email" />
@@ -10,29 +10,8 @@
             <mat-icon>email</mat-icon>
           </button>
         </mat-form-field>
-
-        <mat-form-field appearance="fill">
-          <mat-label>Password</mat-label>
-          <input
-            matInput
-            [type]="hide ? 'password' : 'text'"
-            formControlName="password"
-          />
-          <button
-            type="button"
-            mat-icon-button
-            matPrefix
-            (click)="hide = !hide"
-            [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide"
-          >
-            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-          </button>
-        </mat-form-field>
-
-        
-      </form> -->
-      <button (click)="submitLogin()" class="Rectangle-156">Sign In</button>
+      </form>
+      <button (click)="login()" class="Rectangle-156">Sign In</button>
     </div>
     <div style="margin-top: 5%">
       <img src="assets/Group3.svg" class="Group-3" />

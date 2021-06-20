@@ -1,83 +1,96 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { Router } from '@angular/router';
+import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
+import { AuthenticationResult, InteractionStatus, InteractionType, PopupRequest, RedirectRequest } from '@azure/msal-browser';
+import { Subject } from 'rxjs';
+import { UserLoginDTO } from "../core/DTOs/userLoginDTO";
+import { filter, takeUntil } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserLoginDTO } from '../core/DTOs/userLoginDTO';
 import { HTTPMainServiceService } from '../core/services/httpmain-service.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { RedirectRequest } from '@azure/msal-browser';
-import {
-  MsalBroadcastService,
-  MsalGuardConfiguration,
-  MsalService,
-  MSAL_GUARD_CONFIG,
-} from '@azure/msal-angular';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  durationInSeconds = 5;
-  showSpinner: Boolean = false;
-  hide = true;
+  isIframe = false;
+  loginDisplay = false;
+  showSpinner = false;
+  private readonly _destroying$ = new Subject<void>();
   UserViewInfoObject: UserLoginDTO = new UserLoginDTO();
   UserViewInfoFormGroup: FormGroup;
 
+
   constructor(
-    private formBuilder: FormBuilder,
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private authService: MsalService,
     private msalBroadcastService: MsalBroadcastService,
     private http: HTTPMainServiceService,
-    private _snackBar: MatSnackBar,
     private router: Router,
-    private msalService: MsalService
-  ) {}
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
     this.UserViewInfoFormGroup = this.formBuilder.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
+    this.isIframe = window !== window.parent && !window.opener;
+
+    this.msalBroadcastService.inProgress$
+      .pipe(
+        filter((status: InteractionStatus) => status === InteractionStatus.None),
+        takeUntil(this._destroying$)
+      )
+      .subscribe(() => {
+        this.setLoginDisplay();
+      });
+  }
+  setLoginDisplay() {
+    this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
+  }
+  login() {
+    debugger;
+    if (this.msalGuardConfig.interactionType === InteractionType.Popup) {
+      if (this.msalGuardConfig.authRequest) {
+        this.authService.loginPopup({ ...this.msalGuardConfig.authRequest } as PopupRequest)
+          .subscribe((response: AuthenticationResult) => {
+            debugger;
+            console.log("Account",response);
+            this.authService.instance.setActiveAccount(response.account);
+          });
+      } else {
+        this.authService.loginPopup()
+          .subscribe((response: AuthenticationResult) => {
+            this.authService.instance.setActiveAccount(response.account);
+          });
+      }
+    } else {
+      if (this.msalGuardConfig.authRequest) {
+        this.authService.loginRedirect({ ...this.msalGuardConfig.authRequest } as RedirectRequest);
+      } else {
+        this.authService.loginRedirect();
+      }
+    }
   }
 
-  submitLogin() {
-    // console.log(this.UserViewInfoFormGroup.value);
-    // this.showSpinner = true;
-    // if (this.UserViewInfoFormGroup.valid) {
-    //   this.http.POST(`Authentication/Login`, {
-    //     userName: this.UserViewInfoFormGroup.value.email,
-    //     password: this.UserViewInfoFormGroup.value.password
-    //   }).subscribe((data) => {
-    //     this.showSpinner = false;
-    //     console.log("data", data);
-    //     localStorage.setItem("userData", JSON.stringify(data))
-    //     switch (data.userProfile.roleEnum) {
-    //       case 0:
-    //         this.router.navigate(["/itmanager"])
-    //         break;
-    //       case 1:
-    //         this.router.navigate(["/itpersonal"])
-    //         break;
-    //       case 2:
-    //         this.router.navigate(["/user"])
-    //         break;
 
-    //     }
-    //   }, err => {
-    //     this.showSpinner=false;
-    //     this._snackBar.open("Username or password is incorrct", "OK", { duration: this.durationInSeconds * 1000 }); })
-    //   ///navigate depending on credentials
-    // }
-    this.msalService.loginRedirect();
-    this.msalService.instance.handleRedirectPromise().then((res) => {
-      if (res != null && res.account != null) {
-        this.msalService.instance.setActiveAccount(res.account);
-        console.log(res.account);
-      }
-    });
+ 
+  logout() {
+    if (this.msalGuardConfig.interactionType === InteractionType.Popup) {
+      this.authService.logoutPopup({
+        postLogoutRedirectUri: "/",
+        mainWindowRedirectUri: "/"
+      });
+    } else {
+      this.authService.logoutRedirect({
+        postLogoutRedirectUri: "/",
+      });
+    }
+  }
+
+  ngOnDestroy(): void {
+    this._destroying$.next(undefined);
+    this._destroying$.complete();
   }
 }
