@@ -1,15 +1,16 @@
 <div class="table-header">
-  <button
-    type="button"
-    class="Filter"
-    (click)="openFilterModal()"
-    mat-button
-    *ngIf="dataLoaded"
-  >
-    <mat-icon class="filter-icon icon">filter_list</mat-icon>Filter
-  </button>
+  <div class="tab-table-filter">
+    <button
+      type="button"
+      class="Filter"
+      (click)="openFilterModal()"
+      mat-button
+      *ngIf="dataLoaded"
+    >
+      <mat-icon class="filter-icon icon">filter_list</mat-icon>Filter
+    </button>
 
-  <!-- <mat-form-field class="Rectangle-48" *ngIf="dataLoaded">
+    <!-- <mat-form-field class="Rectangle-48" *ngIf="dataLoaded">
     <mat-label>Search Tickets by..</mat-label>
     <mat-chip-list #chipList aria-label="Tickets selection">
       <mat-chip
@@ -31,7 +32,7 @@
       />
     </mat-chip-list>
   </mat-form-field> -->
-  <!-- <mat-form-field class="Rectangle-48" *ngIf="dataLoaded">
+    <!-- <mat-form-field class="Rectangle-48" *ngIf="dataLoaded">
     <input
       matInput
       placeholder="Ticket No."
@@ -49,29 +50,30 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field> -->
-  <form [formGroup]="ticketForm" class="Rectangle-48" *ngIf="dataLoaded">
-    <mat-form-field style="display: block">
-      <input
-        type="text"
-        matInput
-        placeholder="Search by ticket number.."
-        formControlName="ticket"
-        [matAutocomplete]="autoCo"
-      />
-      <mat-autocomplete
-        (optionSelected)="onSelectionChanged($event)"
-        #autoCo="matAutocomplete"
-        [displayWith]="displayCo"
-      >
-        <mat-option
-          *ngFor="let ticketno of filteredTickets | async"
-          [value]="ticketno"
+    <form [formGroup]="ticketForm" class="Rectangle-48" *ngIf="dataLoaded">
+      <mat-form-field style="display: block">
+        <input
+          type="text"
+          matInput
+          placeholder="Search by ticket number.."
+          formControlName="ticket"
+          [matAutocomplete]="autoCo"
+        />
+        <mat-autocomplete
+          (optionSelected)="onSelectionChanged($event)"
+          #autoCo="matAutocomplete"
+          [displayWith]="displayCo"
         >
-          {{ ticketno }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-  </form>
+          <mat-option
+            *ngFor="let ticketno of filteredTickets | async"
+            [value]="ticketno"
+          >
+            {{ ticketno }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  </div>
   <div class="Table-buttons" *ngIf="!showSpinner && dataLoaded">
     <label class="Export-queue">Assign Tickets</label
     ><mat-icon (click)="globalAssignTicket()" class="icon">group_add</mat-icon>

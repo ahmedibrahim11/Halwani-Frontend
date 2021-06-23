@@ -1,17 +1,19 @@
 .table-header {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+}
+.tab-table-filter{
+  display: flex;
+  flex-direction: row;
 }
 .mat-column-select {
   overflow: initial;
 }
 
-.table {
-  height: fit-content;
-}
+
 
 .Filter {
-  width: 7.5rem;
   height: 3.45rem;
   margin: 3px 0.25rem 4px 10px;
   font-family: Inter;
@@ -33,7 +35,6 @@
   padding-right: 0.5rem;
 }
 .Rectangle-48 {
-  width: 25rem;
   height: 2.45rem;
   margin: 2px 26.3125rem 0 8px;
   padding: 8px 30px 8px 19.2px;
@@ -47,7 +48,6 @@
   background-color: white;
 }
 .Table-buttons {
-  width: 12rem;
   height: 2.45rem;
   flex-grow: 0;
   display: flex;
@@ -61,7 +61,7 @@
   background-color: #f5f6f7;
 }
 .Export-queue {
-  width: 141px;
+  width: 8rem;
   height: 24px;
   flex-grow: 0;
   font-family: Poppins;
@@ -71,7 +71,6 @@
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  text-align: left;
   color: #42526e;
 }
 
@@ -80,7 +79,6 @@
 }
 /* cell 1 */
 .menu {
-  width: 17rem;
   display: flex;
   flex-direction: row;
 }
@@ -95,7 +93,6 @@
   align-self: center;
 }
 .person-data-menu {
-  width: 11rem;
 
   margin-top: 0;
   line-height: 0.5%;
@@ -103,7 +100,6 @@
 }
 .Low {
   color: #007f00;
-  width: 45px;
   height: 22px;
   flex-grow: 0;
   display: flex;
@@ -116,7 +112,6 @@
   background-color: #cdffcd;
 }
 .High {
-  width: 50px;
   height: 22px;
   flex-grow: 0;
   display: flex;
@@ -130,7 +125,6 @@
   background-color: #ffcdcd;
 }
 .Medium {
-  width: 72px;
   height: 22px;
   flex-grow: 0;
   display: flex;
@@ -148,7 +142,6 @@
   border: none;
   border-radius: 30px;
   height: 100%;
-  width: 100%;
   margin: auto;
 }
 .icon:hover {
@@ -197,4 +190,9 @@
   color: #c4161c;
   margin-top: 1.5rem;
 }
-
+table{
+  text-align: start;
+}
+th{
+  text-align: center;
+}
