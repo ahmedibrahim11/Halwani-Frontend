@@ -109,7 +109,7 @@ export class TicketDetailsMainComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         const creationDate = new Date(data.submitDate);
         const resolvedDate = new Date(data.resolvedDate);
-        console.log(data);
+        console.log('weeeeeee', data);
         this.userMessage = {
           ticketNumber: data.ticketNumber,
           ticketName: data.ticketName,
@@ -134,12 +134,10 @@ export class TicketDetailsMainComponent implements OnInit, OnDestroy {
           productCategoryName2: data.productCategoryName2,
           lastModifiedDate: data.lastModifiedDate,
           submitterInitials: this.initials(data.submitterName).toString(),
-          ReporterInitials: this.initials(data.submitterName).toString(),
+          ReporterInitials: data.submitterName.toString(),
           currentUserInitials: this.initials(this.currentUser).toString(),
           assignedTo:
-            data.assignedUser !== null
-              ? this.initials(data.assignedUser).toString()
-              : 'N A',
+            data.assignedUser !== null ? data.assignedUser.toString() : 'N A',
         };
         this.isDataLoaded = true;
 
