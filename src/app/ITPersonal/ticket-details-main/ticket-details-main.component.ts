@@ -134,12 +134,10 @@ export class TicketDetailsMainComponent implements OnInit, OnDestroy {
           productCategoryName2: data.productCategoryName2,
           lastModifiedDate: data.lastModifiedDate,
           submitterInitials: this.initials(data.submitterName).toString(),
-          ReporterInitials: this.initials(data.submitterName).toString(),
+          ReporterInitials: data.submitterName.toString(),
           currentUserInitials: this.initials(this.currentUser).toString(),
           assignedTo:
-            data.assignedUser !== null
-              ? this.initials(data.assignedUser).toString()
-              : 'N A',
+            data.assignedUser !== null ? data.assignedUser.toString() : 'N A',
         };
         this.isDataLoaded = true;
 

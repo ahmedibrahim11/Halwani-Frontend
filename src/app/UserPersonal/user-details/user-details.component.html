@@ -2,11 +2,19 @@
   <div class="main-dev">
     <div class="componentHeader">
       <div class="backButton">
-        <a *ngIf="fragment != null" [routerLink]="['/user', fragment]">
-          <mat-icon>keyboard_backspace</mat-icon>
+        <a
+          *ngIf="fragment != null"
+          [routerLink]="['/user', fragment]"
+          style="background-color: rgb(71, 70, 70); border-radius: 1rem"
+        >
+          <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
-        <a *ngIf="fragment == null" [routerLink]="['/user']">
-          <mat-icon>keyboard_backspace</mat-icon>
+        <a
+          *ngIf="fragment == null"
+          [routerLink]="['/user']"
+          style="background-color: rgb(71, 70, 70); border-radius: 1rem"
+        >
+          <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
         <label class="HeaderLabel">Back to tickets queue</label>
       </div>
@@ -47,59 +55,75 @@
     </form>
   </div>
   <div class="sideBar">
-    <div *ngIf="fragment != null">
+    <div *ngIf="fragment != null" class="ticket-details-status">
       <div
         *ngIf="userMessage.ticketStatus === 0 || userMessage.ticketStatus === 1"
       >
-        <p class="statusButton" style="background-color: darkgreen">Created</p>
+        <p
+          class="statusButton"
+          style="background-color: darkgreen; color: white"
+        >
+          Created
+        </p>
       </div>
       <div
         *ngIf="userMessage.ticketStatus === 2 || userMessage.ticketStatus === 3"
       >
-        <p class="statusButton" style="background-color: #ffd23e">
+        <p class="statusButton" style="background-color: #ffd23e; color: white">
           Waiting for responce
         </p>
       </div>
       <div *ngIf="userMessage.ticketStatus === 4">
-        <p class="statusButton" style="background-color: #7b61ff">
+        <p class="statusButton" style="background-color: #7b61ff; color: white">
           In Progress
         </p>
       </div>
       <div *ngIf="userMessage.ticketStatus === 5">
-        <p class="statusButton" style="background-color: #ed1c24">
+        <p class="statusButton" style="background-color: #ed1c24; color: white">
           Ticket escelated
         </p>
       </div>
       <div *ngIf="userMessage.ticketStatus === 6">
-        <p class="statusButton" style="background-color: #1793e8">
+        <p class="statusButton" style="background-color: #1793e8; color: white">
           Ticket reopened
         </p>
       </div>
       <div *ngIf="userMessage.ticketStatus === 7">
-        <p class="statusButton" style="background-color: #00b668">Resolved</p>
+        <p class="statusButton" style="background-color: #00b668; color: white">
+          Resolved
+        </p>
       </div>
       <div *ngIf="userMessage.ticketStatus === 8">
-        <p class="statusButton" style="background-color: darkred">Cancelled</p>
+        <p class="statusButton" style="background-color: darkred; color: white">
+          Cancelled
+        </p>
       </div>
     </div>
     <div *ngIf="fragment == null">
       <div *ngIf="userMessage.ticketStatus === 1">
-        <p class="statusButton" style="background-color: darkgreen">Created</p>
+        <p
+          class="statusButton"
+          style="background-color: darkgreen; color: white"
+        >
+          Created
+        </p>
       </div>
       <div
         *ngIf="userMessage.ticketStatus === 2 || userMessage.ticketStatus === 3"
       >
-        <p class="statusButton" style="background-color: #ffd23e">
+        <p class="statusButton" style="background-color: #ffd23e; color: white">
           Waiting for responce
         </p>
       </div>
       <div *ngIf="userMessage.ticketStatus === 4">
-        <p class="statusButton" style="background-color: #7b61ff">
+        <p class="statusButton" style="background-color: #7b61ff; color: white">
           In Progress
         </p>
       </div>
       <div *ngIf="userMessage.ticketStatus === 7">
-        <p class="statusButton" style="background-color: #00b668">Resolved</p>
+        <p class="statusButton" style="background-color: #00b668; color: white">
+          Resolved
+        </p>
       </div>
       <div *ngIf="userMessage.ticketStatus === 8">
         <button
@@ -212,19 +236,11 @@
     </div>
     <div class="Ticket-ID">Severity</div>
     <div class="ticketdev">
-      <label class="SR-103" *ngIf="userMessage.ticketSeverity === 0">Low</label
-      ><label class="SR-103" *ngIf="userMessage.ticketSeverity === 1"
-        >Medium</label
-      >
-      <label class="SR-103" *ngIf="userMessage.ticketSeverity === 2"
-        >High</label
-      >
+      <label class="SR-103">{{ userMessage.ticketSeverity }}</label>
     </div>
     <div class="Ticket-ID">Priority</div>
     <div class="ticketdev">
-      <label class="SR-103" *ngIf="userMessage.priority === 0">Low</label
-      ><label class="SR-103" *ngIf="userMessage.priority === 1">Medium</label>
-      <label class="SR-103" *ngIf="userMessage.priority === 2">High</label>
+      <label class="SR-103">{{ userMessage.priority }}</label>
     </div>
     <div class="Ticket-ID">Product categorization</div>
     <div class="ticketdev">

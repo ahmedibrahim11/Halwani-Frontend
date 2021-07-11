@@ -12,6 +12,11 @@
   flex-direction: row;
   margin-left: 2.5rem;
 }
+.ticket-details-status{
+  margin-top: 1rem;
+  border-radius: .4rem;
+  height: 50px;
+}
 .HeaderLabel {
   width: 153px;
   height: 20px;
@@ -19,6 +24,7 @@
   font-family: Poppins;
   font-size: 14px;
   font-weight: 600;
+  opacity: .5;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.43;
@@ -96,7 +102,7 @@
   height: 44px;
   gap: 10px;
   float: right;
-  margin-right: 12%;
+  margin-right: 12.5%;
   margin-top: 3%;
   padding: 10px;
   border-radius: 4px;
@@ -130,7 +136,6 @@
 }
 .Ticket-ID {
   height: 24px;
-  margin: 38px 67.5px 8px 0;
   font-family: Poppins;
   font-size: 16px;
   font-weight: 600;
@@ -174,18 +179,19 @@
 }
 .assignmentDev {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .asignee-container {
-  width: 48px;
-  height: 48px;
+  width: fit-content;
+  height: 30px;
   flex-grow: 0;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
   gap: 0;
-  padding: 0;
+  padding: 5px;
   border-radius: 8px;
   background-color: #c4161c;
   justify-content: center;
