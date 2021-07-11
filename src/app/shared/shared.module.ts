@@ -15,6 +15,8 @@ import { AddSettingsComponent } from './settings-main-tabs/help-center-config/ad
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserNotificationComponent } from './user-notification/user-notification.component';
 import { FiltersPopupComponent } from './settings-main-tabs/help-center-config/filters-popup/filters-popup.component';
+import { SLASettingsComponent } from './settings-main-tabs/slasettings/slasettings.component';
+import { CreateSLAComponent } from './settings-main-tabs/slasettings/create-sla/create-sla.component';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -27,6 +29,8 @@ import { FiltersPopupComponent } from './settings-main-tabs/help-center-config/f
     AddSettingsComponent,
     UserNotificationComponent,
     FiltersPopupComponent,
+    SLASettingsComponent,
+    CreateSLAComponent,
   ],
   imports: [
     CommonModule,

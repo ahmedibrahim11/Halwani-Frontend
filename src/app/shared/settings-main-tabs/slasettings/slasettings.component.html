@@ -1,0 +1,101 @@
+<div class="Rectangle-339">
+    <div class="fullheaderClass">
+
+
+        <span class="Rectangle-48">
+          
+        </span>
+        <div class="Table-buttons" (click)="openAddSLA()">
+            <label class="Export-queue">Add new SLA</label><img src="assets/Timer.svg" />
+        </div>
+    </div>
+    <div *ngIf="showSpinner === true; then spinner; else data">here is ignored</div>
+    <ng-template #spinner>
+        <div class="spinner-design">
+            <mat-spinner [diameter]="50"></mat-spinner>
+        </div>
+    </ng-template>
+    <ng-template #data class="table">
+        <table mat-table [dataSource]="dataSource" matSort matPagination (matSortChange)="sortChange($event)">
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    
+            <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="slaType">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>SLA Type</th>
+                <td mat-cell *matCellDef="let user">
+                    <span *ngIf="user.slaType==0">Intervention</span>
+                    <span *ngIf="user.slaType==1">Resolution</span>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="slaGoal">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>SLA Goal</th>
+                <td mat-cell *matCellDef="let date">
+    
+                    <p style="opacity: 0.7">{{ date.slaDuration }} Hours</p>
+    
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="productCategory">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Category</th>
+                <td mat-cell *matCellDef="let topic">
+                  
+                        {{ topic.productCategoryName }}
+                      
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="team">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Assigned Team</th>
+                <td mat-cell *matCellDef="let topic">
+                  
+    
+                            {{ topic.team }}
+                </td>
+            </ng-container>
+                <ng-container matColumnDef="priority">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Priority</th>
+                    <td mat-cell *matCellDef="let topic">
+                <div class="person-data-menu">
+                    <h3 *ngIf="topic.priority == 0" class="Low">Low</h3>
+                    <h3 *ngIf="topic.priority == 1" class="Medium">
+                        Medium
+                    </h3>
+                    <h3 *ngIf="topic.priority == 2" class="High">High</h3>
+                </div>
+                
+                       
+                    </td>
+                </ng-container>
+            <ng-container matColumnDef="Actions">
+                <th mat-header-cell *matHeaderCellDef>Actions</th>
+                <td mat-cell *matCellDef="let topic">
+                    <div class="menu">
+                        <!-- <mat-icon *ngIf="!topic.isVisable" (click)="setVisability(topic.id,true)">remove_red_eye</mat-icon>
+                        <mat-icon *ngIf="topic.isVisable" (click)="setVisability(topic.id,false)">remove_circle</mat-icon> -->
+                        <mat-icon class="icon" (click)="OpenEdit(topic.id)">edit</mat-icon>
+    
+                        <!-- <img src="assets/PeopleError.svg" style="margin-right: 0.1rem" class="icon" />
+     -->
+                        <!-- <img (click)="openTicket(topic.id)" src="assets/Open.svg" style="margin-right: 0.1rem" class="icon" />
+                            <app-ticket-options [ticketID]="topic.id"></app-ticket-options> -->
+                    </div>
+                </td>
+            </ng-container>
+        </table>
+    
+        <mat-paginator #paginator [pageSize]="pageSize" [length]="pageLength" (page)="pageEvents($event)"
+            [pageSizeOptions]="[5, 10, 20, 100]" showFirstLastButtons></mat-paginator>
+    </ng-template>
+    </div>
