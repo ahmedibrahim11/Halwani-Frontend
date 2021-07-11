@@ -109,7 +109,7 @@ export class TicketDetailsMainComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         const creationDate = new Date(data.submitDate);
         const resolvedDate = new Date(data.resolvedDate);
-        console.log(data);
+        console.log('weeeeeee', data);
         this.userMessage = {
           ticketNumber: data.ticketNumber,
           ticketName: data.ticketName,

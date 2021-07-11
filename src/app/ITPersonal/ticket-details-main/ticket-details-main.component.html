@@ -115,19 +115,11 @@
     </div>
     <div class="Ticket-ID">Severity</div>
     <div class="ticketdev" style="margin-bottom: 1rem">
-      <label class="SR-103" *ngIf="userMessage.ticketSeverity === 0">Low</label
-      ><label class="SR-103" *ngIf="userMessage.ticketSeverity === 1"
-        >Medium</label
-      >
-      <label class="SR-103" *ngIf="userMessage.ticketSeverity === 2"
-        >High</label
-      >
+      <label class="SR-103">{{ userMessage.ticketSeverity }}</label>
     </div>
     <div class="Ticket-ID">Priority</div>
     <div class="ticketdev" style="margin-bottom: 1rem">
-      <label class="SR-103" *ngIf="userMessage.priority === 0">Low</label
-      ><label class="SR-103" *ngIf="userMessage.priority === 1">Medium</label>
-      <label class="SR-103" *ngIf="userMessage.priority === 2">High</label>
+      <label class="SR-103">{{ userMessage.priority }}</label>
     </div>
     <div class="Ticket-ID">Product categorization</div>
     <div class="ticketdev" style="margin-bottom: 1rem">
