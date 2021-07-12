@@ -25,7 +25,7 @@ export class ProblemsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.tabs.setTabValue('Problems');
+    this.tabs.setTabValue('Problem');
     this.spinner.getSpinnerValue().subscribe((flag) => {
       this.showSpinner = flag;
     });
