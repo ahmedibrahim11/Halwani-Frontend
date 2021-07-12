@@ -59,6 +59,8 @@ export class MainCardBodyManagerComponent implements OnInit {
       case 4:
         this.tabs.setTabValue('Change');
         break;
+      default:
+        this.tabs.setTabValue(undefined);
     }
   }
   openDialog() {

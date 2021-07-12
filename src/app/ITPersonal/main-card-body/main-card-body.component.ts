@@ -58,6 +58,8 @@ export class MainCardBodyComponent implements OnInit {
       case 3:
         this.tabs.setTabValue('OverDue');
         break;
+      default:
+        this.tabs.setTabValue(undefined);
     }
   }
   openDialog() {
