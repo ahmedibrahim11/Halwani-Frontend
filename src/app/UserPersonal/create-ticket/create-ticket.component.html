@@ -1,84 +1,122 @@
-<div class="main-card  p-5 row">
+<div class="main-card p-5 row">
+  <div class="col-md-12">
+    <a
+      [routerLink]="['/user/helpCenter']"
+      class="row"
+      style="text-decoration: none; color: black"
+    >
+      <mat-icon>keyboard_arrow_left</mat-icon>
 
-    <div class="col-md-12">
-        <a [routerLink]="['/user/helpCenter']" class="row" style="text-decoration: none; color: black;">
-            <mat-icon>keyboard_arrow_left</mat-icon>
-
-            <label class="Back-to-help-center mr-2">Back to help center</label>
-        </a>
-    </div>
-    <div class="col-md-12 mt-1">
-        <div class="row">
-            <div class="col-md-11 Rectangle-6 p-3 pl-0">
-
-
-                <img src={{type.icon}} class="mr-1">
-                <label class="Get-IT-Help">{{type.name}}</label>
-                <p class="Get-assistance-for-general-IT-problems-and-questio  ml-4">{{type.description}}</p>
+      <label class="Back-to-help-center mr-2">Back to help center</label>
+    </a>
+  </div>
+  <div class="col-md-12 mt-1">
+    <div class="row">
+      <div class="col-md-11 Rectangle-6 p-3 pl-0">
+        <img [src]="type.icon" width="40px" height="40px" class="mr-1" />
+        <label class="Get-IT-Help">{{ type.name }}</label>
+        <p class="Get-assistance-for-general-IT-problems-and-questio ml-4">
+          {{ type.description }}
+        </p>
+      </div>
+      <form [formGroup]="createTicketDTOFormGroup" (ngSubmit)="submiCreate()">
+        <div class="col-md-12 p-0">
+          <label class="Ticket-type">Reporter</label>
+          <div class="col-md-12 Rectangle-5 p-3 pl-0">
+            <div class="menu">
+              <div class="red-menu">{{ submitterInitials }}</div>
+              <div class="person-data-menu">
+                <h6>{{ submitterName }}</h6>
+                <p style="opacity: 0.7">{{ reporter }}</p>
+              </div>
             </div>
-            <form [formGroup]="createTicketDTOFormGroup" (ngSubmit)="submiCreate()">
-                <div class="col-md-12 p-0">
-                <label class="Ticket-type">Reporter</label>
-                <div class="col-md-12 Rectangle-5 p-3 pl-0">
-                <div class="menu">
-                    <div class="red-menu">{{ submitterInitials }}</div>
-                    <div class="person-data-menu">
-                        <h6>{{submitterName}}</h6>
-                        <p style="opacity: 0.7">{{reporter}}</p>
-                    </div>
-                </div>
-                </div>
-                    <label class="Ticket-type">Summary <span class="mandatory"> *</span></label>
+          </div>
+          <label class="Ticket-type"
+            >Summary <span class="mandatory"> *</span></label
+          >
 
-                    <mat-form-field appearance="fill" [style.width.%]="100">
-
-                        <input matInput formControlName="summary">
-                    </mat-form-field>
-                    <label class="Ticket-type">Description </label>
-                    <mat-form-field appearance="fill" [style.width.%]="100">
-
-                        <textarea rows="7" matInput formControlName="description"></textarea>
-                    </mat-form-field>
-                    <label class="Ticket-type">Attachments </label>
-                    <div class="center">
-                        <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)"
-                            (onFileOver)="fileOver($event)" class="upload-drop-zone" (onFileLeave)="fileLeave($event)">
-                            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                                Drag and drop files, paste screenshots, or upload attachments
-                                <button type="button" class="cancel" style="display: block;margin-top: 1.5rem;"
-                                    (click)="openFileSelector()">Browse Files</button>
-                            </ng-template>
-                        </ngx-file-drop>
-                    </div>
-                    <div class="upload-table">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody class="upload-name-style">
-                                <tr *ngFor="let item of FileLinks; let i=index">
-                                    <td><strong>{{ item }}</strong></td>
-                                    <td><span class="delete-entry" style="cursor: pointer; color: red; margin-left: 2%"
-                                        (click)="deleteImage(item)">remove</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <div class="col-md-8" style="margin-left: 50%;" align="end">
-                    <a [routerLink]="['/user/helpCenter']" class="cancel btn" style="display: inline;">Cancel request</a>
-                    <button  class="send btn ml-4" type="submit" style="display: inline;"
-                        [disabled]="!createTicketDTOFormGroup.valid">Send ticket</button>
-                </div>
-            </form>
+          <mat-form-field appearance="fill" [style.width.%]="100">
+            <input matInput formControlName="summary" />
+          </mat-form-field>
+          <label class="Ticket-type">Description </label>
+          <mat-form-field appearance="fill" [style.width.%]="100">
+            <textarea
+              rows="7"
+              matInput
+              formControlName="description"
+            ></textarea>
+          </mat-form-field>
+          <label class="Ticket-type">Attachments </label>
+          <div class="center">
+            <ngx-file-drop
+              dropZoneLabel="Drop files here"
+              (onFileDrop)="dropped($event)"
+              (onFileOver)="fileOver($event)"
+              class="upload-drop-zone"
+              (onFileLeave)="fileLeave($event)"
+            >
+              <ng-template
+                ngx-file-drop-content-tmp
+                let-openFileSelector="openFileSelector"
+              >
+                Drag and drop files, paste screenshots, or upload attachments
+                <button
+                  type="button"
+                  class="cancel"
+                  style="display: block; margin-top: 1.5rem"
+                  (click)="openFileSelector()"
+                >
+                  Browse Files
+                </button>
+              </ng-template>
+            </ngx-file-drop>
+          </div>
+          <div class="upload-table">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody class="upload-name-style">
+                <tr *ngFor="let item of FileLinks; let i = index">
+                  <td>
+                    <strong>{{ item }}</strong>
+                  </td>
+                  <td>
+                    <span
+                      class="delete-entry"
+                      style="cursor: pointer; color: red; margin-left: 2%"
+                      (click)="deleteImage(item)"
+                      >remove</span
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
-
+        <div class="col-md-8" style="margin-left: 50%" align="end">
+          <a
+            [routerLink]="['/user/helpCenter']"
+            class="cancel btn"
+            style="display: inline"
+            >Cancel request</a
+          >
+          <button
+            class="send btn ml-4"
+            type="submit"
+            style="display: inline"
+            [disabled]="!createTicketDTOFormGroup.valid"
+          >
+            Send ticket
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
-<div class="row mt-5 mb-5 text-center" style="justify-content: center;">
-    <img src="assets/assist.svg" />
+<div class="row mt-5 mb-5 text-center" style="justify-content: center">
+  <img src="assets/assist.svg" />
 </div>
