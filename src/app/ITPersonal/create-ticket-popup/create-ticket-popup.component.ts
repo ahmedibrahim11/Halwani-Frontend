@@ -131,8 +131,11 @@ export class CreateTicketPopupComponent implements OnInit {
               this.ticketTypeDatasource = data
                 .filter((el1) => el1.ticketType === this.updateStatus)
                 .map((el) => {
-                  console.log(el);
-                  return { ticketType: el.ticketType, topics: el.topics };
+                  console.log('eeeyeyeyeyee', el);
+                  return {
+                    ticketType: el.ticketType,
+                    topics: el.topics,
+                  };
                 });
             }
           });
@@ -222,8 +225,11 @@ export class CreateTicketPopupComponent implements OnInit {
               : el1.ticketType === this.createTabsStatus
           )
           .map((el) => {
-            console.log(el);
-            return { ticketType: el.ticketType, topics: el.topics };
+            console.log('eee', el);
+            return {
+              ticketType: el.ticketType,
+              topics: el.topics,
+            };
           });
       }
     });

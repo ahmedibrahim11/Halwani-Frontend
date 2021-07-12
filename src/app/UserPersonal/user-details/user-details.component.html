@@ -16,7 +16,9 @@
         >
           <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
-        <label class="HeaderLabel">Back to tickets queue</label>
+        <label style="opacity: 0.5" class="HeaderLabel"
+          >Back to tickets queue</label
+        >
       </div>
 
       <div class="Email-Login">
@@ -230,7 +232,12 @@
     <div class="Ticket-ID">Ticket type</div>
     <div class="ticketdev">
       <span>
-        <img src="userMessage.ticketTypeIcon" style="margin-right: 0.25rem" />
+        <img
+          [src]="userMessage.ticketTypeIcon"
+          width="40px"
+          height="40px"
+          style="margin-right: 0.25rem"
+        />
         <label class="SR-103">{{ userMessage.ticketTypeName }}</label></span
       >
     </div>

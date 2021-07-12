@@ -1,33 +1,43 @@
-<div class="main-card  p-5 row">
-   
-    <div class="col-md-12" >
-    <a [routerLink]="['/user/helpCenter']" class="row" style="text-decoration: none; color: black;">
-        <mat-icon>keyboard_arrow_left</mat-icon>
-    
-        <label class="Back-to-help-center mr-2">Back to help center</label>
-            </a>
-    </div>
-    <div class="col-md-12 mt-1">
-        <label class="Common-Requests">{{name}}</label>
-        <p class="What-can-i-help-you-with mt-1">What can i help you with?</p>
-    </div>
-        <div class="col-md-12 mt-1">
-            <div class="row">
-                <div class="col-md-12 Rectangle-5 mb-3 pl-0" *ngFor="let Group of categoriesList" (click)="add(Group.id)">
-        
-                    <div class="col-md-11">
-                        <img src={{Group.icon}} class="mr-1">
-                        <label class="Get-IT-Help">{{Group.name}}</label>
-                        <p class="Get-assistance-for-general-IT-problems-and-questio  ml-4">{{Group.description}}</p>
-                    </div>
-                   
-                </div>
-            </div>
-           
-        
+<div class="main-card p-5 row">
+  <div class="col-md-12">
+    <a
+      [routerLink]="['/user/helpCenter']"
+      class="row"
+      style="text-decoration: none; color: black"
+    >
+      <mat-icon>keyboard_arrow_left</mat-icon>
+
+      <label class="Back-to-help-center mr-2">Back to help center</label>
+    </a>
+  </div>
+  <div class="col-md-12 mt-1">
+    <label class="Common-Requests">{{ name }}</label>
+    <p class="What-can-i-help-you-with mt-1">What can i help you with?</p>
+  </div>
+  <div class="col-md-12 mt-1">
+    <div class="row">
+      <div
+        class="col-md-12 Rectangle-5 mb-3 pl-0"
+        *ngFor="let Group of categoriesList"
+        (click)="add(Group.id)"
+      >
+        <div class="col-md-11">
+          <img
+            width="40px"
+            height="40px"
+            style="border-radius: 0.4rem"
+            src="{{ Group.icon }}"
+            class="mr-1"
+          />
+          <label class="Get-IT-Help">{{ Group.name }}</label>
+          <p class="Get-assistance-for-general-IT-problems-and-questio ml-4">
+            {{ Group.description }}
+          </p>
         </div>
-    
+      </div>
+    </div>
+  </div>
 </div>
-<div class="row mt-5 mb-5 text-center" style="justify-content: center;">
-    <img src="assets/assist.svg" />
+<div class="row mt-5 mb-5 text-center" style="justify-content: center">
+  <img src="assets/assist.svg" />
 </div>

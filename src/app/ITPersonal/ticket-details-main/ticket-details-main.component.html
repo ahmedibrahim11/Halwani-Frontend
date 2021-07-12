@@ -109,7 +109,12 @@
     <div class="Ticket-ID">Ticket type</div>
     <div class="ticketdev" style="margin-bottom: 1rem">
       <span>
-        <img src="userMessage.ticketTypeIcon" style="margin-right: 0.25rem" />
+        <img
+          width="20px"
+          height="20px"
+          [src]="userMessage.ticketTypeIcon"
+          style="margin-right: 0.25rem"
+        />
         <label class="SR-103">{{ userMessage.ticketTypeName }}</label></span
       >
     </div>
