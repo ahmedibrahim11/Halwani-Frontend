@@ -18,8 +18,17 @@
             <mat-option
               *ngFor="let topic of option.topics"
               [value]="topic['id']"
-            >
-              {{ topic["text"] }}
+              ><div class="request-type-container">
+                <img
+                  style="padding-top: 0.5rem; margin-right: 0.5rem"
+                  [src]="topic['icon']"
+                  width="20px"
+                  height="20px"
+                />
+                <p>
+                  {{ topic["text"] }}
+                </p>
+              </div>
             </mat-option>
           </mat-optgroup>
         </mat-select>
@@ -275,7 +284,17 @@
               *ngFor="let topic of option.topics"
               [value]="topic['id']"
             >
-              {{ topic["text"] }}
+              <div class="request-type-container">
+                <img
+                  style="padding-top: 0.5rem; margin-right: 0.5rem"
+                  [src]="topic['icon']"
+                  width="20px"
+                  height="20px"
+                />
+                <p>
+                  {{ topic["text"] }}
+                </p>
+              </div>
             </mat-option>
           </mat-optgroup>
         </mat-select>
