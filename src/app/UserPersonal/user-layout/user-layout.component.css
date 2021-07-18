@@ -4,8 +4,6 @@
   background-image: linear-gradient(to top, #1ced63, #165cc4);
   min-height: 20.6rem;
   height: 20%;
-  position: absolute;
-  width: 100%;
 }
 .Ellipse-1 {
   flex-grow: 0;
@@ -31,8 +29,6 @@
   color: #ffffff;
 }
 .Rectangle-4 {
-  position: relative;
   z-index: 1;
-
   height: 100%;
 }

@@ -1,6 +1,12 @@
 <div class="table-header">
   <div class="tab-table-filter">
-    <button type="button" class="Filter" (click)="openFilterModal()" mat-button *ngIf="dataLoaded">
+    <button
+      type="button"
+      class="Filter"
+      (click)="openFilterModal()"
+      mat-button
+      *ngIf="dataLoaded"
+    >
       <mat-icon class="filter-icon icon">filter_list</mat-icon>Filter
     </button>
 
@@ -28,11 +34,22 @@
   </mat-form-field> -->
     <form [formGroup]="ticketForm" class="Rectangle-48" *ngIf="dataLoaded">
       <mat-form-field style="display: block">
-        <input type="text" matInput placeholder="Search by ticket number.." formControlName="ticket"
-          [matAutocomplete]="autoCo" />
-        <mat-autocomplete (optionSelected)="onSelectionChanged($event)" #autoCo="matAutocomplete"
-          [displayWith]="displayCo">
-          <mat-option *ngFor="let ticketno of filteredTickets | async" [value]="ticketno">
+        <input
+          type="text"
+          matInput
+          placeholder="Search by ticket number.."
+          formControlName="ticket"
+          [matAutocomplete]="autoCo"
+        />
+        <mat-autocomplete
+          (optionSelected)="onSelectionChanged($event)"
+          #autoCo="matAutocomplete"
+          [displayWith]="displayCo"
+        >
+          <mat-option
+            *ngFor="let ticketno of filteredTickets | async"
+            [value]="ticketno"
+          >
             {{ ticketno }}
           </mat-option>
         </mat-autocomplete>
@@ -40,7 +57,8 @@
     </form>
   </div>
   <div class="Table-buttons" *ngIf="dataLoaded">
-    <label class="Export-queue">Export Selected</label><img src="assets/Checkbox.svg" />
+    <label class="Export-queue">Export Selected</label
+    ><img src="assets/Checkbox.svg" />
   </div>
 </div>
 
@@ -56,19 +74,31 @@
     <app-no-more-tickets></app-no-more-tickets>
   </div>
   <div *ngIf="!empty">
-    <table mat-table [dataSource]="dataSource" matSort matPagination (matSortChange)="sortChange($event)">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      matPagination
+      (matSortChange)="sortChange($event)"
+    >
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
-          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
-            [indeterminate]="selection.hasValue() && !isAllSelected()">
+          <mat-checkbox
+            (change)="$event ? masterToggle() : null"
+            [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()"
+          >
           </mat-checkbox>
         </th>
         <td mat-cell *matCellDef="let row">
-          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-            [checked]="selection.isSelected(row)">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)"
+          >
           </mat-checkbox>
         </td>
       </ng-container>
@@ -81,16 +111,31 @@
               <label>{{ firstCharacter }}</label>
             </div>
             <div class="person-data-menu">
-              <a *ngIf="from === 0" [routerLink]="['/itpersonal/details', user.id]" fragment="servicerequests">
+              <a
+                *ngIf="from === 0"
+                [routerLink]="['/itpersonal/details', user.id]"
+                fragment="servicerequests"
+              >
               </a>
-              <a *ngIf="from === 2" [routerLink]="['/itpersonal/details', user.id]" fragment="incidents">
+              <a
+                *ngIf="from === 2"
+                [routerLink]="['/itpersonal/details', user.id]"
+                fragment="incidents"
+              >
               </a>
-              <a *ngIf="from === 3" [routerLink]="['/itpersonal/details', user.id]" fragment="problems">
+              <a
+                *ngIf="from === 3"
+                [routerLink]="['/itpersonal/details', user.id]"
+                fragment="problems"
+              >
               </a>
-              <a *ngIf="from === null" [routerLink]="['/itpersonal/details', user.id]">
+              <a
+                *ngIf="from === null"
+                [routerLink]="['/itpersonal/details', user.id]"
+              >
               </a>
               <h3>{{ user.name }}</h3>
-              <p style="opacity: 0.7">{{ user.email }}</p>
+              <h4 style="opacity: 0.7">{{ user.email }}</h4>
             </div>
           </div>
         </td>
@@ -109,21 +154,33 @@
         <td mat-cell *matCellDef="let topic">
           <div class="person-data-menu">
             <h3>{{ topic.ticketTopic }}</h3>
-            <p style="opacity: 0.7" style="display: flex; align-items: center"
-              *ngIf="topic.ticketCategory == TicketCategory.Servicerequest">
+            <p
+              style="opacity: 0.7"
+              style="display: flex; align-items: center"
+              *ngIf="topic.ticketCategory == TicketCategory.Servicerequest"
+            >
               <img src="assets/4.png" style="padding-right: 0.25rem" />Service
               request
             </p>
-            <p style="opacity: 0.7" style="display: flex; align-items: center"
-              *ngIf="topic.ticketCategory == TicketCategory.Problem">
+            <p
+              style="opacity: 0.7"
+              style="display: flex; align-items: center"
+              *ngIf="topic.ticketCategory == TicketCategory.Problem"
+            >
               <img src="assets/6.png" style="padding-right: 0.25rem" />Problem
             </p>
-            <p style="opacity: 0.7" style="display: flex; align-items: center"
-              *ngIf="topic.ticketCategory == TicketCategory.Change">
+            <p
+              style="opacity: 0.7"
+              style="display: flex; align-items: center"
+              *ngIf="topic.ticketCategory == TicketCategory.Change"
+            >
               <img src="assets/7.png" style="padding-right: 0.25rem" />Change
             </p>
-            <p style="opacity: 0.7" style="display: flex; align-items: center"
-              *ngIf="topic.ticketCategory == TicketCategory.Incident">
+            <p
+              style="opacity: 0.7"
+              style="display: flex; align-items: center"
+              *ngIf="topic.ticketCategory == TicketCategory.Incident"
+            >
               <img src="assets/5.png" style="padding-right: 0.25rem" />Incident
             </p>
           </div>
@@ -153,21 +210,34 @@
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let topic">
           <div class="menu">
-            <mat-icon (click)="resolveTicket(topic.id)" class="icon resolveDiv">assignment_turned_in</mat-icon>
+            <mat-icon (click)="resolveTicket(topic.id)" class="icon resolveDiv"
+              >assignment_turned_in</mat-icon
+            >
             <div class="hide">
               <p>Resolve Ticket</p>
             </div>
-            <img (click)="escalateTicket(topic.id)" src="assets/PeopleError.svg" style="margin-right: 0.1rem"
-              class="icon escalateDiv" />
+            <img
+              (click)="escalateTicket(topic.id)"
+              src="assets/PeopleError.svg"
+              style="margin-right: 0.1rem"
+              class="icon escalateDiv"
+            />
             <div class="hide">
               <p>Escalate Ticket</p>
             </div>
-            <img (click)="openTicket(topic.id)" src="assets/Open.svg" style="margin-right: 0.1rem"
-              class="icon detailsDiv" />
+            <img
+              (click)="openTicket(topic.id)"
+              src="assets/Open.svg"
+              style="margin-right: 0.1rem"
+              class="icon detailsDiv"
+            />
             <div class="hide">
               <p>Ticket details</p>
             </div>
-            <app-ticket-options [ticketID]="topic.id" class="optionsDiv"></app-ticket-options>
+            <app-ticket-options
+              [ticketID]="topic.id"
+              class="optionsDiv"
+            ></app-ticket-options>
             <div class="hide">
               <p>Ticket options</p>
             </div>
@@ -176,7 +246,13 @@
       </ng-container>
     </table>
 
-    <mat-paginator #paginator [pageSize]="pageSize" [length]="pageLength" (page)="pageEvents($event)"
-      [pageSizeOptions]="[5, 10, 20, 100]" showFirstLastButtons></mat-paginator>
+    <mat-paginator
+      #paginator
+      [pageSize]="pageSize"
+      [length]="pageLength"
+      (page)="pageEvents($event)"
+      [pageSizeOptions]="[5, 10, 20, 100]"
+      showFirstLastButtons
+    ></mat-paginator>
   </div>
 </ng-template>
