@@ -241,13 +241,16 @@
       </div>
     </mat-dialog-content>
 
-    <mat-dialog-actions align="end">
+    <mat-dialog-actions align="start">
       <mat-checkbox
         class="checkBox"
         class="check-box"
         formControlName="saveAndOpenAnother"
         >Create another ticket
       </mat-checkbox>
+    </mat-dialog-actions>
+
+    <mat-dialog-actions align="end" style="display: flex; flex-direction: row">
       <button mat-button mat-dialog-close class="cancel">Cancel request</button>
       <button
         mat-button
@@ -520,7 +523,7 @@
       </div>
     </mat-dialog-content>
 
-    <mat-dialog-actions align="end">
+    <mat-dialog-actions align="end" style="display: flex; flex-direction: row">
       <button mat-button mat-dialog-close class="cancel">Cancel request</button>
       <button mat-button [mat-dialog-close]="true" class="send" type="submit">
         Update ticket
