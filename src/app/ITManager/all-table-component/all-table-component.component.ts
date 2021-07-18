@@ -70,6 +70,7 @@ export class AllTableComponentComponent implements OnInit {
           createdDate: cerationDate.toDateString(),
           createdTime: cerationDate.toLocaleTimeString(),
           ticketTopic: el['requestType']['name'],
+          teamName:el['teamName'],
           ticketCategory: el['requestType']['ticketType'],
           ticketNumber: el['ticketNumber'],
           Sevirity: el['severity'],
@@ -115,7 +116,7 @@ export class AllTableComponentComponent implements OnInit {
               createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['requestType']['name'],
               ticketNumber: el['ticketNumber'],
-
+              teamName:el['teamName'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
@@ -148,7 +149,7 @@ export class AllTableComponentComponent implements OnInit {
               createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['requestType']['name'],
               ticketNumber: el['ticketNumber'],
-
+              teamName:el['teamName'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
@@ -180,7 +181,7 @@ export class AllTableComponentComponent implements OnInit {
               createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['requestType']['name'],
               ticketNumber: el['ticketNumber'],
-
+              teamName:el['teamName'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
@@ -258,6 +259,7 @@ export class AllTableComponentComponent implements OnInit {
             initials: this.initials(el['rasiedBy']['name']),
             name: el['rasiedBy']['name'],
             email: el['rasiedBy']['email'],
+            teamName:el['teamName'],
             createdDate: cerationDate.toDateString(),
             createdTime: cerationDate.toLocaleTimeString(),
             ticketTopic: el['requestType']['name'],
@@ -334,6 +336,7 @@ export class AllTableComponentComponent implements OnInit {
                   initials: this.initials(el['rasiedBy']['name']),
                   name: el['rasiedBy']['name'],
                   email: el['rasiedBy']['email'],
+                  teamName:el['teamName'],
                   createdDate: cerationDate.toDateString(),
                   createdTime: cerationDate.toLocaleTimeString(),
                   tticketTopic: el['requestType']['name'],
@@ -384,7 +387,7 @@ export class AllTableComponentComponent implements OnInit {
               email: el['rasiedBy']['email'],
               createdDate: cerationDate.toDateString(),
               ticketNumber: el['ticketNumber'],
-
+              teamName:el['teamName'],
               createdTime: cerationDate.toLocaleTimeString(),
               tticketTopic: el['requestType']['name'],
               ticketCategory: el['requestType']['ticketType'],
@@ -454,7 +457,7 @@ export class AllTableComponentComponent implements OnInit {
               createdTime: cerationDate.toLocaleTimeString(),
               tticketTopic: el['requestType']['name'],
               ticketNumber: el['ticketNumber'],
-
+              teamName:el['teamName'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
@@ -501,6 +504,7 @@ export class AllTableComponentComponent implements OnInit {
             createdTime: cerationDate.toLocaleTimeString(),
             ticketTopic: el['requestType']['name'],
             ticketNumber: el['ticketNumber'],
+            teamName:el['teamName'],
 
             ticketCategory: el['requestType']['ticketType'],
             Sevirity: el['severity'],
@@ -569,7 +573,7 @@ export class AllTableComponentComponent implements OnInit {
                   createdDate: cerationDate.toDateString(),
                   createdTime: cerationDate.toLocaleTimeString(),
                   ticketNumber: el['ticketNumber'],
-
+                  teamName:el['teamName'],
                   ticketTopic: el['requestType']['name'],
                   ticketCategory: el['requestType']['ticketType'],
                   Sevirity: el['severity'],
@@ -596,6 +600,8 @@ export class AllTableComponentComponent implements OnInit {
             sortValue: 0,
           })
           .subscribe((res) => {
+
+            debugger;
             if (res.totalCount !== 0) {
               console.log('eeeee', res);
 
@@ -618,7 +624,7 @@ export class AllTableComponentComponent implements OnInit {
                   createdDate: cerationDate.toDateString(),
                   createdTime: cerationDate.toLocaleTimeString(),
                   ticketTopic: el['requestType']['name'],
-
+                  teamName:el['teamName'],
                   ticketCategory: el['requestType']['ticketType'],
                   ticketNumber: el['ticketNumber'],
                   Sevirity: el['severity'],
@@ -678,18 +684,22 @@ export class AllTableComponentComponent implements OnInit {
     });
   }
   globalAssignTicket() {
+    debugger;
     var allTickets = this.selection.selected;
-    console.log('all', this.selection.selected);
+    console.log('allTickets', this.selection.selected);
     const dialogRef = this.dialog.open(AssignTicketComponent, {
       position: { top: '15%', left: '22%' },
       data: allTickets,
     });
   }
-  assignTicket(id: any) {
+  assignTicket(data: any) {
+    debugger
+    debugger;
     const dialogRef = this.dialog.open(AssignTicketComponent, {
       position: { top: '15%', left: '22%' },
+      data:data.teamName,
     });
-    this.share.setData(id);
+    this.share.setData(data.id);
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
