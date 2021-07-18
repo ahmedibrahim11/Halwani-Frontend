@@ -33,7 +33,7 @@ export class AssignTicketComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('ticketIDs', this.ticketIds);
-    this.http.GET('User/getUser').subscribe((data) => {
+    this.http.GET(`User/getItPersonal/${this.data}`).subscribe((data) => {
       this.reporterDatasource = data.map((el) => {
         return {
           label: el.text,
@@ -42,6 +42,7 @@ export class AssignTicketComponent implements OnInit {
           label1: el.email,
         };
       });
+      console.log("reporterDatasource",this.reporterDatasource);
     });
   }
 
