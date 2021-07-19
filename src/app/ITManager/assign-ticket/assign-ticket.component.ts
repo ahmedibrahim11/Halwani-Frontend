@@ -54,7 +54,10 @@ export class AssignTicketComponent implements OnInit {
   durationInSeconds: any = 3;
 
   assignHandler() {
-    if (this.data === null) {
+    var dataType=typeof(this.data);
+    debugger;
+    console.log("dataaaa",this.data);
+    if (dataType === 'string') {
       debugger;
       this.ticketID = this.share.getData();
       this.http
