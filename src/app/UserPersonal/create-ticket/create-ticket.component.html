@@ -107,14 +107,25 @@
               style="display: inline"
               >Cancel request</a
             >
-            <button
-              class="send btn ml-4"
-              type="submit"
-              style="display: inline"
-              [disabled]="!createTicketDTOFormGroup.valid"
-            >
-              Send ticket
-            </button>
+            <div *ngIf="createloader === true; then spinner; else btn"></div>
+            <ng-template #spinner>
+              <mat-spinner
+                style="position: absolute; left: 70%"
+                class="mt-2"
+                color="warn"
+                [diameter]="30"
+              ></mat-spinner>
+            </ng-template>
+            <ng-template #btn>
+              <button
+                class="send btn ml-4"
+                type="submit"
+                style="display: inline"
+                [disabled]="!createTicketDTOFormGroup.valid"
+              >
+                Send ticket
+              </button>
+            </ng-template>
           </div>
         </form>
       </div>

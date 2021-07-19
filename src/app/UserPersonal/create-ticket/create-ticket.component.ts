@@ -11,6 +11,7 @@ import { createTicketDTO } from 'src/app/core/DTOs/createTicketDTO';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { ToastMessageComponent } from 'src/app/ITPersonal/toast-message/toast-message.component';
 import { UserGroupService } from '../../core/services/user-group.service';
+
 @Component({
   selector: 'app-create-ticket',
   templateUrl: './create-ticket.component.html',
@@ -161,7 +162,10 @@ export class CreateTicketComponent implements OnInit {
     ).toUpperCase();
     return initials;
   }
+
+  createloader: Boolean = false;
   submiCreate() {
+    this.createloader = true;
     this.createTicketDTO.attachement =
       this.FileLinks !== undefined ? this.FileLinks.toString() : '';
     this.createTicketDTO.description =
@@ -181,10 +185,10 @@ export class CreateTicketComponent implements OnInit {
       .POST('Ticket/CreateTicket', this.formData)
       .subscribe((data) => {
         console.log(data);
+        this.createloader = false;
         this._snackBar.openFromComponent(ToastMessageComponent, {
           duration: this.durationInSeconds * 1000,
         });
-
         this._router.navigate(['user']);
       });
   }
