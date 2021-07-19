@@ -101,12 +101,6 @@
           </div>
 
           <div class="col-md-8" align="end">
-            <a
-              [routerLink]="['/user/helpCenter']"
-              class="cancel btn"
-              style="display: inline"
-              >Cancel request</a
-            >
             <div *ngIf="createloader === true; then spinner; else btn"></div>
             <ng-template #spinner>
               <mat-spinner
@@ -117,6 +111,12 @@
               ></mat-spinner>
             </ng-template>
             <ng-template #btn>
+              <a
+                [routerLink]="['/user/helpCenter']"
+                class="cancel btn"
+                style="display: inline"
+                >Cancel request</a
+              >
               <button
                 class="send btn ml-4"
                 type="submit"
