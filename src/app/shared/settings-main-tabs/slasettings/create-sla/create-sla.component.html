@@ -23,7 +23,7 @@
           
             <div class="row-ddl">
                 <div class="col-ddl">
-                    <label class="Ticket-type">SLA Duration <span class="mandatory"> *</span></label>
+                    <label class="Ticket-type">SLA Goal <span class="mandatory"> *</span></label>
                 
                     <mat-form-field [style.width.%]="97" appearance="fill">
                         <input matInput type="number"  formControlName="slaDuration" min="0">
@@ -31,55 +31,42 @@
                     </mat-form-field>
                 </div>
                 <div class="col-ddl">
-                    <label class="Ticket-type">Team <span class="mandatory"> *</span></label>
-                
-                    <mat-form-field [style.width.%]="97" appearance="fill">
-                        <mat-select formControlName="team">
-                            <mat-option *ngFor="let option of teamSoruce" [value]="option['value']">
-                                {{ option["label"] }}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-               
-            </div>
-            <div class="row-ddl">
-                <div class="col-ddl">
-                    <label class="Ticket-type">Working Days <span class="mandatory"> *</span></label>
-            
-                <mat-form-field [style.width.%]="97" appearance="fill">
-                    <mat-select formControlName="workingDays" multiple>
-                        <mat-option [value]="0">
-                            Sunday</mat-option>
-                        <mat-option [value]="1">
-                            Monday</mat-option>
-                            <mat-option [value]="2">
-                                Tuesday</mat-option>
-                <mat-option [value]="3">
-                    Wednesday</mat-option>
-               
-                    <mat-option [value]="4">
-                        Thursday</mat-option>
-                 
-                    <mat-option [value]="5">
-                        Friday</mat-option>
-                 
-                    <mat-option [value]="6">
-                        Saturday</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                </div>
-                <div class="col-ddl">
                     <label class="Ticket-type">Calendar <span class="mandatory"> *</span></label>
-            
+                    
                     <mat-form-field [style.width.%]="97" appearance="fill">
                         <mat-select formControlName="workingHours">
                             <mat-option [value]="0">
                                 9 AM - 5 PM</mat-option>
-                                <mat-option [value]="1">
-                                    5 PM - 1 AM</mat-option>
-                                    <mat-option [value]="2">
-                                        1 AM - 9 AM</mat-option>
-                               
+                            <mat-option [value]="1">
+                                5 PM - 1 AM</mat-option>
+                            <mat-option [value]="2">
+                                1 AM - 9 AM</mat-option>
+                    
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+               
+            </div>
+            <div class="row-ddl">
+                <div class="col-ddl">
+                    <label class="Ticket-type">Start Counting <span class="mandatory"> *</span></label>
+            
+                <mat-form-field [style.width.%]="97" appearance="fill">
+                    <mat-select formControlName="StartCounting" multiple>
+                    <mat-option [value]="status['value']" *ngFor="let status of status">
+                        {{ status["title"] }}
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                </div>
+                <div class="col-ddl">
+                    <label class="Ticket-type">Ends counting <span class="mandatory"> *</span></label>
+                    
+                    <mat-form-field [style.width.%]="97" appearance="fill">
+                        <mat-select formControlName="EndsCounting" multiple>
+                            <mat-option [value]="status['value']" *ngFor="let status of status">
+                                {{ status["title"] }}
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
@@ -87,11 +74,11 @@
             </div>
             <div class="row-ddl">
                 <div class="col-ddl">
-                    <label class="Ticket-type">Product Category <span class="mandatory"> *</span></label>
+                    <label class="Ticket-type">Ticket Category <span class="mandatory"> *</span></label>
                     <mat-form-field [style.width.%]="97" appearance="fill">
-                        <mat-select formControlName="priority" formControlName="productCategory">
-                            <mat-optgroup *ngFor="let option of ProductCategoryList" [label]="option.text">
-                                <mat-option *ngFor="let topic of option.children" [value]="topic['text']">
+                        <mat-select formControlName="priority" formControlName="requestType">
+                            <mat-optgroup *ngFor="let option of ProductCategoryList" [label]="option.ticketType">
+                                <mat-option *ngFor="let topic of option.topics" [value]="topic['text']">
                                     {{ topic["text"] }}
                                 </mat-option>
                             </mat-optgroup>
@@ -141,7 +128,7 @@
     
             <div class="row-ddl">
                 <div class="col-ddl">
-                    <label class="Ticket-type">SLA Duration <span class="mandatory"> *</span></label>
+                    <label class="Ticket-type">SLA Goal <span class="mandatory"> *</span></label>
     
                     <mat-form-field [style.width.%]="97" appearance="fill">
                         <input matInput type="number" formControlName="slaDuration" min="0" [(ngModel)]="slaDuration">
@@ -149,67 +136,54 @@
                     </mat-form-field>
                 </div>
                 <div class="col-ddl">
-                    <label class="Ticket-type">Team <span class="mandatory"> *</span></label>
-    
-                    <mat-form-field [style.width.%]="97" appearance="fill">
-                        <mat-select formControlName="team" [(ngModel)]="team">
-                            <mat-option *ngFor="let option of teamSoruce" [value]="option['value']" > 
-                                {{ option["label"] }}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                                <label class="Ticket-type">Calendar <span class="mandatory"> *</span></label>
+                                
+                                <mat-form-field [style.width.%]="97" appearance="fill">
+                                    <mat-select formControlName="workingHours" [(ngModel)]="workingCalendar">
+                                        <mat-option [value]="0">
+                                            9 AM - 5 PM</mat-option>
+                                        <mat-option [value]="1">
+                                            5 PM - 1 AM</mat-option>
+                                        <mat-option [value]="2">
+                                            1 AM - 9 AM</mat-option>
+                                
+                                    </mat-select>
+                                </mat-form-field>
                 </div>
     
             </div>
             <div class="row-ddl">
                 <div class="col-ddl">
-                    <label class="Ticket-type">Working Days <span class="mandatory"> *</span></label>
-    
+                    <label class="Ticket-type">Start Counting <span class="mandatory"> *</span></label>
+            
                     <mat-form-field [style.width.%]="97" appearance="fill">
-                        <mat-select formControlName="workingDays" multiple [(value)]="workingDaysForGet" [(ngModel)]="workingDaysForGet">
-                                <mat-option [value]="0">
-                                    Sunday</mat-option>
-                                <mat-option [value]="1">
-                                    Monday</mat-option>
-                                <mat-option [value]="2">
-                                    Tuesday</mat-option>
-                                <mat-option [value]="3">
-                                    Wednesday</mat-option>
-                                
-                                <mat-option [value]="4">
-                                    Thursday</mat-option>
-                                
-                                <mat-option [value]="5">
-                                    Friday</mat-option>
-                                
-                                <mat-option [value]="6">
-                                    Saturday</mat-option>
-                                </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-ddl">
-                    <label class="Ticket-type">Calendar <span class="mandatory"> *</span></label>
-    
-                    <mat-form-field [style.width.%]="97" appearance="fill" >
-                        <mat-select formControlName="workingHours" [(ngModel)]="workingCalendar">
-                            <mat-option [value]="0">
-                                9 AM - 5 PM</mat-option>
-                            <mat-option [value]="1">
-                                5 PM - 1 AM</mat-option>
-                            <mat-option [value]="2">
-                                1 AM - 9 AM</mat-option>
-    
+                        <mat-select formControlName="StartCounting" multiple [(ngModel)]="Opening">
+                            <mat-option [value]="status['value']" *ngFor="let status of status">
+                                {{ status["title"] }}
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-    
+                <div class="col-ddl">
+                    <label class="Ticket-type">Ends counting <span class="mandatory"> *</span></label>
+            
+                    <mat-form-field [style.width.%]="97" appearance="fill">
+                        <mat-select formControlName="EndsCounting" multiple [(ngModel)]="Closing">
+                            <mat-option [value]="status['value']" *ngFor="let status of status">
+                                {{ status["title"] }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            
             </div>
             <div class="row-ddl">
                 <div class="col-ddl">
-                    <label class="Ticket-type">Product Category <span class="mandatory"> *</span></label>
+                    <label class="Ticket-type">Ticket Category <span class="mandatory"> *</span></label>
                     <mat-form-field [style.width.%]="97" appearance="fill">
-                        <mat-select formControlName="priority" formControlName="productCategory" [(ngModel)]="productCategory">
-                            <mat-optgroup *ngFor="let option of ProductCategoryList" [label]="option.text">
-                                <mat-option *ngFor="let topic of option.children" [value]="topic['text']">
+                        <mat-select formControlName="priority" formControlName="requestType" [(ngModel)]="requestType">
+                            <mat-optgroup *ngFor="let option of ProductCategoryList" [label]="option.ticketType">
+                                <mat-option *ngFor="let topic of option.topics" [value]="topic['text']">
                                     {{ topic["text"] }}
                                 </mat-option>
                             </mat-optgroup>

@@ -1,0 +1,160 @@
+<div *ngIf="settingID === undefined; then create; else update">
+    here is ignored
+</div>
+<ng-template #create>
+    <form [formGroup]="createSettingsFormGroup" >
+
+        <h1 mat-dialog-title class="Create-setting">Create a new product categorization</h1>
+        <mat-dialog-content class="mat-typography" id="addForm">
+            <label class="Ticket-type">Product category <span class="mandatory"> *</span></label>
+            
+            <mat-form-field [style.width.%]="97" appearance="fill">
+                <input matInput  formControlName="productCategory" >
+               
+            </mat-form-field>
+            <div *ngFor="let Group of  checkArray.value; let i = index">
+                <div class="row-ddl" style="justify-content: flex-end;">
+                    <button mat-button type="button" (click)="editGroup(Group.subCategoryName.value,Group.goal.value,0)"
+                        style="margin-left: 2rem;padding: 0;">
+                        <mat-icon style="color: grey;">edit</mat-icon>
+                    </button>
+                    <button mat-button type="button" (click)="removeGroup(Group.subCategoryName.value,Group.goal.value)"
+                        style="margin-left: 0.5rem;padding: 0;">
+                        <mat-icon style="color: red; padding-bottom: 0.5rem;">remove_circle_outline</mat-icon>
+                    </button>
+                </div>
+                <div class="row-ddl">
+                <div class="col-ddl">
+                    <label class="Ticket-type">Product sub-category <span class="mandatory"> *</span></label>
+                {{Group.subCategoryName.value}}
+                </div>
+              <div class="col-ddl" >
+                  
+              <label class="Ticket-type">Change Goal <span class="mandatory"> *</span></label>
+              {{Group.goal.value}}
+             </div>
+             
+            </div>
+            </div>
+        <div class="form-group row-ddl" *ngIf="viewAdd">
+            <div class="col-ddl">
+                <label class="Ticket-type">Product sub-category <span class="mandatory"> *</span></label>
+            
+                <mat-form-field [style.width.%]="95" appearance="fill">
+                    <input matInput formControlName="subCategoryName">
+            
+                </mat-form-field>
+            </div>
+            <div class="col-ddl">
+                <label class="Ticket-type">Change Goal <span class="mandatory"> *</span></label>
+            
+                <mat-form-field [style.width.%]="95" appearance="fill">
+                    <input matInput type="number" formControlName="goal" >
+                    <span matSuffix class="Rectangle-9">Hours</span>
+                </mat-form-field>
+                <div class="row-ddl" style="justify-content: flex-end;">
+            <button mat-button type="button" (click)="addGroup(0)" style="margin-left: 2rem;padding: 0;">
+                <mat-icon style="color: yellowgreen;">playlist_add_check</mat-icon>
+            </button>
+            <button mat-button type="button" (click)="removeThroughAdd()" style="margin-left: 0.5rem;padding: 0;">
+                <mat-icon style="color: red;">remove_circle_outline</mat-icon>
+            </button>
+            </div>
+            </div>
+        </div>
+      
+
+            </mat-dialog-content>
+            <mat-dialog-actions align="end">
+                <span class="createGroup" (click)="viewAddGroup()"><label class="createGroupIcon">+</label> Create New Group</span>
+                <button mat-button mat-dialog-close class="cancel">Cancel request</button>
+                <button mat-button [mat-dialog-close]="true" class="send" type="button" (click)="submitCreatePC()" [disabled]="!createSettingsFormGroup.valid||checkArray.value.length==0">
+                    Save
+                </button>
+            </mat-dialog-actions>
+            </form>
+            
+            </ng-template>
+            
+            <ng-template #update>
+            
+                <form [formGroup]="updateSettingsFormGroup">
+                
+                    <h1 mat-dialog-title class="Create-setting">Update product categorization</h1>
+                    <mat-dialog-content class="mat-typography" id="addForm">
+                        <label class="Ticket-type">Product category <span class="mandatory"> *</span></label>
+                
+                        <mat-form-field [style.width.%]="97" appearance="fill">
+                            <input matInput formControlName="productCategory" [(ngModel)]="productCategory">
+                
+                        </mat-form-field>
+                        <div *ngFor="let Group of  checkArray.value; let i = index">
+                            <div class="row-ddl" style="justify-content: flex-end;">
+                                <button mat-button type="button" *ngIf="!viewAdd" (click)="editGroup(Group.subCategoryName.value,Group.goal.value,1)"
+                                    style="margin-left: 2rem;padding: 0;">
+                                    <mat-icon style="color: grey;">edit</mat-icon>
+                                </button>
+                                <button mat-button type="button" *ngIf="Group.id.value==0" (click)="removeGroup(Group.subCategoryName.value,Group.goal.value)"
+                                    style="margin-left: 0.5rem;padding: 0;">
+                                    <mat-icon style="color: red; padding-bottom: 0.5rem;">remove_circle_outline</mat-icon>
+                                </button>
+                                <button mat-button type="button" *ngIf="Group.id.value!=0&&Group.isDeleted.value==false"
+                                    (click)="removePreAddedGroup(Group.subCategoryName.value,Group.goal.value)" style="margin-left: 0.5rem;padding: 0;">
+                                    <mat-icon style="color: red; padding-bottom: 0.5rem;">remove_circle_outline</mat-icon>
+                                </button>
+                            </div>
+                            <div class="row-ddl">
+                                <div class="col-ddl">
+                                    <label class="Ticket-type">Product sub-category <span class="mandatory"> *</span></label>
+                                    {{Group.subCategoryName.value}}
+                                </div>
+                                <div class="col-ddl">
+                
+                                    <label class="Ticket-type">Change Goal <span class="mandatory"> *</span></label>
+                                    {{Group.goal.value}}
+                                </div>
+                
+                            </div>
+                        </div>
+                        <div class="form-group row-ddl" *ngIf="viewAdd">
+                            <div class="col-ddl">
+                                <label class="Ticket-type">Product sub-category <span class="mandatory"> *</span></label>
+                
+                                <mat-form-field [style.width.%]="95" appearance="fill">
+                                    <input matInput formControlName="subCategoryName">
+                
+                                </mat-form-field>
+                            </div>
+                            <div class="col-ddl">
+                                <label class="Ticket-type">Change Goal <span class="mandatory"> *</span></label>
+                
+                                <mat-form-field [style.width.%]="95" appearance="fill">
+                                    <input matInput type="number" formControlName="goal">
+                                    <span matSuffix class="Rectangle-9">Hours</span>
+                                </mat-form-field>
+                                <div class="row-ddl" style="justify-content: flex-end;">
+                                    <button mat-button type="button" (click)="addGroup(1)" style="margin-left: 2rem;padding: 0;">
+                                        <mat-icon style="color: yellowgreen;">playlist_add_check</mat-icon>
+                                    </button>
+                                    <button mat-button type="button" (click)="removeThroughAdd()"
+                                        style="margin-left: 0.5rem;padding: 0;">
+                                        <mat-icon style="color: red;">remove_circle_outline</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                
+                
+                    </mat-dialog-content>
+                    <mat-dialog-actions align="end">
+                        <span class="createGroup" (click)="viewAddGroup()"><label class="createGroupIcon">+</label> Create New
+                            Group</span>
+                        <button mat-button mat-dialog-close class="cancel">Cancel request</button>
+                        <button mat-button [mat-dialog-close]="true" class="send" type="button" (click)="submitEditPC()"
+                            [disabled]="!updateSettingsFormGroup.valid||checkArray.value.length==0">
+                            Save
+                        </button>
+                    </mat-dialog-actions>
+                </form>
+                </ng-template>
+                
