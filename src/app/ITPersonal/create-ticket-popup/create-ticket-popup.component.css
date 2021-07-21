@@ -17,7 +17,7 @@
   flex-grow: 1;
   margin: 0 153px 36px 0;
   font-family: Poppins;
-  font-size: 36px;
+  font-size: 24px;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
@@ -115,7 +115,7 @@ mat-select {
 .update-title-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .menu {
   width: 14rem;
