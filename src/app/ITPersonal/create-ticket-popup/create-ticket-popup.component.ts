@@ -323,6 +323,8 @@ export class CreateTicketPopupComponent implements OnInit {
     );
     if (this.createTicketDTOFormGroup.value.saveAndOpenAnother) {
       const dialogRef = this.dialog.open(CreateTicketPopupComponent, {
+        width: '40vw',
+
         data: { pageValue: this.fromPage },
       });
     }

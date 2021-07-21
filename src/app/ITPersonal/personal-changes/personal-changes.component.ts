@@ -33,6 +33,8 @@ export class PersonalChangesComponent implements OnInit {
   }
   openDialog() {
     const dialogRef = this.dialog.open(CreateTicketPopupComponent, {
+      width: '40vw',
+
       data: { pageValue: 'Change' },
     });
 

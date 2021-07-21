@@ -65,6 +65,7 @@ export class MainCardBodyManagerComponent implements OnInit {
   }
   openDialog() {
     const dialogRef = this.dialog.open(CreateTicketPopupComponent, {
+      width: '40vw',
       data: { pageValue: undefined },
     });
     dialogRef.afterClosed().subscribe((result) => {

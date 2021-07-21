@@ -33,6 +33,8 @@ export class PersonalIncidentsComponent implements OnInit {
   }
   openDialog() {
     const dialogRef = this.dialog.open(CreateTicketPopupComponent, {
+      width: '40vw',
+
       data: { pageValue: 'Incident' },
     });
 
