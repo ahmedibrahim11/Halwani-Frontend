@@ -1,46 +1,30 @@
-import { SelectionModel } from '@angular/cdk/collections';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, EventEmitter, HostListener, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, of, Subscription } from 'rxjs';
 import { debounceTime, mergeMap, tap } from 'rxjs/operators';
-import { SLAListingDTO } from 'src/app/core/DTOs/slaListingDTO';
-import { TicketCategoryEnum } from 'src/app/core/DTOs/ticketListingDTO';
-import { CommonServiceService } from 'src/app/core/services/common-service.service';
-import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
+import { ToastMessageComponent } from 'src/app/ITPersonal/toast-message/toast-message.component';
+import { CreateProductCategoryComponent } from './create-product-category/create-product-category.component';
+import { ProductCategoryListingDTO } from "src/app/core/DTOs/productCategoryListing";
+import { MatChipInputEvent } from '@angular/material/chips';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { SelectionModel } from '@angular/cdk/collections';
 import { SpinnerFlagService } from 'src/app/core/services/spinner-flag.service';
+import { CommonServiceService } from 'src/app/core/services/common-service.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TicketCreationService } from 'src/app/core/services/ticket-creation.service';
-import { AddSettingsComponent } from '../help-center-config/add-settings/add-settings.component';
-import { CreateSLAComponent } from './create-sla/create-sla.component';
-enum StatusEnum {
-  Created,
-  Assigned,
-  WaitingResponse,
-  WaitingSupport,
-  InProgress,
-  Esclated,
-  Reopened,
-  Resolved,
-  OverDue,
-}
+import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 @Component({
-  selector: 'app-slasettings',
-  templateUrl: './slasettings.component.html',
-  styleUrls: ['./slasettings.component.css']
+  selector: 'app-product-category-settings',
+  templateUrl: './product-category-settings.component.html',
+  styleUrls: ['./product-category-settings.component.css']
 })
-export class SLASettingsComponent implements OnInit {
-   getEnumKeyByEnumValue(enumValue) {
-    let keys = Object.keys(StatusEnum).filter(x => StatusEnum[x] == enumValue);
-    return keys.length > 0 ? keys[0] : null;
-}
-  public TicketCategory = TicketCategoryEnum;
+export class ProductCategorySettingsComponent implements OnInit {
+
  @ViewChild(MatSort) sort: MatSort;
   public flag: boolean;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -48,31 +32,29 @@ export class SLASettingsComponent implements OnInit {
   private subscriptionName: Subscription;
   dataLoaded: boolean = false;
   empty: boolean = true;
-  constructor(private http: HTTPMainServiceService,
+
+  constructor(
+    private http: HTTPMainServiceService,
     public dialog: MatDialog,
     private service: TicketCreationService,
   private _snackBar: MatSnackBar,
     private common: CommonServiceService,
-    private spinner: SpinnerFlagService) {
+    private spinner: SpinnerFlagService
+  ) {
     this.subscriptionName = this.common.getUpdate().subscribe((data) => {
       this.UserViewInfoObject = data.map((el) => {
-       
+       debugger;
         return {
           id: el['id'],
-          slaType: el['slaType'],
-          slaDuration: el['slaDuration'],
-          requestType:el["requestType"],
-          openStatus:el["openStatus"]!=null?el["openStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          closeStatus:el["closeStatus"]!=null?el["closeStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          team:el['teamName'],
-          priority:el['priority'],
-         
+          name: el['text'],
+          children: el['children'],
         };
       });
       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
     });
-   }
- ngOnDestroy() {
+  }
+
+  ngOnDestroy() {
     this.subscriptionName.unsubscribe();
   }
 
@@ -86,7 +68,7 @@ export class SLASettingsComponent implements OnInit {
       console.log('iiiii', event.pageSize);
       this.pageSize = event.pageSize;
       this.http
-        .POST('SLA/List', {
+        .POST('Category/List', {
           searchText: [],
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
@@ -103,13 +85,8 @@ export class SLASettingsComponent implements OnInit {
          
             return {
                id: el['id'],
-          slaType: el['slaType'],
-          slaDuration: el['slaDuration'],
-          requestType:el["requestType"],
-       openStatus:el["openStatus"]!=null?el["openStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          closeStatus:el["closeStatus"]!=null?el["closeStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          team:el['teamName'],
-          priority:el['priority'],
+          name: el['text'],
+          children: el['children'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -118,7 +95,7 @@ export class SLASettingsComponent implements OnInit {
     if (event.pageIndex > this.pageIndex) {
       // Clicked on next button
       this.http
-        .POST('SLA/List', {
+        .POST('Category/List', {
           searchText: [],
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
@@ -134,14 +111,9 @@ export class SLASettingsComponent implements OnInit {
           this.UserViewInfoObject = usersData.map((el) => {
      
             return {
-               id: el['id'],
-          slaType: el['slaType'],
-          slaDuration: el['slaDuration'],
-          requestType:el["requestType"],
-          openStatus:el["openStatus"]!=null?el["openStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          closeStatus:el["closeStatus"]!=null?el["closeStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          team:el['teamName'],
-          priority:el['priority'],
+           id: el['id'],
+          name: el['text'],
+          children: el['children'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -149,7 +121,7 @@ export class SLASettingsComponent implements OnInit {
     } else {
       // Clicked on previous button
       this.http
-        .POST('SLA/List', {
+        .POST('Category/List', {
           searchText: [],
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
@@ -165,14 +137,9 @@ export class SLASettingsComponent implements OnInit {
           this.UserViewInfoObject = usersData.map((el) => {
             
             return {
-                 id: el['id'],
-          slaType: el['slaType'],
-          slaDuration: el['slaDuration'],
-          requestType:el["requestType"],
-       openStatus:el["openStatus"]!=null?el["openStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          closeStatus:el["closeStatus"]!=null?el["closeStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          team:el['teamName'],
-          priority:el['priority'],
+              id: el['id'],
+          name: el['text'],
+          children: el['children'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -202,18 +169,13 @@ export class SLASettingsComponent implements OnInit {
     let sortValue = 0;
     let sortDirec = 0;
     switch (sort.active) {
-      case 'slaType':
+      case 'name':
         sortValue = 0;
         break;
-      case 'priority':
+      case 'children':
         sortValue = 1;
         break;
-    
-      case 'slaGoal':
-        sortValue = 3;
-        case 'TicketCategory':
-          sortValue=4
-        break;
+     
     }
     switch (sort.direction) {
       case 'asc':
@@ -226,7 +188,7 @@ export class SLASettingsComponent implements OnInit {
         sortDirec = 0;
     }
     this.http
-      .POST('SLA/List', {
+      .POST('Category/List', {
         searchText: [],
         pageSize: this.pageSize,
         pageNumber: this.pageIndex,
@@ -243,14 +205,9 @@ export class SLASettingsComponent implements OnInit {
         this.UserViewInfoObject = usersData.map((el) => {
        
           return {
-             id: el['id'],
-          slaType: el['slaType'],
-          slaDuration: el['slaDuration'],
-          requestType:el["requestType"],
-       openStatus:el["openStatus"]!=null?el["openStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          closeStatus:el["closeStatus"]!=null?el["closeStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          team:el['teamName'],
-          priority:el['priority'],
+          id: el['id'],
+          name: el['text'],
+          children: el['children'],
           };
         });
         console.log(this.UserViewInfoObject);
@@ -260,18 +217,15 @@ export class SLASettingsComponent implements OnInit {
 
   displayedColumns: string[] = [
     'select',
-    'slaType',
-    'slaGoal',
-    'statuses',
-    'ticketCategory',
-
-    'priority',
+    'name',
+    'children',
+   
     'Actions',
   ];
   //check boxes part
   initialSelection = [];
   allowMultiSelect = true;
-  selection = new SelectionModel<SLAListingDTO>(
+  selection = new SelectionModel<ProductCategoryListingDTO>(
     this.allowMultiSelect,
     this.initialSelection
   );
@@ -326,7 +280,7 @@ export class SLASettingsComponent implements OnInit {
       : this.UserViewInfoObject.forEach((row) => this.selection.select(row));
   }
 
-  UserViewInfoObject: SLAListingDTO[] = new Array<SLAListingDTO>();
+  UserViewInfoObject: ProductCategoryListingDTO[] = new Array<ProductCategoryListingDTO>();
   
 
   dataSource: any;
@@ -343,7 +297,7 @@ export class SLASettingsComponent implements OnInit {
     console.log('inside filter, value is: ', value);
     if (value === '') {
       this.http
-        .POST('SLA/List', {
+        .POST('Category/List', {
           searchText: [],
           pageSize: this.pageLength,
           pageNumber: this.pageIndex,
@@ -359,15 +313,9 @@ export class SLASettingsComponent implements OnInit {
           this.UserViewInfoObject = usersData.map((el) => {
 
             return {
-              id: el['id'],
-          slaType: el['slaType'],
-          slaDuration: el['slaDuration'],
-          requestType:el["requestType"],
-          openStatus:el["openStatus"]!=null?el["openStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          closeStatus:el["closeStatus"]!=null?el["closeStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          team:el['teamName'],
-          priority:el['priority'],
-
+               id: el['id'],
+          name: el['text'],
+          children: el['children'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -390,7 +338,7 @@ export class SLASettingsComponent implements OnInit {
     console.log('event: option selected is ', event.option.value);
     this.optionSelected.emit(event);
     this.http
-      .POST('SLA/list', {
+      .POST('Category/List', {
         searchText: [event.option.value],
         pageSize: 5,
         pageNumber: this.pageIndex,
@@ -406,15 +354,9 @@ export class SLASettingsComponent implements OnInit {
         this.UserViewInfoObject = usersData.map((el) => {
           const cerationDate = new Date(el['creationDate']);
           return {
-           id: el['id'],
-          slaType: el['slaType'],
-          slaDuration: el['slaDuration'],
-          requestType:el["requestType"],
-          openStatus:el["openStatus"]!=null?el["openStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          closeStatus:el["closeStatus"]!=null?el["closeStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          team:el['teamName'],
-          priority:el['priority'],
-
+            id: el['id'],
+          name: el['text'],
+          children: el['children'],
           };
         });
         this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -442,7 +384,7 @@ export class SLASettingsComponent implements OnInit {
       if (this.flag === true) {
         this.pageLength = this.pageLength + 1;
         this.http
-          .POST('SLA/list', {
+          .POST('Category/List', {
             searchText: [],
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
@@ -465,15 +407,9 @@ export class SLASettingsComponent implements OnInit {
               this.UserViewInfoObject = usersData.map((el) => {
                
                 return {
-                 id: el['id'],
-          slaType: el['slaType'],
-          slaDuration: el['slaDuration'],
-          requestType:el["requestType"],
-          openStatus:el["openStatus"]!=null?el["openStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          closeStatus:el["closeStatus"]!=null?el["closeStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          team:el['teamName'],
-          priority:el['priority'],
-
+                  id: el['id'],
+          name: el['text'],
+          children: el['children'],
                 };
               });
               this.getRedMenuCharacters(this.usersName);
@@ -488,7 +424,7 @@ export class SLASettingsComponent implements OnInit {
           });
       } else {
         this.http
-          .POST('SLA/list', {
+          .POST('Category/List', {
             searchText: [],
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
@@ -511,15 +447,9 @@ export class SLASettingsComponent implements OnInit {
               this.UserViewInfoObject = usersData.map((el) => {
              
                 return {
-                  id: el['id'],
-          slaType: el['slaType'],
-          slaDuration: el['slaDuration'],
-          requestType:el["requestType"],
-        openStatus:el["openStatus"]!=null?el["openStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          closeStatus:el["closeStatus"]!=null?el["closeStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          team:el['teamName'],
-          priority:el['priority'],
-
+                id: el['id'],
+          name: el['text'],
+          children: el['children'],
                 };
               });
               this.getRedMenuCharacters(this.usersName);
@@ -556,15 +486,14 @@ export class SLASettingsComponent implements OnInit {
     return initials;
   }
 
- 
 
 searchByName($event){
    this.pageLength= 5;
   this.pageSize = 5;
   this.pageIndex = 0;
   this.http
-          .POST('SLA/List', {
-            searchText: [$event.target.value],
+          .POST('Category/List', {
+            searchText: [],
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
@@ -586,15 +515,10 @@ searchByName($event){
               this.UserViewInfoObject = usersData.map((el) => {
              
                 return {
-           id: el['id'],
-          slaType: el['slaType'],
-          slaDuration: el['slaDuration'],
-          requestType:el["requestType"],
-         openStatus:el["openStatus"]!=null?el["openStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          closeStatus:el["closeStatus"]!=null?el["closeStatus"].split(',').map(r=>this.getEnumKeyByEnumValue(r)).join():"",
-          team:el['teamName'],
-          priority:el['priority'],
-
+                 id: el['id'],
+          name: el['text'],
+          children: el['children'],
+       
                 };
               });
               this.getRedMenuCharacters(this.usersName);
@@ -610,10 +534,19 @@ searchByName($event){
 }
   
    durationInSeconds: any = 3;
-  
+    setVisability(settingID,Value:Boolean)
+  {
+    this.http.GET(`RequestType/UpdateVisiblity?id=${settingID}&isVisible=${Value}`).subscribe(data=>{
+       this._snackBar.openFromComponent(ToastMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+        });
+        this.service.setValue(true);
+    })
+
+  }
 OpenEdit(settingID){
   
-   const dialogRef = this.dialog.open(CreateSLAComponent, {
+   const dialogRef = this.dialog.open(CreateProductCategoryComponent, {
       data: { updateValue: settingID },
      
     });
@@ -623,9 +556,9 @@ OpenEdit(settingID){
     });
 }
 
-openAddSLA()
+openAddProductCategory()
 {
- const dialogRef = this.dialog.open(CreateSLAComponent, {
+ const dialogRef = this.dialog.open(CreateProductCategoryComponent, {
      
       
     });

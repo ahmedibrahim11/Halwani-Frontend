@@ -17,6 +17,8 @@ import { UserNotificationComponent } from './user-notification/user-notification
 import { FiltersPopupComponent } from './settings-main-tabs/help-center-config/filters-popup/filters-popup.component';
 import { SLASettingsComponent } from './settings-main-tabs/slasettings/slasettings.component';
 import { CreateSLAComponent } from './settings-main-tabs/slasettings/create-sla/create-sla.component';
+import { ProductCategorySettingsComponent } from './settings-main-tabs/product-category-settings/product-category-settings.component';
+import { CreateProductCategoryComponent } from './settings-main-tabs/product-category-settings/create-product-category/create-product-category.component';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -31,6 +33,8 @@ import { CreateSLAComponent } from './settings-main-tabs/slasettings/create-sla/
     FiltersPopupComponent,
     SLASettingsComponent,
     CreateSLAComponent,
+    ProductCategorySettingsComponent,
+    CreateProductCategoryComponent,
   ],
   imports: [
     CommonModule,
