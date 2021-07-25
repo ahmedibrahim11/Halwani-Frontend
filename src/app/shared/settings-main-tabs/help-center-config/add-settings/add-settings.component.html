@@ -1,57 +1,57 @@
 <div *ngIf="settingID === undefined; then create; else update">
     here is ignored
 </div>
-<ng-template #create >
+<ng-template #create>
     <form [formGroup]="createSettingsFormGroup" *ngIf="!secondPage">
-    
         <h1 mat-dialog-title class="Create-setting">Create Request Type</h1>
         <mat-dialog-content class="mat-typography">
             <div class="row-ddl">
                 <div class="col-ddl">
-            <label class="Ticket-type">Name <span class="mandatory"> *</span></label>
-            
-            <mat-form-field appearance="fill" [style.width.%]="97">
-                <input matInput formControlName="name" />
-            </mat-form-field>
-            </div>
-            <div class="col-ddl">
+                    <label class="Ticket-type">Name <span class="mandatory"> *</span></label>
+
+                    <mat-form-field appearance="fill" [style.width.%]="97">
+                        <input matInput formControlName="name" />
+                    </mat-form-field>
+                </div>
+                <div class="col-ddl">
                     <label class="Ticket-type">Team <span class="mandatory"> *</span></label>
-                    
+
                     <mat-form-field [style.width.%]="97" appearance="fill">
                         <mat-select formControlName="team">
                             <mat-option *ngFor="let option of teamSoruce" [value]="option['value']">
                                 {{ option["label"] }}</mat-option>
                         </mat-select>
                     </mat-form-field>
-                    </div></div>
-                    <div class="row-ddl">
-                        <div class="col-ddl">
-                            <label class="Ticket-type">Severity <span class="mandatory"> *</span></label>
-                            <mat-form-field [style.width.%]="97" appearance="fill">
-                                <mat-select formControlName="sevirity" formControlName="sevirity">
-                                    <mat-option *ngFor="let option of severityList; let i = index" [value]="i">
-                                        {{ option }}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-ddl">
-                            <label class="Ticket-type">Priority <span class="mandatory"> *</span></label>
-                            <mat-form-field [style.width.%]="100" appearance="fill">
-                                <mat-select formControlName="priority" formControlName="priority">
-                                    <mat-option *ngFor="let option of priorityList; let i = index" [value]="i">
-                                        {{ option }}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
+                </div>
+            </div>
+            <div class="row-ddl">
+                <div class="col-ddl">
+                    <label class="Ticket-type">Severity <span class="mandatory"> *</span></label>
+                    <mat-form-field [style.width.%]="97" appearance="fill">
+                        <mat-select formControlName="sevirity" formControlName="sevirity">
+                            <mat-option *ngFor="let option of severityList; let i = index" [value]="i">
+                                {{ option }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-ddl">
+                    <label class="Ticket-type">Priority <span class="mandatory"> *</span></label>
+                    <mat-form-field [style.width.%]="100" appearance="fill">
+                        <mat-select formControlName="priority" formControlName="priority">
+                            <mat-option *ngFor="let option of priorityList; let i = index" [value]="i">
+                                {{ option }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
             <label class="Ticket-type">Description <span class="mandatory"> *</span></label>
             <mat-form-field appearance="fill" [style.width.%]="100">
                 <textarea rows="3" matInput formControlName="description"></textarea>
             </mat-form-field>
             <label class="Ticket-type">Icon <span class="mandatory"> *</span></label>
             <div class="center" *ngIf="FileLinks.length==0">
-                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event, 0)" (onFileOver)="fileOver($event)"
-                    class="upload-drop-zone" (onFileLeave)="fileLeave($event)">
+                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event, 0)"
+                    (onFileOver)="fileOver($event)" class="upload-drop-zone" (onFileLeave)="fileLeave($event)">
                     <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
                         Drag and drop files, paste screenshots, or upload attachments
                         <button type="button" class="cancel" style="display: block; margin-top: 1.5rem"
@@ -61,7 +61,7 @@
                     </ng-template>
                 </ngx-file-drop>
             </div>
-            
+
             <div class="Upcard" *ngFor="let item of FileLinks; let i = index">
                 <div class="attachment-container">
                     <mat-icon>attachment</mat-icon>
@@ -71,183 +71,188 @@
                 </div>
             </div>
 
-    <label class="Ticket-type">Type <span class="mandatory"> *</span></label>
-    <mat-form-field [style.width.%]="97" appearance="fill">
-        <mat-select formControlName="type">
-            <mat-option  [value]="0">
-                Service Request</mat-option>
-                <mat-option [value]="1">
-                    Incidents</mat-option>
+            <label class="Ticket-type">Type <span class="mandatory"> *</span></label>
+            <mat-form-field [style.width.%]="97" appearance="fill">
+                <mat-select formControlName="type">
+                    <mat-option [value]="0">
+                        Service Request</mat-option>
+                    <mat-option [value]="1">
+                        Incidents</mat-option>
                     <mat-option [value]="2">
                         Problems</mat-option>
-                        <mat-option [value]="3">
-                            Changes</mat-option>
-        </mat-select>
-    </mat-form-field>
+                    <mat-option [value]="3">
+                        Changes</mat-option>
+                </mat-select>
+            </mat-form-field>
 
 
-            </mat-dialog-content>
+        </mat-dialog-content>
         <mat-dialog-actions align="end">
-                <button  mat-button class="send" type="button" [disabled]="!createSettingsFormGroup.valid||FileLinks.length==0" (click)="getGroups()" >Next</button>
-            </mat-dialog-actions>
-            </form>
-            <form [formGroup]="createSettingsFormGroup" *ngIf="secondPage" >
-                <h1 mat-dialog-title class="Create-setting">Create Request Type</h1>
-                <mat-dialog-content class="mat-typography" >
-                    <div  *ngFor="let Group of groups; let i = index">
-                    <mat-checkbox (change)="onCreateCheckboxChange($event)" [checked]="Group.selected" class="checkBox" class="check-box"   [value]="Group.id">{{Group.name}}
-                    </mat-checkbox>
-                    
-                    </div>
-                    <div class="form-group" *ngIf="viewAdd" >
-                        <mat-checkbox [checked]="true" (change)="onCreateCheckboxChange($event)" class="checkBox" class="check-box"
-                        ><input type="text" formControlName="groupName" />
-                        
-                        </mat-checkbox>
-                        <button mat-button type="button" (click)="addGroup()" style="margin-left: 2rem;padding: 0;">
-                            <mat-icon style="color: yellowgreen;">playlist_add_check</mat-icon>
-                        </button>
-                        <button mat-button type="button" (click)="removeGroup()" style="margin-left: 0.5rem;padding: 0;">
-                            <mat-icon style="color: red;">remove_circle_outline</mat-icon>
-                        </button>
-                    </div>
+            <button mat-button class="send" type="button"
+                [disabled]="!createSettingsFormGroup.valid||FileLinks.length==0" (click)="getGroups()">Next</button>
+        </mat-dialog-actions>
+    </form>
+    <form [formGroup]="createSettingsFormGroup" *ngIf="secondPage">
+        <h1 mat-dialog-title class="Create-setting">Create Request Type</h1>
+        <mat-dialog-content class="mat-typography">
+            <div *ngFor="let Group of groups; let i = index">
+                <mat-checkbox (change)="onCreateCheckboxChange($event)" [checked]="Group.selected" class="checkBox"
+                    class="check-box" [value]="Group.id">{{Group.name}}
+                </mat-checkbox>
 
-                  
-                </mat-dialog-content>
+            </div>
+            <div class="form-group" *ngIf="viewAdd">
+                <mat-checkbox [checked]="true" (change)="onCreateCheckboxChange($event)" class="checkBox"
+                    class="check-box"><input type="text" formControlName="groupName" />
 
-                <mat-dialog-actions align="end">
-                    <span class="createGroup" (click)="viewAddGroup()"><label class="createGroupIcon">+</label> Create NewGroup</span>
-                    <button mat-button class="Back"  (click)="goBack()">Back</button>
-                    <button mat-button class="send" 
-                     [mat-dialog-close]="true" [disabled]="createSettingsFormGroup.value.groups.length==0" (click)="submitCreateSetting()">Submit</button>
-                </mat-dialog-actions>
-            </form>
-            </ng-template>
-            
-            <ng-template #update>
-                
-                <form [formGroup]="UpdateSettingsFormGroup" *ngIf="!secondPage">
-                
-                    <h1 mat-dialog-title class="Create-setting">Update Request Type</h1>
-                    <mat-dialog-content class="mat-typography">
-                        <div class="row-ddl">
-                            <div class="col-ddl">
-                                <label class="Ticket-type">Name <span class="mandatory"> *</span></label>
-                
-                                <mat-form-field appearance="fill" [style.width.%]="97">
-                                    <input matInput formControlName="name" />
-                                </mat-form-field>
-                            </div>
-                            <div class="col-ddl">
-                                <label class="Ticket-type">Team <span class="mandatory"> *</span></label>
-                
-                                <mat-form-field [style.width.%]="97" appearance="fill">
-                                    <mat-select formControlName="team">
-                                        <mat-option *ngFor="let option of teamSoruce" [value]="option['value']">
-                                            {{ option["label"] }}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div> 
-                        </div>
-                        <div class="row-ddl">
-                            <div class="col-ddl">
-                                <label class="Ticket-type">Severity <span class="mandatory"> *</span></label>
-                                <mat-form-field [style.width.%]="97" appearance="fill">
-                                    <mat-select formControlName="sevirity" formControlName="sevirity">
-                                        <mat-option *ngFor="let option of severityList; let i = index" [value]="i">
-                                            {{ option }}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-ddl">
-                                <label class="Ticket-type">Priority <span class="mandatory"> *</span></label>
-                                <mat-form-field [style.width.%]="100" appearance="fill">
-                                    <mat-select formControlName="priority" formControlName="priority">
-                                        <mat-option *ngFor="let option of priorityList; let i = index" [value]="i">
-                                            {{ option }}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <label class="Ticket-type">Description <span class="mandatory"> *</span></label>
-                        <mat-form-field appearance="fill" [style.width.%]="100">
-                            <textarea rows="3" matInput formControlName="description"></textarea>
-                        </mat-form-field>
-                        <label class="Ticket-type">Icon <span class="mandatory"> *</span></label>
-                        <div class="center" *ngIf="FileLinks.length==0">
-                            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event, 1)"
-                                (onFileOver)="fileOver($event)" class="upload-drop-zone" (onFileLeave)="fileLeave($event)">
-                                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                                    Drag and drop files, paste screenshots, or upload attachments
-                                    <button type="button" class="cancel" style="display: block; margin-top: 1.5rem"
-                                        (click)="openFileSelector()">
-                                        Browse Files
-                                    </button>
-                                </ng-template>
-                            </ngx-file-drop>
-                        </div>
-                
-                        <div class="Upcard" *ngFor="let item of FileLinks; let i = index">
-                            <div class="attachment-container">
-                                <mat-icon>attachment</mat-icon>
-                                {{ item
-                                }}<span class="delete-entry" style="cursor: pointer; color: red; margin-left: 2%"
-                                    (click)="deleteImage(item)">remove</span>
-                            </div>
-                        </div>
-                
-                        <label class="Ticket-type">Type <span class="mandatory"> *</span></label>
-                        <mat-form-field [style.width.%]="97" appearance="fill">
-                            <mat-select formControlName="type">
-                                <mat-option [value]="0">
-                                    Service Request</mat-option>
-                                <mat-option [value]="1">
-                                    Incidents</mat-option>
-                                <mat-option [value]="2">
-                                    Problems</mat-option>
-                                <mat-option [value]="3">
-                                    Changes</mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                
-                
-                    </mat-dialog-content>
-                    <mat-dialog-actions align="end">
-                        <button mat-button class="send" type="button" [disabled]="!UpdateSettingsFormGroup.valid||FileLinks.length==0"
-                            (click)="getGroups()">Next</button>
-                    </mat-dialog-actions>
-                </form>
-                <form [formGroup]="UpdateSettingsFormGroup" *ngIf="secondPage">
-                    <h1 mat-dialog-title class="Create-setting">Update Request Type</h1>
-                    <mat-dialog-content class="mat-typography">
-                        <div *ngFor="let Group of groups; let i = index">
-                            <mat-checkbox (change)="onCreateCheckboxChange($event)" [checked]="Group.selected" class="checkBox"
-                                class="check-box" [value]="Group.id">{{Group.name}}
-                            </mat-checkbox>
-                
-                        </div>
-                        <div class="form-group" *ngIf="viewAdd">
-                            <mat-checkbox [checked]="true" (change)="onCreateCheckboxChange($event)" class="checkBox" class="check-box">
-                                <input type="text" formControlName="groupName" />
-                
-                            </mat-checkbox>
-                            <button mat-button type="button" (click)="addGroup()" style="margin-left: 2rem;padding: 0;">
-                                <mat-icon style="color: yellowgreen;">playlist_add_check</mat-icon>
-                            </button>
-                            <button mat-button type="button" (click)="removeGroup()" style="margin-left: 0.5rem;padding: 0;">
-                                <mat-icon style="color: red;">remove_circle_outline</mat-icon>
-                            </button>
-                        </div>
-                
-                
-                    </mat-dialog-content>
-                
-                    <mat-dialog-actions align="end">
-                        <span class="createGroup" (click)="viewAddGroup()"><label class="createGroupIcon">+</label> Create
-                            NewGroup</span>
-                        <button mat-button class="Back" (click)="goBack()">Back</button>
-                        <button mat-button class="send" [mat-dialog-close]="true"
-                            [disabled]="UpdateSettingsFormGroup.value.groups.length==0" (click)="submitUpdateSetting()">Submit</button>
-                    </mat-dialog-actions>
-                </form>
-            </ng-template>
+                </mat-checkbox>
+                <button mat-button type="button" (click)="addGroup()" style="margin-left: 2rem;padding: 0;">
+                    <mat-icon style="color: yellowgreen;">playlist_add_check</mat-icon>
+                </button>
+                <button mat-button type="button" (click)="removeGroup()" style="margin-left: 0.5rem;padding: 0;">
+                    <mat-icon style="color: red;">remove_circle_outline</mat-icon>
+                </button>
+            </div>
+
+
+        </mat-dialog-content>
+
+        <mat-dialog-actions align="end">
+            <span class="createGroup" (click)="viewAddGroup()"><label class="createGroupIcon">+</label> Create
+                NewGroup</span>
+            <button mat-button class="Back" (click)="goBack()">Back</button>
+            <button mat-button class="send" [mat-dialog-close]="true"
+                [disabled]="createSettingsFormGroup.value.groups.length==0"
+                (click)="submitCreateSetting()">Submit</button>
+        </mat-dialog-actions>
+    </form>
+</ng-template>
+
+<ng-template #update>
+
+    <form [formGroup]="UpdateSettingsFormGroup" *ngIf="!secondPage">
+        <h1 mat-dialog-title class="Create-setting">Update Request Type</h1>
+        <mat-dialog-content class="mat-typography">
+            <div class="row-ddl">
+                <div class="col-ddl">
+                    <label class="Ticket-type">Name <span class="mandatory"> *</span></label>
+
+                    <mat-form-field appearance="fill" [style.width.%]="97">
+                        <input matInput formControlName="name" />
+                    </mat-form-field>
+                </div>
+                <div class="col-ddl">
+                    <label class="Ticket-type">Team <span class="mandatory"> *</span></label>
+
+                    <mat-form-field [style.width.%]="97" appearance="fill">
+                        <mat-select formControlName="team">
+                            <mat-option *ngFor="let option of teamSoruce" [value]="option['value']">
+                                {{ option["label"] }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row-ddl">
+                <div class="col-ddl">
+                    <label class="Ticket-type">Severity <span class="mandatory"> *</span></label>
+                    <mat-form-field [style.width.%]="97" appearance="fill">
+                        <mat-select formControlName="sevirity" formControlName="sevirity">
+                            <mat-option *ngFor="let option of severityList; let i = index" [value]="i">
+                                {{ option }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-ddl">
+                    <label class="Ticket-type">Priority <span class="mandatory"> *</span></label>
+                    <mat-form-field [style.width.%]="100" appearance="fill">
+                        <mat-select formControlName="priority" formControlName="priority">
+                            <mat-option *ngFor="let option of priorityList; let i = index" [value]="i">
+                                {{ option }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <label class="Ticket-type">Description <span class="mandatory"> *</span></label>
+            <mat-form-field appearance="fill" [style.width.%]="100">
+                <textarea rows="3" matInput formControlName="description"></textarea>
+            </mat-form-field>
+            <label class="Ticket-type">Icon <span class="mandatory"> *</span></label>
+            <div class="center" *ngIf="FileLinks.length==0">
+                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event, 1)"
+                    (onFileOver)="fileOver($event)" class="upload-drop-zone" (onFileLeave)="fileLeave($event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                        Drag and drop files, paste screenshots, or upload attachments
+                        <button type="button" class="cancel" style="display: block; margin-top: 1.5rem"
+                            (click)="openFileSelector()">
+                            Browse Files
+                        </button>
+                    </ng-template>
+                </ngx-file-drop>
+            </div>
+
+            <div class="Upcard" *ngFor="let item of FileLinks; let i = index">
+                <div class="attachment-container">
+                    <mat-icon>attachment</mat-icon>
+                    {{ item
+                    }}<span class="delete-entry" style="cursor: pointer; color: red; margin-left: 2%"
+                        (click)="deleteImage(item)">remove</span>
+                </div>
+            </div>
+
+            <label class="Ticket-type">Type <span class="mandatory"> *</span></label>
+            <mat-form-field [style.width.%]="97" appearance="fill">
+                <mat-select formControlName="type">
+                    <mat-option [value]="0">
+                        Service Request</mat-option>
+                    <mat-option [value]="1">
+                        Incidents</mat-option>
+                    <mat-option [value]="2">
+                        Problems</mat-option>
+                    <mat-option [value]="3">
+                        Changes</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+        </mat-dialog-content>
+        <mat-dialog-actions align="end">
+            <button mat-button class="send" type="button"
+                [disabled]="!UpdateSettingsFormGroup.valid||FileLinks.length==0" (click)="getGroups()">Next</button>
+        </mat-dialog-actions>
+    </form>
+    <form [formGroup]="UpdateSettingsFormGroup" *ngIf="secondPage">
+        <h1 mat-dialog-title class="Create-setting">Update Request Type</h1>
+        <mat-dialog-content class="mat-typography">
+            <div *ngFor="let Group of groups; let i = index">
+                <mat-checkbox (change)="onCreateCheckboxChange($event)" [checked]="Group.selected" class="checkBox"
+                    class="check-box" [value]="Group.id">{{Group.name}}
+                </mat-checkbox>
+
+            </div>
+            <div class="form-group" *ngIf="viewAdd">
+                <mat-checkbox [checked]="true" (change)="onCreateCheckboxChange($event)" class="checkBox"
+                    class="check-box">
+                    <input type="text" formControlName="groupName" />
+
+                </mat-checkbox>
+                <button mat-button type="button" (click)="addGroup()" style="margin-left: 2rem;padding: 0;">
+                    <mat-icon style="color: yellowgreen;">playlist_add_check</mat-icon>
+                </button>
+                <button mat-button type="button" (click)="removeGroup()" style="margin-left: 0.5rem;padding: 0;">
+                    <mat-icon style="color: red;">remove_circle_outline</mat-icon>
+                </button>
+            </div>
+
+
+        </mat-dialog-content>
+
+        <mat-dialog-actions align="end">
+            <span class="createGroup" (click)="viewAddGroup()"><label class="createGroupIcon">+</label> Create
+                NewGroup</span>
+            <button mat-button class="Back" (click)="goBack()">Back</button>
+            <button mat-button class="send" [mat-dialog-close]="true"
+                [disabled]="UpdateSettingsFormGroup.value.groups.length==0"
+                (click)="submitUpdateSetting()">Submit</button>
+        </mat-dialog-actions>
+    </form>
+</ng-template>
