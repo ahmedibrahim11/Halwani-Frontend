@@ -28,6 +28,12 @@
                     <label class="Ticket-type">Product sub-category <span class="mandatory"> *</span></label>
                 {{Group.subCategoryName.value}}
                 </div>
+                <div class="col-ddl">
+                    <label class="Ticket-type">SLA Change <span class="mandatory"> *</span></label>
+                        <span *ngIf="Group.sign.value==0" class="slaType"><img src="assets/add.svg" style="margin-right: 0.25;" />Add</span>
+                        <span *ngIf="Group.sign.value==1" class="slaType"><img src="assets/subtract.svg" style="margin-right: 0.25;" />Remove</span>
+
+                </div>
               <div class="col-ddl" >
                   
               <label class="Ticket-type">Change Goal <span class="mandatory"> *</span></label>
@@ -46,10 +52,23 @@
                 </mat-form-field>
             </div>
             <div class="col-ddl">
+                <label class="Ticket-type">SLA Change <span class="mandatory"> *</span></label>
+                
+                <mat-form-field [style.width.%]="95" appearance="fill">
+                    <mat-select formControlName="sign">
+                        <mat-option [value]="0" class="">
+                            <img src="assets/add.svg" style="margin-right: 0.25rem;"/>Add</mat-option>
+                        <mat-option [value]="1" class="">
+                            <img src="assets/subtract.svg" style="margin-right: 0.25rem;" />Remove</mat-option>
+                
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-ddl">
                 <label class="Ticket-type">Change Goal <span class="mandatory"> *</span></label>
             
                 <mat-form-field [style.width.%]="95" appearance="fill">
-                    <input matInput type="number" formControlName="goal" >
+                    <input matInput type="number" min="0" formControlName="goal" >
                     <span matSuffix class="Rectangle-9">Hours</span>
                 </mat-form-field>
                 <div class="row-ddl" style="justify-content: flex-end;">
@@ -109,6 +128,12 @@
                                     {{Group.subCategoryName.value}}
                                 </div>
                                 <div class="col-ddl">
+                                    <label class="Ticket-type">SLA Change <span class="mandatory"> *</span></label>
+                                    <span *ngIf="Group.sign.value==0" class="slaType"><img src="assets/add.svg" style="margin-right: 0.25;"/>Add</span>
+                                    <span *ngIf="Group.sign.value==1" class="slaType"><img src="assets/subtract.svg" style="margin-right: 0.25;" />Remove</span>
+
+                                </div>
+                                <div class="col-ddl">
                 
                                     <label class="Ticket-type">Change Goal <span class="mandatory"> *</span></label>
                                     {{Group.goal.value}}
@@ -126,10 +151,25 @@
                                 </mat-form-field>
                             </div>
                             <div class="col-ddl">
+                                <label class="Ticket-type">SLA Change <span class="mandatory"> *</span></label>
+                            
+                                <mat-form-field [style.width.%]="95" appearance="fill">
+                                    <mat-select formControlName="sign">
+                                        <mat-option [value]="0" class="">
+                                            <img src="assets/add.svg" style="margin-right: 0.25rem;" />Add
+                                        </mat-option>
+                                        <mat-option [value]="1" class="">
+                                            <img src="assets/subtract.svg" style="margin-right: 0.25rem;" />Remove
+                                        </mat-option>
+                            
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-ddl">
                                 <label class="Ticket-type">Change Goal <span class="mandatory"> *</span></label>
                 
                                 <mat-form-field [style.width.%]="95" appearance="fill">
-                                    <input matInput type="number" formControlName="goal">
+                                    <input matInput type="number" min="0" formControlName="goal">
                                     <span matSuffix class="Rectangle-9">Hours</span>
                                 </mat-form-field>
                                 <div class="row-ddl" style="justify-content: flex-end;">
