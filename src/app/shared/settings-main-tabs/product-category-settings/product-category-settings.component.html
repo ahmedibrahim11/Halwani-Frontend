@@ -2,10 +2,19 @@
     <div class="fullheaderClass">
 
 
-        <span class="Rectangle-48">
-
-        </span>
-        <div class="Table-buttons" (click)="openAddProductCategory()">
+        <form [formGroup]="productCategory" class="Rectangle-48" *ngIf="dataLoaded">
+    
+            <mat-form-field style="display: block">
+                <input type="text" matInput placeholder="Search by name.."  formControlName="name"
+          [matAutocomplete]="autoCo" />
+        <mat-autocomplete (optionSelected)="onSelectionChanged($event)" #autoCo="matAutocomplete" [displayWith]="displayCo">
+            <mat-option *ngFor="let ticketno of filteredTickets | async" [value]="ticketno">
+                {{ ticketno }}
+            </mat-option>
+        </mat-autocomplete>
+            </mat-form-field>
+        </form>
+        <div class="Table-buttons" (click)="openAddProductCategory()" *ngIf="dataLoaded">
             <label class="Export-queue">Add new Product category</label><img src="assets/Apps List.svg" />
         </div>
     </div>

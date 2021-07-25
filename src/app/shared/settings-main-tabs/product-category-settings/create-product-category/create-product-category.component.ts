@@ -33,6 +33,7 @@ viewAdd:boolean=false
       productCategory:['',[Validators.required]],
       subCategories:this.formBuilder.array([]),
       subCategoryName:[''],
+      sign:[''],
       goal:['']
     })
 
@@ -43,6 +44,7 @@ viewAdd:boolean=false
       subCategories:this.formBuilder.array([]),
       subCategoryName:[''],
       subCategoryID:[''],
+      sign:[''],
       goal:[''],
     })
     
@@ -57,7 +59,7 @@ viewAdd:boolean=false
    
       
     data.subCategory.map(el=>{
-      this.checkArray.value.push({id:new FormControl(el.subCategoryId),subCategoryName:new FormControl(el.subCategoryName),goal:el.goal!=null?new FormControl(el.goal):new FormControl(0),isDeleted:new FormControl(el.isDeleted)});
+      this.checkArray.value.push({id:new FormControl(el.subCategoryId),subCategoryName:new FormControl(el.subCategoryName),goal:el.goal!=null?el.goal<0?new FormControl(el.goal*-1):new FormControl(el.goal):new FormControl(0),sign:el.goal>=0?new FormControl(0):new FormControl(1),isDeleted:new FormControl(el.isDeleted)});
     })
 
  })
@@ -71,7 +73,7 @@ submitCreatePC()
   let arr=[];
   let subarr=[];
   this.checkArray.value.map(el=>
-    subarr.push({subCategoryName:el.subCategoryName.value,goal:el.goal.value}))
+    subarr.push({subCategoryName:el.subCategoryName.value,goal:el.sign.value=="1"?(el.goal.value*-1):(el.goal.value)}))
   arr.push({parentCategory:this.createSettingsFormGroup.value.productCategory,
     subCategory:subarr});
     console.log(arr)
@@ -99,7 +101,7 @@ submitEditPC()
   let arr={};
   let subarr=[];
   this.checkArray.value.map(el=>
-    subarr.push({subCategoryId:el.id.value==""?0:el.id.value,subCategoryName:el.subCategoryName.value,goal:el.goal.value,isDeleted:el.isDeleted.value}))
+    subarr.push({subCategoryId:el.id.value==""?0:el.id.value,subCategoryName:el.subCategoryName.value,goal:el.sign.value=="1"?(el.goal.value*-1):(el.goal.value),isDeleted:el.isDeleted.value}))
   arr={parentCategory:this.updateSettingsFormGroup.value.productCategory,parentCategoryId:this.updateSettingsFormGroup.value.id,
     subCategory:subarr};
     console.log(arr)
@@ -128,10 +130,11 @@ public addGroup(type) {
   if(this.createSettingsFormGroup.value.subCategoryName!=""&&this.createSettingsFormGroup.value.goal!="")
   {
    this.checkArray = this.createSettingsFormGroup.get('subCategories') as FormArray;
-   this.checkArray.value.push({subCategoryName:new FormControl(this.createSettingsFormGroup.value.subCategoryName),goal:new FormControl(this.createSettingsFormGroup.value.goal)});
-     
+   this.checkArray.value.push({subCategoryName:new FormControl(this.createSettingsFormGroup.value.subCategoryName),goal:new FormControl(this.createSettingsFormGroup.value.goal),sign:new FormControl(this.createSettingsFormGroup.value.sign)});
+     console.log(this.checkArray.value)
   this.createSettingsFormGroup.patchValue({subCategoryName:''});
   this.createSettingsFormGroup.patchValue({goal:''});
+  this.createSettingsFormGroup.patchValue({sign:''});
 
   }
 }
@@ -139,11 +142,21 @@ else{
   debugger;
   if(this.updateSettingsFormGroup.value.subCategoryName!=""&&this.updateSettingsFormGroup.value.goal!="")
   {
-   
-   this.checkArray.value.push({id:new FormControl(this.updateSettingsFormGroup.value.subCategoryID),subCategoryName:new FormControl(this.updateSettingsFormGroup.value.subCategoryName),goal:new FormControl(this.updateSettingsFormGroup.value.goal),isDeleted:new FormControl(false)});
-  
+   var itemToEdit=this.checkArray.value.filter(r=>r.id.value==this.updateSettingsFormGroup.value.subCategoryID)
+   if(itemToEdit.length==0)
+   {
+   this.checkArray.value.push({id:new FormControl(this.updateSettingsFormGroup.value.subCategoryID),subCategoryName:new FormControl(this.updateSettingsFormGroup.value.subCategoryName),goal:new FormControl(this.updateSettingsFormGroup.value.goal),sign:new FormControl(this.updateSettingsFormGroup.value.sign),isDeleted:new FormControl(false)});
+   }
+   else
+   {
+     itemToEdit[0].subCategoryName=new FormControl(this.updateSettingsFormGroup.value.subCategoryName);
+     itemToEdit[0].goal=new FormControl(this.updateSettingsFormGroup.value.goal)
+     itemToEdit[0].sign=new FormControl(this.updateSettingsFormGroup.value.sign)
+     itemToEdit[0].isDeleted=new FormControl(false)
+   }
   this.updateSettingsFormGroup.patchValue({subCategoryName:''});
   this.updateSettingsFormGroup.patchValue({goal:''});
+  this.updateSettingsFormGroup.patchValue({sign:''});
   this.updateSettingsFormGroup.patchValue({subCategoryID:''});
 
   }
@@ -178,8 +191,11 @@ public removeThroughAdd()
 {
    this.createSettingsFormGroup.patchValue({subCategoryName:''});
   this.createSettingsFormGroup.patchValue({goal:''});
+  this.createSettingsFormGroup.patchValue({sign:''});
      this.updateSettingsFormGroup.patchValue({subCategoryName:''});
   this.updateSettingsFormGroup.patchValue({goal:''});
+  this.updateSettingsFormGroup.patchValue({sign:''});
+
     this.viewAdd=false;
 }
 public editGroup(name,value,type)
@@ -190,12 +206,15 @@ public editGroup(name,value,type)
   {
   this.createSettingsFormGroup.patchValue({subCategoryName:this.checkArray.value[selected].subCategoryName.value});
   this.createSettingsFormGroup.patchValue({goal:this.checkArray.value[selected].goal.value});
+  this.createSettingsFormGroup.patchValue({sign:this.checkArray.value[selected].sign});
   }
   else
   {
      this.updateSettingsFormGroup.patchValue({subCategoryID:this.checkArray.value[selected].id.value});
     this.updateSettingsFormGroup.patchValue({subCategoryName:this.checkArray.value[selected].subCategoryName.value});
   this.updateSettingsFormGroup.patchValue({goal:this.checkArray.value[selected].goal.value});
+  this.updateSettingsFormGroup.patchValue({sign:this.checkArray.value[selected].sign.value});
+  
   }
   if(selected!=-1)
   {

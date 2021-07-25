@@ -33,17 +33,37 @@ export class AssignTicketComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('ticketIDs', this.ticketIds);
-    this.http.GET(`User/getItPersonal/${this.data}`).subscribe((data) => {
-      this.reporterDatasource = data.map((el) => {
-        return {
-          label: el.text,
-          value: el.userName,
-          initials: this.initials(el.text),
-          label1: el.email,
-        };
+    var x=this.data;
+    var teamName=typeof(this.data);
+    if(teamName=='string'){
+      this.http.GET(`User/getItPersonal/${this.data}`).subscribe((data) => {
+        this.reporterDatasource = data.map((el) => {
+          return {
+            label: el.text,
+            value: el.userName,
+            initials: this.initials(el.text),
+            label1: el.email,
+          };
+        });
+        console.log("reporterDatasource",this.reporterDatasource);
       });
-      console.log("reporterDatasource",this.reporterDatasource);
-    });
+    }
+    else{
+      this.http.GET(`User/getItPersonal/${this.data[0].teamName}`).subscribe((data) => {
+        this.reporterDatasource = data.map((el) => {
+          return {
+            label: el.text,
+            value: el.userName,
+            initials: this.initials(el.text),
+            label1: el.email,
+          };
+        });
+        console.log("reporterDatasource",this.reporterDatasource);
+      });
+    }
+    
+    debugger;
+ 
   }
 
   usersHandler(e) {
@@ -72,7 +92,8 @@ export class AssignTicketComponent implements OnInit {
           });
           this.dialog.closeAll();
         });
-    } else {
+    }
+     else {
       this.data.forEach((element) => {
         this.ticketIds.push(element['id']);
       });

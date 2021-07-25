@@ -1,5 +1,5 @@
 import { Component, EventEmitter, HostListener, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
@@ -32,6 +32,7 @@ export class ProductCategorySettingsComponent implements OnInit {
   private subscriptionName: Subscription;
   dataLoaded: boolean = false;
   empty: boolean = true;
+productCategory:FormGroup=new FormGroup({ name: new FormControl() });;
 
   constructor(
     private http: HTTPMainServiceService,
@@ -39,7 +40,7 @@ export class ProductCategorySettingsComponent implements OnInit {
     private service: TicketCreationService,
   private _snackBar: MatSnackBar,
     private common: CommonServiceService,
-    private spinner: SpinnerFlagService
+    private spinner: SpinnerFlagService,private formBuilder: FormBuilder,
   ) {
     this.subscriptionName = this.common.getUpdate().subscribe((data) => {
       this.UserViewInfoObject = data.map((el) => {
@@ -293,6 +294,7 @@ export class ProductCategorySettingsComponent implements OnInit {
   filteredTickets: Observable<any[]>;
   @Output() optionSelected = new EventEmitter();
   private filter(value: string | any): Observable<any[]> {
+  
     const val = typeof value === 'string' ? value : value.ticketName;
     console.log('inside filter, value is: ', value);
     if (value === '') {
@@ -367,9 +369,24 @@ export class ProductCategorySettingsComponent implements OnInit {
     return ticket ? ticket : undefined;
   }
   ngOnInit(): void {
-   
-    this.filteredTickets = this.ticketForm
-      .get('ticket')
+    this.http.POST('Category/List', {
+            searchText: [],
+            pageSize: 10000,
+            pageNumber: this.pageIndex,
+            isPrint: true,
+            filter: {
+           
+            },
+            sortValue: 0,
+          })
+          .subscribe((res) => {
+      res.pageData.map((d) => {
+        this.ticketsNO.push(d['text']);
+      });
+      console.log(this.ticketsNO)
+    });
+    this.filteredTickets = this.productCategory
+      .get('name')
       .valueChanges.pipe(
         tap((val) =>
           console.log('inside valueChanges Observable, val is: ', val)
@@ -467,6 +484,10 @@ export class ProductCategorySettingsComponent implements OnInit {
   }
 
   firstCharacter: any;
+  search()
+  {
+    
+  }
   getRedMenuCharacters(names: any = []) {
     let allNames: any = [];
     for (let i = 0; i < names.length; i++) {
@@ -491,9 +512,10 @@ searchByName($event){
    this.pageLength= 5;
   this.pageSize = 5;
   this.pageIndex = 0;
+  console.log("search",$event.target.value)
   this.http
           .POST('Category/List', {
-            searchText: [],
+            searchText: [$event.target.value],
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
@@ -529,6 +551,8 @@ searchByName($event){
               this.dataLoaded = false;
             
               this.showSpinner = false;
+                 this.dataSource = new MatTableDataSource();
+              this.setDataSourceAttributes();
             }
           });
 }

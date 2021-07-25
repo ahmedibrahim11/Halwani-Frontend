@@ -64,7 +64,7 @@ export class SharedComponent implements OnInit {
       debugger
       localStorage.setItem("userData", JSON.stringify(data));
       
-   
+      localStorage.setItem("role",data['userProfile']['roleEnum']);
       debugger;
       switch (data.userProfile.roleEnum) {
         case 0:
@@ -76,6 +76,10 @@ export class SharedComponent implements OnInit {
         case 2:
           this.router.navigate(["/user"])
           break;
+
+          case 3:
+            this.router.navigate(["/itmanager"])
+            break;
       }
     }, err => {
     });

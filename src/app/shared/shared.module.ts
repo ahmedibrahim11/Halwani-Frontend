@@ -19,6 +19,7 @@ import { SLASettingsComponent } from './settings-main-tabs/slasettings/slasettin
 import { CreateSLAComponent } from './settings-main-tabs/slasettings/create-sla/create-sla.component';
 import { ProductCategorySettingsComponent } from './settings-main-tabs/product-category-settings/product-category-settings.component';
 import { CreateProductCategoryComponent } from './settings-main-tabs/product-category-settings/create-product-category/create-product-category.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -43,6 +44,7 @@ import { CreateProductCategoryComponent } from './settings-main-tabs/product-cat
     MatListModule,
     RouterModule,
     ReactiveFormsModule,
+    MatAutocompleteModule
   ],
   exports: [
     AngalurMaterialModule,
