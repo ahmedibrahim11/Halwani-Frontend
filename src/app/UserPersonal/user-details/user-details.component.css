@@ -34,8 +34,8 @@
   background-color: #ffffff;
 }
 .Email-Login {
-  width: 185px;
-  height: 20px;
+  width: fit-content;
+  height: fit-content;
   flex-grow: 0;
   margin: 18px 483px 36px 43px;
   font-family: Poppins;

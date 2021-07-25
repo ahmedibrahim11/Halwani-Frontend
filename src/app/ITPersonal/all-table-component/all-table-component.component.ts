@@ -493,7 +493,7 @@ export class AllTableComponentComponent implements OnInit {
               state: this.Status,
               ticketType: this.from,
             },
-            sortValue: 0,
+            sortValue: null,
           })
           .subscribe((res) => {
             if (res.totalCount !== 0) {
@@ -545,7 +545,7 @@ export class AllTableComponentComponent implements OnInit {
               state: this.Status,
               ticketType: this.from,
             },
-            sortValue: 0,
+            sortValue: null,
           })
           .subscribe((res) => {
             if (res.totalCount !== 0) {
