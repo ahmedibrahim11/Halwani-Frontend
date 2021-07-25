@@ -106,13 +106,8 @@
           </div>
 
           <div
-            class="col-md-8"
-            align="end"
-            style="
-              display: flex;
-              flex-direction: row;
-              justify-content: space-around;
-            "
+            class="col-md-12 col-sm-12"
+            style="display: flex; flex-direction: row; justify-content: center"
           >
             <div *ngIf="createloader === true; then spinner; else btn"></div>
             <ng-template #spinner>
