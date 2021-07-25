@@ -48,13 +48,14 @@
 }
 .Rectangle-5 {
   border-radius: 8px;
-  background-color: #ede9e9;
+  /* background-color: #ede9e9; */
 }
 .Rectangle-6 {
   margin: 6px 0 16px;
   padding: 22px 16px;
   border-radius: 8px;
   border: solid 1px #696969;
+  width: auto;
 }
 .mandatory {
   color: #ed1c24;
@@ -73,7 +74,6 @@
 }
 .person-data-menu {
   width: 13rem;
-
   margin-top: 0;
   line-height: 0.5%;
   margin: 0.5rem;

@@ -20,15 +20,19 @@
             {{ type.description }}
           </p>
         </div>
-        <form [formGroup]="createTicketDTOFormGroup" (ngSubmit)="submiCreate()">
+        <form
+          [formGroup]="createTicketDTOFormGroup"
+          (ngSubmit)="submiCreate()"
+          class="col-sm-12"
+        >
           <div class="col-md-12 p-0">
             <label class="Ticket-type">Reporter</label>
             <div class="col-md-12 Rectangle-5 p-3 pl-0">
               <div class="menu">
                 <div class="red-menu">{{ submitterInitials }}</div>
                 <div class="person-data-menu">
-                  <h6>{{ submitterName }}</h6>
-                  <p style="opacity: 0.7">{{ reporter }}</p>
+                  <h6 style="font-size: x-small">{{ submitterName }}</h6>
+                  <p style="opacity: 0.7; font-size: x-small">{{ reporter }}</p>
                 </div>
               </div>
             </div>
@@ -61,6 +65,7 @@
                 <ng-template
                   ngx-file-drop-content-tmp
                   let-openFileSelector="openFileSelector"
+                  style="font-size: small"
                 >
                   Drag and drop files, paste screenshots, or upload attachments
                   <button
@@ -100,7 +105,15 @@
             </div>
           </div>
 
-          <div class="col-md-8" align="end">
+          <div
+            class="col-md-8"
+            align="end"
+            style="
+              display: flex;
+              flex-direction: row;
+              justify-content: space-around;
+            "
+          >
             <div *ngIf="createloader === true; then spinner; else btn"></div>
             <ng-template #spinner>
               <mat-spinner
@@ -111,16 +124,12 @@
               ></mat-spinner>
             </ng-template>
             <ng-template #btn>
-              <a
-                [routerLink]="['/user/helpCenter']"
-                class="cancel btn"
-                style="display: inline"
-                >Cancel request</a
-              >
+              <a [routerLink]="['/user/helpCenter']" class="cancel btn m-3">
+                Cancel request
+              </a>
               <button
-                class="send btn ml-4"
+                class="send btn m-3"
                 type="submit"
-                style="display: inline"
                 [disabled]="!createTicketDTOFormGroup.valid"
               >
                 Send ticket
