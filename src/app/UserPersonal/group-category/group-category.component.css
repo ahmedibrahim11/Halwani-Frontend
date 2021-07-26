@@ -64,6 +64,13 @@
   text-align: left;
   color: #717171;
 }
+.Rectangle-5 {
+  padding: 1.5rem;
+  border-radius: 8px;
+  background-color: #ffffff;
+  display: flex;
+  cursor: pointer;
+}
 ::-webkit-scrollbar {
   width: 5px;
   display: none;

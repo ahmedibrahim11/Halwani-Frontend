@@ -43,6 +43,7 @@
   border-radius: 8px;
   background-color: #ffffff;
   display: flex;
+  cursor: pointer;
 }
 .Common-Requests {
   font-family: Poppins;
