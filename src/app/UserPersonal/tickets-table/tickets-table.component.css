@@ -99,10 +99,9 @@
 }
 .person-data-menu {
   width: 11rem;
-
   margin-top: 0;
   line-height: 0.5%;
-  margin: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .icon:hover {
@@ -136,7 +135,7 @@
   background-color: rgb(143, 48, 48);
 }
 .statusBubble {
-  width: 140px;
+  width: 50%;
   height: 22px;
   flex-grow: 0;
   display: flex;
