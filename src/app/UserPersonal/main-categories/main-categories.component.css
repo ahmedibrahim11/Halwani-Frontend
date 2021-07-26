@@ -11,13 +11,18 @@
   color: #ffffff;
 }
 .Rectangle-4 {
-  padding: 26px 565px 26px 26px;
+  padding: 3% 25%;
   border-radius: 8px;
   background-color: #ffffff;
 }
 @media (min-width: 320px) and (max-width: 480px) {
   .Rectangle-4 {
     padding: 1.6rem 3.6rem;
+  }
+}
+@media (max-width: 300px) {
+  .Rectangle-4 {
+    padding: 1.6rem 1.6rem;
   }
 }
 .Rectangle-5 {
