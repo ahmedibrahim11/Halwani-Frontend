@@ -33,9 +33,9 @@ export class AssignTicketComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('ticketIDs', this.ticketIds);
-    var x=this.data;
-    var teamName=typeof(this.data);
-    if(teamName=='string'){
+    var x = this.data;
+    var teamName = typeof this.data;
+    if (teamName == 'string') {
       this.http.GET(`User/getItPersonal/${this.data}`).subscribe((data) => {
         this.reporterDatasource = data.map((el) => {
           return {
@@ -45,25 +45,23 @@ export class AssignTicketComponent implements OnInit {
             label1: el.email,
           };
         });
-        console.log("reporterDatasource",this.reporterDatasource);
+        console.log('reporterDatasource', this.reporterDatasource);
       });
-    }
-    else{
-      this.http.GET(`User/getItPersonal/${this.data[0].teamName}`).subscribe((data) => {
-        this.reporterDatasource = data.map((el) => {
-          return {
-            label: el.text,
-            value: el.userName,
-            initials: this.initials(el.text),
-            label1: el.email,
-          };
+    } else {
+      this.http
+        .GET(`User/getItPersonal/${this.data[0].teamName}`)
+        .subscribe((data) => {
+          this.reporterDatasource = data.map((el) => {
+            return {
+              label: el.text,
+              value: el.userName,
+              initials: this.initials(el.text),
+              label1: el.email,
+            };
+          });
+          console.log('reporterDatasource', this.reporterDatasource);
         });
-        console.log("reporterDatasource",this.reporterDatasource);
-      });
     }
-    
-    debugger;
- 
   }
 
   usersHandler(e) {
@@ -74,9 +72,9 @@ export class AssignTicketComponent implements OnInit {
   durationInSeconds: any = 3;
 
   assignHandler() {
-    var dataType=typeof(this.data);
+    var dataType = typeof this.data;
     debugger;
-    console.log("dataaaa",this.data);
+    console.log('dataaaa', this.data);
     if (dataType === 'string') {
       debugger;
       this.ticketID = this.share.getData();
@@ -92,8 +90,7 @@ export class AssignTicketComponent implements OnInit {
           });
           this.dialog.closeAll();
         });
-    }
-     else {
+    } else {
       this.data.forEach((element) => {
         this.ticketIds.push(element['id']);
       });
@@ -125,5 +122,9 @@ export class AssignTicketComponent implements OnInit {
       (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
     ).toUpperCase();
     return initials;
+  }
+
+  ngOnDestroy() {
+    this.share.setData(undefined);
   }
 }

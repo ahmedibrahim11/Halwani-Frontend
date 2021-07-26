@@ -50,4 +50,8 @@ export class CancelTicketComponent implements OnInit {
   closeModal() {
     this.dialog.closeAll();
   }
+
+  ngOnDestroy() {
+    this.share.setData(undefined);
+  }
 }

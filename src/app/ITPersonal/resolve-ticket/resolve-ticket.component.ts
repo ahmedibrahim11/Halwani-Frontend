@@ -70,4 +70,8 @@ export class ResolveTicketComponent implements OnInit {
         this.dialog.closeAll();
       });
   }
+
+  ngOnDestroy() {
+    this.share.setData(undefined);
+  }
 }
