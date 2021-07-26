@@ -87,14 +87,15 @@
   stroke: #c4161c;
 }
 .red-menu {
-  background-color: #c4161c;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  padding: 8%;
-  margin-top: 4%;
-  color: #ffffff;
-  align-self: center;
+ background-color: #c4161c;
+ border-radius: 10px;
+ display: flex;
+ flex-direction: row;
+ padding: 4%;
+ margin-top: 0;
+ margin-right: .2rem;
+ color: #ffffff;
+ align-self: center;
 }
 .person-data-menu {
   margin-top: 0;
