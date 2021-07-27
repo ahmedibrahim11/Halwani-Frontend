@@ -1,44 +1,88 @@
 <div class="profile-div">
-    <div class="section-1">
-<span class="Rectangle">
-    <img src="assets/halawani.png" class="halawani-logo" />
-</span>
-<div class="menu-parent">
-<div class="menu">
-    <div class="red-menu">{{userInitials}}</div>
-    <div class="person-data-menu">
-        <h1 style="margin-bottom: 0;">{{userName}}</h1>
-        <h2 style="opacity: 0.7">{{userRole}}</h2>
+  <div class="section-1">
+    <span class="Rectangle">
+      <img src="assets/halawani.png" class="halawani-logo" />
+    </span>
+    <div class="menu-parent">
+      <div class="menu">
+        <div class="red-menu">{{ userInitials }}</div>
+        <div class="person-data-menu">
+          <h1 style="margin-bottom: 0">{{ userName }}</h1>
+          <h2 style="opacity: 0.7">{{ userRole }}</h2>
+        </div>
+      </div>
+      <hr style="margin-left: 1rem; opacity: 0.7" />
+      <div class="profile-Details">
+        <span class="profile-Detail">
+          <h3>Email Address</h3>
+          <p style="opacity: 0.7">{{ userEmail }}</p>
+        </span>
+        <span class="profile-Detail">
+          <h3>Job Title</h3>
+          <p style="opacity: 0.7">Technical Support Section Head</p>
+        </span>
+        <span class="profile-Detail">
+          <h3>Mobile Number</h3>
+          <p style="opacity: 0.7">+201119997118</p>
+        </span>
+        <span class="profile-Detail">
+          <h3>Team</h3>
+          <p style="opacity: 0.7">{{ userTeam }}</p>
+        </span>
+      </div>
     </div>
-   
-</div>
-<hr style="margin-left: 2rem;opacity: 0.7;">
-<div class="profile-Details">
-    <span class="profile-Detail">
-        <h3>Email Address</h3>
-        <p style="opacity: 0.7">{{userEmail}}</p>
-    </span>
-    <span class="profile-Detail">
-        <h3>Job Title</h3>
-        <p style="opacity: 0.7">Technical Support Section Head</p>
-    </span>
-    <span class="profile-Detail">
-        <h3>Mobile Number</h3>
-        <p style="opacity: 0.7">+201119997118</p>
-    </span>
-    <span class="profile-Detail">
-        <h3>Team</h3>
-        <p style="opacity: 0.7">{{userTeam}}</p>
-    </span>
-</div>
-</div>
+  </div>
+  <hr style="opacity: 0.7" />
 
+  <div class="cards-container">
+    <span class="Rectangle2">
+      <mat-icon class="icon">contact_support</mat-icon>
+      <h1 style="margin-top: 2rem; margin-bottom: 0; font-weight: bolder">
+        Help Center Settings
+      </h1>
+      <h2
+        style="
+          margin-top: 1rem;
+          margin-bottom: 0;
+          opacity: 0.5;
+          font-size: 18px;
+        "
+      >
+        Add, edit and delete issue groups and request types
+      </h2>
+    </span>
+    <span class="Rectangle2">
+      <mat-icon class="icon">watch_later</mat-icon>
+      <h1 style="margin-top: 2rem; margin-bottom: 0; font-weight: bolder">
+        SLA Settings
+      </h1>
+      <h2
+        style="
+          margin-top: 1rem;
+          margin-bottom: 0;
+          opacity: 0.5;
+          font-size: 18px;
+        "
+      >
+        Add, edit and delete service level agreement level
+      </h2>
+    </span>
+
+    <span class="Rectangle2">
+      <mat-icon class="icon">dehaze</mat-icon>
+      <h1 style="margin-top: 2rem; margin-bottom: 0; font-weight: bolder">
+        Product Categorization
+      </h1>
+      <h2
+        style="
+          margin-top: 1rem;
+          margin-bottom: 0;
+          opacity: 0.5;
+          font-size: 18px;
+        "
+      >
+        Add, edit and delete product categorize and sub-categorize
+      </h2>
+    </span>
+  </div>
 </div>
-<!-- <hr style="opacity: 0.7;">
-<span class="Rectangle2">
-    <mat-icon class="icon" >contact_support</mat-icon>
-    <h1 style="margin-top: 2rem;margin-bottom: 0;font-weight: bolder;">Help Center Settings</h1>
-    <h2 style="margin-top: 1rem;margin-left: 1.25rem;margin-bottom: 0; opacity: 0.5; font-size: 18px; align-items: center; ">Add, edit and delete issue groups</h2>
-    <h2 style="margin-left: 3rem;opacity: 0.5; font-size: 18px; align-items: center; ">and request types</h2>
-</span>
-</div> -->

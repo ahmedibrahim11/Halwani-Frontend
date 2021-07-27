@@ -1,7 +1,6 @@
 .Rectangle {
-  width: 244px;
-  height: 198px;
-
+  width: 13rem;
+  height: 13rem;
   border-radius: 8px;
   background-color: #f5f6f7;
   display: flex;
@@ -9,10 +8,10 @@
   align-items: center;
 }
 .profile-div {
-  margin: 5rem 2rem;
+  margin: 1rem 2rem;
 }
 .halawani-logo {
-  width: 10rem;
+  width: 7rem;
   height: 10rem;
 }
 .section-1 {
@@ -29,17 +28,16 @@
   margin-bottom: 2rem;
 }
 .red-menu {
-  background-color: #c4161c;
-  border-radius: 10px;
-  display: flex;
-  padding: 15px;
-  color: #ffffff;
-  align-self: center;
-  height: 60px;
-  width: 58px;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
+ background-color: #c4161c;
+ border-radius: 10px;
+ display: flex;
+ padding: 15px;
+ color: #ffffff;
+ height: 1.5rem;
+ margin-top: 0.5rem;
+ text-align: center;
+ justify-content: center;
+ align-items: center;
 }
 .person-data-menu {
   width: 100%;
@@ -56,25 +54,32 @@
   display: flex;
   flex-direction: row;
   margin-left: 2rem;
-  margin-top: 2rem;
+  margin-top: 0;
 }
 .profile-Detail {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-left: 2rem;
+  margin-left: 1rem;
+}
+.cards-container{
+  display: flex;
+  flex-direction: row;
 }
 .Rectangle2 {
-  width: 25%;
-  height: 100%;
+  width: 30vw;
+  height: 20vh;
   padding: 44px 36px;
   border-radius: 4px;
   border: solid 0.5px #979797;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  text-align: center;
+  margin-left: 1rem;
+  margin-top: 2rem;
+  cursor: pointer;
 }
 .icon {
   color: #c4161c;
