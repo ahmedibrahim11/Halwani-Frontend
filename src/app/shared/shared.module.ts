@@ -20,6 +20,10 @@ import { CreateSLAComponent } from './settings-main-tabs/slasettings/create-sla/
 import { ProductCategorySettingsComponent } from './settings-main-tabs/product-category-settings/product-category-settings.component';
 import { CreateProductCategoryComponent } from './settings-main-tabs/product-category-settings/create-product-category/create-product-category.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ReportABugComponent } from './report-abug/report-abug.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { HttpClientModule } from '@angular/common/http';
+import { AskForSupportComponent } from './ask-for-support/ask-for-support.component';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -36,9 +40,13 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     CreateSLAComponent,
     ProductCategorySettingsComponent,
     CreateProductCategoryComponent,
+    ReportABugComponent,
+    AskForSupportComponent,
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
+     AngularEditorModule,
     AngalurMaterialModule,
     MatSidenavModule,
     MatListModule,
