@@ -165,11 +165,13 @@
           <h4 style="opacity: 0.8">Settings</h4>
         </a>
       </mat-nav-list>
-      <div class="action-container">
-        <img src="assets/9.png" class="icon-img" />
+      <div  mat-list-item
+         
+          [routerLinkActive]="['active']" class="action-container" (click)="reportABug()" style="cursor: pointer;">
+        <img src="assets/9.png" class="icon-img"  />
         <h4 style="opacity: 0.8">Report a Bug</h4>
       </div>
-      <div class="action-container">
+                  <div mat-list-item [routerLinkActive]="['active']" class="action-container" (click)="askForSupport()" style="cursor: pointer;">
         <img src="assets/10.png" class="icon-img" />
         <h4 style="opacity: 0.8">Ask for Support</h4>
       </div>

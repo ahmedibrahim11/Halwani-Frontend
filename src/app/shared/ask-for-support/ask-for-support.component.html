@@ -1,0 +1,19 @@
+<div class="header-container">
+    <h1 mat-dialog-title class="Create-setting">Ask For Support</h1>
+    <mat-icon (click)="closeModal()" class="icon">close</mat-icon>
+</div>
+<p style="opacity: 0.7; margin-bottom: 0.5rem;display: block;">If you need clarification for any feateure usage ,you can contact support team</p>
+<p style="opacity: 0.7;">The content written in the bellow text Area to be sent as Email Body for support team</p>
+<form [formGroup]="createReport">
+    <mat-dialog-content class="mat-typography">
+        <angular-editor [config]="editorConfig" formControlName="text"></angular-editor>
+
+    </mat-dialog-content>
+</form>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="closeModal()" class="cancel">Cancel</button>
+    <button mat-button class="send" type="button" [disabled]="!createReport.valid"
+        (click)="reportaBug()">
+        Send
+    </button>
+</mat-dialog-actions>

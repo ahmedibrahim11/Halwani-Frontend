@@ -1,0 +1,45 @@
+.send {
+  width: 100px;
+  height: 44px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #c4161c;
+  color: white;
+}
+.Back {
+  width: 100px;
+  height: 44px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: silver;
+}
+.Create-setting {
+  flex-grow: 1;
+  margin: 0 153px 0.5rem 0;
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.39;
+  letter-spacing: 1px;
+  text-align: left;
+  color: #14142b;
+}
+.header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
