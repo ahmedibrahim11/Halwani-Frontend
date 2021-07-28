@@ -43,3 +43,6 @@
   flex-direction: row;
   justify-content: space-between;
 }
+.icon:hover {
+  cursor: pointer;
+}

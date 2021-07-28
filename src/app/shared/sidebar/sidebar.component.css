@@ -3,6 +3,10 @@
   margin: 4px 0 0 0;
   padding: 0px 2px 0px 0;
   background-color: #fafafa;
+  overflow-y: auto;
+  box-shadow: 0 0 1px 0 rgba(9, 30, 66, 0.31),
+    0 3px 5px 0 rgba(9, 30, 66, 0.2);
+  border-right: 1px solid #d4d2d2;
 }
 .logo-withtext {
   display: flex;
