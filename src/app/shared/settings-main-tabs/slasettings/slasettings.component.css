@@ -47,6 +47,9 @@
   border: none;
   background-color: white;
 }
+.mat-table{
+  width: 100vw !important;
+}
 .Table-buttons {
   width: 10rem;
   height: 2.45rem;
@@ -143,6 +146,7 @@
   background-color: #fff1cd;
   color: #d7a500;
 }
-td{
-  width: fit-content;
+th {
+  font-weight: bold;
+  color: #333333;
 }
