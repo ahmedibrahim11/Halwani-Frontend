@@ -147,3 +147,9 @@
   border-radius: 10px;
   color: white;
 }
+th {
+  text-align: center;
+  font-weight: bold;
+  color: #333333;
+  background-color: #f5f6f7;
+}
