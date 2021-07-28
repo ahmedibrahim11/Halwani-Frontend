@@ -142,9 +142,7 @@
 table{
   text-align: start;
 }
-th{
-  text-align: center;
-}
+
 .spinner-design {
   display: flex;
   text-align: center;
@@ -187,4 +185,9 @@ th{
   display: block;
   color: #c4161c;
   margin-top: 1.5rem;
+}
+th {
+  text-align: center;
+  font-weight: bold;
+  color: #333333;
 }
