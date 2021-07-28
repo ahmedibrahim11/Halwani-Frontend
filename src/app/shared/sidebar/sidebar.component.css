@@ -48,6 +48,10 @@
   text-align: left;
   color: #000000;
 }
+.sub-title-side{
+  font-size: 14px;
+  font-weight: bolder;
+}
 .divider {
   width: 150px;
   height: 1px;
