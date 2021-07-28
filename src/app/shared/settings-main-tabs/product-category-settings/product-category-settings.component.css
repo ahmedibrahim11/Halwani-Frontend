@@ -50,7 +50,7 @@
   background-color: white;
 }
 .Table-buttons {
-  width: 25rem;
+  width: 28rem;
   height: 1.45rem;
   flex-grow: 0;
   display: flex;
@@ -63,8 +63,10 @@
   padding: 10px;
   border-radius: 6px;
   background-color: #f5f6f7;
+  cursor: pointer;
 }
 .Export-queue {
+  cursor: pointer;
   width: 65%;
   height: 24px;
   flex-grow: 0;
@@ -156,9 +158,11 @@
   background-color: #fff1cd;
   color: #d7a500;
 }
-th{
+th {
+  text-align: center;
   font-weight: bold;
   color: #333333;
+  background-color: #f5f6f7;
 }
 ::-webkit-scrollbar {
   width: 7px;

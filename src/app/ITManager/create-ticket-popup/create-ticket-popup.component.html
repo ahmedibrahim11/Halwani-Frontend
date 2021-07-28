@@ -4,7 +4,13 @@
 
 <ng-template #create>
   <form [formGroup]="createTicketDTOFormGroup" (ngSubmit)="submiCreate()">
-    <h1 mat-dialog-title class="Create-a-ticket">Create A Ticket</h1>
+    <div
+      style="display: flex; flex-direction: row; justify-content: space-between"
+    >
+      <h1 mat-dialog-title class="Create-a-ticket">Create A Ticket</h1>
+      <mat-icon style="cursor: pointer" mat-dialog-close>close</mat-icon>
+    </div>
+
     <mat-dialog-content class="mat-typography">
       <label class="Ticket-type"
         >Ticket type <span class="mandatory"> *</span></label
@@ -267,8 +273,10 @@
 <ng-template #update>
   <form [formGroup]="updateTicketDTOFormGroup" (ngSubmit)="submitUpdate()">
     <div class="update-title-container">
-      <h1 mat-dialog-title class="Create-a-ticket">Update Ticket</h1>
-      <h5>{{ ticketNumber }}</h5>
+      <h1 mat-dialog-title class="Create-a-ticket">
+        Update Ticket no. {{ ticketNumber }}
+      </h1>
+      <mat-icon style="cursor: pointer" mat-dialog-close>close</mat-icon>
     </div>
     <mat-dialog-content class="mat-typography">
       <label class="Ticket-type">Ticket type</label>

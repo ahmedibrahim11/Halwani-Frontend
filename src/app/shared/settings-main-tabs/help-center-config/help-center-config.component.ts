@@ -1,6 +1,14 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, EventEmitter, HostListener, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -24,14 +32,14 @@ import { FiltersPopupComponent } from './filters-popup/filters-popup.component';
 @Component({
   selector: 'app-help-center-config',
   templateUrl: './help-center-config.component.html',
-  styleUrls: ['./help-center-config.component.css']
+  styleUrls: ['./help-center-config.component.css'],
 })
 export class HelpCenterConfigComponent implements OnInit {
   public TicketCategory = TicketCategoryEnum;
- @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
   public flag: boolean;
   @ViewChild(MatPaginator) paginator: MatPaginator;
- 
+
   private subscriptionName: Subscription;
   dataLoaded: boolean = false;
   empty: boolean = true;
@@ -40,22 +48,21 @@ export class HelpCenterConfigComponent implements OnInit {
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
     private service: TicketCreationService,
-  private _snackBar: MatSnackBar,
+    private _snackBar: MatSnackBar,
     private common: CommonServiceService,
     private spinner: SpinnerFlagService
   ) {
     this.subscriptionName = this.common.getUpdate().subscribe((data) => {
       this.UserViewInfoObject = data.map((el) => {
-       
         return {
           id: el['id'],
           name: el['title'],
           description: el['description'],
-          group:el["group"],
-          ticketType:el["ticketType"],
+          group: el['group'],
+          ticketType: el['ticketType'],
           initials: this.initials(el['team']),
-         team:el['team'],
-         isVisable:el['isVisable']
+          team: el['team'],
+          isVisable: el['isVisable'],
         };
       });
       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -81,26 +88,23 @@ export class HelpCenterConfigComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: {
-           
-          },
+          filter: {},
           sortvalue: 0,
         })
         .subscribe((res) => {
           console.log(res.pageData);
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
-         
             return {
-               id: el['id'],
-          name: el['title'],
-          description: el['description'],
-          group:el["group"],
-          ticketType:el["ticketType"],
-          initials: this.initials(el['team']),
-         team:el['team'],
-         
-         isVisable:el['isVisable']
+              id: el['id'],
+              name: el['title'],
+              description: el['description'],
+              group: el['group'],
+              ticketType: el['ticketType'],
+              initials: this.initials(el['team']),
+              team: el['team'],
+
+              isVisable: el['isVisable'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -114,25 +118,22 @@ export class HelpCenterConfigComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: {
-            
-          },
+          filter: {},
           sortvalue: 0,
         })
         .subscribe((res) => {
           console.log(res.pageData);
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
-     
             return {
-             id: el['id'],
-          name: el['title'],
-          description: el['description'],
-          group:el["group"],
-          ticketType:el["ticketType"],
-          initials: this.initials(el['team']),
-         team:el['team'],
-         isVisable:el['isVisable']
+              id: el['id'],
+              name: el['title'],
+              description: el['description'],
+              group: el['group'],
+              ticketType: el['ticketType'],
+              initials: this.initials(el['team']),
+              team: el['team'],
+              isVisable: el['isVisable'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -145,25 +146,22 @@ export class HelpCenterConfigComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: {
-     
-          },
+          filter: {},
           sortvalue: 0,
         })
         .subscribe((res) => {
           console.log(res.pageData);
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
-            
             return {
               id: el['id'],
-          name: el['title'],
-          description: el['description'],
-          group:el["group"],
-          ticketType:el["ticketType"],
-          initials: this.initials(el['team']),
-         team:el['team'],
-         isVisable:el['isVisable']
+              name: el['title'],
+              description: el['description'],
+              group: el['group'],
+              ticketType: el['ticketType'],
+              initials: this.initials(el['team']),
+              team: el['team'],
+              isVisable: el['isVisable'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -222,9 +220,7 @@ export class HelpCenterConfigComponent implements OnInit {
         pageSize: this.pageSize,
         pageNumber: this.pageIndex,
         isPrint: false,
-        filter: {
-          
-        },
+        filter: {},
         sortvalue: sortValue,
         sortDirection: sortDirec,
       })
@@ -232,16 +228,15 @@ export class HelpCenterConfigComponent implements OnInit {
         console.log(res.pageData);
         let usersData = res.pageData;
         this.UserViewInfoObject = usersData.map((el) => {
-       
           return {
             id: el['id'],
-          name: el['title'],
-          description: el['description'],
-          group:el["group"],
-          ticketType:el["ticketType"],
-          initials: this.initials(el['team']),
-         team:el['team'],
-         isVisable:el['isVisable']
+            name: el['title'],
+            description: el['description'],
+            group: el['group'],
+            ticketType: el['ticketType'],
+            initials: this.initials(el['team']),
+            team: el['team'],
+            isVisable: el['isVisable'],
           };
         });
         console.log(this.UserViewInfoObject);
@@ -315,8 +310,8 @@ export class HelpCenterConfigComponent implements OnInit {
       : this.UserViewInfoObject.forEach((row) => this.selection.select(row));
   }
 
-  UserViewInfoObject: RequestTypeListingDTO[] = new Array<RequestTypeListingDTO>();
-  
+  UserViewInfoObject: RequestTypeListingDTO[] =
+    new Array<RequestTypeListingDTO>();
 
   dataSource: any;
   showSpinner: Boolean = true;
@@ -337,25 +332,22 @@ export class HelpCenterConfigComponent implements OnInit {
           pageSize: this.pageLength,
           pageNumber: this.pageIndex,
           isPrint: false,
-          filter: {
-           
-          },
+          filter: {},
           sortValue: 0,
         })
         .subscribe((res) => {
           console.log('search rsut', res);
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
-
             return {
               id: el['id'],
-          name: el['title'],
-          description: el['description'],
-          group:el["group"],
-          ticketType:el["ticketType"],
-          initials: this.initials(el['team']),
-         team:el['team'],
-         isVisable:el['isVisable']
+              name: el['title'],
+              description: el['description'],
+              group: el['group'],
+              ticketType: el['ticketType'],
+              initials: this.initials(el['team']),
+              team: el['team'],
+              isVisable: el['isVisable'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -383,9 +375,7 @@ export class HelpCenterConfigComponent implements OnInit {
         pageSize: 5,
         pageNumber: this.pageIndex,
         isPrint: false,
-        filter: {
-       
-        },
+        filter: {},
         sortValue: 0,
       })
       .subscribe((res) => {
@@ -394,14 +384,14 @@ export class HelpCenterConfigComponent implements OnInit {
         this.UserViewInfoObject = usersData.map((el) => {
           const cerationDate = new Date(el['creationDate']);
           return {
-           id: el['id'],
-          name: el['title'],
-          description: el['description'],
-          group:el["group"],
-          ticketType:el["ticketType"],
-          initials: this.initials(el['team']),
-         team:el['team'],
-         isVisable:el['isVisable']
+            id: el['id'],
+            name: el['title'],
+            description: el['description'],
+            group: el['group'],
+            ticketType: el['ticketType'],
+            initials: this.initials(el['team']),
+            team: el['team'],
+            isVisable: el['isVisable'],
           };
         });
         this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -412,7 +402,6 @@ export class HelpCenterConfigComponent implements OnInit {
     return ticket ? ticket : undefined;
   }
   ngOnInit(): void {
-   
     this.filteredTickets = this.ticketForm
       .get('ticket')
       .valueChanges.pipe(
@@ -422,7 +411,7 @@ export class HelpCenterConfigComponent implements OnInit {
         debounceTime(200)
       )
       .pipe(mergeMap((val) => this.filter(val)));
-  
+
     this.spinner.setSpinnerValue(this.showSpinner);
     this.service.getValue().subscribe((value) => {
       this.flag = value;
@@ -434,9 +423,7 @@ export class HelpCenterConfigComponent implements OnInit {
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
-            filter: {
-           
-            },
+            filter: {},
             sortValue: 0,
           })
           .subscribe((res) => {
@@ -450,16 +437,15 @@ export class HelpCenterConfigComponent implements OnInit {
               console.log('resulttttt', res.pageData);
               let usersData = res.pageData;
               this.UserViewInfoObject = usersData.map((el) => {
-               
                 return {
-                 id: el['id'],
-          name: el['title'],
-          description: el['description'],
-          group:el["group"],
-          ticketType:el["ticketType"],
-          initials: this.initials(el['team']),
-         team:el['team'],
-         isVisable:el['isVisable']
+                  id: el['id'],
+                  name: el['title'],
+                  description: el['description'],
+                  group: el['group'],
+                  ticketType: el['ticketType'],
+                  initials: this.initials(el['team']),
+                  team: el['team'],
+                  isVisable: el['isVisable'],
                 };
               });
               this.getRedMenuCharacters(this.usersName);
@@ -479,9 +465,7 @@ export class HelpCenterConfigComponent implements OnInit {
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
-            filter: {
-             
-            },
+            filter: {},
             sortValue: 0,
           })
           .subscribe((res) => {
@@ -495,16 +479,15 @@ export class HelpCenterConfigComponent implements OnInit {
               console.log('resulttttt', res.pageData);
               let usersData = res.pageData;
               this.UserViewInfoObject = usersData.map((el) => {
-             
                 return {
-                 id: el['id'],
-          name: el['title'],
-          description: el['description'],
-          group:el["group"],
-          ticketType:el["ticketType"],
-          initials: this.initials(el['team']),
-         team:el['team'],
-         isVisable:el['isVisable']
+                  id: el['id'],
+                  name: el['title'],
+                  description: el['description'],
+                  group: el['group'],
+                  ticketType: el['ticketType'],
+                  initials: this.initials(el['team']),
+                  team: el['team'],
+                  isVisable: el['isVisable'],
                 };
               });
               this.getRedMenuCharacters(this.usersName);
@@ -513,7 +496,7 @@ export class HelpCenterConfigComponent implements OnInit {
               this.setDataSourceAttributes();
             } else {
               this.dataLoaded = false;
-            
+
               this.showSpinner = false;
             }
           });
@@ -533,7 +516,8 @@ export class HelpCenterConfigComponent implements OnInit {
   initials(name) {
     let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
 
-    let initials =name!=undefined?[...name.matchAll(rgx)] || []:["NOT Available"];
+    let initials =
+      name != undefined ? [...name.matchAll(rgx)] || [] : ['NOT Available'];
 
     initials = (
       (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
@@ -543,92 +527,89 @@ export class HelpCenterConfigComponent implements OnInit {
 
   openFilterModal() {
     const dialogRef = this.dialog.open(FiltersPopupComponent, {
-      position: { top: '21%', left: '17%' },
+      position: { top: '15%', left: '17%' },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
   }
-searchByName($event){
-   this.pageLength= 5;
-  this.pageSize = 5;
-  this.pageIndex = 0;
-  this.http
-          .POST('RequestType/list', {
-            searchText: [],
-            pageSize: this.pageLength,
-            pageNumber: this.pageIndex,
-            isPrint: false,
-            filter: {
-             searchText:$event.target.value
-            },
-            sortValue: 0,
-          })
-          .subscribe((res) => {
-            if (res.totalCount !== 0) {
-              this.showSpinner = false;
-              this.spinner.setSpinnerValue(this.showSpinner);
-              this.dataLoaded = true;
-              this.pageLength = res.totalCount;
-              this.empty = false;
+  searchByName($event) {
+    this.pageLength = 5;
+    this.pageSize = 5;
+    this.pageIndex = 0;
+    this.http
+      .POST('RequestType/list', {
+        searchText: [],
+        pageSize: this.pageLength,
+        pageNumber: this.pageIndex,
+        isPrint: false,
+        filter: {
+          searchText: $event.target.value,
+        },
+        sortValue: 0,
+      })
+      .subscribe((res) => {
+        if (res.totalCount !== 0) {
+          this.showSpinner = false;
+          this.spinner.setSpinnerValue(this.showSpinner);
+          this.dataLoaded = true;
+          this.pageLength = res.totalCount;
+          this.empty = false;
 
-              console.log('resulttttt', res.pageData);
-              let usersData = res.pageData;
-              this.UserViewInfoObject = usersData.map((el) => {
-             
-                return {
-                 id: el['id'],
-          name: el['title'],
-          description: el['description'],
-          group:el["group"],
-          ticketType:el["ticketType"],
-          initials: this.initials(el['team']),
-         team:el['team'],
-         isVisable:el['isVisable']
-                };
-              });
-              this.getRedMenuCharacters(this.usersName);
-
-              this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-              this.setDataSourceAttributes();
-            } else {
-              this.dataLoaded = false;
-            
-              this.showSpinner = false;
-            }
+          console.log('resulttttt', res.pageData);
+          let usersData = res.pageData;
+          this.UserViewInfoObject = usersData.map((el) => {
+            return {
+              id: el['id'],
+              name: el['title'],
+              description: el['description'],
+              group: el['group'],
+              ticketType: el['ticketType'],
+              initials: this.initials(el['team']),
+              team: el['team'],
+              isVisable: el['isVisable'],
+            };
           });
-}
-  
-   durationInSeconds: any = 3;
-    setVisability(settingID,Value:Boolean)
-  {
-    this.http.GET(`RequestType/UpdateVisiblity?id=${settingID}&isVisible=${Value}`).subscribe(data=>{
-       this._snackBar.openFromComponent(ToastMessageComponent, {
+          this.getRedMenuCharacters(this.usersName);
+
+          this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+          this.setDataSourceAttributes();
+        } else {
+          this.dataLoaded = false;
+
+          this.showSpinner = false;
+        }
+      });
+  }
+
+  durationInSeconds: any = 3;
+  setVisability(settingID, Value: Boolean) {
+    this.http
+      .GET(`RequestType/UpdateVisiblity?id=${settingID}&isVisible=${Value}`)
+      .subscribe((data) => {
+        this._snackBar.openFromComponent(ToastMessageComponent, {
           duration: this.durationInSeconds * 1000,
         });
         this.service.setValue(true);
-    })
-
+      });
   }
-OpenEdit(settingID){
-  
-   const dialogRef = this.dialog.open(AddSettingsComponent, {
+  OpenEdit(settingID) {
+    const dialogRef = this.dialog.open(AddSettingsComponent, {
       data: { updateValue: settingID },
-      width:"35%",
-      height:"90%"
+      width: '35%',
+      height: '90%',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
-}
+  }
 
-openAddSettings() {
+  openAddSettings() {
     const dialogRef = this.dialog.open(AddSettingsComponent, {
-     
-      width:"35%",
-      height:"90%"
+      width: '35%',
+      height: '90%',
     });
 
     dialogRef.afterClosed().subscribe((result) => {

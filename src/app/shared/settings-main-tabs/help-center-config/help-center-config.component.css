@@ -65,8 +65,10 @@
   padding: 10px;
   border-radius: 6px;
   background-color: #f5f6f7;
+  cursor: pointer;
 }
 .Export-queue {
+  cursor: pointer;
   width: 150px;
   height: 24px;
   flex-grow: 0;
@@ -119,8 +121,10 @@
   padding: 5%;
 }
 th {
+  text-align: center;
   font-weight: bold;
   color: #333333;
+  background-color: #f5f6f7;
 }
 ::-webkit-scrollbar {
   width: 7px;

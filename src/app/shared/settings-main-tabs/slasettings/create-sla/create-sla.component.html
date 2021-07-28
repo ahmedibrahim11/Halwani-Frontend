@@ -1,212 +1,315 @@
-
 <div *ngIf="settingID === undefined; then create; else update">
-    here is ignored
+  here is ignored
 </div>
 <ng-template #create>
-    <form [formGroup]="createSettingsFormGroup" >
+  <form [formGroup]="createSettingsFormGroup">
+    <div
+      style="display: flex; flex-direction: row; justify-content: space-between"
+    >
+      <h1 mat-dialog-title class="Create-setting">Create a new SLA</h1>
+      <mat-icon style="cursor: pointer" mat-dialog-close>close</mat-icon>
+    </div>
 
-        <h1 mat-dialog-title class="Create-setting">Create a new SLA</h1>
-        <mat-dialog-content class="mat-typography">
-            
-                <label class="Ticket-type">SLA Type <span class="mandatory"> *</span></label>
-                
-                <mat-form-field [style.width.%]="100" appearance="fill">
-                    <mat-select formControlName="slaType">
-                        <mat-option [value]="0">
-                            Intervention</mat-option>
-                        <mat-option [value]="1">
-                            Resolution</mat-option>
-                
-                    </mat-select>
-                </mat-form-field>
-               
-          
-            <div class="row-ddl">
-                <div class="col-ddl">
-                    <label class="Ticket-type">SLA Goal <span class="mandatory"> *</span></label>
-                
-                    <mat-form-field [style.width.%]="97" appearance="fill">
-                        <input matInput type="number"  formControlName="slaDuration" min="0">
-                        <span matSuffix class="Rectangle-9">Hours</span>
-                    </mat-form-field>
-                </div>
-                <div class="col-ddl">
-                    <label class="Ticket-type">Calendar <span class="mandatory"> *</span></label>
-                    
-                    <mat-form-field [style.width.%]="97" appearance="fill">
-                        <mat-select formControlName="workingHours">
-                            <mat-option [value]="0">
-                                9 AM - 5 PM</mat-option>
-                            <mat-option [value]="1">
-                                5 PM - 1 AM</mat-option>
-                            <mat-option [value]="2">
-                                1 AM - 9 AM</mat-option>
-                    
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-               
-            </div>
-            <div class="row-ddl">
-                <div class="col-ddl">
-                    <label class="Ticket-type">Start Counting <span class="mandatory"> *</span></label>
-            
-                <mat-form-field [style.width.%]="97" appearance="fill">
-                    <mat-select formControlName="StartCounting" multiple>
-                    <mat-option [value]="status['value']" *ngFor="let status of status">
-                        {{ status["title"] }}
-                    </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                </div>
-                <div class="col-ddl">
-                    <label class="Ticket-type">Ends counting <span class="mandatory"> *</span></label>
-                    
-                    <mat-form-field [style.width.%]="97" appearance="fill">
-                        <mat-select formControlName="EndsCounting" multiple>
-                            <mat-option [value]="status['value']" *ngFor="let status of status">
-                                {{ status["title"] }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            
-            </div>
-            <div class="row-ddl">
-                <div class="col-ddl">
-                    <label class="Ticket-type">Ticket Category <span class="mandatory"> *</span></label>
-                    <mat-form-field [style.width.%]="97" appearance="fill">
-                        <mat-select formControlName="priority" formControlName="requestType">
-                            <mat-optgroup *ngFor="let option of ProductCategoryList" [label]="option.ticketType">
-                                <mat-option *ngFor="let topic of option.topics" [value]="topic['text']">
-                                    {{ topic["text"] }}
-                                </mat-option>
-                            </mat-optgroup>
-                        </mat-select>
-                    </mat-form-field>
-                    </div>
-<div class="col-ddl">
-    <label class="Ticket-type">Ticket priority <span class="mandatory"> *</span></label>
-    <mat-form-field [style.width.%]="97" appearance="fill">
-        <mat-select formControlName="priority" formControlName="priority">
-            <mat-option *ngFor="let option of priorityList; let i = index" [value]="i">
-                {{ option }}</mat-option>
+    <mat-dialog-content class="mat-typography">
+      <label class="Ticket-type"
+        >SLA Type <span class="mandatory"> *</span></label
+      >
+
+      <mat-form-field [style.width.%]="100" appearance="fill">
+        <mat-select formControlName="slaType">
+          <mat-option [value]="0"> Intervention</mat-option>
+          <mat-option [value]="1"> Resolution</mat-option>
         </mat-select>
-    </mat-form-field>
-</div>
-</div>
-        </mat-dialog-content>
-        <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close class="cancel">Cancel request</button>
-        <button mat-button [mat-dialog-close]="true" class="send" type="button" (click)="submitCreateSLA()">
+      </mat-form-field>
+
+      <div class="row-ddl">
+        <div class="col-ddl">
+          <label class="Ticket-type"
+            >SLA Goal <span class="mandatory"> *</span></label
+          >
+
+          <mat-form-field [style.width.%]="97" appearance="fill">
+            <input
+              matInput
+              type="number"
+              formControlName="slaDuration"
+              min="0"
+            />
+            <span matSuffix class="Rectangle-9">Hours</span>
+          </mat-form-field>
+        </div>
+        <div class="col-ddl">
+          <label class="Ticket-type"
+            >Calendar <span class="mandatory"> *</span></label
+          >
+
+          <mat-form-field [style.width.%]="97" appearance="fill">
+            <mat-select formControlName="workingHours">
+              <mat-option [value]="0"> 9 AM - 5 PM</mat-option>
+              <mat-option [value]="1"> 5 PM - 1 AM</mat-option>
+              <mat-option [value]="2"> 1 AM - 9 AM</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row-ddl">
+        <div class="col-ddl">
+          <label class="Ticket-type"
+            >Start Counting <span class="mandatory"> *</span></label
+          >
+
+          <mat-form-field [style.width.%]="97" appearance="fill">
+            <mat-select formControlName="StartCounting" multiple>
+              <mat-option
+                [value]="status['value']"
+                *ngFor="let status of status"
+              >
+                {{ status["title"] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-ddl">
+          <label class="Ticket-type"
+            >Ends counting <span class="mandatory"> *</span></label
+          >
+
+          <mat-form-field [style.width.%]="97" appearance="fill">
+            <mat-select formControlName="EndsCounting" multiple>
+              <mat-option
+                [value]="status['value']"
+                *ngFor="let status of status"
+              >
+                {{ status["title"] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row-ddl">
+        <div class="col-ddl">
+          <label class="Ticket-type"
+            >Ticket Category <span class="mandatory"> *</span></label
+          >
+          <mat-form-field [style.width.%]="97" appearance="fill">
+            <mat-select
+              formControlName="priority"
+              formControlName="requestType"
+            >
+              <mat-optgroup
+                *ngFor="let option of ProductCategoryList"
+                [label]="option.ticketType"
+              >
+                <mat-option
+                  *ngFor="let topic of option.topics"
+                  [value]="topic['text']"
+                >
+                  {{ topic["text"] }}
+                </mat-option>
+              </mat-optgroup>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-ddl">
+          <label class="Ticket-type"
+            >Ticket priority <span class="mandatory"> *</span></label
+          >
+          <mat-form-field [style.width.%]="97" appearance="fill">
+            <mat-select formControlName="priority" formControlName="priority">
+              <mat-option
+                *ngFor="let option of priorityList; let i = index"
+                [value]="i"
+              >
+                {{ option }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        width: 100%;
+      "
+    >
+      <button mat-button mat-dialog-close class="cancel">Cancel request</button>
+      <button
+        mat-button
+        [mat-dialog-close]="true"
+        class="send"
+        type="button"
+        (click)="submitCreateSLA()"
+      >
         Save new SLA
-        </button>
-        </mat-dialog-actions>
-    </form>
-   
+      </button>
+    </mat-dialog-actions>
+  </form>
 </ng-template>
 
 <ng-template #update>
+  <form [formGroup]="updateSettingsFormGroup">
+    <div
+      style="display: flex; flex-direction: row; justify-content: space-between"
+    >
+      <h1 mat-dialog-title class="Create-setting">Update SLA</h1>
+      <mat-icon style="cursor: pointer" mat-dialog-close>close</mat-icon>
+    </div>
 
-    <form [formGroup]="updateSettingsFormGroup">
-    
-        <h1 mat-dialog-title class="Create-setting">Update SLA</h1>
-        <mat-dialog-content class="mat-typography">
-    
-            <label class="Ticket-type">SLA Type <span class="mandatory"> *</span></label>
-    
-            <mat-form-field [style.width.%]="100" appearance="fill">
-                <mat-select   [(ngModel)]="slaType" formControlName="slaType">
-                    <mat-option [value]="0">
-                        Intervention</mat-option>
-                    <mat-option [value]="1">
-                        Resolution</mat-option>
-    
-                </mat-select>
-            </mat-form-field>
-    
-    
-            <div class="row-ddl">
-                <div class="col-ddl">
-                    <label class="Ticket-type">SLA Goal <span class="mandatory"> *</span></label>
-    
-                    <mat-form-field [style.width.%]="97" appearance="fill">
-                        <input matInput type="number" formControlName="slaDuration" min="0" [(ngModel)]="slaDuration">
-                        <span matSuffix class="Rectangle-9">Hours</span>
-                    </mat-form-field>
-                </div>
-                <div class="col-ddl">
-                                <label class="Ticket-type">Calendar <span class="mandatory"> *</span></label>
-                                
-                                <mat-form-field [style.width.%]="97" appearance="fill">
-                                    <mat-select formControlName="workingHours" [(ngModel)]="workingCalendar">
-                                        <mat-option [value]="0">
-                                            9 AM - 5 PM</mat-option>
-                                        <mat-option [value]="1">
-                                            5 PM - 1 AM</mat-option>
-                                        <mat-option [value]="2">
-                                            1 AM - 9 AM</mat-option>
-                                
-                                    </mat-select>
-                                </mat-form-field>
-                </div>
-    
-            </div>
-            <div class="row-ddl">
-                <div class="col-ddl">
-                    <label class="Ticket-type">Start Counting <span class="mandatory"> *</span></label>
-            
-                    <mat-form-field [style.width.%]="97" appearance="fill">
-                        <mat-select formControlName="StartCounting" multiple [(ngModel)]="Opening">
-                            <mat-option [value]="status['value']" *ngFor="let status of status">
-                                {{ status["title"] }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-ddl">
-                    <label class="Ticket-type">Ends counting <span class="mandatory"> *</span></label>
-            
-                    <mat-form-field [style.width.%]="97" appearance="fill">
-                        <mat-select formControlName="EndsCounting" multiple [(ngModel)]="Closing">
-                            <mat-option [value]="status['value']" *ngFor="let status of status">
-                                {{ status["title"] }}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            
-            </div>
-            <div class="row-ddl">
-                <div class="col-ddl">
-                    <label class="Ticket-type">Ticket Category <span class="mandatory"> *</span></label>
-                    <mat-form-field [style.width.%]="97" appearance="fill">
-                        <mat-select formControlName="priority" formControlName="requestType" [(ngModel)]="requestType">
-                            <mat-optgroup *ngFor="let option of ProductCategoryList" [label]="option.ticketType">
-                                <mat-option *ngFor="let topic of option.topics" [value]="topic['text']">
-                                    {{ topic["text"] }}
-                                </mat-option>
-                            </mat-optgroup>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-ddl">
-                    <label class="Ticket-type">Ticket priority <span class="mandatory"> *</span></label>
-                    <mat-form-field [style.width.%]="97" appearance="fill">
-                        <mat-select formControlName="priority" formControlName="priority" [(ngModel)]="priority">
-                            <mat-option *ngFor="let option of priorityList; let i = index" [value]="i">
-                                {{ option }}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-        </mat-dialog-content>
-        <mat-dialog-actions align="end">
-            <button mat-button mat-dialog-close class="cancel">Cancel request</button>
-            <button mat-button [mat-dialog-close]="true" class="send" type="button" (click)="submitUpdateSLA()">
-                Save 
-            </button>
-        </mat-dialog-actions>
-    </form>
-   
+    <mat-dialog-content class="mat-typography">
+      <label class="Ticket-type"
+        >SLA Type <span class="mandatory"> *</span></label
+      >
+
+      <mat-form-field [style.width.%]="100" appearance="fill">
+        <mat-select [(ngModel)]="slaType" formControlName="slaType">
+          <mat-option [value]="0"> Intervention</mat-option>
+          <mat-option [value]="1"> Resolution</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="row-ddl">
+        <div class="col-ddl">
+          <label class="Ticket-type"
+            >SLA Goal <span class="mandatory"> *</span></label
+          >
+
+          <mat-form-field [style.width.%]="97" appearance="fill">
+            <input
+              matInput
+              type="number"
+              formControlName="slaDuration"
+              min="0"
+              [(ngModel)]="slaDuration"
+            />
+            <span matSuffix class="Rectangle-9">Hours</span>
+          </mat-form-field>
+        </div>
+        <div class="col-ddl">
+          <label class="Ticket-type"
+            >Calendar <span class="mandatory"> *</span></label
+          >
+
+          <mat-form-field [style.width.%]="97" appearance="fill">
+            <mat-select
+              formControlName="workingHours"
+              [(ngModel)]="workingCalendar"
+            >
+              <mat-option [value]="0"> 9 AM - 5 PM</mat-option>
+              <mat-option [value]="1"> 5 PM - 1 AM</mat-option>
+              <mat-option [value]="2"> 1 AM - 9 AM</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row-ddl">
+        <div class="col-ddl">
+          <label class="Ticket-type"
+            >Start Counting <span class="mandatory"> *</span></label
+          >
+
+          <mat-form-field [style.width.%]="97" appearance="fill">
+            <mat-select
+              formControlName="StartCounting"
+              multiple
+              [(ngModel)]="Opening"
+            >
+              <mat-option
+                [value]="status['value']"
+                *ngFor="let status of status"
+              >
+                {{ status["title"] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-ddl">
+          <label class="Ticket-type"
+            >Ends counting <span class="mandatory"> *</span></label
+          >
+
+          <mat-form-field [style.width.%]="97" appearance="fill">
+            <mat-select
+              formControlName="EndsCounting"
+              multiple
+              [(ngModel)]="Closing"
+            >
+              <mat-option
+                [value]="status['value']"
+                *ngFor="let status of status"
+              >
+                {{ status["title"] }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row-ddl">
+        <div class="col-ddl">
+          <label class="Ticket-type"
+            >Ticket Category <span class="mandatory"> *</span></label
+          >
+          <mat-form-field [style.width.%]="97" appearance="fill">
+            <mat-select
+              formControlName="priority"
+              formControlName="requestType"
+              [(ngModel)]="requestType"
+            >
+              <mat-optgroup
+                *ngFor="let option of ProductCategoryList"
+                [label]="option.ticketType"
+              >
+                <mat-option
+                  *ngFor="let topic of option.topics"
+                  [value]="topic['text']"
+                >
+                  {{ topic["text"] }}
+                </mat-option>
+              </mat-optgroup>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-ddl">
+          <label class="Ticket-type"
+            >Ticket priority <span class="mandatory"> *</span></label
+          >
+          <mat-form-field [style.width.%]="97" appearance="fill">
+            <mat-select
+              formControlName="priority"
+              formControlName="priority"
+              [(ngModel)]="priority"
+            >
+              <mat-option
+                *ngFor="let option of priorityList; let i = index"
+                [value]="i"
+              >
+                {{ option }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        width: 100%;
+      "
+    >
+      <button mat-button mat-dialog-close class="cancel">Cancel request</button>
+      <button
+        mat-button
+        [mat-dialog-close]="true"
+        class="send"
+        type="button"
+        (click)="submitUpdateSLA()"
+      >
+        Save
+      </button>
+    </mat-dialog-actions>
+  </form>
 </ng-template>
