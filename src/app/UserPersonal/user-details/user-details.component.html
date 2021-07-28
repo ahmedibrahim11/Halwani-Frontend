@@ -5,14 +5,22 @@
         <a
           *ngIf="fragment != null"
           [routerLink]="['/user', fragment]"
-          style="background-color: rgb(71, 70, 70); border-radius: 1rem"
+          style="
+            background-color: rgb(71, 70, 70);
+            border-radius: 1rem;
+            height: 1.4rem;
+          "
         >
           <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
         <a
           *ngIf="fragment == null"
           [routerLink]="['/user']"
-          style="background-color: rgb(71, 70, 70); border-radius: 1rem"
+          style="
+            background-color: rgb(71, 70, 70);
+            border-radius: 1rem;
+            height: 1.4rem;
+          "
         >
           <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
