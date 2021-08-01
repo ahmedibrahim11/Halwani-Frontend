@@ -15,7 +15,6 @@ export class SharedComponent implements OnInit {
   loginDisplay = false;
   userData:any;
   userEmail='';
-
   constructor(private authService: MsalService,
      private msalBroadcastService: MsalBroadcastService,
      private http: HTTPMainServiceService,
@@ -63,7 +62,6 @@ export class SharedComponent implements OnInit {
       console.log("data", data);
       debugger
       localStorage.setItem("userData", JSON.stringify(data));
-      
       localStorage.setItem("role",data['userProfile']['roleEnum']);
       debugger;
       switch (data.userProfile.roleEnum) {
