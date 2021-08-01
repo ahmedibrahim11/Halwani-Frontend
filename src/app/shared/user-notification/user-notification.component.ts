@@ -55,6 +55,7 @@ export class UserNotificationComponent implements OnInit {
   }
   pageNumber: number = 0;
   getNotifications() {
+    debugger;
     if (this.openFlag) {
       return null;
     }
@@ -136,7 +137,12 @@ export class UserNotificationComponent implements OnInit {
 
   ngOnInit(): void {
     //window.addEventListener('scroll', this.scroll, true); //third parameter
-    this.getNotifications();
+    // this.getNotifications();
+    debugger;
+    var self = this;
+    setInterval(function () {
+      self.getNotifications();
+    }, 30000);
   }
   // oldScrollTopNumber: number = 0;
   // scroll = (event: any): void => {
