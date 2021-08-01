@@ -406,7 +406,7 @@ export class TicketsTableComponent implements OnInit {
               submitterName: this.userName,
               State: this.Status,
             },
-            sortValue: 0,
+            sortValue: null,
           })
           .subscribe((res) => {
             if (res.totalCount !== 0) {
@@ -458,7 +458,7 @@ export class TicketsTableComponent implements OnInit {
               submitterName: this.userName,
               State: this.Status,
             },
-            sortValue: 0,
+            sortValue: null,
           })
           .subscribe((res) => {
             if (res.totalCount !== 0) {
