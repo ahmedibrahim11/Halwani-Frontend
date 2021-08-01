@@ -6,7 +6,9 @@
     <div
       style="display: flex; flex-direction: row; justify-content: space-between"
     >
-      <h1 mat-dialog-title class="Create-setting">Create Request Type</h1>
+      <h1 mat-dialog-title class="Create-setting">
+        Create a new help center request
+      </h1>
       <mat-icon style="cursor: pointer" mat-dialog-close>close</mat-icon>
     </div>
 
@@ -14,29 +16,33 @@
       <div class="row-ddl">
         <div class="col-ddl">
           <label class="Ticket-type"
-            >Name <span class="mandatory"> *</span></label
+            >Request title <span class="mandatory"> *</span></label
           >
           <mat-form-field appearance="fill" [style.width.%]="97">
-            <input matInput formControlName="name" />
-          </mat-form-field>
-        </div>
-        <div class="col-ddl">
-          <label class="Ticket-type"
-            >Team <span class="mandatory"> *</span></label
-          >
-
-          <mat-form-field [style.width.%]="97" appearance="fill">
-            <mat-select formControlName="team">
-              <mat-option
-                *ngFor="let option of teamSoruce"
-                [value]="option['value']"
-              >
-                {{ option["label"] }}</mat-option
-              >
-            </mat-select>
+            <input
+              placeholder="Fix an account problem"
+              matInput
+              formControlName="name"
+            />
           </mat-form-field>
         </div>
       </div>
+      <div class="row-ddl">
+        <div class="col-ddl">
+          <label class="Ticket-type"
+            >Description <span class="mandatory"> *</span></label
+          >
+          <mat-form-field appearance="fill" [style.width.%]="100">
+            <textarea
+              rows="3"
+              matInput
+              formControlName="description"
+              placeholder="Get IT help, Set up VPN to the office, Request a new account, Report a system problem, Report broken hardware"
+            ></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
       <div class="row-ddl">
         <div class="col-ddl">
           <label class="Ticket-type"
@@ -53,6 +59,8 @@
             </mat-select>
           </mat-form-field>
         </div>
+      </div>
+      <div class="row-ddl">
         <div class="col-ddl">
           <label class="Ticket-type"
             >Priority <span class="mandatory"> *</span></label
@@ -69,12 +77,7 @@
           </mat-form-field>
         </div>
       </div>
-      <label class="Ticket-type"
-        >Description <span class="mandatory"> *</span></label
-      >
-      <mat-form-field appearance="fill" [style.width.%]="100">
-        <textarea rows="3" matInput formControlName="description"></textarea>
-      </mat-form-field>
+
       <label class="Ticket-type">Icon <span class="mandatory"> *</span></label>
       <div class="center" *ngIf="FileLinks.length == 0">
         <ngx-file-drop
@@ -114,7 +117,9 @@
         </div>
       </div>
 
-      <label class="Ticket-type">Type <span class="mandatory"> *</span></label>
+      <label class="Ticket-type"
+        >Associated issue type <span class="mandatory"> *</span></label
+      >
       <mat-form-field [style.width.%]="97" appearance="fill">
         <mat-select formControlName="type">
           <mat-option [value]="0"> Service Request</mat-option>
@@ -123,6 +128,24 @@
           <mat-option [value]="3"> Changes</mat-option>
         </mat-select>
       </mat-form-field>
+      <div class="row-ddl">
+        <div class="col-ddl">
+          <label class="Ticket-type"
+            >Assigned team <span class="mandatory"> *</span></label
+          >
+
+          <mat-form-field [style.width.%]="97" appearance="fill">
+            <mat-select formControlName="team">
+              <mat-option
+                *ngFor="let option of teamSoruce"
+                [value]="option['value']"
+              >
+                {{ option["label"] }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button
@@ -208,7 +231,9 @@
     <div
       style="display: flex; flex-direction: row; justify-content: space-between"
     >
-      <h1 mat-dialog-title class="Create-setting">Update Request Type</h1>
+      <h1 mat-dialog-title class="Create-setting">
+        Update help center request
+      </h1>
       <mat-icon style="cursor: pointer" mat-dialog-close>close</mat-icon>
     </div>
 
@@ -216,30 +241,21 @@
       <div class="row-ddl">
         <div class="col-ddl">
           <label class="Ticket-type"
-            >Name <span class="mandatory"> *</span></label
+            >Request title <span class="mandatory"> *</span></label
           >
 
           <mat-form-field appearance="fill" [style.width.%]="97">
             <input matInput formControlName="name" />
           </mat-form-field>
         </div>
-        <div class="col-ddl">
-          <label class="Ticket-type"
-            >Team <span class="mandatory"> *</span></label
-          >
-
-          <mat-form-field [style.width.%]="97" appearance="fill">
-            <mat-select formControlName="team">
-              <mat-option
-                *ngFor="let option of teamSoruce"
-                [value]="option['value']"
-              >
-                {{ option["label"] }}</mat-option
-              >
-            </mat-select>
-          </mat-form-field>
-        </div>
       </div>
+      <label class="Ticket-type"
+        >Request description <span class="mandatory"> *</span></label
+      >
+      <mat-form-field appearance="fill" [style.width.%]="100">
+        <textarea rows="3" matInput formControlName="description"></textarea>
+      </mat-form-field>
+
       <div class="row-ddl">
         <div class="col-ddl">
           <label class="Ticket-type"
@@ -256,6 +272,8 @@
             </mat-select>
           </mat-form-field>
         </div>
+      </div>
+      <div class="row-ddl">
         <div class="col-ddl">
           <label class="Ticket-type"
             >Priority <span class="mandatory"> *</span></label
@@ -272,13 +290,10 @@
           </mat-form-field>
         </div>
       </div>
+
       <label class="Ticket-type"
-        >Description <span class="mandatory"> *</span></label
+        >Request icon <span class="mandatory"> *</span></label
       >
-      <mat-form-field appearance="fill" [style.width.%]="100">
-        <textarea rows="3" matInput formControlName="description"></textarea>
-      </mat-form-field>
-      <label class="Ticket-type">Icon <span class="mandatory"> *</span></label>
       <div class="center" *ngIf="FileLinks.length == 0">
         <ngx-file-drop
           dropZoneLabel="Drop files here"
@@ -317,7 +332,9 @@
         </div>
       </div>
 
-      <label class="Ticket-type">Type <span class="mandatory"> *</span></label>
+      <label class="Ticket-type"
+        >Associated issue type <span class="mandatory"> *</span></label
+      >
       <mat-form-field [style.width.%]="97" appearance="fill">
         <mat-select formControlName="type">
           <mat-option [value]="0"> Service Request</mat-option>
@@ -326,6 +343,24 @@
           <mat-option [value]="3"> Changes</mat-option>
         </mat-select>
       </mat-form-field>
+      <div class="row-ddl">
+        <div class="col-ddl">
+          <label class="Ticket-type"
+            >Assigned team <span class="mandatory"> *</span></label
+          >
+
+          <mat-form-field [style.width.%]="97" appearance="fill">
+            <mat-select formControlName="team">
+              <mat-option
+                *ngFor="let option of teamSoruce"
+                [value]="option['value']"
+              >
+                {{ option["label"] }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button
