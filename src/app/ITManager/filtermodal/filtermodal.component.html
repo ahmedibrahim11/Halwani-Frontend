@@ -152,6 +152,8 @@
   </div>
   <div class="filter-btn-container">
     <button class="clear-btn" (click)="clearFilters()">Clear</button>
-    <button class="filter-btn" (click)="sendFiltersObject()">Filter</button>
+    <button class="filter-btn" mat-dialog-close (click)="sendFiltersObject()">
+      Filter
+    </button>
   </div>
 </div>
