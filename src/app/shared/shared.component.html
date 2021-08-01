@@ -1,4 +1,11 @@
-<app-navbar style="position: sticky"></app-navbar>
+
+ <div class="loader" [hidden]="loginDisplay == false ">
+  <img src="../../assets/Spinner.gif"/>
+  <p style="font-size: larger; margin-left: 5%;">Loading.....</p>
+</div>
+
+<div [hidden]="loginDisplay != false ">
+  <app-navbar style="position: sticky"></app-navbar>
 
 <div class="main-container">
   <div class="nav-with-table-container">
@@ -7,3 +14,7 @@
     <router-outlet> </router-outlet>
   </div>
 </div>
+
+</div>
+
+

@@ -4,6 +4,16 @@
   height: 100vh;
   width: 100vw;
 }
+
+.loader {
+  position: absolute;
+  margin-left: 40%;
+  margin-top: 10%;
+  height: 100%;
+  width: 100%;
+  z-index: 99;
+}
+
 .nav-with-table-container {
   display: flex;
   flex-direction: row;
