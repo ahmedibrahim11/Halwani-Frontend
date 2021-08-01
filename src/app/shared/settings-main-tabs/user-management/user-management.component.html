@@ -1,0 +1,23 @@
+<div class="center">
+    <ngx-file-drop
+      dropZoneLabel="Drop files here"
+      (onFileDrop)="dropped($event, 0)"
+      class="upload-drop-zone"
+    >
+      <ng-template
+        ngx-file-drop-content-tmp
+        let-openFileSelector="openFileSelector"
+      >
+        Drag and drop files, paste screenshots, or upload attachments
+        <button
+          type="button"
+          class="cancel"
+          style="display: block; margin-top: 1.5rem"
+          (click)="openFileSelector()"
+        >
+          Browse Files
+        </button>
+      </ng-template>
+    </ngx-file-drop>
+  </div>
+  <button (click)="submitFile()">Upload Excel</button>

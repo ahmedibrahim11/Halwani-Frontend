@@ -27,12 +27,12 @@ export class UserMenuComponent implements OnInit {
     localStorage.clear();
     if (this.msalGuardConfig.interactionType === InteractionType.Popup) {
       this.authService.logoutPopup({
-        postLogoutRedirectUri: "https://halwani-frontend.azurewebsites.net/login",
-        mainWindowRedirectUri: "https://halwani-frontend.azurewebsites.net/"
+        postLogoutRedirectUri: "http://localhost:4200/login",
+        mainWindowRedirectUri: "http://localhost:4200/"
       });
     } else {
       this.authService.logoutRedirect({
-        postLogoutRedirectUri: "https://halwani-frontend.azurewebsites.net/",
+        postLogoutRedirectUri: "http://localhost:4200/",
       });
     }
   }

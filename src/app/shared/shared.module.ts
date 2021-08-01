@@ -24,6 +24,7 @@ import { ReportABugComponent } from './report-abug/report-abug.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HttpClientModule } from '@angular/common/http';
 import { AskForSupportComponent } from './ask-for-support/ask-for-support.component';
+import { UserManagementComponent } from './settings-main-tabs/user-management/user-management.component';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -42,6 +43,7 @@ import { AskForSupportComponent } from './ask-for-support/ask-for-support.compon
     CreateProductCategoryComponent,
     ReportABugComponent,
     AskForSupportComponent,
+    UserManagementComponent,
   ],
   imports: [
     CommonModule,
