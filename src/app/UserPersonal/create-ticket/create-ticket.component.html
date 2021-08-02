@@ -112,7 +112,12 @@
             <div *ngIf="createloader === true; then spinner; else btn"></div>
             <ng-template #spinner>
               <mat-spinner
-                style="position: absolute; left: 70%"
+                style="
+                  display: flex;
+                  flex-direction: row;
+                  justify-content: center;
+                  text-align: center;
+                "
                 class="mt-2"
                 color="warn"
                 [diameter]="30"
