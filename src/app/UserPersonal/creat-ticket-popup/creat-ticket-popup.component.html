@@ -1,144 +1,242 @@
 <div *ngIf="ticketID === undefined; then create; else update">
-    here is ignored
+  here is ignored
 </div>
 
 <ng-template #create>
-    <form [formGroup]="createTicketDTOFormGroup" (ngSubmit)="submiCreate()">
-        <h1 mat-dialog-title class="Create-a-ticket">Create A Ticket</h1>
-        <mat-dialog-content class="mat-typography">
-            <label class="Ticket-type">Ticket type <span class="mandatory"> *</span></label>
-            <mat-form-field [style.width.%]="100" appearance="fill">
-                <mat-select formControlName="ticketType" placeholder="Ticket type">
-                    <mat-optgroup *ngFor="let option of ticketTypeDatasource" [label]="option.ticketType">
-                        <mat-option *ngFor="let topic of option.topics" [value]="topic['id']">
-                            {{ topic["text"] }}
-                        </mat-option>
-                    </mat-optgroup>
-                </mat-select>
-            </mat-form-field>
+  <form [formGroup]="createTicketDTOFormGroup" (ngSubmit)="submiCreate()">
+    <div
+      style="display: flex; flex-direction: row; justify-content: space-between"
+    >
+      <h1 mat-dialog-title class="Create-a-ticket">Create A Ticket</h1>
+      <mat-icon style="cursor: pointer" mat-dialog-close>close</mat-icon>
+    </div>
 
-        <label class="Ticket-type">Reporter</label>
-    <div class="menu">
+    <mat-dialog-content class="mat-typography">
+      <label class="Ticket-type"
+        >Ticket type <span class="mandatory"> *</span></label
+      >
+      <mat-form-field [style.width.%]="100" appearance="fill">
+        <mat-select formControlName="ticketType" placeholder="Ticket type">
+          <mat-optgroup
+            *ngFor="let option of ticketTypeDatasource"
+            [label]="option.ticketType"
+          >
+            <mat-option
+              *ngFor="let topic of option.topics"
+              [value]="topic['id']"
+            >
+              {{ topic["text"] }}
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
+
+      <label class="Ticket-type">Reporter</label>
+      <div class="menu">
         <div class="red-menu">{{ submitterInitials }}</div>
         <div class="person-data-menu">
-            <h3>{{submitterName}}</h3>
-            <p style="opacity: 0.7">{{reporter}}</p>
+          <h3>{{ submitterName }}</h3>
+          <p style="opacity: 0.7">{{ reporter }}</p>
         </div>
-    </div>
-        <label class="Ticket-type">Summary <span class="mandatory"> *</span></label>
-        
-        <mat-form-field appearance="fill" [style.width.%]="100">
-        
-            <input matInput formControlName="summary">
-        </mat-form-field>
-        <label class="Ticket-type">Description </label>
-        <mat-form-field appearance="fill" [style.width.%]="100">
-        
-            <textarea rows="7" matInput formControlName="description"></textarea>
-        </mat-form-field>
-        <label class="Ticket-type">Attachments </label>
-        <div class="center">
-            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event, 0)" (onFileOver)="fileOver($event)"
-                class="upload-drop-zone" (onFileLeave)="fileLeave($event)">
-                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                    Drag and drop files, paste screenshots, or upload attachments
-                    <button type="button" class="cancel" style="display: block; margin-top: 1.5rem"
-                        (click)="openFileSelector()">
-                        Browse Files
-                    </button>
-                </ng-template>
-            </ngx-file-drop>
-        </div>
-        
-        <div class="Upcard" *ngFor="let item of FileLinks; let i = index">
-            <div class="attachment-container">
-                <mat-icon>attachment</mat-icon>
-                {{ item
-                }}<span class="delete-entry" style="cursor: pointer; color: red; margin-left: 2%"
-                    (click)="deleteImage(item)">remove</span>
-            </div>
-        </div>
-     
-        </mat-dialog-content>
+      </div>
+      <label class="Ticket-type"
+        >Summary <span class="mandatory"> *</span></label
+      >
 
-        <mat-dialog-actions align="start">
-            <mat-checkbox class="checkBox" class="check-box" formControlName="saveAndOpenAnother">Create another ticket
-            </mat-checkbox>
-            <div class="buttons">
-            <button mat-button mat-dialog-close class="cancel">Cancel request</button>
-            <button mat-button [mat-dialog-close]="true" class="send" type="submit"
-                [disabled]="!createTicketDTOFormGroup.valid">
-                Send ticket
+      <mat-form-field appearance="fill" [style.width.%]="100">
+        <input matInput formControlName="summary" />
+      </mat-form-field>
+      <label class="Ticket-type">Description </label>
+      <mat-form-field appearance="fill" [style.width.%]="100">
+        <textarea rows="7" matInput formControlName="description"></textarea>
+      </mat-form-field>
+      <label class="Ticket-type">Attachments </label>
+      <div class="center">
+        <ngx-file-drop
+          dropZoneLabel="Drop files here"
+          (onFileDrop)="dropped($event, 0)"
+          (onFileOver)="fileOver($event)"
+          class="upload-drop-zone"
+          (onFileLeave)="fileLeave($event)"
+        >
+          <ng-template
+            ngx-file-drop-content-tmp
+            let-openFileSelector="openFileSelector"
+          >
+            Drag and drop files, paste screenshots, or upload attachments
+            <button
+              type="button"
+              class="cancel"
+              style="display: block; margin-top: 1.5rem"
+              (click)="openFileSelector()"
+            >
+              Browse Files
             </button>
-            </div>
-        </mat-dialog-actions>
-    </form>
+          </ng-template>
+        </ngx-file-drop>
+      </div>
+
+      <div class="Upcard" *ngFor="let item of FileLinks; let i = index">
+        <div class="attachment-container">
+          <mat-icon>attachment</mat-icon>
+          {{ item
+          }}<span
+            class="delete-entry"
+            style="cursor: pointer; color: red; margin-left: 2%"
+            (click)="deleteImage(item)"
+            >remove</span
+          >
+        </div>
+      </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="start">
+      <mat-checkbox
+        class="checkBox"
+        class="check-box"
+        formControlName="saveAndOpenAnother"
+        >Create another ticket
+      </mat-checkbox>
+      <div class="buttons">
+        <div *ngIf="createloader === true; then spinner; else btn"></div>
+        <ng-template #spinner>
+          <mat-spinner
+            style="display: flex; justify-content: center; text-align: center"
+            class="mt-2"
+            color="warn"
+            [diameter]="30"
+          ></mat-spinner>
+        </ng-template>
+        <ng-template #btn>
+          <button mat-button mat-dialog-close class="cancel">
+            Cancel request
+          </button>
+          <button
+            mat-button
+            class="send"
+            type="submit"
+            [disabled]="!createTicketDTOFormGroup.valid"
+          >
+            Send ticket
+          </button></ng-template
+        >
+      </div>
+    </mat-dialog-actions>
+  </form>
 </ng-template>
 
- <ng-template #update> 
-    <form [formGroup]="updateTicketDTOFormGroup" (ngSubmit)="submitUpdate()">
-        <h1 mat-dialog-title class="Create-a-ticket">Update A Ticket</h1>
-        <mat-dialog-content class="mat-typography">
-            <label class="Ticket-type">Ticket type</label>
-            <mat-form-field [style.width.%]="100" appearance="fill">
-                
-                <mat-select formControlName="ticketType" [(ngModel)]="ticketType" placeholder="Ticket type">
-                    <mat-optgroup *ngFor="let option of ticketTypeDatasource" [label]="option.ticketType">
-                        <mat-option *ngFor="let topic of option.topics" [value]="topic['id']">
-                            {{ topic["text"] }}
-                        </mat-option>
-                    </mat-optgroup>
-                </mat-select>
-            </mat-form-field>
+<ng-template #update>
+  <form [formGroup]="updateTicketDTOFormGroup" (ngSubmit)="submitUpdate()">
+    <div
+      style="display: flex; flex-direction: row; justify-content: space-between"
+    >
+      <h1 mat-dialog-title class="Create-a-ticket">Update A Ticket</h1>
+      <mat-icon style="cursor: pointer" mat-dialog-close>close</mat-icon>
+    </div>
+    <mat-dialog-content class="mat-typography">
+      <label class="Ticket-type">Ticket type</label>
+      <mat-form-field [style.width.%]="100" appearance="fill">
+        <mat-select
+          formControlName="ticketType"
+          [(ngModel)]="ticketType"
+          placeholder="Ticket type"
+        >
+          <mat-optgroup
+            *ngFor="let option of ticketTypeDatasource"
+            [label]="option.ticketType"
+          >
+            <mat-option
+              *ngFor="let topic of option.topics"
+              [value]="topic['id']"
+            >
+              {{ topic["text"] }}
+            </mat-option>
+          </mat-optgroup>
+        </mat-select>
+      </mat-form-field>
 
-        <label class="Ticket-type">Reporter</label>
-        <div class="menu">
-            <div class="red-menu">{{ submitterInitials }}</div>
-            <div class="person-data-menu">
-                <h3>{{submitterName}}</h3>
-                <p style="opacity: 0.7">{{reporter}}</p>
-            </div>
+      <label class="Ticket-type">Reporter</label>
+      <div class="menu">
+        <div class="red-menu">{{ submitterInitials }}</div>
+        <div class="person-data-menu">
+          <h3>{{ submitterName }}</h3>
+          <p style="opacity: 0.7">{{ reporter }}</p>
         </div>
-        <label class="Ticket-type">Summary <span class="mandatory"> *</span></label>
-        
-        <mat-form-field appearance="fill" [style.width.%]="100">
-        
-            <input matInput formControlName="summary" [(ngModel)]="summary" >
-        </mat-form-field>
-        <label class="Ticket-type">Description </label>
-        <mat-form-field appearance="fill" [style.width.%]="100">
-        
-            <textarea rows="7" matInput formControlName="description" [(ngModel)]="description"></textarea>
-        </mat-form-field>
-        <label class="Ticket-type">Attachments </label>
-        <div class="center">
-            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event, 1)" (onFileOver)="fileOver($event)"
-                class="upload-drop-zone" (onFileLeave)="fileLeave($event)">
-                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                    Drag and drop files, paste screenshots, or upload attachments
-                    <button type="button" class="cancel" style="display: block; margin-top: 1.5rem"
-                        (click)="openFileSelector()">
-                        Browse Files
-                    </button>
-                </ng-template>
-            </ngx-file-drop>
-        </div>
-        
-        <div class="Upcard" *ngFor="let item of FileLinks; let i = index">
-            <div class="attachment-container">
-                <mat-icon>attachment</mat-icon>
-                {{ item
-                }}<span class="delete-entry" style="cursor: pointer; color: red; margin-left: 2%"
-                    (click)="deleteImage(item)">remove</span>
-            </div>
-        </div>
-        </mat-dialog-content>
+      </div>
+      <label class="Ticket-type"
+        >Summary <span class="mandatory"> *</span></label
+      >
 
-        <mat-dialog-actions align="end">
-            <button mat-button mat-dialog-close class="cancel">Cancel request</button>
-            <button mat-button [mat-dialog-close]="true" class="send" type="submit">
-                Update ticket
+      <mat-form-field appearance="fill" [style.width.%]="100">
+        <input matInput formControlName="summary" [(ngModel)]="summary" />
+      </mat-form-field>
+      <label class="Ticket-type">Description </label>
+      <mat-form-field appearance="fill" [style.width.%]="100">
+        <textarea
+          rows="7"
+          matInput
+          formControlName="description"
+          [(ngModel)]="description"
+        ></textarea>
+      </mat-form-field>
+      <label class="Ticket-type">Attachments </label>
+      <div class="center">
+        <ngx-file-drop
+          dropZoneLabel="Drop files here"
+          (onFileDrop)="dropped($event, 1)"
+          (onFileOver)="fileOver($event)"
+          class="upload-drop-zone"
+          (onFileLeave)="fileLeave($event)"
+        >
+          <ng-template
+            ngx-file-drop-content-tmp
+            let-openFileSelector="openFileSelector"
+          >
+            Drag and drop files, paste screenshots, or upload attachments
+            <button
+              type="button"
+              class="cancel"
+              style="display: block; margin-top: 1.5rem"
+              (click)="openFileSelector()"
+            >
+              Browse Files
             </button>
-        </mat-dialog-actions>
-    </form>
-</ng-template> 
+          </ng-template>
+        </ngx-file-drop>
+      </div>
+
+      <div class="Upcard" *ngFor="let item of FileLinks; let i = index">
+        <div class="attachment-container">
+          <mat-icon>attachment</mat-icon>
+          {{ item
+          }}<span
+            class="delete-entry"
+            style="cursor: pointer; color: red; margin-left: 2%"
+            (click)="deleteImage(item)"
+            >remove</span
+          >
+        </div>
+      </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <div *ngIf="createloader === true; then spinner; else btn"></div>
+      <ng-template #spinner>
+        <mat-spinner
+          style="display: flex; justify-content: center; text-align: center"
+          class="mt-2"
+          color="warn"
+          [diameter]="30"
+        ></mat-spinner>
+      </ng-template>
+      <ng-template #btn>
+        <button mat-button mat-dialog-close class="cancel">
+          Cancel request
+        </button>
+        <button mat-button class="send" type="submit">
+          Update ticket
+        </button></ng-template
+      >
+    </mat-dialog-actions>
+  </form>
+</ng-template>
