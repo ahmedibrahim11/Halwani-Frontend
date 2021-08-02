@@ -75,6 +75,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
           currentUserInitials: this.initials(this.currentUser).toString(),
           assignedTo:
             data.assignedUser !== null ? data.assignedUser.toString() : 'N A',
+          ticketSlms: data.ticketSlms,
         };
         this.isDataLoaded = true;
       });

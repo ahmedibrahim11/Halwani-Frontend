@@ -107,7 +107,7 @@
       <label class="SR-103">{{ userMessage.ticketNumber }}</label>
     </div>
     <div class="Ticket-ID">SLAs</div>
-    <div class="ticketdev">
+    <div class="ticketdev" style="margin-bottom: 1rem">
       <label class="SR-103">Time to response</label>
       <label class="Within-2-hours">Within 2 hours</label>
     </div>
@@ -120,7 +120,7 @@
         <label class="Ticket-ID">Assignee</label>
         <label class="asignee-container">{{ userMessage.assignedTo }}</label>
       </div>
-      <div class="ticketdev" style="margin-bottom: 1rem">
+      <div class="ticketdev" style="margin-bottom: 1rem; margin-left: 2rem">
         <label class="Ticket-ID">Reporter</label>
         <label class="asignee-container">{{
           userMessage.ReporterInitials
@@ -159,7 +159,7 @@
       <label class="SR-103">Date of creation</label>
       <label class="Within-2-hours">{{ userMessage.submitDate }}</label>
     </div>
-    <div class="ticketdev" style="margin-bottom: 5rem">
+    <!-- <div class="ticketdev">
       <label class="SR-103">Date of resolving</label>
       <label
         class="Within-2-hours"
@@ -171,6 +171,26 @@
         *ngIf="userMessage.resolvedDate === '1/1/1970'"
         >-</label
       >
+    </div> -->
+    <div
+      class="ticketdev"
+      *ngFor="let ticketSLA of userMessage.ticketSlms"
+      style="margin-bottom: 2rem; margin-top: 2rem"
+    >
+      <label class="Ticket-ID">SLA time:</label>
+      <div style="display: flex; flex-direction: column">
+        <label style="opacity: 0.7">Close Date: </label>
+        <p>{{ ticketSLA.closeDate | date: "medium" }}</p>
+      </div>
+      <div style="display: flex; flex-direction: column">
+        <label style="opacity: 0.7">SLA Type: </label>
+        <p *ngIf="ticketSLA.slaType === 0">intervention SLA</p>
+        <p *ngIf="ticketSLA.slaType === 1">resolution SLA</p>
+      </div>
+      <div style="display: flex; flex-direction: column">
+        <label style="opacity: 0.7">Target Date: </label>
+        <p>{{ ticketSLA.targetDate | date: "medium" }}</p>
+      </div>
     </div>
   </div>
 </div>

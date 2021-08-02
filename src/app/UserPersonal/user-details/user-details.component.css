@@ -115,7 +115,8 @@
 }
 .statusButton {
   width: 212px;
-  height: 44px;
+  height: 30px;
+  margin-top: 1rem;
   flex-grow: 0;
   display: flex;
   flex-direction: row;
@@ -125,14 +126,13 @@
   padding: 10px;
   border-radius: 6px;
   color: #f5f6f7;
-  margin-top: 3.2rem;
 }
 .menuItemWidth {
   width: 212px;
 }
 .Ticket-ID {
   height: 24px;
-  margin: 38px 67.5px 8px 0;
+  margin: 27px 67.5px 8px 0;
   font-family: Poppins;
   font-size: 16px;
   font-weight: 600;
@@ -143,15 +143,21 @@
   text-align: left;
   color: #333333;
 }
+.ticket-details-status {
+  margin-top: 1rem;
+  border-radius: .4rem;
+  height: 50px;
+}
 .ticketdev {
   display: flex;
   flex-direction: column;
+  padding: 5px;
 }
 .SR-103 {
   height: 20px;
   flex-grow: 0;
   font-family: Poppins;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: normal;
   font-stretch: normal;
   font-style: normal;
@@ -159,13 +165,11 @@
   letter-spacing: normal;
   text-align: left;
   color: #696969;
-  margin-bottom: 0.25rem;
-  margin-top: 0.25rem;
-}
+ }
 .Within-2-hours {
   height: 10px;
   font-family: Poppins;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
@@ -177,7 +181,6 @@
 .assignmentDev {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 }
 .asignee-container {
   width: fit-content;

@@ -25,4 +25,9 @@ export class getTicketDTO {
   ReporterInitials: string;
   currentUserInitials: string;
   assignedTo: string;
+  ticketSlms: any;
+}
+export enum SLAType {
+  intervention = 0,
+  resolution = 1,
 }
