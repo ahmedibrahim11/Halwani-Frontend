@@ -1,19 +1,35 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { FileSystemDirectoryEntry, FileSystemFileEntry, NgxFileDropEntry } from 'ngx-file-drop';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import {
+  FileSystemDirectoryEntry,
+  FileSystemFileEntry,
+  NgxFileDropEntry,
+} from 'ngx-file-drop';
 import { PriorityEnum, SevirityEnum } from 'src/app/core/DTOs/ticketListingDTO';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
-import { SettingDTO } from "src/app/core/DTOs/settingDTO";
+import { SettingDTO } from 'src/app/core/DTOs/settingDTO';
 import { ToastMessageComponent } from 'src/app/ITPersonal/toast-message/toast-message.component';
 import { TicketCreationService } from 'src/app/core/services/ticket-creation.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 @Component({
   selector: 'app-add-settings',
   templateUrl: './add-settings.component.html',
-  styleUrls: ['./add-settings.component.css']
+  styleUrls: ['./add-settings.component.css'],
 })
 export class AddSettingsComponent implements OnInit {
+  createloader: Boolean = false;
+
   severities = new FormControl();
   severityList: any = [];
   priorities = new FormControl();
@@ -32,12 +48,15 @@ export class AddSettingsComponent implements OnInit {
   settingDTO: SettingDTO = new SettingDTO();
   durationInSeconds: any = 3;
   loading: any = true;
-  constructor(private formBuilder: FormBuilder,
-    private http: HTTPMainServiceService, public dialog: MatDialog,
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HTTPMainServiceService,
+    public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddSettingsComponent>,
     public service: TicketCreationService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
-    private _snackBar: MatSnackBar,) {
+    private _snackBar: MatSnackBar
+  ) {
     this.settingID = data ? data.updateValue : undefined;
   }
 
@@ -46,7 +65,7 @@ export class AddSettingsComponent implements OnInit {
       this.teamSoruce = data.map((el) => {
         return { label: el.text, value: el.text };
       });
-    })
+    });
     const sevKeys = Object.keys(SevirityEnum).filter(
       (k) => typeof SevirityEnum[k as any] === 'string'
     );
@@ -67,7 +86,7 @@ export class AddSettingsComponent implements OnInit {
       sevirity: [0, [Validators.required]],
       groups: this.formBuilder.array([]),
       groupName: [''],
-    })
+    });
     this.UpdateSettingsFormGroup = this.formBuilder.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -77,28 +96,33 @@ export class AddSettingsComponent implements OnInit {
       sevirity: [0, [Validators.required]],
       groups: this.formBuilder.array([]),
       groupName: [''],
-    })
+    });
     if (this.settingID != undefined) {
-      this.http.POST(`RequestType/GetRequestType`, { id: this.settingID }).subscribe(data => {
-        this.UpdateSettingsFormGroup = this.formBuilder.group({
-          name: [data.title, [Validators.required]],
-          description: [data.description, [Validators.required]],
-          type: [data.ticketType, [Validators.required]],
-          team: [data.team, [Validators.required]],
-          priority: [data.priority, [Validators.required]],
-          sevirity: [data.sevirity, [Validators.required]],
-          groups: this.formBuilder.array([data.groupIDs]),
-          groupName: [''],
-        })
-        this.loading = false;
-        this.FileLinks.push(data.icon)
-        this.http.POST(`Group/getGroupforTicketTypeEdit`, { id: this.UpdateSettingsFormGroup.value.type, rtid: this.settingID }).subscribe(data => {
-          this.groups = data;
-        })
-      })
+      this.http
+        .POST(`RequestType/GetRequestType`, { id: this.settingID })
+        .subscribe((data) => {
+          this.UpdateSettingsFormGroup = this.formBuilder.group({
+            name: [data.title, [Validators.required]],
+            description: [data.description, [Validators.required]],
+            type: [data.ticketType, [Validators.required]],
+            team: [data.team, [Validators.required]],
+            priority: [data.priority, [Validators.required]],
+            sevirity: [data.sevirity, [Validators.required]],
+            groups: this.formBuilder.array([data.groupIDs]),
+            groupName: [''],
+          });
+          this.loading = false;
+          this.FileLinks.push(data.icon);
+          this.http
+            .POST(`Group/getGroupforTicketTypeEdit`, {
+              id: this.UpdateSettingsFormGroup.value.type,
+              rtid: this.settingID,
+            })
+            .subscribe((data) => {
+              this.groups = data;
+            });
+        });
     }
-
-
   }
 
   onCreateCheckboxChange(e) {
@@ -116,7 +140,6 @@ export class AddSettingsComponent implements OnInit {
         }
         i++;
       });
-
     }
   }
   private deleteImage(url: any): void {
@@ -166,26 +189,34 @@ export class AddSettingsComponent implements OnInit {
     console.log(event);
   }
   public getGroups() {
-    console.log(this.createSettingsFormGroup.value)
-    let type = this.settingID != '' ? this.createSettingsFormGroup.value.type : this.UpdateSettingsFormGroup.value.type;
+    console.log(this.createSettingsFormGroup.value);
+    let type =
+      this.settingID != ''
+        ? this.createSettingsFormGroup.value.type
+        : this.UpdateSettingsFormGroup.value.type;
     if (this.settingID === undefined) {
-      this.http.POST(`Group/getGroupforTicketType`, { id: type }).subscribe((data) => {
-        console.log(data)
+      this.http
+        .POST(`Group/getGroupforTicketType`, { id: type })
+        .subscribe((data) => {
+          console.log(data);
 
-        data.forEach(element => {
-          if (!element.selected) {
-            element.selected = false
-          }
+          data.forEach((element) => {
+            if (!element.selected) {
+              element.selected = false;
+            }
+          });
+          this.groups = data;
         });
-        this.groups = data;
-
-      });
     }
     this.secondPage = true;
   }
   public submitCreateSetting() {
-    debugger; console.log(this.createSettingsFormGroup.value)
-    this.settingDTO.description = this.createSettingsFormGroup.value.description;
+    this.createloader = true;
+
+    debugger;
+    console.log(this.createSettingsFormGroup.value);
+    this.settingDTO.description =
+      this.createSettingsFormGroup.value.description;
     this.settingDTO.name = this.createSettingsFormGroup.value.name;
     this.settingDTO.teamName = this.createSettingsFormGroup.value.team;
     this.settingDTO.priority = this.createSettingsFormGroup.value.priority;
@@ -196,10 +227,14 @@ export class AddSettingsComponent implements OnInit {
     this.formData.append('data', requestData);
     this.http.POST('RequestType/CreateRequestType', this.formData).subscribe(
       (data) => {
+        this.createloader = false;
+
         console.log('create setting');
         this._snackBar.openFromComponent(ToastMessageComponent, {
           duration: this.durationInSeconds * 1000,
         });
+        this.dialog.closeAll();
+
         this.service.setValue(true);
       },
       (error) => {
@@ -211,12 +246,15 @@ export class AddSettingsComponent implements OnInit {
         });
       }
     );
-
   }
   public submitUpdateSetting() {
-    debugger; console.log(this.UpdateSettingsFormGroup.value)
+    this.createloader = true;
 
-    this.settingDTO.description = this.UpdateSettingsFormGroup.value.description;
+    debugger;
+    console.log(this.UpdateSettingsFormGroup.value);
+
+    this.settingDTO.description =
+      this.UpdateSettingsFormGroup.value.description;
     this.settingDTO.name = this.UpdateSettingsFormGroup.value.name;
     this.settingDTO.teamName = this.UpdateSettingsFormGroup.value.team;
     this.settingDTO.priority = this.UpdateSettingsFormGroup.value.priority;
@@ -226,24 +264,29 @@ export class AddSettingsComponent implements OnInit {
     this.settingDTO.id = this.settingID;
     var requestData = JSON.stringify(this.settingDTO);
     this.updateFormData.append('data', requestData);
-    this.http.PUT('RequestType/UpdateRequestType', this.updateFormData).subscribe(
-      (data) => {
-        console.log('update setting');
-        this._snackBar.openFromComponent(ToastMessageComponent, {
-          duration: this.durationInSeconds * 1000,
-        });
-        this.service.setValue(true);
-      },
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        this.dialogRef.afterClosed().subscribe((result) => {
-          console.log(`Dialog result: ${result}`);
-        });
-      }
-    );
+    this.http
+      .PUT('RequestType/UpdateRequestType', this.updateFormData)
+      .subscribe(
+        (data) => {
+          this.createloader = false;
 
+          console.log('update setting');
+          this._snackBar.openFromComponent(ToastMessageComponent, {
+            duration: this.durationInSeconds * 1000,
+          });
+          this.dialog.closeAll();
+
+          this.service.setValue(true);
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          this.dialogRef.afterClosed().subscribe((result) => {
+            console.log(`Dialog result: ${result}`);
+          });
+        }
+      );
   }
   public goBack() {
     this.secondPage = false;
@@ -259,16 +302,23 @@ export class AddSettingsComponent implements OnInit {
    */
   public addGroup() {
     debugger;
-    this.http.POST(`Group/createOne`, { name: this.createSettingsFormGroup.value.groupName }).subscribe(data => {
-      this.groups.push({ id: data, name: this.createSettingsFormGroup.value.groupName, selected: true });
-      this.createSettingsFormGroup.value.groups.push(data);
+    this.http
+      .POST(`Group/createOne`, {
+        name: this.createSettingsFormGroup.value.groupName,
+      })
+      .subscribe((data) => {
+        this.groups.push({
+          id: data,
+          name: this.createSettingsFormGroup.value.groupName,
+          selected: true,
+        });
+        this.createSettingsFormGroup.value.groups.push(data);
 
-      this.createSettingsFormGroup.patchValue({ groupName: '' });
-      console.log(this.createSettingsFormGroup.value);
-      this.viewAdd = false;
-    })
-    console.log(this.createSettingsFormGroup.value.groupName)
-
+        this.createSettingsFormGroup.patchValue({ groupName: '' });
+        console.log(this.createSettingsFormGroup.value);
+        this.viewAdd = false;
+      });
+    console.log(this.createSettingsFormGroup.value.groupName);
   }
   /**
    * removeGroup
@@ -278,4 +328,3 @@ export class AddSettingsComponent implements OnInit {
     this.viewAdd = false;
   }
 }
-

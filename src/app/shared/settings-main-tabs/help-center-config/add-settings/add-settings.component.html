@@ -211,16 +211,26 @@
           width: 100%;
         "
       >
-        <button mat-button class="Back" (click)="goBack()">Back</button>
-        <button
-          mat-button
-          class="send"
-          [mat-dialog-close]="true"
-          [disabled]="createSettingsFormGroup.value.groups.length == 0"
-          (click)="submitCreateSetting()"
-        >
-          Submit
-        </button>
+        <div *ngIf="createloader === true; then spinner; else btn"></div>
+        <ng-template #spinner>
+          <mat-spinner
+            style="display: flex; justify-content: center; text-align: center"
+            class="mt-2"
+            color="warn"
+            [diameter]="30"
+          ></mat-spinner>
+        </ng-template>
+        <ng-template #btn>
+          <button mat-button class="Back" (click)="goBack()">Back</button>
+          <button
+            mat-button
+            class="send"
+            [disabled]="createSettingsFormGroup.value.groups.length == 0"
+            (click)="submitCreateSetting()"
+          >
+            Submit
+          </button>
+        </ng-template>
       </div>
     </mat-dialog-actions>
   </form>
@@ -427,16 +437,26 @@
           width: 100%;
         "
       >
-        <button mat-button class="Back" (click)="goBack()">Back</button>
-        <button
-          mat-button
-          class="send"
-          [mat-dialog-close]="true"
-          [disabled]="UpdateSettingsFormGroup.value.groups.length == 0"
-          (click)="submitUpdateSetting()"
-        >
-          Submit
-        </button>
+        <div *ngIf="createloader === true; then spinner; else btn"></div>
+        <ng-template #spinner>
+          <mat-spinner
+            style="display: flex; justify-content: center; text-align: center"
+            class="mt-2"
+            color="warn"
+            [diameter]="30"
+          ></mat-spinner>
+        </ng-template>
+        <ng-template #btn>
+          <button mat-button class="Back" (click)="goBack()">Back</button>
+          <button
+            mat-button
+            class="send"
+            [disabled]="UpdateSettingsFormGroup.value.groups.length == 0"
+            (click)="submitUpdateSetting()"
+          >
+            Submit
+          </button>
+        </ng-template>
       </div>
     </mat-dialog-actions>
   </form>

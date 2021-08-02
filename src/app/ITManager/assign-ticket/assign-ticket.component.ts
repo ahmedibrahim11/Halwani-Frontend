@@ -106,6 +106,8 @@ export class AssignTicketComponent implements OnInit {
           UserName: this.selectedUser,
         })
         .subscribe((res) => {
+          this.createloader = false;
+
           console.log(res);
           this._snackBar.openFromComponent(ToastMessageComponent, {
             duration: this.durationInSeconds * 1000,

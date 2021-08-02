@@ -144,21 +144,31 @@
           width: 100%;
         "
       >
-        <button mat-button mat-dialog-close class="cancel">
-          Cancel request
-        </button>
-        <button
-          mat-button
-          [mat-dialog-close]="true"
-          class="send"
-          type="button"
-          (click)="submitCreatePC()"
-          [disabled]="
-            !createSettingsFormGroup.valid || checkArray.value.length == 0
-          "
+        <div *ngIf="createloader === true; then spinner; else btn"></div>
+        <ng-template #spinner>
+          <mat-spinner
+            style="display: flex; justify-content: center; text-align: center"
+            class="mt-2"
+            color="warn"
+            [diameter]="30"
+          ></mat-spinner>
+        </ng-template>
+        <ng-template #btn>
+          <button mat-button mat-dialog-close class="cancel">
+            Cancel request
+          </button>
+          <button
+            mat-button
+            class="send"
+            type="button"
+            (click)="submitCreatePC()"
+            [disabled]="
+              !createSettingsFormGroup.valid || checkArray.value.length == 0
+            "
+          >
+            Save
+          </button></ng-template
         >
-          Save
-        </button>
       </div>
     </mat-dialog-actions>
   </form>
@@ -321,21 +331,31 @@
           width: 100%;
         "
       >
-        <button mat-button mat-dialog-close class="cancel">
-          Cancel request
-        </button>
-        <button
-          mat-button
-          [mat-dialog-close]="true"
-          class="send"
-          type="button"
-          (click)="submitEditPC()"
-          [disabled]="
-            !updateSettingsFormGroup.valid || checkArray.value.length == 0
-          "
+        <div *ngIf="createloader === true; then spinner; else btn"></div>
+        <ng-template #spinner>
+          <mat-spinner
+            style="display: flex; justify-content: center; text-align: center"
+            class="mt-2"
+            color="warn"
+            [diameter]="30"
+          ></mat-spinner>
+        </ng-template>
+        <ng-template #btn>
+          <button mat-button mat-dialog-close class="cancel">
+            Cancel request
+          </button>
+          <button
+            mat-button
+            class="send"
+            type="button"
+            (click)="submitEditPC()"
+            [disabled]="
+              !updateSettingsFormGroup.valid || checkArray.value.length == 0
+            "
+          >
+            Save
+          </button></ng-template
         >
-          Save
-        </button>
       </div>
     </mat-dialog-actions>
   </form>

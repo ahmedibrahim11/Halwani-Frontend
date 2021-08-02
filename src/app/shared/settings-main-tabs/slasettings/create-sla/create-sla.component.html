@@ -135,16 +135,28 @@
         width: 100%;
       "
     >
-      <button mat-button mat-dialog-close class="cancel">Cancel request</button>
-      <button
-        mat-button
-        [mat-dialog-close]="true"
-        class="send"
-        type="button"
-        (click)="submitCreateSLA()"
-      >
-        Save new SLA
-      </button>
+      <div *ngIf="createloader === true; then spinner; else btn"></div>
+      <ng-template #spinner>
+        <mat-spinner
+          style="display: flex; justify-content: center; text-align: center"
+          class="mt-2"
+          color="warn"
+          [diameter]="30"
+        ></mat-spinner>
+      </ng-template>
+      <ng-template #btn>
+        <button mat-button mat-dialog-close class="cancel">
+          Cancel request
+        </button>
+        <button
+          mat-button
+          class="send"
+          type="button"
+          (click)="submitCreateSLA()"
+        >
+          Save new SLA
+        </button>
+      </ng-template>
     </mat-dialog-actions>
   </form>
 </ng-template>
@@ -300,16 +312,28 @@
         width: 100%;
       "
     >
-      <button mat-button mat-dialog-close class="cancel">Cancel request</button>
-      <button
-        mat-button
-        [mat-dialog-close]="true"
-        class="send"
-        type="button"
-        (click)="submitUpdateSLA()"
+      <div *ngIf="createloader === true; then spinner; else btn"></div>
+      <ng-template #spinner>
+        <mat-spinner
+          style="display: flex; justify-content: center; text-align: center"
+          class="mt-2"
+          color="warn"
+          [diameter]="30"
+        ></mat-spinner>
+      </ng-template>
+      <ng-template #btn>
+        <button mat-button mat-dialog-close class="cancel">
+          Cancel request
+        </button>
+        <button
+          mat-button
+          class="send"
+          type="button"
+          (click)="submitUpdateSLA()"
+        >
+          Save
+        </button></ng-template
       >
-        Save
-      </button>
     </mat-dialog-actions>
   </form>
 </ng-template>
