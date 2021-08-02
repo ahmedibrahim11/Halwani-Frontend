@@ -29,9 +29,20 @@
     </mat-option>
   </mat-select>
   <div class="assign-btns">
-    <button class="open-ticket-btn icon" (click)="backBtn()">GO BACK</button>
-    <button class="assign-ticket-btn icon" (click)="assignHandler()">
-      ASSIGN TICKET
-    </button>
+    <div *ngIf="createloader === true; then spinner; else btn"></div>
+    <ng-template #spinner>
+      <mat-spinner
+        style="display: flex; justify-content: center; text-align: center"
+        class="mt-2"
+        color="warn"
+        [diameter]="30"
+      ></mat-spinner>
+    </ng-template>
+    <ng-template #btn>
+      <button class="open-ticket-btn icon" (click)="backBtn()">GO BACK</button>
+      <button class="assign-ticket-btn icon" (click)="assignHandler()">
+        ASSIGN TICKET
+      </button>
+    </ng-template>
   </div>
 </div>

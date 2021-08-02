@@ -12,27 +12,22 @@ import { ToastMessageComponent } from '../toast-message/toast-message.component'
   styleUrls: ['./cancel-ticket.component.css'],
 })
 export class CancelTicketComponent implements OnInit {
+  createloader: Boolean = false;
+
   constructor(
     private http: HTTPMainServiceService,
     private share: SharingdataService,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar
   ) {}
-  toppings = new FormControl();
 
-  toppingList: string[] = [
-    'Extra cheese',
-    'Mushroom',
-    'Onion',
-    'Pepperoni',
-    'Sausage',
-    'Tomato',
-  ];
   ngOnInit(): void {}
   ticketID: any;
   durationInSeconds: any = 3;
 
   cancelHandler() {
+    this.createloader = true;
+
     this.ticketID = this.share.getData();
     this.http
       .POST('ticket/UpdateStatus', {
@@ -40,6 +35,8 @@ export class CancelTicketComponent implements OnInit {
         status: 8,
       })
       .subscribe((res) => {
+        this.createloader = false;
+
         console.log(res);
         this._snackBar.openFromComponent(ToastMessageComponent, {
           duration: this.durationInSeconds * 1000,

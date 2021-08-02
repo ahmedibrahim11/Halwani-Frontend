@@ -9,6 +9,8 @@ import { SharingdataService } from 'src/app/core/services/sharingdata.service';
   styleUrls: ['./escalate-ticket.component.css'],
 })
 export class EscalateTicketComponent implements OnInit {
+  createloader: Boolean = false;
+
   constructor(public dialog: MatDialog, private share: SharingdataService) {}
   toppings = new FormControl();
 

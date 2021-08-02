@@ -109,10 +109,12 @@
           </mat-form-field>
         </div>
         <div class="col-ddl">
-          <label class="Ticket-type">Location</label>
+          <label class="Ticket-type"
+            >Location<span class="mandatory"> *</span></label
+          >
+
           <mat-form-field [style.width.%]="100" appearance="fill">
             <mat-label>{{ location }}</mat-label>
-
             <mat-select formControlName="location" [(ngModel)]="location">
               <mat-option
                 *ngFor="let option of locationList"
@@ -256,16 +258,28 @@
     </mat-dialog-actions>
 
     <mat-dialog-actions align="end" style="display: flex; flex-direction: row">
-      <button mat-button mat-dialog-close class="cancel">Cancel request</button>
-      <button
-        mat-button
-        [mat-dialog-close]="true"
-        class="send"
-        type="submit"
-        [disabled]="!createTicketDTOFormGroup.valid"
+      <div *ngIf="createloader === true; then spinner; else btn"></div>
+      <ng-template #spinner>
+        <mat-spinner
+          style="display: flex; justify-content: center; text-align: center"
+          class="mt-2"
+          color="warn"
+          [diameter]="30"
+        ></mat-spinner>
+      </ng-template>
+      <ng-template #btn>
+        <button mat-button mat-dialog-close class="cancel">
+          Cancel request
+        </button>
+        <button
+          mat-button
+          class="send"
+          type="submit"
+          [disabled]="!createTicketDTOFormGroup.valid"
+        >
+          Send ticket
+        </button></ng-template
       >
-        Send ticket
-      </button>
     </mat-dialog-actions>
   </form>
 </ng-template>
@@ -531,10 +545,21 @@
     </mat-dialog-content>
 
     <mat-dialog-actions align="end" style="display: flex; flex-direction: row">
-      <button mat-button mat-dialog-close class="cancel">Cancel request</button>
-      <button mat-button [mat-dialog-close]="true" class="send" type="submit">
-        Update ticket
-      </button>
+      <div *ngIf="createloader === true; then spinner; else btn"></div>
+      <ng-template #spinner>
+        <mat-spinner
+          style="display: flex; justify-content: center; text-align: center"
+          class="mt-2"
+          color="warn"
+          [diameter]="30"
+        ></mat-spinner>
+      </ng-template>
+      <ng-template #btn>
+        <button mat-button mat-dialog-close class="cancel">
+          Cancel request
+        </button>
+        <button mat-button class="send" type="submit">Update ticket</button>
+      </ng-template>
     </mat-dialog-actions>
   </form>
 </ng-template>

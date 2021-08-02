@@ -41,6 +41,8 @@ export class CreateTicketPopupComponent implements OnInit {
   createTicketDTOFormGroup: FormGroup;
   updateTicketDTOFormGroup: FormGroup;
 
+  createloader: Boolean = false;
+
   formData: FormData = new FormData();
   updateFormData: FormData = new FormData();
   fromPage: any;
@@ -269,6 +271,8 @@ export class CreateTicketPopupComponent implements OnInit {
     this.showSecondCategory = true;
   }
   submiCreate() {
+    this.createloader = true;
+
     console.log('creaaation', this.createTicketDTOFormGroup.value);
     this.createTicketDTO.attachement =
       this.FileLinks !== undefined ? this.FileLinks.toString() : '';
@@ -306,10 +310,14 @@ export class CreateTicketPopupComponent implements OnInit {
 
     this.http.POST('Ticket/CreateTicket', this.formData).subscribe(
       (data) => {
+        this.createloader = false;
+
         console.log('create tickeet');
         this._snackBar.openFromComponent(ToastMessageComponent, {
           duration: this.durationInSeconds * 1000,
         });
+        this.dialog.closeAll();
+
         this.service.setValue(true);
       },
       (error) => {
@@ -331,6 +339,8 @@ export class CreateTicketPopupComponent implements OnInit {
   }
 
   submitUpdate() {
+    this.createloader = true;
+
     console.log(
       'a7mos',
       this.updateTicketDTOFormGroup.value,
@@ -374,9 +384,13 @@ export class CreateTicketPopupComponent implements OnInit {
     var updated = JSON.stringify(this.updateTicketDto);
     this.updateFormData.append('data', updated);
     this.http.PUT('Ticket/UpdateTic/', this.updateFormData).subscribe((res) => {
+      this.createloader = false;
+
       this._snackBar.openFromComponent(ToastMessageComponent, {
         duration: this.durationInSeconds * 1000,
       });
+      this.dialog.closeAll();
+
       this.service.setValue(true);
     });
   }

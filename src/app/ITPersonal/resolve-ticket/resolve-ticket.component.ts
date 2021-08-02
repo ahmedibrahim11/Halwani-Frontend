@@ -12,16 +12,7 @@ import { ToastMessageComponent } from '../toast-message/toast-message.component'
   styleUrls: ['./resolve-ticket.component.css'],
 })
 export class ResolveTicketComponent implements OnInit {
-  toppings = new FormControl();
-
-  toppingList: string[] = [
-    'Extra cheese',
-    'Mushroom',
-    'Onion',
-    'Pepperoni',
-    'Sausage',
-    'Tomato',
-  ];
+  createloader: Boolean = false;
 
   ngOnInit(): void {}
   constructor(
@@ -39,6 +30,8 @@ export class ResolveTicketComponent implements OnInit {
     this.resolvedStr = e.target.value;
   }
   resolveHandler() {
+    this.createloader = true;
+
     this.ticketID = this.share.getData();
     this.http
       .POST('ticket/UpdateStatus', {
@@ -47,6 +40,8 @@ export class ResolveTicketComponent implements OnInit {
         resolveText: this.resolvedStr,
       })
       .subscribe((res) => {
+        this.createloader = false;
+
         console.log(res);
         this._snackBar.openFromComponent(ToastMessageComponent, {
           duration: this.durationInSeconds * 1000,

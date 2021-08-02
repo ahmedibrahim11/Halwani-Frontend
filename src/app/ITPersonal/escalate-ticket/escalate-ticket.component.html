@@ -27,7 +27,20 @@
     </mat-select>
   </mat-form-field>
   <div class="escalate-btns">
-    <button class="open-ticket-btn icon" (click)="closeModal()">GO BACK</button>
-    <button class="escalate-ticket-btn icon">ESCALATE TICKET</button>
+    <div *ngIf="createloader === true; then spinner; else btn"></div>
+    <ng-template #spinner>
+      <mat-spinner
+        style="display: flex; justify-content: center; text-align: center"
+        class="mt-2"
+        color="warn"
+        [diameter]="30"
+      ></mat-spinner>
+    </ng-template>
+    <ng-template #btn>
+      <button class="open-ticket-btn icon" (click)="closeModal()">
+        GO BACK
+      </button>
+      <button class="escalate-ticket-btn icon">ESCALATE TICKET</button>
+    </ng-template>
   </div>
 </div>

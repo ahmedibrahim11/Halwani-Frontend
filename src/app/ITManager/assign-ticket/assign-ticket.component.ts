@@ -22,6 +22,8 @@ export class AssignTicketComponent implements OnInit {
 
   ticketIds = [];
 
+  createloader: Boolean = false;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
 
@@ -72,6 +74,8 @@ export class AssignTicketComponent implements OnInit {
   durationInSeconds: any = 3;
 
   assignHandler() {
+    this.createloader = true;
+
     var dataType = typeof this.data;
     debugger;
     console.log('dataaaa', this.data);
@@ -84,6 +88,8 @@ export class AssignTicketComponent implements OnInit {
           UserName: this.selectedUser,
         })
         .subscribe((res) => {
+          this.createloader = false;
+
           console.log(res);
           this._snackBar.openFromComponent(ToastMessageComponent, {
             duration: this.durationInSeconds * 1000,
