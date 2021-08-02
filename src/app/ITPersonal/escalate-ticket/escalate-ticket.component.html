@@ -1,30 +1,20 @@
 <div class="escalate-modal-container">
   <div class="escalate-title-container">
-    <h1 class="escalate-title">Escalate Ticket</h1>
+    <h1 class="escalate-title">Escalate A Ticket</h1>
     <mat-icon mat-dialog-close class="icon">close</mat-icon>
   </div>
 
   <div class="escalate-text-container">
-    <p class="escalate-text">Escalate to</p>
+    <p class="escalate-text">Why do you want to escalate this ticket?</p>
     <span style="color: #ed1c24">*</span>
   </div>
   <mat-form-field appearance="fill" class="escalate-ddl">
-    <mat-label>Toppings</mat-label>
-    <mat-select [formControl]="toppings" multiple>
-      <mat-select-trigger>
-        {{ toppings.value ? toppings.value[0] : "" }}
-        <span
-          *ngIf="toppings.value?.length > 1"
-          class="example-additional-selection"
-        >
-          (+{{ toppings.value.length - 1 }}
-          {{ toppings.value?.length === 2 ? "other" : "others" }})
-        </span>
-      </mat-select-trigger>
-      <mat-option *ngFor="let topping of toppingList" [value]="topping">{{
-        topping
-      }}</mat-option>
-    </mat-select>
+    <input
+      type="text"
+      matInput
+      placeholder="Write you escalation reasons here:"
+      (input)="getEscalationText($event)"
+    />
   </mat-form-field>
   <div class="escalate-btns">
     <div *ngIf="createloader === true; then spinner; else btn"></div>
@@ -40,7 +30,9 @@
       <button class="open-ticket-btn icon" (click)="closeModal()">
         GO BACK
       </button>
-      <button class="escalate-ticket-btn icon">ESCALATE TICKET</button>
+      <button class="escalate-ticket-btn icon" (click)="escalateHandler()">
+        ESCALATE TICKET
+      </button>
     </ng-template>
   </div>
 </div>
