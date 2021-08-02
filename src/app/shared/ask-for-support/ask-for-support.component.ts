@@ -6,45 +6,46 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Validators } from 'ngx-editor';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { ToastMessageComponent } from 'src/app/ITPersonal/toast-message/toast-message.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-ask-for-support',
   templateUrl: './ask-for-support.component.html',
-  styleUrls: ['./ask-for-support.component.css']
+  styleUrls: ['./ask-for-support.component.css'],
 })
 export class AskForSupportComponent implements OnInit {
+  createloader: Boolean = false;
 
-  
-createReport:FormGroup;
-editorConfig: AngularEditorConfig = {
+  createReport: FormGroup;
+  editorConfig: AngularEditorConfig = {
     editable: true,
-      spellcheck: true,
-      height: 'auto',
-      minHeight: '10',
-      maxHeight: 'auto',
-      width: 'auto',
-      minWidth: '0',
-      translate: 'yes',
-      enableToolbar: true,
-      showToolbar: true,
-      placeholder: '',
-      defaultParagraphSeparator: '',
-      defaultFontName: '',
-      defaultFontSize: '',
-      fonts: [
-        {class: 'arial', name: 'Arial'},
-        {class: 'times-new-roman', name: 'Times New Roman'},
-        {class: 'calibri', name: 'Calibri'},
-        {class: 'comic-sans-ms', name: 'Comic Sans MS'}
-      ],
-      customClasses: [
+    spellcheck: true,
+    height: 'auto',
+    minHeight: '10',
+    maxHeight: 'auto',
+    width: 'auto',
+    minWidth: '0',
+    translate: 'yes',
+    enableToolbar: true,
+    showToolbar: true,
+    placeholder: '',
+    defaultParagraphSeparator: '',
+    defaultFontName: '',
+    defaultFontSize: '',
+    fonts: [
+      { class: 'arial', name: 'Arial' },
+      { class: 'times-new-roman', name: 'Times New Roman' },
+      { class: 'calibri', name: 'Calibri' },
+      { class: 'comic-sans-ms', name: 'Comic Sans MS' },
+    ],
+    customClasses: [
       {
         name: 'quote',
         class: 'quote',
       },
       {
         name: 'redText',
-        class: 'redText'
+        class: 'redText',
       },
       {
         name: 'titleText',
@@ -52,41 +53,53 @@ editorConfig: AngularEditorConfig = {
         tag: 'h1',
       },
     ],
-   
+
     sanitize: true,
     toolbarPosition: 'top',
     toolbarHiddenButtons: [
-    [],
-     ['customClasses',
-    'link',
-    'unlink',
-    'insertImage',
-    'insertVideo',
-    'insertHorizontalRule',
-    'removeFormat',
-    'toggleEditorMode']
-    ]
-};
-  constructor(public dialogRef: MatDialogRef<AskForSupportComponent>,  private formBuilder: FormBuilder, private http: HTTPMainServiceService, private _snackBar: MatSnackBar,) { }
+      [],
+      [
+        'customClasses',
+        'link',
+        'unlink',
+        'insertImage',
+        'insertVideo',
+        'insertHorizontalRule',
+        'removeFormat',
+        'toggleEditorMode',
+      ],
+    ],
+  };
+  constructor(
+    public dialogRef: MatDialogRef<AskForSupportComponent>,
+    private formBuilder: FormBuilder,
+    private http: HTTPMainServiceService,
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
-    this.createReport=this.formBuilder.group({text:['',[Validators.required]]});
-  }
-    durationInSeconds: any = 3;
-reportaBug()
-{
-  console.log(this.createReport.value)
-  this.dialogRef.close();
-   this.http.PUT('UserRequest/AskForSupport',{text:this.createReport.value.text}).subscribe((res) => {
-       
-        this._snackBar.openFromComponent(ToastMessageComponent, {
-        duration: this.durationInSeconds * 1000,
-      });
-    
+    this.createReport = this.formBuilder.group({
+      text: ['', [Validators.required]],
     });
+  }
+  durationInSeconds: any = 3;
+  reportaBug() {
+    this.createloader = true;
 
-}
-closeModal() {
+    console.log(this.createReport.value);
+    this.http
+      .PUT('UserRequest/AskForSupport', { text: this.createReport.value.text })
+      .subscribe((res) => {
+        this.createloader = false;
+
+        this._snackBar.openFromComponent(ToastMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+        });
+        this.dialog.closeAll();
+      });
+  }
+  closeModal() {
     this.dialogRef.close();
   }
 }
