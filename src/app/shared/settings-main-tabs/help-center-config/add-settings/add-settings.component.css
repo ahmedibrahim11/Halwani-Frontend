@@ -1,8 +1,6 @@
 .Create-setting {
-  width: 287px;
   height: fit-content;
   flex-grow: 1;
-  margin: 0 153px 36px 0;
   font-family: Poppins;
   font-size: 24px;
   font-weight: bold;
@@ -97,7 +95,7 @@
 .col-ddl {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 100%;
 }
 .spinner-design {
   display: flex;

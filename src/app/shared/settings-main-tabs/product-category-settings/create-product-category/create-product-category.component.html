@@ -28,9 +28,9 @@
             (click)="
               editGroup(Group.subCategoryName.value, Group.goal.value, 0)
             "
-            style="margin-left: 2rem; padding: 0"
+            style="padding: 0; color: grey"
           >
-            <mat-icon style="color: grey">edit</mat-icon>
+            <mat-icon>edit</mat-icon> Edit
           </button>
           <button
             mat-button
@@ -38,9 +38,7 @@
             (click)="removeGroup(Group.subCategoryName.value, Group.goal.value)"
             style="margin-left: 0.5rem; padding: 0"
           >
-            <mat-icon style="color: red; padding-bottom: 0.5rem"
-              >remove_circle_outline</mat-icon
-            >
+            <label style="color: red">- Remove</label>
           </button>
         </div>
         <div class="row-ddl">
@@ -118,9 +116,9 @@
               mat-button
               type="button"
               (click)="addGroup(0)"
-              style="margin-left: 2rem; padding: 0"
+              style="padding: 0; color: green"
             >
-              <mat-icon style="color: yellowgreen">playlist_add_check</mat-icon>
+              <mat-icon>done</mat-icon> save
             </button>
             <button
               mat-button
@@ -128,7 +126,7 @@
               (click)="removeThroughAdd()"
               style="margin-left: 0.5rem; padding: 0"
             >
-              <mat-icon style="color: red">remove_circle_outline</mat-icon>
+              <label style="color: red">- Remove</label>
             </button>
           </div>
         </div>
@@ -136,7 +134,7 @@
     </mat-dialog-content>
     <mat-dialog-actions>
       <span class="createGroup" (click)="viewAddGroup()"
-        ><label class="createGroupIcon">+</label> Create New Group</span
+        >+ Add new sub-category</span
       >
       <div
         style="
@@ -198,9 +196,9 @@
             (click)="
               editGroup(Group.subCategoryName.value, Group.goal.value, 1)
             "
-            style="margin-left: 2rem; padding: 0"
+            style="padding: 0; color: grey"
           >
-            <mat-icon style="color: grey">edit</mat-icon>
+            <mat-icon>edit</mat-icon> Edit
           </button>
           <button
             mat-button
@@ -209,9 +207,7 @@
             (click)="removeGroup(Group.subCategoryName.value, Group.goal.value)"
             style="margin-left: 0.5rem; padding: 0"
           >
-            <mat-icon style="color: red; padding-bottom: 0.5rem"
-              >remove_circle_outline</mat-icon
-            >
+            <label style="color: red">- Remove</label>
           </button>
           <button
             mat-button
@@ -222,9 +218,7 @@
             "
             style="margin-left: 0.5rem; padding: 0"
           >
-            <mat-icon style="color: red; padding-bottom: 0.5rem"
-              >remove_circle_outline</mat-icon
-            >
+            <label style="color: red">- Remove</label>
           </button>
         </div>
         <div class="row-ddl">
@@ -299,9 +293,9 @@
               mat-button
               type="button"
               (click)="addGroup(1)"
-              style="margin-left: 2rem; padding: 0"
+              style="padding: 0; color: green"
             >
-              <mat-icon style="color: yellowgreen">playlist_add_check</mat-icon>
+              <mat-icon>done</mat-icon> save
             </button>
             <button
               mat-button
@@ -309,7 +303,7 @@
               (click)="removeThroughAdd()"
               style="margin-left: 0.5rem; padding: 0"
             >
-              <mat-icon style="color: red">remove_circle_outline</mat-icon>
+              <label style="color: red">- Remove</label>
             </button>
           </div>
         </div>
@@ -317,7 +311,7 @@
     </mat-dialog-content>
     <mat-dialog-actions>
       <span class="createGroup" (click)="viewAddGroup()"
-        ><label class="createGroupIcon">+</label> Create New Group</span
+        >+ Add new sub-category</span
       >
       <div
         style="
