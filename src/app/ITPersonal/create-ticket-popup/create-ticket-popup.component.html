@@ -274,7 +274,6 @@
         </button>
         <button
           mat-button
-          [mat-dialog-close]="true"
           class="send"
           type="submit"
           [disabled]="!createTicketDTOFormGroup.valid"
@@ -560,9 +559,7 @@
         <button mat-button mat-dialog-close class="cancel">
           Cancel request
         </button>
-        <button mat-button [mat-dialog-close]="true" class="send" type="submit">
-          Update ticket
-        </button>
+        <button mat-button class="send" type="submit">Update ticket</button>
       </ng-template>
     </mat-dialog-actions>
   </form>
