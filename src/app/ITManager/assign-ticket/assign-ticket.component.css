@@ -2,7 +2,7 @@
   border-radius: 24px;
   background-color: #ffffff;
   width: 50vw;
-  height: 42.5vh;
+  height: 45vh;
   overflow-y: hidden;
   overflow-x: hidden;
 }
@@ -42,6 +42,7 @@
 .assign-text-container {
   display: flex;
   flex-direction: row;
+  margin-top: 2%;
 }
 
 .assign-ddl {
@@ -79,6 +80,7 @@
   background-color: #f5f6f7;
   height: 5vh;
 }
+
 .menu {
   width: 14rem;
   display: flex;

@@ -23,6 +23,7 @@ export class AssignTicketComponent implements OnInit {
   ticketIds = [];
 
   createloader: Boolean = false;
+  sendFlag: Boolean = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -34,6 +35,7 @@ export class AssignTicketComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('usssss', this.selectedUser);
     console.log('ticketIDs', this.ticketIds);
     var x = this.data;
     var teamName = typeof this.data;
@@ -69,6 +71,11 @@ export class AssignTicketComponent implements OnInit {
   usersHandler(e) {
     console.log('event', e);
     this.selectedUser = e.value;
+    if (this.selectedUser === undefined) {
+      this.sendFlag = false;
+    } else {
+      this.sendFlag = true;
+    }
   }
   ticketID: any;
   durationInSeconds: any = 3;

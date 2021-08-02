@@ -2,7 +2,7 @@
       border-radius: 24px;
       background-color: #ffffff;
       width: 50vw;
-      height: 40vh;
+      height: 45vh;
       overflow-y: hidden;
       overflow-x: hidden;
 }
@@ -38,6 +38,7 @@
 .resolved-text-container{
     display: flex;
     flex-direction: row;
+    margin-top: 2%;
 }
 .resolve-textArea{
     width: 100%;
@@ -50,7 +51,7 @@
 }
 .open-ticket-btn{
      gap: 10px;
-     padding: 10px;
+     padding: 5px;
      border-radius: 6px;
      background-color: #f5f6f7;
      color: #42526e;
@@ -58,7 +59,7 @@
 }
 .resolve-ticket-btn{
      margin: 0 0 0 18px;
-     padding: 10px;
+     padding: 5px;
      border-radius: 6px;
      background-color: #c4161c;
      color: #ffffff;

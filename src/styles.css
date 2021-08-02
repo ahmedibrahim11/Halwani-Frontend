@@ -57,3 +57,6 @@ table.mat-table {
   min-height: inherit;
   max-height: inherit;
 }
+#mat-select-2-panel {
+  height: 20vh !important;
+}
