@@ -6,11 +6,14 @@
 
   <div class="resolved-text-container">
     <p class="resolved-text">Resolution summary</p>
-    <span style="color: #ed1c24">*</span>
   </div>
   <mat-form-field appearance="fill" class="resolve-textArea">
-    <mat-label>Textarea</mat-label>
-    <textarea (change)="resolveText($event)" matInput></textarea>
+    <input
+      type="text"
+      matInput
+      placeholder="Write you notes here:"
+      (input)="resolveText($event)"
+    />
   </mat-form-field>
   <div class="resolve-btns">
     <div *ngIf="createloader === true; then spinner; else btn"></div>
@@ -23,10 +26,20 @@
       ></mat-spinner>
     </ng-template>
     <ng-template #btn>
-      <button class="open-ticket-btn icon" (click)="openHandler()">
+      <button
+        mat-button
+        class="open-ticket-btn icon"
+        (click)="openHandler()"
+        [disabled]="!sendFlag"
+      >
         OPEN TICKET
       </button>
-      <button class="resolve-ticket-btn icon" (click)="resolveHandler()">
+      <button
+        mat-button
+        class="resolve-ticket-btn icon"
+        (click)="resolveHandler()"
+        [disabled]="!sendFlag"
+      >
         RESOLVE TICKET
       </button>
     </ng-template>

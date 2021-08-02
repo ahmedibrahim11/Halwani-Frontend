@@ -6,7 +6,6 @@
 
   <div class="escalate-text-container">
     <p class="escalate-text">Why do you want to escalate this ticket?</p>
-    <span style="color: #ed1c24">*</span>
   </div>
   <mat-form-field appearance="fill" class="escalate-ddl">
     <input
@@ -30,7 +29,12 @@
       <button class="open-ticket-btn icon" (click)="closeModal()">
         GO BACK
       </button>
-      <button class="escalate-ticket-btn icon" (click)="escalateHandler()">
+      <button
+        mat-button
+        class="escalate-ticket-btn icon"
+        (click)="escalateHandler()"
+        [disabled]="!sendFlag"
+      >
         ESCALATE TICKET
       </button>
     </ng-template>

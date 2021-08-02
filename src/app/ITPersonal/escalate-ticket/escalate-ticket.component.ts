@@ -14,8 +14,10 @@ import { ToastMessageComponent } from '../toast-message/toast-message.component'
 export class EscalateTicketComponent implements OnInit {
   createloader: Boolean = false;
   ticketID: any;
-  escalationString: String;
+  escalationString: String = '';
   durationInSeconds: any = 3;
+
+  sendFlag: Boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -28,6 +30,12 @@ export class EscalateTicketComponent implements OnInit {
 
   getEscalationText(e: any) {
     this.escalationString = e.target.value;
+    console.log('esssss', this.escalationString);
+    if (this.escalationString === '') {
+      this.sendFlag = false;
+    } else {
+      this.sendFlag = true;
+    }
   }
 
   escalateHandler() {

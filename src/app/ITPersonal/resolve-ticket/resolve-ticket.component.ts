@@ -23,11 +23,18 @@ export class ResolveTicketComponent implements OnInit {
   ) {}
 
   ticketID: any;
-  resolvedStr: any;
+  resolvedStr: String = '';
   durationInSeconds: any = 3;
+  sendFlag: Boolean = false;
 
   resolveText(e) {
     this.resolvedStr = e.target.value;
+    console.log('ressoooo', this.resolvedStr);
+    if (this.resolvedStr === '') {
+      this.sendFlag = false;
+    } else {
+      this.sendFlag = true;
+    }
   }
   resolveHandler() {
     this.createloader = true;
