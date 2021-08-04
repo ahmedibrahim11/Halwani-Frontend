@@ -57,8 +57,10 @@ export class ProductCategorySettingsComponent implements OnInit {
           id: el['id'],
           name: el['text'],
           children: el['children'],
+          isVisible: el['isVisible']
         };
       });
+      console.log(this.UserViewInfoObject)
       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
     });
   }
@@ -93,6 +95,7 @@ export class ProductCategorySettingsComponent implements OnInit {
               id: el['id'],
               name: el['text'],
               children: el['children'],
+              isVisible: el['isVisible']
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -117,6 +120,7 @@ export class ProductCategorySettingsComponent implements OnInit {
               id: el['id'],
               name: el['text'],
               children: el['children'],
+              isVisible: el['isVisible']
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -140,6 +144,7 @@ export class ProductCategorySettingsComponent implements OnInit {
               id: el['id'],
               name: el['text'],
               children: el['children'],
+              isVisible: el['isVisible']
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -204,6 +209,7 @@ export class ProductCategorySettingsComponent implements OnInit {
             id: el['id'],
             name: el['text'],
             children: el['children'],
+            isVisible: el['isVisible']
           };
         });
         console.log(this.UserViewInfoObject);
@@ -303,6 +309,7 @@ export class ProductCategorySettingsComponent implements OnInit {
               id: el['id'],
               name: el['text'],
               children: el['children'],
+              isVisible: el['isVisible']
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -342,6 +349,7 @@ export class ProductCategorySettingsComponent implements OnInit {
             id: el['id'],
             name: el['text'],
             children: el['children'],
+            isVisible: el['isVisible']
           };
         });
         this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -406,6 +414,7 @@ export class ProductCategorySettingsComponent implements OnInit {
                   id: el['id'],
                   name: el['text'],
                   children: el['children'],
+                  isVisible: el['isVisible']
                 };
               });
               this.getRedMenuCharacters(this.usersName);
@@ -443,6 +452,7 @@ export class ProductCategorySettingsComponent implements OnInit {
                   id: el['id'],
                   name: el['text'],
                   children: el['children'],
+                  isVisible: el['isVisible']
                 };
               });
               this.getRedMenuCharacters(this.usersName);
@@ -512,6 +522,7 @@ export class ProductCategorySettingsComponent implements OnInit {
               id: el['id'],
               name: el['text'],
               children: el['children'],
+              isVisible: el['isVisible']
             };
           });
           this.getRedMenuCharacters(this.usersName);
@@ -531,7 +542,7 @@ export class ProductCategorySettingsComponent implements OnInit {
   durationInSeconds: any = 3;
   setVisability(settingID, Value: Boolean) {
     this.http
-      .GET(`RequestType/UpdateVisiblity?id=${settingID}&isVisible=${Value}`)
+      .GET(`Category/UpdateVisiblity?id=${settingID}&isVisible=${Value}`)
       .subscribe((data) => {
         this._snackBar.openFromComponent(ToastMessageComponent, {
           duration: this.durationInSeconds * 1000,
@@ -549,6 +560,7 @@ export class ProductCategorySettingsComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+  
 
   openAddProductCategory() {
     const dialogRef = this.dialog.open(CreateProductCategoryComponent, {
@@ -559,4 +571,5 @@ export class ProductCategorySettingsComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
+  
 }

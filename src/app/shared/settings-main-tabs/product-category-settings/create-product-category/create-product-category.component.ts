@@ -24,6 +24,7 @@ export class CreateProductCategoryComponent implements OnInit {
   settingID: any = undefined;
   createSettingsFormGroup: FormGroup;
   checkArray: FormArray = new FormArray([]);
+  EditcheckArray: FormArray = new FormArray([]);
   updateSettingsFormGroup: FormGroup;
   viewAdd: boolean = false;
   durationInSeconds: any = 3;
@@ -84,6 +85,15 @@ export class CreateProductCategoryComponent implements OnInit {
           sign: el.goal >= 0 ? new FormControl(0) : new FormControl(1),
           isDeleted: new FormControl(el.isDeleted),
         });
+        this.EditcheckArray.value.push({id: new FormControl(el.subCategoryId),
+          subCategoryName: new FormControl(el.subCategoryName),
+          goal:
+            el.goal != null
+              ? el.goal < 0
+                ? new FormControl(el.goal * -1)
+                : new FormControl(el.goal)
+              : new FormControl(0),
+          sign: el.goal >= 0 ? new FormControl(0) : new FormControl(1),})
       });
     });
   }
@@ -214,6 +224,17 @@ export class CreateProductCategoryComponent implements OnInit {
             sign: new FormControl(this.updateSettingsFormGroup.value.sign),
             isDeleted: new FormControl(false),
           });
+          this.EditcheckArray.value.push({
+            id: new FormControl(
+              this.updateSettingsFormGroup.value.subCategoryID
+            ),
+            subCategoryName: new FormControl(
+              this.updateSettingsFormGroup.value.subCategoryName
+            ),
+            goal: new FormControl(this.updateSettingsFormGroup.value.goal),
+            sign: new FormControl(this.updateSettingsFormGroup.value.sign),
+        
+          });
         } else {
           itemToEdit[0].subCategoryName = new FormControl(
             this.updateSettingsFormGroup.value.subCategoryName
@@ -254,6 +275,12 @@ export class CreateProductCategoryComponent implements OnInit {
     if (selected != -1) {
       debugger;
       this.checkArray.value[selected].isDeleted.value = true;
+    }
+     let selectedforView = this.EditcheckArray.value.findIndex(
+      (el) => el.subCategoryName.value == name && el.goal.value == value
+    );
+    if (selected != -1) {
+      this.EditcheckArray.value.splice(selectedforView, 1);
     }
   }
   public removeThroughAdd() {

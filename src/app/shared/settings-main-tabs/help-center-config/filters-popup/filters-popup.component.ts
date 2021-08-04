@@ -22,11 +22,11 @@ severities = new FormControl();
 
   priorities = new FormControl();
   priorityList: any = [];
-
+ filterObject :any= {};
   filterHandler(filterKey: any, filterValue: any) {
     let key = filterKey;
-    let filterObject = {};
-    filterObject[key] = filterValue.value;
+    
+    this.filterObject[key] = filterValue.value;
    
       this.http
         .POST('RequestType/list', {
@@ -34,7 +34,7 @@ severities = new FormControl();
           pageSize: this.pageSize,
           pageNumber: this.pageIndex,
           isPrint: false,
-          filter: filterObject,
+          filter: this.filterObject,
           sortValue: 0,
         })
         .subscribe((res) => {
@@ -45,11 +45,36 @@ severities = new FormControl();
 console.log(this.team)
   }
 
- 
+ sendFiltersObject() {
+     this.http
+        .POST('RequestType/list', {
+          searchText: [],
+          pageSize: this.pageSize,
+          pageNumber: this.pageIndex,
+          isPrint: false,
+          filter: this.filterObject,
+          sortValue: 0,
+        })
+        .subscribe((res) => {
+          console.log('wreeeeny', res);
+          this.common.sendUpdate(res.pageData);
+          
+        });
+  }
  
 
   clearFilters() {
+  this.Group=new FormControl();
  
+   this.TicketType = new FormControl();
+
+  this.team=new FormControl();
+ 
+    this.severities = new FormControl();
+
+
+  this.priorities = new FormControl();
+
       this.http
         .POST('RequestType/list', {
           searchText: [],

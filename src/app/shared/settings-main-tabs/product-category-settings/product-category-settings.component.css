@@ -1,9 +1,9 @@
 .Rectangle-339 {
- width: 98%;
- padding-left: 0.5rem;
+  width: 98%;
+  padding-left: 0.5rem;
   height: 65vh;
- flex-grow: 0;
- margin: 1% 0 0 1%;
+  flex-grow: 0;
+  margin: 1% 0 0 1%;
   border-radius: 8px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
   background-color: #ffffff;
@@ -58,7 +58,7 @@
   justify-content: flex-start;
   align-items: center;
   float: right;
-  margin-right: .5rem;
+  margin-right: 0.5rem;
   gap: 10px;
   padding: 10px;
   border-radius: 6px;
@@ -159,7 +159,6 @@
   color: #d7a500;
 }
 th {
-  text-align: center;
   font-weight: bold;
   color: #333333;
   background-color: #f5f6f7;

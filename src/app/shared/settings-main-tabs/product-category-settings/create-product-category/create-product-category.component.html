@@ -163,7 +163,7 @@
             type="button"
             (click)="submitCreatePC()"
             [disabled]="
-              !createSettingsFormGroup.valid || checkArray.value.length == 0
+              !createSettingsFormGroup.valid 
             "
           >
             Save
@@ -197,7 +197,7 @@
           [(ngModel)]="productCategory"
         />
       </mat-form-field>
-      <div *ngFor="let Group of checkArray.value; let i = index">
+      <div *ngFor="let Group of EditcheckArray.value; let i = index">
         <div class="row-ddl" style="justify-content: flex-end">
           <button
             mat-button
@@ -222,7 +222,7 @@
           <button
             mat-button
             type="button"
-            *ngIf="Group.id.value != 0 && Group.isDeleted.value == false"
+            *ngIf="Group.id.value != 0 "
             (click)="
               removePreAddedGroup(Group.subCategoryName.value, Group.goal.value)
             "
@@ -350,7 +350,7 @@
             type="button"
             (click)="submitEditPC()"
             [disabled]="
-              !updateSettingsFormGroup.valid || checkArray.value.length == 0
+              !updateSettingsFormGroup.valid 
             "
           >
             Save
