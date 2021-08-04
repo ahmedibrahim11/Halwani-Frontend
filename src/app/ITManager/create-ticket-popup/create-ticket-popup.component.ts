@@ -252,16 +252,24 @@ export class CreateTicketPopupComponent implements OnInit {
   }
   productCategoryOne(event) {
     this.http.GET('Category/getCategory').subscribe((data) => {
+      debugger;
       this.productCategoryName2 = data
         .find((el) => {
-          return el.text === event.value;
+          debugger;
+          if(el.children.length===0){
+            this.showSecondCategory = false;
+          }
+          else {
+            return el.text === event.value;
+          }
         })
         .children.map((el) => {
+          debugger;
+          this.showSecondCategory = true;
           return { label: el.text, value: el.id };
         });
     });
 
-    this.showSecondCategory = true;
   }
   submiCreate() {
     this.createloader = true;
