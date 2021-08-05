@@ -27,6 +27,8 @@ import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { SpinnerFlagService } from 'src/app/core/services/spinner-flag.service';
 import { TicketCreationService } from 'src/app/core/services/ticket-creation.service';
 import { ToastMessageComponent } from 'src/app/ITPersonal/toast-message/toast-message.component';
+import { SetInvisibleConfirmationComponent } from '../product-category-settings/set-invisible-confirmation/set-invisible-confirmation.component';
+import { SetVisibleConfirmationComponent } from '../product-category-settings/set-visible-confirmation/set-visible-confirmation.component';
 import { AddSettingsComponent } from './add-settings/add-settings.component';
 import { FiltersPopupComponent } from './filters-popup/filters-popup.component';
 @Component({
@@ -585,14 +587,30 @@ export class HelpCenterConfigComponent implements OnInit {
 
   durationInSeconds: any = 3;
   setVisability(settingID, Value: Boolean) {
-    this.http
-      .GET(`RequestType/UpdateVisiblity?id=${settingID}&isVisible=${Value}`)
-      .subscribe((data) => {
-        this._snackBar.openFromComponent(ToastMessageComponent, {
-          duration: this.durationInSeconds * 1000,
-        });
-        this.service.setValue(true);
-      });
+    if(Value==true)
+   {
+      const dialogRef = this.dialog.open(SetVisibleConfirmationComponent, {
+      data: { value: Value,id:settingID,from:0 },
+      width: '50vw',
+      
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  else
+  {
+     const dialogRef = this.dialog.open(SetInvisibleConfirmationComponent, {
+      data: { value: Value,id:settingID,from:0 },
+      width: '50vw',
+     
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
   }
   OpenEdit(settingID) {
     const dialogRef = this.dialog.open(AddSettingsComponent, {

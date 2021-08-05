@@ -25,6 +25,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { HttpClientModule } from '@angular/common/http';
 import { AskForSupportComponent } from './ask-for-support/ask-for-support.component';
 import { UserManagementComponent } from './settings-main-tabs/user-management/user-management.component';
+import { SetInvisibleConfirmationComponent } from './settings-main-tabs/product-category-settings/set-invisible-confirmation/set-invisible-confirmation.component';
+import { SetVisibleConfirmationComponent } from './settings-main-tabs/product-category-settings/set-visible-confirmation/set-visible-confirmation.component';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -44,6 +46,8 @@ import { UserManagementComponent } from './settings-main-tabs/user-management/us
     ReportABugComponent,
     AskForSupportComponent,
     UserManagementComponent,
+    SetInvisibleConfirmationComponent,
+    SetVisibleConfirmationComponent,
   ],
   imports: [
     CommonModule,
