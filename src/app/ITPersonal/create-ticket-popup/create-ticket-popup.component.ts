@@ -257,19 +257,31 @@ export class CreateTicketPopupComponent implements OnInit {
         });
       });
   }
+  
   productCategoryOne(event) {
     this.http.GET('Category/getCategory').subscribe((data) => {
-      this.productCategoryName2 = data
-        .find((el) => {
-          return el.text === event.value;
-        })
-        .children.map((el) => {
+      debugger;
+
+      this.productCategoryName2 = data.find((s => {
+        return s.text === event.value;
+      }));
+      if (this.productCategoryName2.children.length > 0) {
+        this.productCategoryName2.children.map((el) => {
+          debugger;
+          this.createTicketDTOFormGroup.controls['productCategoryName2'].setValidators([Validators.required]);
+          this.createTicketDTOFormGroup.controls['productCategoryName2'].updateValueAndValidity();
+          this.showSecondCategory = true;
           return { label: el.text, value: el.id };
         });
+      }
+      else {
+        this.createTicketDTOFormGroup.controls['productCategoryName2'].clearValidators();
+        this.createTicketDTOFormGroup.controls['productCategoryName2'].updateValueAndValidity();
+        this.showSecondCategory = false;
+      }
     });
-
-    this.showSecondCategory = true;
   }
+ 
   submiCreate() {
     this.createloader = true;
 

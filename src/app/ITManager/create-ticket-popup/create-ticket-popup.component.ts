@@ -180,7 +180,7 @@ export class CreateTicketPopupComponent implements OnInit {
       sevirity: [0, [Validators.required]],
       priority: [0, [Validators.required]],
       productCategoryName1: [0, [Validators.required]],
-      productCategoryName2: [0, [Validators.required]],
+      productCategoryName2: [0],
       saveAndOpenAnother: [false],
     });
     const sevKeys = Object.keys(SevirityEnum).filter(
@@ -253,21 +253,24 @@ export class CreateTicketPopupComponent implements OnInit {
   productCategoryOne(event) {
     this.http.GET('Category/getCategory').subscribe((data) => {
       debugger;
-      this.productCategoryName2 = data
-        .find((el) => {
+
+      this.productCategoryName2 = data.find((s => {
+        return s.text === event.value;
+      }));
+      if (this.productCategoryName2.children.length > 0) {
+        this.productCategoryName2.children.map((el) => {
           debugger;
-          if(el.children.length===0){
-            this.showSecondCategory = false;
-          }
-          else {
-            return el.text === event.value;
-          }
-        })
-        .children.map((el) => {
-          debugger;
+          this.createTicketDTOFormGroup.controls['productCategoryName2'].setValidators([Validators.required]);
+          this.createTicketDTOFormGroup.controls['productCategoryName2'].updateValueAndValidity();
           this.showSecondCategory = true;
           return { label: el.text, value: el.id };
         });
+      }
+      else {
+        this.createTicketDTOFormGroup.controls['productCategoryName2'].clearValidators();
+        this.createTicketDTOFormGroup.controls['productCategoryName2'].updateValueAndValidity();
+        this.showSecondCategory = false;
+      }
     });
 
   }
