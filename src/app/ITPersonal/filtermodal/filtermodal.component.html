@@ -92,6 +92,7 @@
           [matDatepicker]="picker"
           placeholder="Choose a date"
           (dateChange)="dateChange($event)"
+          [value]="ticketDate"
         />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>

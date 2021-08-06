@@ -97,6 +97,7 @@ export class FiltermodalComponent implements OnInit {
         });
     });
   }
+  ticketDate: any;
 
   formatDate(date) {
     var d = new Date(date),
@@ -110,9 +111,9 @@ export class FiltermodalComponent implements OnInit {
     return [year, month, day].join('-');
   }
   dateChange(e) {
-    let ticketDate = this.formatDate(e.value.toDateString());
-    console.log('dateee', ticketDate);
-    this.filterObject['date'] = ticketDate;
+    this.ticketDate = this.formatDate(e.value.toDateString());
+    console.log('dateee', this.ticketDate);
+    this.filterObject['date'] = this.ticketDate;
   }
 
   clearFilters() {
@@ -122,6 +123,7 @@ export class FiltermodalComponent implements OnInit {
     this.states.setValue('');
     this.severities.setValue('');
     this.priorities.setValue('');
+    this.ticketDate = '';
 
     this.http.GET('ticket/getCount').subscribe((res) => {
       this.pageLength = res;
