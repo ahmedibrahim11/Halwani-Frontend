@@ -81,8 +81,18 @@
         >
       </div>
     </button> -->
-    <div (click)="loadMoreNotifications($event)" class="btn-More-Noticiation">
-      <mat-icon>expand_more</mat-icon>
-    </div>
+    <div *ngIf="createloader === true; then spinner; else btn"></div>
+    <ng-template #spinner>
+      <mat-spinner
+        color="warn"
+        [diameter]="30"
+        style="margin-left: 45%"
+      ></mat-spinner>
+    </ng-template>
+    <ng-template #btn>
+      <div (click)="loadMoreNotifications($event)" class="btn-More-Noticiation">
+        <mat-icon>expand_more</mat-icon>
+      </div></ng-template
+    >
   </ng-template>
 </mat-menu>

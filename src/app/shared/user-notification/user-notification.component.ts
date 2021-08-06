@@ -17,6 +17,8 @@ export class UserNotificationComponent implements OnInit {
     this.signalRService.startConnection();
     this.signalRService.changeNotificationCount(this, this.updateNotification);
   }
+  createloader: Boolean = false;
+
   notifications: any = [];
   //unSeenNotifications: any = [];
   badgeContent: number;
@@ -104,6 +106,8 @@ export class UserNotificationComponent implements OnInit {
   //showMoreNotificationsOnIconClick
   loadMoreNotifications(e: any) {
     e.stopPropagation();
+    this.createloader = true;
+
     let diffTime: any;
     let diffDays: any;
     this.http
@@ -115,6 +119,8 @@ export class UserNotificationComponent implements OnInit {
         isPrint: true,
       })
       .subscribe((data) => {
+        this.createloader = false;
+
         console.log('notify', data);
         //this.badgeContent = data.unSeenNotificationsCount;
         this.pageNumber = this.pageNumber + 1;
