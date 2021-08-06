@@ -1,21 +1,22 @@
 .Rectangle-342 {
   height: fit-content;
-  margin: 36px 84.5px 0 43px;
   padding: 24px 160px 28px 18px;
   border-radius: 8px;
 }
+
 .Rectangle-343 {
   flex-grow: 0;
-  margin: 0 9px 8px 0;
   padding: 2px 4px;
   border-radius: 4px;
   background-color: #c4161c;
   color: white;
 }
+
 .String-name {
   display: flex;
   flex-direction: row;
 }
+
 .String-name-bold {
   height: 20px;
   flex-grow: 0;
@@ -30,15 +31,17 @@
   text-align: left;
   color: #201f1e;
 }
+
 .initial {
   display: flex;
   flex-direction: row;
 }
 
 .description {
-  height: 20px;
+  height: fit-content;
+  overflow-wrap: break-word;
+  margin-left: 2rem;
   flex-grow: 0;
-  margin: 0 0 0 36px;
   font-family: Poppins;
   font-size: 20px;
   font-weight: normal;
