@@ -5,29 +5,33 @@
   </div>
 
   <div class="assign-text-container">
-    <p class="assign-text">Assign this ticket to</p>
+    <p class="assign-text">Assigne to</p>
     <span style="color: #ed1c24">*</span>
   </div>
-  <mat-select
-    (selectionChange)="usersHandler($event)"
-    name="option"
-    class="users-DDL"
-    [(value)]="selectedReporter"
-  >
-    <mat-select-trigger> {{ selectedReporter }}</mat-select-trigger>
-    <mat-option
-      *ngFor="let option of reporterDatasource"
-      [value]="option['value']"
-      class="optionHeight"
+
+  <mat-form-field [style.width.%]="100" appearance="fill">
+    <mat-select
+      (selectionChange)="usersHandler($event)"
+      name="option"
+      class="users-DDL"
+      [(value)]="selectedReporter"
     >
-      <div class="menu">
-        <div class="red-menu">{{ option.initials }}</div>
-        <div class="person-data-menu">
-          <p style="opacity: 0.7; margin-top: 1rem">{{ option["label1"] }}</p>
+      <mat-select-trigger> {{ selectedReporter }}</mat-select-trigger>
+      <mat-option
+        *ngFor="let option of reporterDatasource"
+        [value]="option['value']"
+        class="optionHeight"
+      >
+        <div class="menu">
+          <div class="red-menu">{{ option.initials }}</div>
+          <div class="person-data-menu">
+            <p style="opacity: 0.7; margin-top: 1rem">{{ option["label1"] }}</p>
+          </div>
         </div>
-      </div>
-    </mat-option>
-  </mat-select>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <div class="assign-btns">
     <div *ngIf="createloader === true; then spinner; else btn"></div>
     <ng-template #spinner>

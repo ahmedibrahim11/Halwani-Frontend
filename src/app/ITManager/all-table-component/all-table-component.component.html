@@ -34,9 +34,13 @@
       </mat-form-field>
     </form>
   </div>
-  <div class="Table-buttons" *ngIf="!showSpinner && dataLoaded">
-    <label class="Export-queue">Assign Tickets</label
-    ><mat-icon (click)="globalAssignTicket()" class="icon">group_add</mat-icon>
+  <div
+    class="Table-buttons icon"
+    (click)="globalAssignTicket()"
+    *ngIf="!showSpinner && dataLoaded"
+  >
+    <label class="Export-queue icon">Assign Tickets</label
+    ><mat-icon>group_add</mat-icon>
   </div>
 </div>
 
@@ -178,15 +182,18 @@
         <td mat-cell *matCellDef="let topic">
           <div class="person-data-menu">
             <h3 *ngIf="topic.Sevirity == sevirity.Low" class="Low">
-              <mat-icon style="font-size: small; height: 15px">lens</mat-icon>
-              Low
+              <mat-icon style="font-size: small; height: 15px; width: 17px"
+                >lens</mat-icon
+              >Low
             </h3>
             <h3 *ngIf="topic.Sevirity == sevirity.Medium" class="Medium">
-              <mat-icon style="font-size: small; height: 15px">lens</mat-icon>
-              Medium
+              <mat-icon style="font-size: small; height: 15px; width: 17px"
+                >lens</mat-icon
+              >Medium
             </h3>
             <h3 *ngIf="topic.Sevirity == sevirity.High" class="High">
-              <mat-icon style="font-size: small; height: 15px">lens</mat-icon
+              <mat-icon style="font-size: small; height: 15px; width: 17px"
+                >lens</mat-icon
               >High
             </h3>
           </div>
@@ -226,7 +233,8 @@
             <img
               (click)="openTicket(topic.id)"
               src="assets/Open.svg"
-              style="margin-right: 0.1rem"
+              width="24px"
+              height="24px"
               class="icon detailsDiv"
             />
             <div class="hide">
