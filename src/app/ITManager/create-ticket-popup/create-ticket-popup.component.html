@@ -261,7 +261,7 @@
       <div *ngIf="createloader === true; then spinner; else btn"></div>
       <ng-template #spinner>
         <mat-spinner
-          style="display: flex; justify-content: center; text-align: center"
+          style="display: flex; justify-self: center; align-self: center;"
           class="mt-2"
           color="warn"
           [diameter]="30"
@@ -548,7 +548,7 @@
       <div *ngIf="createloader === true; then spinner; else btn"></div>
       <ng-template #spinner>
         <mat-spinner
-          style="display: flex; justify-content: center; text-align: center"
+          style="display: flex;justify-self: center;"
           class="mt-2"
           color="warn"
           [diameter]="30"

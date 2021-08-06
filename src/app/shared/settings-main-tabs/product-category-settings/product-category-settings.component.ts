@@ -26,6 +26,8 @@ import { TicketCreationService } from 'src/app/core/services/ticket-creation.ser
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { SetVisibleConfirmationComponent } from './set-visible-confirmation/set-visible-confirmation.component';
+import { SetInvisibleConfirmationComponent } from './set-invisible-confirmation/set-invisible-confirmation.component';
 @Component({
   selector: 'app-product-category-settings',
   templateUrl: './product-category-settings.component.html',
@@ -541,19 +543,33 @@ export class ProductCategorySettingsComponent implements OnInit {
 
   durationInSeconds: any = 3;
   setVisability(settingID, Value: Boolean) {
-    this.http
-      .GET(`Category/UpdateVisiblity?id=${settingID}&isVisible=${Value}`)
-      .subscribe((data) => {
-        this._snackBar.openFromComponent(ToastMessageComponent, {
-          duration: this.durationInSeconds * 1000,
-        });
-        this.service.setValue(true);
-      });
+   if(Value==true)
+   {
+      const dialogRef = this.dialog.open(SetVisibleConfirmationComponent, {
+      data: { value: Value,id:settingID,from:1 },
+      width: '40vw',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  else
+  {
+     const dialogRef = this.dialog.open(SetInvisibleConfirmationComponent, {
+      data: { value: Value,id:settingID,from:1 },
+      width: '40vw',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
   }
   OpenEdit(settingID) {
     const dialogRef = this.dialog.open(CreateProductCategoryComponent, {
       data: { updateValue: settingID },
-      width: '40vw',
+      width: '50vw',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -564,7 +580,7 @@ export class ProductCategorySettingsComponent implements OnInit {
 
   openAddProductCategory() {
     const dialogRef = this.dialog.open(CreateProductCategoryComponent, {
-      width: '40vw',
+      width: '50vw',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
