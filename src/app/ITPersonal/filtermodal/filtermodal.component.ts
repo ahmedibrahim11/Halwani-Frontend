@@ -2,6 +2,8 @@ import { Component, OnInit, resolveForwardRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { CommonServiceService } from 'src/app/core/services/common-service.service';
+import { FiltedredObjectService } from 'src/app/core/services/filtedred-object.service';
+
 import {
   PriorityEnum,
   SevirityEnum,
@@ -89,8 +91,9 @@ export class FiltermodalComponent implements OnInit {
           sortValue: 0,
         })
         .subscribe((res) => {
+          this.filteredObject.sendUpdate(this.filterObject);
           console.log('wreeeeny', res);
-          this.common.sendUpdate(res.pageData);
+          this.common.sendUpdate(res);
         });
     });
   }
@@ -133,7 +136,8 @@ export class FiltermodalComponent implements OnInit {
         })
         .subscribe((res) => {
           console.log('wreeeeny', res);
-          this.common.sendUpdate(res.pageData);
+          this.filteredObject.sendUpdate({});
+          this.common.sendUpdate(res);
         });
     });
   }
@@ -141,7 +145,8 @@ export class FiltermodalComponent implements OnInit {
   constructor(
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
-    private common: CommonServiceService
+    private common: CommonServiceService,
+    private filteredObject: FiltedredObjectService
   ) {}
   pageLength: any = 5;
   pageSize: any = 5;

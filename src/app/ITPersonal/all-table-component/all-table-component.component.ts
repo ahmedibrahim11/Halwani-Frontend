@@ -24,6 +24,8 @@ import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.s
 import { TicketCreationService } from 'src/app/core/services/ticket-creation.service';
 import { ResolveTicketComponent } from '../resolve-ticket/resolve-ticket.component';
 import { EscalateTicketComponent } from '../escalate-ticket/escalate-ticket.component';
+import { FiltedredObjectService } from 'src/app/core/services/filtedred-object.service';
+
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { TicketOptionsComponent } from 'src/app/ITPersonal/ticket-options/ticket-options.component';
 import { Router } from '@angular/router';
@@ -60,10 +62,11 @@ export class AllTableComponentComponent implements OnInit {
     private share: SharingdataService,
     private router: Router,
     private common: CommonServiceService,
-    private spinner: SpinnerFlagService
+    private spinner: SpinnerFlagService,
+    private filteredObj: FiltedredObjectService
   ) {
     this.subscriptionName = this.common.getUpdate().subscribe((data) => {
-      this.UserViewInfoObject = data.map((el) => {
+      this.UserViewInfoObject = data.pageData.map((el) => {
         const cerationDate = new Date(el['creationDate']);
         return {
           id: el['id'],
@@ -78,7 +81,12 @@ export class AllTableComponentComponent implements OnInit {
           Sevirity: el['severity'],
         };
       });
+      this.pageLength = data.totalCount;
+
       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+    });
+    let subscried = this.filteredObj.getUpdate().subscribe((data) => {
+      this.filtered = data;
     });
   }
 
@@ -89,6 +97,8 @@ export class AllTableComponentComponent implements OnInit {
   pageLength: any = 5;
   pageSize: any = 5;
   pageIndex: any = 0;
+  filtered: any;
+
   //handle pagination server side
   pageEvents(event: any) {
     console.log('wreeeny', event, this.pageSize);
@@ -101,11 +111,8 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: {
-            ticketTabs: this.tabData,
-            state: this.Status,
-            ticketType: this.from,
-          },
+          filter: this.filtered,
+
           sortvalue: 0,
         })
         .subscribe((res) => {
@@ -140,11 +147,8 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: {
-            ticketTabs: this.tabData,
-            state: this.Status,
-            ticketType: this.from,
-          },
+          filter: this.filtered,
+
           sortvalue: 0,
         })
         .subscribe((res) => {
@@ -178,11 +182,8 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: {
-            ticketTabs: this.tabData,
-            state: this.Status,
-            ticketType: this.from,
-          },
+          filter: this.filtered,
+
           sortvalue: 0,
         })
         .subscribe((res) => {

@@ -31,6 +31,8 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CommonServiceService } from 'src/app/core/services/common-service.service';
 import { SpinnerFlagService } from 'src/app/core/services/spinner-flag.service';
+import { FiltedredObjectService } from 'src/app/core/services/filtedred-object.service';
+
 import { debounceTime, mergeMap, tap } from 'rxjs/operators';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
@@ -57,10 +59,11 @@ export class AllTableComponentComponent implements OnInit {
     private share: SharingdataService,
     private router: Router,
     private common: CommonServiceService,
-    private spinnerFlag: SpinnerFlagService
+    private spinnerFlag: SpinnerFlagService,
+    private filteredObj: FiltedredObjectService
   ) {
     this.subscriptionName = this.common.getUpdate().subscribe((data) => {
-      this.UserViewInfoObject = data.map((el) => {
+      this.UserViewInfoObject = data.pageData.map((el) => {
         const cerationDate = new Date(el['creationDate']);
         return {
           id: el['id'],
@@ -76,7 +79,11 @@ export class AllTableComponentComponent implements OnInit {
           Sevirity: el['severity'],
         };
       });
+      this.pageLength = data.totalCount;
       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+    });
+    let subscried = this.filteredObj.getUpdate().subscribe((data) => {
+      this.filtered = data;
     });
   }
 
@@ -87,6 +94,7 @@ export class AllTableComponentComponent implements OnInit {
   pageLength: any = 5;
   pageSize: any = 5;
   pageIndex: any = 0;
+  filtered: any;
   //handle pagination server side
   pageEvents(event: any) {
     console.log('wreeeny', event, this.pageSize);
@@ -99,7 +107,7 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: { ticketType: this.tab, State: this.Status },
+          filter: this.filtered,
           sortvalue: 0,
         })
         .subscribe((res) => {
@@ -127,13 +135,14 @@ export class AllTableComponentComponent implements OnInit {
     }
     if (event.pageIndex > this.pageIndex) {
       // Clicked on next button
+
       this.http
         .POST('ticket/list', {
           searchText: [],
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: { ticketType: this.tab, State: this.Status },
+          filter: this.filtered,
           sortvalue: 0,
         })
         .subscribe((res) => {
@@ -167,7 +176,7 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: { ticketType: this.tab, State: this.Status },
+          filter: this.filtered,
           sortvalue: 0,
         })
         .subscribe((res) => {
