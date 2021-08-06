@@ -105,6 +105,7 @@ export class AllTableComponentComponent implements OnInit {
         .subscribe((res) => {
           console.log(res.pageData);
           let usersData = res.pageData;
+          this.pageLength = res.totalCount;
           this.UserViewInfoObject = usersData.map((el) => {
             const cerationDate = new Date(el['creationDate']);
             return {
@@ -138,6 +139,8 @@ export class AllTableComponentComponent implements OnInit {
         .subscribe((res) => {
           console.log(res.pageData);
           let usersData = res.pageData;
+          this.pageLength = res.totalCount;
+
           this.UserViewInfoObject = usersData.map((el) => {
             const cerationDate = new Date(el['creationDate']);
             return {
@@ -170,6 +173,8 @@ export class AllTableComponentComponent implements OnInit {
         .subscribe((res) => {
           console.log(res.pageData);
           let usersData = res.pageData;
+          this.pageLength = res.totalCount;
+
           this.UserViewInfoObject = usersData.map((el) => {
             const cerationDate = new Date(el['creationDate']);
             return {
@@ -252,6 +257,8 @@ export class AllTableComponentComponent implements OnInit {
       .subscribe((res) => {
         console.log(res.pageData);
         let usersData = res.pageData;
+        this.pageLength = res.totalCount;
+
         this.UserViewInfoObject = usersData.map((el) => {
           const cerationDate = new Date(el['creationDate']);
           return {
@@ -329,6 +336,8 @@ export class AllTableComponentComponent implements OnInit {
             .subscribe((res) => {
               console.log('search remove rsut', res);
               let usersData = res.pageData;
+              this.pageLength = res.totalCount;
+
               this.UserViewInfoObject = usersData.map((el) => {
                 const cerationDate = new Date(el['creationDate']);
                 return {
@@ -378,6 +387,8 @@ export class AllTableComponentComponent implements OnInit {
         .subscribe((res) => {
           console.log('search rsut', res);
           let usersData = res.pageData;
+          this.pageLength = res.totalCount;
+
           this.UserViewInfoObject = usersData.map((el) => {
             const cerationDate = new Date(el['creationDate']);
             return {
@@ -446,6 +457,8 @@ export class AllTableComponentComponent implements OnInit {
         .subscribe((res) => {
           console.log('search rsut', res);
           let usersData = res.pageData;
+          this.pageLength = res.totalCount;
+
           this.UserViewInfoObject = usersData.map((el) => {
             const cerationDate = new Date(el['creationDate']);
             return {
@@ -493,6 +506,8 @@ export class AllTableComponentComponent implements OnInit {
       .subscribe((res) => {
         console.log('search rsut', res);
         let usersData = res.pageData;
+        this.pageLength = res.totalCount;
+
         this.UserViewInfoObject = usersData.map((el) => {
           const cerationDate = new Date(el['creationDate']);
           return {
@@ -549,11 +564,12 @@ export class AllTableComponentComponent implements OnInit {
             sortValue: null,
           })
           .subscribe((res) => {
+            this.pageLength = res.totalCount;
+
             if (res.totalCount !== 0) {
               this.showSpinner = false;
               this.spinnerFlag.setSpinnerValue(this.showSpinner);
               this.dataLoaded = true;
-              this.pageLength = res.totalCount;
               this.empty = false;
               console.log('eeeee', res);
 
@@ -601,13 +617,14 @@ export class AllTableComponentComponent implements OnInit {
           })
           .subscribe((res) => {
             debugger;
+            this.pageLength = res.totalCount;
+
             if (res.totalCount !== 0) {
               console.log('eeeee', res);
 
               this.showSpinner = false;
               this.spinnerFlag.setSpinnerValue(this.showSpinner);
               this.dataLoaded = true;
-              this.pageLength = res.totalCount;
               this.empty = false;
               console.log('resulttttt', res.pageData);
               let usersData = res.pageData;
