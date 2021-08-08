@@ -258,7 +258,7 @@ export class CreateTicketPopupComponent implements OnInit {
         return s.text === event.value;
       }));
       if (this.productCategoryName2.children.length > 0) {
-        this.productCategoryName2.children.map((el) => {
+        this.productCategoryName2 = this.productCategoryName2.children.map((el) => {
           debugger;
           this.createTicketDTOFormGroup.controls['productCategoryName2'].setValidators([Validators.required]);
           this.createTicketDTOFormGroup.controls['productCategoryName2'].updateValueAndValidity();
