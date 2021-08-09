@@ -67,7 +67,7 @@
 }
 .Export-queue {
   cursor: pointer;
-  width: 65%;
+  width: 100%;
   height: 24px;
   flex-grow: 0;
   font-family: Poppins;

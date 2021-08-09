@@ -115,7 +115,7 @@
 
           <mat-form-field [style.width.%]="100" appearance="fill">
             <mat-label>{{ location }}</mat-label>
-            <mat-select formControlName="location" [(ngModel)]="location">
+            <mat-select formControlName="location">
               <mat-option
                 *ngFor="let option of locationList"
                 [value]="option['label']"
@@ -129,38 +129,24 @@
       </div>
 
       <div class="row-ddl">
-        <div class="col-ddl">
+        <div  class="col-ddl">
           <label class="Ticket-type"
-            >Reporter <span class="mandatory"> *</span></label
+            >Reporter<span class="mandatory"> *</span></label
           >
           <mat-form-field [style.width.%]="97" appearance="fill">
-            <mat-select
-              formControlName="reporter"
-              [(ngModel)]="reporter['value']"
-            >
-              <mat-select-trigger>
-                {{ reporter.value ? reporter.value.split(",")[1] : "" }}
-                <span
-                  *ngIf="reporter.value?.length > 1"
-                  class="example-additional-selection"
-                >
-                </span>
-              </mat-select-trigger>
-              <mat-option
-                *ngFor="let option of reporterDatasource"
-                [value]="option['value']"
-                class="optionHeight"
-              >
-                <div class="menu">
-                  <div class="red-menu">{{ option.initials }}</div>
-                  <p style="opacity: 0.7">
-                    {{ option["label1"] }}
-                  </p>
-                </div>
+            <input type="text"
+                   matInput
+                   [formControl]="myControl"
+                   [matAutocomplete]="auto"
+                   >
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option['label1']">
+                {{option['label1']}}
               </mat-option>
-            </mat-select>
+            </mat-autocomplete>
           </mat-form-field>
         </div>
+         
         <div class="col-ddl">
           <label class="Ticket-type"
             >Source <span class="mandatory"> *</span></label
@@ -177,6 +163,8 @@
           </mat-form-field>
         </div>
       </div>
+
+      
 
       <div class="row-ddl">
         <div class="col-ddl">
@@ -257,6 +245,10 @@
       </mat-checkbox>
     </mat-dialog-actions>
 
+    <!-- <div style="color: red; font-size: small; text-align: center;" *ngIf="errorMessage!=''">
+      <span >{{errorMessage}}</span>
+    </div> -->
+
     <mat-dialog-actions align="end" style="display: flex; flex-direction: row">
       <div *ngIf="createloader === true; then spinner; else btn"></div>
       <ng-template #spinner>
@@ -266,6 +258,7 @@
           color="warn"
           [diameter]="30"
         ></mat-spinner>
+        
       </ng-template>
       <ng-template #btn>
         <button mat-button mat-dialog-close class="cancel">
@@ -278,11 +271,17 @@
           [disabled]="!createTicketDTOFormGroup.valid"
         >
           Send ticket
-        </button></ng-template
+        </button>
+        </ng-template
       >
     </mat-dialog-actions>
+
   </form>
 </ng-template>
+
+
+
+
 
 <ng-template #update>
   <form [formGroup]="updateTicketDTOFormGroup" (ngSubmit)="submitUpdate()">
@@ -418,41 +417,26 @@
       </div>
 
       <div class="row-ddl">
-        <div class="col-ddl">
-          <label class="Ticket-type">Reporter</label>
+        
+        <div  class="col-ddl">
+          <label class="Ticket-type"
+            >Reporter<span class="mandatory"> *</span></label
+          >
           <mat-form-field [style.width.%]="97" appearance="fill">
-            <mat-label *ngIf="reporterFlag === false">{{ reporter }}</mat-label>
-            <mat-select
-              (selectionChange)="reporterChanged($event.value)"
-              formControlName="reporter"
-              [(ngModel)]="reporter"
-            >
-              <mat-select-trigger>
-                <label *ngIf="reporterFlag === true">{{
-                  reporterNewValue
-                }}</label>
-
-                <span
-                  *ngIf="reporter.value?.length > 1"
-                  class="example-additional-selection"
-                >
-                </span>
-              </mat-select-trigger>
-              <mat-option
-                *ngFor="let option of reporterDatasource"
-                [value]="option['value']"
-                class="optionHeight"
-              >
-                <div class="menu">
-                  <div class="red-menu">{{ option.initials }}</div>
-                  <div class="person-data-menu">
-                    <p style="opacity: 0.7">{{ option["label1"] }}</p>
-                  </div>
-                </div>
+            <input type="text"
+                   matInput
+                   [formControl]="myControl"
+                   [matAutocomplete]="auto"
+                   [(ngModel)]="reporter"
+                   >
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option['label']">
+                {{option['label']}}
               </mat-option>
-            </mat-select>
+            </mat-autocomplete>
           </mat-form-field>
         </div>
+
         <div class="col-ddl">
           <label class="Ticket-type">Source</label>
           <mat-form-field [style.width.%]="100" appearance="fill">
