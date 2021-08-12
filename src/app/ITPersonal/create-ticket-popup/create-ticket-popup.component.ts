@@ -29,6 +29,8 @@ import { TicketListingDTO } from 'src/app/core/DTOs/ticketListingDTO';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastMessageComponent } from '../toast-message/toast-message.component';
 import { TabscreationService } from 'src/app/core/services/tabscreation.service';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 @Component({
   selector: 'app-create-ticket-popup',
   templateUrl: './create-ticket-popup.component.html',
@@ -48,6 +50,9 @@ export class CreateTicketPopupComponent implements OnInit {
   fromPage: any;
   updateStatus: any;
   createTabsStatus: any;
+  filteredOptions: Observable<any>;
+  reporterDatasource = [];
+  myControl = new FormControl();
   constructor(
     private formBuilder: FormBuilder,
     private http: HTTPMainServiceService,
@@ -67,7 +72,6 @@ export class CreateTicketPopupComponent implements OnInit {
   showSecondCategory: boolean = false;
   saveAndOpenAnother: boolean = false;
   @Input() ticketTypeDatasource;
-  @Input() reporterDatasource;
   @Input() locationDatasource;
   @Input() sourceDatasource;
   @Input() seviritysource;
@@ -106,14 +110,17 @@ export class CreateTicketPopupComponent implements OnInit {
   severityList: any = [];
   priorities = new FormControl();
   priorityList: any = [];
-
-  reporterNewValue: any;
-  reporterFlag: boolean = false;
-  reporterChanged(e: any) {
-    this.reporterFlag = true;
-    this.reporterNewValue = e.split(',')[1];
-  }
   ngOnInit(): void {
+    this.http.GET('User/getUser').subscribe((data) => {
+      debugger;
+      data.map((el) => {
+        var object: any = {};
+        object['label'] = el.text;
+        object['initials'] = this.initials(el.text)
+        object['label1'] = el.email
+        this.reporterDatasource.push(object);
+      })
+    });
     //update
     this.ticketID = this.share.getData();
     console.log('ticketId', this.ticketID);
@@ -148,7 +155,8 @@ export class CreateTicketPopupComponent implements OnInit {
           this.description = res.description;
           this.team = res.teamName;
           this.location = res.location;
-          this.reporter = res.submitterEmail;
+          this.reporter = res.reportedSource;
+          debugger;
           this.source = res.source;
           this.sevirity = res.ticketSeverity;
           this.priority = res.priority;
@@ -235,29 +243,42 @@ export class CreateTicketPopupComponent implements OnInit {
           });
       }
     });
-    this.http.GET('User/getUser').subscribe((data) => {
-      this.reporterDatasource = data.map((el) => {
-        return {
-          label: el.text,
-          value: `${el.team},${el.email},${el.userName}`,
-          initials: this.initials(el.text),
-          label1: el.email,
-        };
-      });
-    });
 
     this.http.GET('Team/get').subscribe((data) => {
       this.teamSoruce = data.map((el) => {
         return { label: el.text, value: el.text };
       });
-    }),
-      this.http.GET('Category/getCategory').subscribe((data) => {
-        this.productCategoryName1 = data.map((el) => {
-          return { label: el.text, value: el.id };
-        });
+    });
+
+
+
+    this.http.GET('Category/getCategory').subscribe((data) => {
+      this.productCategoryName1 = data.map((el) => {
+        return { label: el.text, value: el.id };
       });
+    });
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
   }
-  
+
+  fireSnackBar(message: string, action, classType: string) {
+    this._snackBar.open(message, action, {
+      duration: 3000,
+      panelClass: [classType],
+      horizontalPosition: "right"
+    });
+  }
+
+  private _filter(value: string) {
+    const filterValue = value.toLowerCase();
+    debugger;
+    return this.reporterDatasource.filter(option => option['label'].toLowerCase().includes(filterValue));
+  }
+
+
   productCategoryOne(event) {
     this.http.GET('Category/getCategory').subscribe((data) => {
       debugger;
@@ -281,7 +302,7 @@ export class CreateTicketPopupComponent implements OnInit {
       }
     });
   }
- 
+
   submiCreate() {
     this.createloader = true;
 
@@ -295,11 +316,6 @@ export class CreateTicketPopupComponent implements OnInit {
       this.createTicketDTOFormGroup.value.productCategoryName1.toString();
     this.createTicketDTO.productCategoryName2 =
       this.createTicketDTOFormGroup.value.productCategoryName2.toString();
-    let submitterArray =
-      this.createTicketDTOFormGroup.value.reporter.split(',');
-    this.createTicketDTO.submitterTeam = submitterArray[0];
-    this.createTicketDTO.submitterEmail = submitterArray[1];
-    this.createTicketDTO.submitterName = submitterArray[2];
     this.createTicketDTO.location =
       this.createTicketDTOFormGroup.value.location;
     this.createTicketDTO.summary = this.createTicketDTOFormGroup.value.summary;
@@ -311,7 +327,7 @@ export class CreateTicketPopupComponent implements OnInit {
       this.createTicketDTOFormGroup.value.sevirity;
     this.createTicketDTO.ticketStatus = 0;
     //will be from aad
-    this.createTicketDTO.reportedSource = 'admin';
+    this.createTicketDTO.reportedSource = this.myControl.value;
     this.createTicketDTO.teamName = this.createTicketDTOFormGroup.value.team;
     this.createTicketDTO.priority =
       this.createTicketDTOFormGroup.value.priority;
@@ -325,14 +341,23 @@ export class CreateTicketPopupComponent implements OnInit {
         this.createloader = false;
 
         console.log('create tickeet');
-        this._snackBar.openFromComponent(ToastMessageComponent, {
-          duration: this.durationInSeconds * 1000,
-        });
+        this.fireSnackBar(
+          "Ticket Submitted Successfully..",
+          "x",
+          "success"
+        );
         this.dialog.closeAll();
 
         this.service.setValue(true);
       },
       (error) => {
+        this.createloader = false;
+        this.fireSnackBar(
+          "Failed To Submit Ticket",
+          "x",
+          "error"
+        );
+        this.dialog.closeAll();
         console.log(error);
       },
       () => {
@@ -359,10 +384,6 @@ export class CreateTicketPopupComponent implements OnInit {
       'ffffff',
       this.FileLinks
     );
-
-    let submitterArray =
-      this.updateTicketDTOFormGroup.value.reporter.split(',');
-    console.log('array', submitterArray);
     this.updateTicketDto.attachement =
       this.FileLinks !== undefined ? this.FileLinks.toString() : '';
     console.log('eeee', this.updateTicketDto.attachement);
@@ -373,9 +394,6 @@ export class CreateTicketPopupComponent implements OnInit {
       this.updateTicketDTOFormGroup.value.categoryName1.toString();
     this.updateTicketDto.productCategoryName2 =
       this.updateTicketDTOFormGroup.value.categoryName2.toString();
-    this.updateTicketDto.submitterTeam = submitterArray[0];
-    this.updateTicketDto.submitterEmail = submitterArray[0];
-    this.updateTicketDto.submitterName = submitterArray[0];
     this.updateTicketDto.location =
       this.updateTicketDTOFormGroup.value.location;
     this.updateTicketDto.summary = this.updateTicketDTOFormGroup.value.summary;
@@ -387,7 +405,8 @@ export class CreateTicketPopupComponent implements OnInit {
       this.updateTicketDTOFormGroup.value.sevirity;
     this.updateTicketDto.ticketStatus = 0;
     //will be from aad
-    this.updateTicketDto.reportedSource = 'admin';
+    this.updateTicketDto.reportedSource = this.myControl.value;
+    debugger;
     this.updateTicketDto.teamName = this.updateTicketDTOFormGroup.value.team;
     this.updateTicketDto.priority =
       this.updateTicketDTOFormGroup.value.priority;
@@ -398,13 +417,31 @@ export class CreateTicketPopupComponent implements OnInit {
     this.http.PUT('Ticket/UpdateTic/', this.updateFormData).subscribe((res) => {
       this.createloader = false;
 
-      this._snackBar.openFromComponent(ToastMessageComponent, {
-        duration: this.durationInSeconds * 1000,
-      });
+      this.fireSnackBar(
+        "Ticket Updated Successfully..",
+        "x",
+        "success"
+      );
       this.dialog.closeAll();
 
       this.service.setValue(true);
-    });
+    },
+    (error) => {
+      this.createloader = false;
+      this.fireSnackBar(
+        "Failed To Updated Ticket..",
+        "x",
+        "error"
+      );
+      this.dialog.closeAll();
+      console.log(error);
+    },
+    () => {
+      this.dialogRef.afterClosed().subscribe((result) => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
+    );
   }
 
   private deleteImage(url: any): void {

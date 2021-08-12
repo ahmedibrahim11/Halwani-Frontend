@@ -639,6 +639,7 @@ export class AllTableComponentComponent implements OnInit {
               let usersData = res.pageData;
               this.UserViewInfoObject = usersData.map((el) => {
                 this.usersName.push(el['rasiedBy']['name']);
+                debugger;
                 console.log('list abl', this.usersName);
                 const cerationDate = new Date(el['creationDate']);
                 return {
