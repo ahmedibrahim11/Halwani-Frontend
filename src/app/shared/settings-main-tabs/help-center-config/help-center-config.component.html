@@ -4,15 +4,16 @@
       <mat-icon class="filter-icon icon">filter_list</mat-icon>Filter
     </button>
 
-    <mat-form-field class="Rectangle-48">
-      <mat-label>Search Settings by..</mat-label>
-
-      <input
-        matInput
-        placeholder="New item..."
-        (change)="searchByName($event)"
-      />
-    </mat-form-field>
+        <form [formGroup]="helpcenter" class="Rectangle-48" *ngIf="dataLoaded">
+          <mat-form-field style="display: block">
+            <input type="text" matInput placeholder="Search by name.." formControlName="name" [matAutocomplete]="autoCo" />
+            <mat-autocomplete (optionSelected)="onSelectionChanged($event)" #autoCo="matAutocomplete" [displayWith]="displayCo">
+              <mat-option *ngFor="let ticketno of filteredTickets | async" [value]="ticketno">
+                {{ ticketno }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
     <div class="Table-buttons" (click)="openAddSettings()">
       <label class="Export-queue">Add new request type</label
       ><img src="assets/4.png" />

@@ -55,7 +55,7 @@ export class HelpCenterConfigComponent implements OnInit {
     private spinner: SpinnerFlagService
   ) {
     this.subscriptionName = this.common.getUpdate().subscribe((data) => {
-      this.UserViewInfoObject = data.map((el) => {
+      this.UserViewInfoObject = data.pageData.map((el) => {
         return {
           id: el['id'],
           name: el['title'],
@@ -67,7 +67,10 @@ export class HelpCenterConfigComponent implements OnInit {
           isVisable: el['isVisable'],
         };
       });
-      this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+      
+          this.paginator.length=data.totalCount;
+             this.setDataSourceAttributes();  
     });
   }
 
@@ -172,6 +175,7 @@ export class HelpCenterConfigComponent implements OnInit {
     // The code that you want to execute on clicking on next and previous buttons will be written here.
   }
   setDataSourceAttributes() {
+
     this.dataSource.paginator = this.paginator;
     this.pageSize = this.paginator.pageSize;
     this.pageIndex = this.paginator.pageIndex;
@@ -326,7 +330,8 @@ export class HelpCenterConfigComponent implements OnInit {
   @Output() optionSelected = new EventEmitter();
   private filter(value: string | any): Observable<any[]> {
     const val = typeof value === 'string' ? value : value.ticketName;
-    console.log('inside filter, value is: ', value);
+    console.log('inside filter, value is: ', val);
+    console.log(this.ticketsNO)
     if (value === '') {
       this.http
         .POST('RequestType/list', {
@@ -353,8 +358,12 @@ export class HelpCenterConfigComponent implements OnInit {
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+          this.paginator.length=this.UserViewInfoObject.length;
+             this.setDataSourceAttributes();
         });
     }
+   
+    
     return of(
       this.ticketsNO.filter((ticket) =>
         ticket.toLowerCase().includes(val.toLowerCase())
@@ -373,11 +382,11 @@ export class HelpCenterConfigComponent implements OnInit {
     this.optionSelected.emit(event);
     this.http
       .POST('RequestType/list', {
-        searchText: [event.option.value],
+        searchText: [],
         pageSize: 5,
         pageNumber: this.pageIndex,
         isPrint: false,
-        filter: {},
+        filter: {SearchText:event.option.value},
         sortValue: 0,
       })
       .subscribe((res) => {
@@ -397,15 +406,32 @@ export class HelpCenterConfigComponent implements OnInit {
           };
         });
         this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+        this.setDataSourceAttributes();
       });
   }
 
   displayCo(ticket?: any): string | undefined {
     return ticket ? ticket : undefined;
   }
+    helpcenter: FormGroup = new FormGroup({ name: new FormControl() });
   ngOnInit(): void {
-    this.filteredTickets = this.ticketForm
-      .get('ticket')
+    this.http
+      .POST('RequestType/list', {
+        searchText: [],
+        pageSize: 10000,
+        pageNumber: this.pageIndex,
+        isPrint: true,
+        filter: {},
+        sortValue: 0,
+      })
+      .subscribe((res) => {
+        res.pageData.map((d) => {
+          this.ticketsNO.push(d['title']);
+        });
+        console.log(this.ticketsNO);
+      });
+   this.filteredTickets = this.helpcenter
+      .get('name')
       .valueChanges.pipe(
         tap((val) =>
           console.log('inside valueChanges Observable, val is: ', val)
@@ -413,7 +439,7 @@ export class HelpCenterConfigComponent implements OnInit {
         debounceTime(200)
       )
       .pipe(mergeMap((val) => this.filter(val)));
-
+    console.log(this.filteredTickets)
     this.spinner.setSpinnerValue(this.showSpinner);
     this.service.getValue().subscribe((value) => {
       this.flag = value;
@@ -526,14 +552,16 @@ export class HelpCenterConfigComponent implements OnInit {
     ).toUpperCase();
     return initials;
   }
-
+filterPreservingData:any=null;
   openFilterModal() {
     const dialogRef = this.dialog.open(FiltersPopupComponent, {
       position: { top: '15%', left: '17%' },
+      data: { filterData: this.filterPreservingData },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
+      this.filterPreservingData=result;
     });
   }
   searchByName($event) {
@@ -542,7 +570,7 @@ export class HelpCenterConfigComponent implements OnInit {
     this.pageIndex = 0;
     this.http
       .POST('RequestType/list', {
-        searchText: [],
+        searchText: [$event.target.value],
         pageSize: this.pageLength,
         pageNumber: this.pageIndex,
         isPrint: false,
