@@ -53,7 +53,7 @@ export class ProductCategorySettingsComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.subscriptionName = this.common.getUpdate().subscribe((data) => {
-      this.UserViewInfoObject = data.map((el) => {
+      this.UserViewInfoObject =data.pageData.map((el) => {
         debugger;
         return {
           id: el['id'],
@@ -62,8 +62,10 @@ export class ProductCategorySettingsComponent implements OnInit {
           isVisible: el['isVisible']
         };
       });
-      console.log(this.UserViewInfoObject)
-      this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+      
+          this.paginator.length=data.totalCount;
+             this.setDataSourceAttributes();  
     });
   }
 
@@ -315,6 +317,8 @@ export class ProductCategorySettingsComponent implements OnInit {
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+          this.paginator.length=this.UserViewInfoObject.length;
+             this.setDataSourceAttributes();
         });
     }
     return of(
@@ -355,6 +359,8 @@ export class ProductCategorySettingsComponent implements OnInit {
           };
         });
         this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+     
+             this.setDataSourceAttributes();
       });
   }
 

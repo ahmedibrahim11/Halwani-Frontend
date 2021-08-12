@@ -67,7 +67,7 @@ export class SLASettingsComponent implements OnInit {
     private spinner: SpinnerFlagService
   ) {
     this.subscriptionName = this.common.getUpdate().subscribe((data) => {
-      this.UserViewInfoObject = data.map((el) => {
+      this.UserViewInfoObject = data.pageData.map((el) => {
         return {
           id: el['id'],
           slaType: el['slaType'],
@@ -91,7 +91,10 @@ export class SLASettingsComponent implements OnInit {
           priority: el['priority'],
         };
       });
-      this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+      
+          this.paginator.length=data.totalCount;
+             this.setDataSourceAttributes();  
     });
   }
   ngOnDestroy() {
