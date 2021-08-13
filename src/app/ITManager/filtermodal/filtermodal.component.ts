@@ -187,6 +187,7 @@ export class FiltermodalComponent implements OnInit {
     const souVal = Object.keys(SourceEnum).filter(
       (k) => typeof SourceEnum[k as any] === 'number'
     );
+
     const souKeys = Object.keys(SourceEnum).filter(
       (k) => typeof SourceEnum[k as any] === 'string'
     );
@@ -210,6 +211,40 @@ export class FiltermodalComponent implements OnInit {
           label: location['text'],
           value: location['id'],
         });
+      });
+      this.filteredObject.getUpdate().subscribe((data) => {
+        console.log('ollddddd', data);
+        this.locations.setValue(data.location);
+        console.log(data.source);
+        let sourceValue;
+        let stateValue;
+        let severityValue;
+        let priorityValue;
+        for (let i = 0; i < souKeys.length; i++) {
+          if (souKeys[i] == data.source) sourceValue = souVal[i];
+        }
+        for (let i = 0; i < statKeys.length; i++) {
+          if (statKeys[i] == data.state) stateValue = statVal[i];
+        }
+        for (let i = 0; i < sevkeys.length; i++) {
+          if (sevkeys[i] == data.severity) severityValue = sevVal[i];
+        }
+        for (let i = 0; i < priKeys.length; i++) {
+          if (priKeys[i] == data.priority) priorityValue = priVal[i];
+        }
+        this.sources.setValue(sourceValue);
+        this.states.setValue(stateValue);
+        this.severities.setValue(severityValue);
+        this.priorities.setValue(priorityValue);
+        this.ticketDate = data.date;
+        this.filterObject = {
+          location: data.location,
+          source: data.source === '' ? null : data.source,
+          state: data.state === '' ? null : data.state,
+          severity: data.severity === '' ? null : data.severity,
+          priority: data.priority === '' ? null : data.priority,
+          date: data.date === '' ? null : data.date,
+        };
       });
     });
   }

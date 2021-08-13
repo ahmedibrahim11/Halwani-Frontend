@@ -1,11 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FiltedredObjectService {
-  constructor() {}
+  constructor() {
+    this.subjectName = new BehaviorSubject<any>({
+      location: '',
+      source: '',
+      severity: '',
+      priority: '',
+      state: '',
+      date: '',
+    });
+  }
   private subjectName = new Subject<any>(); //need to create a subject
 
   sendUpdate(data: any) {
