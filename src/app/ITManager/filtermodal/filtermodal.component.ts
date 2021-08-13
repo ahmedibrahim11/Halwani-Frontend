@@ -19,6 +19,8 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./filtermodal.component.css'],
 })
 export class FiltermodalComponent implements OnInit {
+  createloader: Boolean = false;
+
   locations = new FormControl();
   locationList: any = [];
 
@@ -78,6 +80,8 @@ export class FiltermodalComponent implements OnInit {
   }
 
   sendFiltersObject() {
+    this.createloader = true;
+
     this.http.GET('ticket/getCount').subscribe((res) => {
       this.pageLength = res;
       this.http
@@ -90,6 +94,8 @@ export class FiltermodalComponent implements OnInit {
           sortValue: 0,
         })
         .subscribe((res) => {
+          this.createloader = false;
+
           this.filteredObject.sendUpdate(this.filterObject);
           console.log('wreeeeny', res);
           this.common.sendUpdate(res);
@@ -116,6 +122,8 @@ export class FiltermodalComponent implements OnInit {
   }
 
   clearFilters() {
+    this.createloader = true;
+
     this.filterObject = {};
     this.locations.setValue('');
     this.sources.setValue('');
@@ -136,6 +144,8 @@ export class FiltermodalComponent implements OnInit {
           sortValue: 0,
         })
         .subscribe((res) => {
+          this.createloader = false;
+
           console.log('wreeeeny', res);
           this.filteredObject.sendUpdate({});
           this.common.sendUpdate(res);

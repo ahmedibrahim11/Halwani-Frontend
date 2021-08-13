@@ -152,9 +152,20 @@
     </div>
   </div>
   <div class="filter-btn-container">
-    <button class="clear-btn" (click)="clearFilters()">Clear</button>
-    <button class="filter-btn" mat-dialog-close (click)="sendFiltersObject()">
-      Filter
-    </button>
+    <div *ngIf="createloader === true; then spinner; else btn"></div>
+    <ng-template #spinner>
+      <mat-spinner
+        style="display: flex; justify-self: center; align-self: center"
+        class="mt-2"
+        color="warn"
+        [diameter]="30"
+      ></mat-spinner>
+    </ng-template>
+    <ng-template #btn>
+      <button class="clear-btn" (click)="clearFilters()">Clear</button>
+      <button class="filter-btn" mat-dialog-close (click)="sendFiltersObject()">
+        Filter
+      </button></ng-template
+    >
   </div>
 </div>
