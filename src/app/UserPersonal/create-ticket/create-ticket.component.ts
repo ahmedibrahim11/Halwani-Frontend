@@ -31,8 +31,9 @@ export class CreateTicketComponent implements OnInit {
     private route: ActivatedRoute,
     private http: UserGroupService,
     private formBuilder: FormBuilder,
+
     private miainHttp: HTTPMainServiceService
-  ) {}
+  ) { }
   private typeID: Number;
   public FileLinks: any = [];
   @Input() reporterDatasource;
@@ -55,11 +56,11 @@ export class CreateTicketComponent implements OnInit {
     );
     this.submitterName =
       JSON.parse(jsonPayload)[
-        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
       ];
     this.reporter =
       JSON.parse(jsonPayload)[
-        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
       ];
     this.submitterTeam = JSON.parse(jsonPayload)['Teams'];
     this.submitterInitials = this.initials(this.submitterName);
@@ -172,6 +173,7 @@ export class CreateTicketComponent implements OnInit {
       this.createTicketDTOFormGroup.value.description;
     this.createTicketDTO.submitterTeam = this.submitterTeam;
     this.createTicketDTO.submitterEmail = this.reporter;
+    this.createTicketDTO.reportedSource = this.reporter;
     this.createTicketDTO.submitterName = this.submitterName;
     this.createTicketDTO.summary = this.createTicketDTOFormGroup.value.summary;
     this.createTicketDTO.submitDate = new Date();
@@ -186,10 +188,31 @@ export class CreateTicketComponent implements OnInit {
       .subscribe((data) => {
         console.log(data);
         this.createloader = false;
-        this._snackBar.openFromComponent(ToastMessageComponent, {
-          duration: this.durationInSeconds * 1000,
-        });
-        this._router.navigate(['user']);
+        console.log('create tickeet');
+        this.fireSnackBar(
+          "Ticket Submitted Successfully..",
+          "x",
+          "success"
+        );
+        this._router.navigate(['user'])
+          , (error) => {
+            this.createloader = false;
+            this.fireSnackBar(
+              "Failed To Submit Ticket",
+              "x",
+              "error"
+            );
+          }
       });
   }
-}
+
+  fireSnackBar(message: string, action, classType: string) {
+    this._snackBar.open(message, action, {
+      duration: 3000,
+      panelClass: [classType],
+      horizontalPosition: "right"
+    });
+  }
+};
+
+
