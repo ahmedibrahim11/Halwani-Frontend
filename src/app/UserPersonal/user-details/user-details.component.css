@@ -106,7 +106,7 @@
   height: fit-content;
   display: inline;
   margin-left: 1rem;
-  width: 75%;
+  width: fit-content;
 }
 
 .Button {
