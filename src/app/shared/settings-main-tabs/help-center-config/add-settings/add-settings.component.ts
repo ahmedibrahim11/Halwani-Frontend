@@ -22,6 +22,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { HelpCenterFilterService } from 'src/app/core/services/help-center-filter.service';
 @Component({
   selector: 'app-add-settings',
   templateUrl: './add-settings.component.html',
@@ -53,7 +54,7 @@ export class AddSettingsComponent implements OnInit {
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddSettingsComponent>,
-    public service: TicketCreationService,
+    public service: HelpCenterFilterService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
     private _snackBar: MatSnackBar
   ) {

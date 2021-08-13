@@ -28,20 +28,20 @@ severities = new FormControl();
     
     this.filterObject[key] = filterValue.value;
    
-      this.http
-        .POST('RequestType/list', {
-          searchText: [],
-          pageSize: this.pageSize,
-          pageNumber: this.pageIndex,
-          isPrint: false,
-          filter: this.filterObject,
-          sortValue: 0,
-        })
-        .subscribe((res) => {
-          console.log('wreeeeny', res);
-          this.common.sendUpdate(res);
+      // this.http
+      //   .POST('RequestType/list', {
+      //     searchText: [],
+      //     pageSize: this.pageSize,
+      //     pageNumber: this.pageIndex,
+      //     isPrint: false,
+      //     filter: this.filterObject,
+      //     sortValue: 0,
+      //   })
+      //   .subscribe((res) => {
+      //     console.log('wreeeeny', res);
+      //     this.common.sendUpdate(res);
           
-        });
+      //   });
    
 console.log(this.team)
   }

@@ -66,36 +66,36 @@ export class SLASettingsComponent implements OnInit {
     private common: CommonServiceService,
     private spinner: SpinnerFlagService
   ) {
-    this.subscriptionName = this.common.getUpdate().subscribe((data) => {
-      this.UserViewInfoObject = data.pageData.map((el) => {
-        return {
-          id: el['id'],
-          slaType: el['slaType'],
-          slaDuration: el['slaDuration'],
-          requestType: el['requestType'],
-          openStatus:
-            el['openStatus'] != null
-              ? el['openStatus']
-                  .split(',')
-                  .map((r) => this.getEnumKeyByEnumValue(r))
-                  .join()
-              : '',
-          closeStatus:
-            el['closeStatus'] != null
-              ? el['closeStatus']
-                  .split(',')
-                  .map((r) => this.getEnumKeyByEnumValue(r))
-                  .join()
-              : '',
-          team: el['teamName'],
-          priority: el['priority'],
-        };
-      });
-       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+    // this.subscriptionName = this.common.getUpdate().subscribe((data) => {
+    //   this.UserViewInfoObject = data.pageData.map((el) => {
+    //     return {
+    //       id: el['id'],
+    //       slaType: el['slaType'],
+    //       slaDuration: el['slaDuration'],
+    //       requestType: el['requestType'],
+    //       openStatus:
+    //         el['openStatus'] != null
+    //           ? el['openStatus']
+    //               .split(',')
+    //               .map((r) => this.getEnumKeyByEnumValue(r))
+    //               .join()
+    //           : '',
+    //       closeStatus:
+    //         el['closeStatus'] != null
+    //           ? el['closeStatus']
+    //               .split(',')
+    //               .map((r) => this.getEnumKeyByEnumValue(r))
+    //               .join()
+    //           : '',
+    //       team: el['teamName'],
+    //       priority: el['priority'],
+    //     };
+    //   });
+    //    this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
       
-          this.paginator.length=data.totalCount;
-             this.setDataSourceAttributes();  
-    });
+    //       this.paginator.length=data.totalCount;
+    //          this.setDataSourceAttributes();  
+    // });
   }
   ngOnDestroy() {
     this.subscriptionName.unsubscribe();

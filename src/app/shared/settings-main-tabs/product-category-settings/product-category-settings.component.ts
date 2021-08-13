@@ -52,21 +52,21 @@ export class ProductCategorySettingsComponent implements OnInit {
     private spinner: SpinnerFlagService,
     private formBuilder: FormBuilder
   ) {
-    this.subscriptionName = this.common.getUpdate().subscribe((data) => {
-      this.UserViewInfoObject =data.pageData.map((el) => {
-        debugger;
-        return {
-          id: el['id'],
-          name: el['text'],
-          children: el['children'],
-          isVisible: el['isVisible']
-        };
-      });
-       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+    // this.subscriptionName = this.common.getUpdate().subscribe((data) => {
+    //   this.UserViewInfoObject =data.pageData.map((el) => {
+    //     debugger;
+    //     return {
+    //       id: el['id'],
+    //       name: el['text'],
+    //       children: el['children'],
+    //       isVisible: el['isVisible']
+    //     };
+    //   });
+    //    this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
       
-          this.paginator.length=data.totalCount;
-             this.setDataSourceAttributes();  
-    });
+    //       this.paginator.length=data.totalCount;
+    //          this.setDataSourceAttributes();  
+    // });
   }
 
   ngOnDestroy() {

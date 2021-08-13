@@ -25,7 +25,7 @@ import { CommonServiceService } from 'src/app/core/services/common-service.servi
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { SpinnerFlagService } from 'src/app/core/services/spinner-flag.service';
-import { TicketCreationService } from 'src/app/core/services/ticket-creation.service';
+import { HelpCenterFilterService } from 'src/app/core/services/help-center-filter.service';
 import { ToastMessageComponent } from 'src/app/ITPersonal/toast-message/toast-message.component';
 import { SetInvisibleConfirmationComponent } from '../product-category-settings/set-invisible-confirmation/set-invisible-confirmation.component';
 import { SetVisibleConfirmationComponent } from '../product-category-settings/set-visible-confirmation/set-visible-confirmation.component';
@@ -49,7 +49,7 @@ export class HelpCenterConfigComponent implements OnInit {
   constructor(
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
-    private service: TicketCreationService,
+    private service: HelpCenterFilterService,
     private _snackBar: MatSnackBar,
     private common: CommonServiceService,
     private spinner: SpinnerFlagService
@@ -443,15 +443,19 @@ export class HelpCenterConfigComponent implements OnInit {
     this.spinner.setSpinnerValue(this.showSpinner);
     this.service.getValue().subscribe((value) => {
       this.flag = value;
-      if (this.flag === true) {
-        this.pageLength = this.pageLength + 1;
+      if (this.flag === true&&this.filterPreservingData!=null) {
+        //this.pageLength = this.pageLength + 1;
         this.http
           .POST('RequestType/list', {
             searchText: [],
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
-            filter: {},
+            filter: { team: this.filterPreservingData.team.value,
+    groupID: this.filterPreservingData.group.value,
+    severity: this.filterPreservingData.severity.value,
+    ticketType: this.filterPreservingData.ticketType.value,
+    priority:this.filterPreservingData.priority.value},
             sortValue: 0,
           })
           .subscribe((res) => {

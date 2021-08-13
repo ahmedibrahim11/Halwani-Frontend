@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HelpCenterFilterService } from 'src/app/core/services/help-center-filter.service';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { TicketCreationService } from 'src/app/core/services/ticket-creation.service';
 import { ToastMessageComponent } from 'src/app/ITPersonal/toast-message/toast-message.component';
@@ -20,6 +21,7 @@ createloader:any=false;
   constructor(private http: HTTPMainServiceService,
     public dialogRef: MatDialogRef<SetInvisibleConfirmationComponent>,
     public service: TicketCreationService,
+    public helpCenterservice: HelpCenterFilterService,
     public dialog: MatDialog,
 
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
@@ -55,7 +57,7 @@ else
         this._snackBar.openFromComponent(ToastMessageComponent, {
           duration: this.durationInSeconds * 1000,
         });
-        this.service.setValue(true);
+        this.helpCenterservice.setValue(true);
         this.dialogRef.close();
       });
   
