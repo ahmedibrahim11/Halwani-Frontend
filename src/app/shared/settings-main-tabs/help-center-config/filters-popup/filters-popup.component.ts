@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { PriorityEnum, SevirityEnum, TicketCategoryEnum } from 'src/app/core/DTOs/ticketListingDTO';
 import { CommonServiceService } from 'src/app/core/services/common-service.service';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
@@ -39,9 +39,10 @@ severities = new FormControl();
         })
         .subscribe((res) => {
           console.log('wreeeeny', res);
-          this.common.sendUpdate(res.pageData);
+          this.common.sendUpdate(res);
           
         });
+   
 console.log(this.team)
   }
 
@@ -57,8 +58,8 @@ console.log(this.team)
         })
         .subscribe((res) => {
           console.log('wreeeeny', res);
-          this.common.sendUpdate(res.pageData);
-          
+          this.common.sendUpdate(res);
+          this.dialogRef.close({group:this.Group,ticketType:this.TicketType,team:this.team,severity:this.severities,priority:this.priorities})
         });
   }
  
@@ -86,7 +87,9 @@ console.log(this.team)
         })
         .subscribe((res) => {
           console.log('wreeeeny', res);
-          this.common.sendUpdate(res.pageData);
+          console.log("clearing",res)
+          this.common.sendUpdate(res);
+          this.dialogRef.close(null)
         });
  
   }
@@ -94,8 +97,25 @@ console.log(this.team)
   constructor(
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
-    private common: CommonServiceService
-  ) {}
+    private common: CommonServiceService,
+    public dialogRef: MatDialogRef<FiltersPopupComponent>,
+     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+  ) {
+    debugger;
+    if(data.filterData!=null)
+    {
+      this.Group=data.filterData.group;
+ 
+   this.TicketType = data.filterData.ticketType;
+
+  this.team=data.filterData.team;
+ 
+    this.severities = data.filterData.severity;
+
+
+  this.priorities = data.filterData.priority;
+    }
+  }
   pageLength: any = 5;
   pageSize: any = 5;
   pageIndex: any = 0;

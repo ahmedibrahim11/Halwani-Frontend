@@ -47,7 +47,7 @@ table.mat-table {
 .mat-dialog-container {
   display: block;
   padding: 24px;
-  border: .2rem solid transparent;
+  border: 0.2rem solid transparent;
   border-radius: 2rem !important;
   box-sizing: border-box;
   overflow: auto;
@@ -59,4 +59,7 @@ table.mat-table {
 }
 #mat-select-2-panel {
   height: 20vh !important;
+}
+.menu mat-icon {
+  cursor: pointer !important;
 }
