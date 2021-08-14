@@ -172,6 +172,7 @@ export class FiltermodalComponent implements OnInit {
   ) {
     this.submitterName = data != undefined ? data.submitterName : null;
     this.status = data != undefined ? data.status : null;
+    console.log(data);
   }
   pageLength: any = 5;
   pageSize: any = 5;

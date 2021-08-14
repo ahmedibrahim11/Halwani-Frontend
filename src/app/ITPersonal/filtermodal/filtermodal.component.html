@@ -58,7 +58,10 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="filter-controller">
+    <div
+      class="filter-controller"
+      *ngIf="status === null || status === undefined"
+    >
       <p>STATE</p>
       <mat-form-field appearance="fill">
         <mat-label>Status</mat-label>
