@@ -1,4 +1,10 @@
-import { Component, OnInit, resolveForwardRef } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnInit,
+  Optional,
+  resolveForwardRef,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { CommonServiceService } from 'src/app/core/services/common-service.service';
@@ -11,7 +17,7 @@ import {
   TicketListingDTO,
 } from '../../core/DTOs/ticketListingDTO';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-filtermodal',
@@ -140,7 +146,10 @@ export class FiltermodalComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: this.pageIndex,
           isPrint: false,
-          filter: {},
+          filter: {
+            submitterName: this.submitterName,
+            state: this.status,
+          },
           sortValue: 0,
         })
         .subscribe((res) => {
@@ -152,13 +161,18 @@ export class FiltermodalComponent implements OnInit {
         });
     });
   }
-
+  submitterName: any = null;
+  status: any = null;
   constructor(
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
     private common: CommonServiceService,
-    private filteredObject: FiltedredObjectService
-  ) {}
+    private filteredObject: FiltedredObjectService,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    this.submitterName = data != undefined ? data.submitterName : null;
+    this.status = data != undefined ? data.status : null;
+  }
   pageLength: any = 5;
   pageSize: any = 5;
   pageIndex: any = 0;
@@ -240,10 +254,16 @@ export class FiltermodalComponent implements OnInit {
         this.filterObject = {
           location: data.location,
           source: data.source === '' ? null : data.source,
-          state: data.state === '' ? null : data.state,
+          state:
+            this.status != null
+              ? this.status
+              : data.state === ''
+              ? null
+              : data.state,
           severity: data.severity === '' ? null : data.severity,
           priority: data.priority === '' ? null : data.priority,
           date: data.date === '' ? null : data.date,
+          submitterName: this.submitterName,
         };
       });
     });

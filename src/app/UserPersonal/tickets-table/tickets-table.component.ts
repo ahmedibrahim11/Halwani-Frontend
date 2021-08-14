@@ -61,7 +61,7 @@ export class TicketsTableComponent implements OnInit {
   ) {
     this.subscriptionName = this.common.getUpdate().subscribe((data) => {
       console.log('from subscribtion', data);
-      this.UserViewInfoObject = data.map((el) => {
+      this.UserViewInfoObject = data.pageData.map((el) => {
         const cerationDate = new Date(el['creationDate']);
         return {
           id: el['id'],
@@ -76,6 +76,8 @@ export class TicketsTableComponent implements OnInit {
           status: el['status'],
         };
       });
+      this.pageLength = data.totalCount;
+
       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
     });
   }
@@ -129,6 +131,8 @@ export class TicketsTableComponent implements OnInit {
         })
         .subscribe((res) => {
           console.log(res.pageData);
+          this.pageLength = res.totalCount;
+
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
             const cerationDate = new Date(el['creationDate']);
@@ -166,6 +170,8 @@ export class TicketsTableComponent implements OnInit {
         })
         .subscribe((res) => {
           console.log(res.pageData);
+          this.pageLength = res.totalCount;
+
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
             const cerationDate = new Date(el['creationDate']);
@@ -202,6 +208,8 @@ export class TicketsTableComponent implements OnInit {
         .subscribe((res) => {
           console.log(res.pageData);
           let usersData = res.pageData;
+          this.pageLength = res.totalCount;
+
           this.UserViewInfoObject = usersData.map((el) => {
             const cerationDate = new Date(el['creationDate']);
             return {
@@ -285,6 +293,8 @@ export class TicketsTableComponent implements OnInit {
       .subscribe((res) => {
         console.log(res.pageData);
         let usersData = res.pageData;
+        this.pageLength = res.totalCount;
+
         this.UserViewInfoObject = usersData.map((el) => {
           const cerationDate = new Date(el['creationDate']);
           return {
@@ -355,8 +365,12 @@ export class TicketsTableComponent implements OnInit {
     if (event['key'] === 'Enter') {
       const filterValue = (event.target as HTMLInputElement).value;
       this.dataSource.filter = filterValue.trim().toLowerCase();
+      console.log('filteeeeee', this.dataSource);
+      this.pageLength = this.dataSource.filteredData.length;
     } else {
-      return null;
+      this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+      console.log('souuurce', this.dataSource);
+      this.pageLength = this.dataSource.data.length + 1;
     }
   }
 
@@ -409,6 +423,8 @@ export class TicketsTableComponent implements OnInit {
             sortValue: null,
           })
           .subscribe((res) => {
+            this.pageLength = res.totalCount;
+
             if (res.totalCount !== 0) {
               this.showSpinner = false;
               this.spinner.setSpinnerValue(this.showSpinner);
@@ -461,6 +477,8 @@ export class TicketsTableComponent implements OnInit {
             sortValue: null,
           })
           .subscribe((res) => {
+            this.pageLength = res.totalCount;
+
             if (res.totalCount !== 0) {
               this.showSpinner = false;
               this.spinner.setSpinnerValue(this.showSpinner);
@@ -527,6 +545,7 @@ export class TicketsTableComponent implements OnInit {
   openFilterModal() {
     const dialogRef = this.dialog.open(FiltermodalComponent, {
       position: { top: '15%', left: '17%' },
+      data: { submitterName: this.userName, status: this.Status },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

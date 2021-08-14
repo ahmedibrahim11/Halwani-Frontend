@@ -135,7 +135,7 @@
   background-color: rgb(143, 48, 48);
 }
 .statusBubble {
-  width: 50%;
+  width: fit-content;
   height: 22px;
   flex-grow: 0;
   display: flex;
