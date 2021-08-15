@@ -5,7 +5,14 @@
   background-color: white;
   flex-direction: row;
   overflow-x: hidden;
+  box-shadow: 0 0 5px 0 rgb(0 0 0 / 20%);
+
 }
+
+.second-Div{
+  box-shadow: 0 0 5px 0 rgb(0 0 0 / 20%);
+}
+
 .icon:hover {
   cursor: pointer;
 }
