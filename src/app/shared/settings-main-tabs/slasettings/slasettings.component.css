@@ -53,7 +53,7 @@
   width: 100vw !important;
 }
 .Table-buttons {
-  width: 15rem;
+  width: 20%;
   height: 1.45rem;
   flex-grow: 0;
   display: flex;
@@ -66,6 +66,7 @@
   border-radius: 6px;
   background-color: #f5f6f7;
   cursor: pointer;
+  margin-right: 1%;
 }
 .Export-queue {
   cursor: pointer;
