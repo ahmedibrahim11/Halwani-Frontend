@@ -50,12 +50,12 @@ table.mat-table {
   border: 0.2rem solid transparent;
   border-radius: 2rem !important;
   box-sizing: border-box;
-  overflow: auto;
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
   outline: 0;
   width: 55vw !important;
   height: 100%;
-  min-height: inherit;
-  max-height: inherit;
+  min-height: 50% !important;
 }
 #mat-select-2-panel {
   height: 20vh !important;
