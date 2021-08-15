@@ -30,8 +30,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       clientId: '17272d07-ae51-425d-a6e3-e0ca114adc47',
       authority:
         'https://login.microsoftonline.com/1213517f-fdb5-4592-9934-471910b55de2',
-      redirectUri: 'http://localhost:4200/',
-      postLogoutRedirectUri: 'http://localhost:4200/login',
+      redirectUri: 'https://halwani-frontend.azurewebsites.net/',
+      postLogoutRedirectUri: 'https://halwani-frontend.azurewebsites.net/',
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
