@@ -56,12 +56,12 @@ export class SidebarComponent implements OnInit {
     localStorage.clear();
     if (this.msalGuardConfig.interactionType === InteractionType.Popup) {
       this.authService.logoutPopup({
-        postLogoutRedirectUri: "http://localhost:4200/login",
-        mainWindowRedirectUri: "http://localhost:4200/"
+        postLogoutRedirectUri: "https://halwani-frontend.azurewebsites.net/login",
+        mainWindowRedirectUri: "https://halwani-frontend.azurewebsites.net/"
       });
     } else {
       this.authService.logoutRedirect({
-        postLogoutRedirectUri: "http://localhost:4200/",
+        postLogoutRedirectUri: "https://halwani-frontend.azurewebsites.net/login",
       });
     }
   }
