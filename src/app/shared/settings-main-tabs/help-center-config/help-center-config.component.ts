@@ -53,7 +53,8 @@ export class HelpCenterConfigComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private common: CommonServiceService,
     private spinner: SpinnerFlagService
-  ) {
+  ) 
+  {
     this.subscriptionName = this.common.getUpdate().subscribe((data) => {
       this.UserViewInfoObject = data.pageData.map((el) => {
         return {
@@ -436,6 +437,7 @@ export class HelpCenterConfigComponent implements OnInit {
     console.log(this.filteredTickets);
     this.spinner.setSpinnerValue(this.showSpinner);
     this.service.getValue().subscribe((value) => {
+      debugger;
       this.flag = value;
       if (this.flag === true) {
         this.pageLength = this.pageLength + 1;
@@ -632,6 +634,11 @@ export class HelpCenterConfigComponent implements OnInit {
         }
       }
     });
+  }
+
+
+  ngOnDestroy() {
+    this.subscriptionName.unsubscribe();
   }
 
   firstCharacter: any;

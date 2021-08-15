@@ -70,7 +70,7 @@
 }
 
 .Empty-Table {
-  width: 15rem;
+  width: 20%;
   height: 1.45rem;
   display: flex;
   flex-direction: row;
@@ -82,7 +82,7 @@
   cursor: pointer;
   margin-top: 1%;
   margin-bottom: 1%;
-  margin-left: 75%;
+  margin-left: 77%;
 }
 
 .Export-queue {
