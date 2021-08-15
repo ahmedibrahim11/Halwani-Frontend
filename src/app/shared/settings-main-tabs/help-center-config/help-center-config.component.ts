@@ -409,8 +409,6 @@ export class HelpCenterConfigComponent implements OnInit {
   }
   helpcenter: FormGroup = new FormGroup({ name: new FormControl() });
   ngOnInit(): void {
-    this.subscriptionName.unsubscribe();
-
     this.http
       .POST('RequestType/list', {
         searchText: [],
