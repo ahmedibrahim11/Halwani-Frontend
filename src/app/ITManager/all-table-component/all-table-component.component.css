@@ -54,11 +54,12 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  float: right;
   gap: 10px;
   padding: 10px;
   border-radius: 6px;
   background-color: #f5f6f7;
+  margin-right: .65rem;
+  margin-top: .65rem;
 }
 .Export-queue {
   height: 24px;

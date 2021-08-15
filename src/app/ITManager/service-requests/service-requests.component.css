@@ -9,6 +9,10 @@
 .icon:hover {
   cursor: pointer;
 }
+
+.second-Div{
+  box-shadow: 0 0 5px 0 rgb(0 0 0 / 20%);
+}
 .Actions-Tickets-Queue {
   width: 235px;
   height: 19px;

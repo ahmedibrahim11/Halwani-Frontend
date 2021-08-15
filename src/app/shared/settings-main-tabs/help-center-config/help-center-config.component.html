@@ -1,9 +1,8 @@
 <div class="Rectangle-339">
-  <div class="fullheaderClass">
-    <button type="button" class="Filter" mat-button (click)="openFilterModal()">
+  <div class="fullheaderClass"  >
+    <button type="button"  *ngIf="dataLoaded"  class="Filter" mat-button (click)="openFilterModal()">
       <mat-icon class="filter-icon icon">filter_list</mat-icon>Filter
     </button>
-
         <form [formGroup]="helpcenter" class="Rectangle-48" *ngIf="dataLoaded">
           <mat-form-field style="display: block">
             <input type="text" matInput placeholder="Search by name.." formControlName="name" [matAutocomplete]="autoCo" />
@@ -14,11 +13,14 @@
             </mat-autocomplete>
           </mat-form-field>
         </form>
-    <div class="Table-buttons" (click)="openAddSettings()">
-      <label class="Export-queue">Add new request type</label
-      ><img src="assets/4.png" />
-    </div>
+        <div [ngClass]="dataLoaded ? 'Table-buttons' : 'Empty-Table'" (click)="openAddSettings()">
+          <label class="Export-queue">Add new request type</label
+          ><img src="assets/4.png" />
+        </div>
   </div>
+
+  
+
   <div *ngIf="showSpinner === true; then spinner; else data">
     here is ignored
   </div>
