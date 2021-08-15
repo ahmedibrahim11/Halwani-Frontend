@@ -92,13 +92,9 @@ export class SLASettingsComponent implements OnInit {
     //     };
     //   });
     //    this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-      
     //       this.paginator.length=data.totalCount;
-    //          this.setDataSourceAttributes();  
+    //          this.setDataSourceAttributes();
     // });
-  }
-  ngOnDestroy() {
-    this.subscriptionName.unsubscribe();
   }
 
   pageLength: any = 5;

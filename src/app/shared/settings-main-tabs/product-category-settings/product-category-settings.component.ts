@@ -63,14 +63,9 @@ export class ProductCategorySettingsComponent implements OnInit {
     //     };
     //   });
     //    this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-      
     //       this.paginator.length=data.totalCount;
-    //          this.setDataSourceAttributes();  
+    //          this.setDataSourceAttributes();
     // });
-  }
-
-  ngOnDestroy() {
-    this.subscriptionName.unsubscribe();
   }
 
   pageLength: any = 5;
@@ -99,7 +94,7 @@ export class ProductCategorySettingsComponent implements OnInit {
               id: el['id'],
               name: el['text'],
               children: el['children'],
-              isVisible: el['isVisible']
+              isVisible: el['isVisible'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -124,7 +119,7 @@ export class ProductCategorySettingsComponent implements OnInit {
               id: el['id'],
               name: el['text'],
               children: el['children'],
-              isVisible: el['isVisible']
+              isVisible: el['isVisible'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -148,7 +143,7 @@ export class ProductCategorySettingsComponent implements OnInit {
               id: el['id'],
               name: el['text'],
               children: el['children'],
-              isVisible: el['isVisible']
+              isVisible: el['isVisible'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -213,7 +208,7 @@ export class ProductCategorySettingsComponent implements OnInit {
             id: el['id'],
             name: el['text'],
             children: el['children'],
-            isVisible: el['isVisible']
+            isVisible: el['isVisible'],
           };
         });
         console.log(this.UserViewInfoObject);
@@ -313,12 +308,12 @@ export class ProductCategorySettingsComponent implements OnInit {
               id: el['id'],
               name: el['text'],
               children: el['children'],
-              isVisible: el['isVisible']
+              isVisible: el['isVisible'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-          this.paginator.length=this.UserViewInfoObject.length;
-             this.setDataSourceAttributes();
+          this.paginator.length = this.UserViewInfoObject.length;
+          this.setDataSourceAttributes();
         });
     }
     return of(
@@ -355,12 +350,12 @@ export class ProductCategorySettingsComponent implements OnInit {
             id: el['id'],
             name: el['text'],
             children: el['children'],
-            isVisible: el['isVisible']
+            isVisible: el['isVisible'],
           };
         });
         this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-     
-             this.setDataSourceAttributes();
+
+        this.setDataSourceAttributes();
       });
   }
 
@@ -422,7 +417,7 @@ export class ProductCategorySettingsComponent implements OnInit {
                   id: el['id'],
                   name: el['text'],
                   children: el['children'],
-                  isVisible: el['isVisible']
+                  isVisible: el['isVisible'],
                 };
               });
               this.getRedMenuCharacters(this.usersName);
@@ -460,7 +455,7 @@ export class ProductCategorySettingsComponent implements OnInit {
                   id: el['id'],
                   name: el['text'],
                   children: el['children'],
-                  isVisible: el['isVisible']
+                  isVisible: el['isVisible'],
                 };
               });
               this.getRedMenuCharacters(this.usersName);
@@ -530,7 +525,7 @@ export class ProductCategorySettingsComponent implements OnInit {
               id: el['id'],
               name: el['text'],
               children: el['children'],
-              isVisible: el['isVisible']
+              isVisible: el['isVisible'],
             };
           });
           this.getRedMenuCharacters(this.usersName);
@@ -549,28 +544,25 @@ export class ProductCategorySettingsComponent implements OnInit {
 
   durationInSeconds: any = 3;
   setVisability(settingID, Value: Boolean) {
-   if(Value==true)
-   {
+    if (Value == true) {
       const dialogRef = this.dialog.open(SetVisibleConfirmationComponent, {
-      data: { value: Value,id:settingID,from:1 },
-      width: '40vw',
-    });
+        data: { value: Value, id: settingID, from: 1 },
+        width: '40vw',
+      });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-  else
-  {
-     const dialogRef = this.dialog.open(SetInvisibleConfirmationComponent, {
-      data: { value: Value,id:settingID,from:1 },
-      width: '40vw',
-    });
+      dialogRef.afterClosed().subscribe((result) => {
+        console.log(`Dialog result: ${result}`);
+      });
+    } else {
+      const dialogRef = this.dialog.open(SetInvisibleConfirmationComponent, {
+        data: { value: Value, id: settingID, from: 1 },
+        width: '40vw',
+      });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
+      dialogRef.afterClosed().subscribe((result) => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
   }
   OpenEdit(settingID) {
     const dialogRef = this.dialog.open(CreateProductCategoryComponent, {
@@ -582,7 +574,6 @@ export class ProductCategorySettingsComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
-  
 
   openAddProductCategory() {
     const dialogRef = this.dialog.open(CreateProductCategoryComponent, {
@@ -593,5 +584,4 @@ export class ProductCategorySettingsComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
-  
 }

@@ -67,15 +67,11 @@ export class HelpCenterConfigComponent implements OnInit {
           isVisable: el['isVisable'],
         };
       });
-       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-      
-          this.paginator.length=data.totalCount;
-             this.setDataSourceAttributes();  
-    });
-  }
+      this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
 
-  ngOnDestroy() {
-    this.subscriptionName.unsubscribe();
+      this.paginator.length = data.totalCount;
+      this.setDataSourceAttributes();
+    });
   }
 
   pageLength: any = 5;
@@ -175,7 +171,6 @@ export class HelpCenterConfigComponent implements OnInit {
     // The code that you want to execute on clicking on next and previous buttons will be written here.
   }
   setDataSourceAttributes() {
-
     this.dataSource.paginator = this.paginator;
     this.pageSize = this.paginator.pageSize;
     this.pageIndex = this.paginator.pageIndex;
@@ -331,7 +326,7 @@ export class HelpCenterConfigComponent implements OnInit {
   private filter(value: string | any): Observable<any[]> {
     const val = typeof value === 'string' ? value : value.ticketName;
     console.log('inside filter, value is: ', val);
-    console.log(this.ticketsNO)
+    console.log(this.ticketsNO);
     if (value === '') {
       this.http
         .POST('RequestType/list', {
@@ -358,12 +353,11 @@ export class HelpCenterConfigComponent implements OnInit {
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-          this.paginator.length=this.UserViewInfoObject.length;
-             this.setDataSourceAttributes();
+          this.paginator.length = this.UserViewInfoObject.length;
+          this.setDataSourceAttributes();
         });
     }
-   
-    
+
     return of(
       this.ticketsNO.filter((ticket) =>
         ticket.toLowerCase().includes(val.toLowerCase())
@@ -386,7 +380,7 @@ export class HelpCenterConfigComponent implements OnInit {
         pageSize: 5,
         pageNumber: this.pageIndex,
         isPrint: false,
-        filter: {SearchText:event.option.value},
+        filter: { SearchText: event.option.value },
         sortValue: 0,
       })
       .subscribe((res) => {
@@ -413,8 +407,10 @@ export class HelpCenterConfigComponent implements OnInit {
   displayCo(ticket?: any): string | undefined {
     return ticket ? ticket : undefined;
   }
-    helpcenter: FormGroup = new FormGroup({ name: new FormControl() });
+  helpcenter: FormGroup = new FormGroup({ name: new FormControl() });
   ngOnInit(): void {
+    this.subscriptionName.unsubscribe();
+
     this.http
       .POST('RequestType/list', {
         searchText: [],
@@ -430,7 +426,7 @@ export class HelpCenterConfigComponent implements OnInit {
         });
         console.log(this.ticketsNO);
       });
-   this.filteredTickets = this.helpcenter
+    this.filteredTickets = this.helpcenter
       .get('name')
       .valueChanges.pipe(
         tap((val) =>
@@ -439,11 +435,11 @@ export class HelpCenterConfigComponent implements OnInit {
         debounceTime(200)
       )
       .pipe(mergeMap((val) => this.filter(val)));
-    console.log(this.filteredTickets)
+    console.log(this.filteredTickets);
     this.spinner.setSpinnerValue(this.showSpinner);
     this.service.getValue().subscribe((value) => {
       this.flag = value;
-      if (this.flag === true&&this.filterPreservingData!=null) {
+      if (this.flag === true && this.filterPreservingData != null) {
         //this.pageLength = this.pageLength + 1;
         this.http
           .POST('RequestType/list', {
@@ -451,11 +447,13 @@ export class HelpCenterConfigComponent implements OnInit {
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
-            filter: { team: this.filterPreservingData.team.value,
-    groupID: this.filterPreservingData.group.value,
-    severity: this.filterPreservingData.severity.value,
-    ticketType: this.filterPreservingData.ticketType.value,
-    priority:this.filterPreservingData.priority.value},
+            filter: {
+              team: this.filterPreservingData.team.value,
+              groupID: this.filterPreservingData.group.value,
+              severity: this.filterPreservingData.severity.value,
+              ticketType: this.filterPreservingData.ticketType.value,
+              priority: this.filterPreservingData.priority.value,
+            },
             sortValue: 0,
           })
           .subscribe((res) => {
@@ -556,7 +554,7 @@ export class HelpCenterConfigComponent implements OnInit {
     ).toUpperCase();
     return initials;
   }
-filterPreservingData:any=null;
+  filterPreservingData: any = null;
   openFilterModal() {
     const dialogRef = this.dialog.open(FiltersPopupComponent, {
       position: { top: '15%', left: '17%' },
@@ -565,7 +563,7 @@ filterPreservingData:any=null;
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
-      this.filterPreservingData=result;
+      this.filterPreservingData = result;
     });
   }
   searchByName($event) {
@@ -619,30 +617,25 @@ filterPreservingData:any=null;
 
   durationInSeconds: any = 3;
   setVisability(settingID, Value: Boolean) {
-    if(Value==true)
-   {
+    if (Value == true) {
       const dialogRef = this.dialog.open(SetVisibleConfirmationComponent, {
-      data: { value: Value,id:settingID,from:0 },
-      width: '50vw',
-      
-    });
+        data: { value: Value, id: settingID, from: 0 },
+        width: '50vw',
+      });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-  else
-  {
-     const dialogRef = this.dialog.open(SetInvisibleConfirmationComponent, {
-      data: { value: Value,id:settingID,from:0 },
-      width: '50vw',
-     
-    });
+      dialogRef.afterClosed().subscribe((result) => {
+        console.log(`Dialog result: ${result}`);
+      });
+    } else {
+      const dialogRef = this.dialog.open(SetInvisibleConfirmationComponent, {
+        data: { value: Value, id: settingID, from: 0 },
+        width: '50vw',
+      });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
+      dialogRef.afterClosed().subscribe((result) => {
+        console.log(`Dialog result: ${result}`);
+      });
+    }
   }
   OpenEdit(settingID) {
     const dialogRef = this.dialog.open(AddSettingsComponent, {
