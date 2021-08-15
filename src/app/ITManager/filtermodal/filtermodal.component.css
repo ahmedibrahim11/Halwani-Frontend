@@ -4,6 +4,8 @@
   padding: 14px 27px 181px 18px;
   border-radius: 6px;
   background-color: #ffffff;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 .filter-title-container{
   display: flex;
