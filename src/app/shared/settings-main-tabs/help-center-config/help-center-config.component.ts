@@ -410,8 +410,6 @@ export class HelpCenterConfigComponent implements OnInit {
   }
   helpcenter: FormGroup = new FormGroup({ name: new FormControl() });
   ngOnInit(): void {
-    this.subscriptionName.unsubscribe();
-
     this.http
       .POST('RequestType/list', {
         searchText: [],
@@ -441,98 +439,199 @@ export class HelpCenterConfigComponent implements OnInit {
     this.service.getValue().subscribe((value) => {
       debugger;
       this.flag = value;
-      debugger;
-      if (this.flag === true && this.filterPreservingData != null) {
-        //this.pageLength = this.pageLength + 1;
-        this.http
-          .POST('RequestType/list', {
-            searchText: [],
-            pageSize: this.pageLength,
-            pageNumber: this.pageIndex,
-            isPrint: false,
-            filter: {
-              team: this.filterPreservingData.team.value,
-              groupID: this.filterPreservingData.group.value,
-              severity: this.filterPreservingData.severity.value,
-              ticketType: this.filterPreservingData.ticketType.value,
-              priority: this.filterPreservingData.priority.value,
-            },
-            sortValue: 0,
-          })
-          .subscribe((res) => {
-            if (res.totalCount !== 0) {
-              this.showSpinner = false;
-              this.spinner.setSpinnerValue(this.showSpinner);
-              this.dataLoaded = true;
-              this.pageLength = res.totalCount;
-              this.empty = false;
+      if (this.flag === true) {
+        this.pageLength = this.pageLength + 1;
+        if (this.filterPreservingData != null) {
+          this.http
+            .POST('RequestType/list', {
+              searchText: [],
+              pageSize: this.pageLength,
+              pageNumber: this.pageIndex,
+              isPrint: false,
+              filter: {
+                team: this.filterPreservingData.team.value,
+                groupID: this.filterPreservingData.group.value,
+                severity: this.filterPreservingData.severity.value,
+                ticketType: this.filterPreservingData.ticketType.value,
+                priority: this.filterPreservingData.priority.value,
+              },
+              sortValue: 0,
+            })
+            .subscribe((res) => {
+              if (res.totalCount !== 0) {
+                this.showSpinner = false;
+                this.spinner.setSpinnerValue(this.showSpinner);
+                this.dataLoaded = true;
+                this.pageLength = res.totalCount;
+                this.empty = false;
 
-              console.log('resulttttt', res.pageData);
-              let usersData = res.pageData;
-              this.UserViewInfoObject = usersData.map((el) => {
-                return {
-                  id: el['id'],
-                  name: el['title'],
-                  description: el['description'],
-                  group: el['group'],
-                  ticketType: el['ticketType'],
-                  initials: this.initials(el['team']),
-                  team: el['team'],
-                  isVisable: el['isVisable'],
-                };
-              });
-              this.getRedMenuCharacters(this.usersName);
+                console.log('resulttttt', res.pageData);
+                let usersData = res.pageData;
+                this.UserViewInfoObject = usersData.map((el) => {
+                  return {
+                    id: el['id'],
+                    name: el['title'],
+                    description: el['description'],
+                    group: el['group'],
+                    ticketType: el['ticketType'],
+                    initials: this.initials(el['team']),
+                    team: el['team'],
+                    isVisable: el['isVisable'],
+                  };
+                });
+                this.getRedMenuCharacters(this.usersName);
 
-              this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-              this.setDataSourceAttributes();
-            } else {
-              this.dataLoaded = false;
-              this.empty = true;
-              this.showSpinner = false;
-            }
-          });
+                this.dataSource = new MatTableDataSource(
+                  this.UserViewInfoObject
+                );
+                this.setDataSourceAttributes();
+              } else {
+                this.dataLoaded = false;
+                this.empty = true;
+                this.showSpinner = false;
+              }
+            });
+        } else {
+          this.http
+            .POST('RequestType/list', {
+              searchText: [],
+              pageSize: this.pageLength,
+              pageNumber: this.pageIndex,
+              isPrint: false,
+              filter: {},
+              sortValue: 0,
+            })
+            .subscribe((res) => {
+              if (res.totalCount !== 0) {
+                this.showSpinner = false;
+                this.spinner.setSpinnerValue(this.showSpinner);
+                this.dataLoaded = true;
+                this.pageLength = res.totalCount;
+                this.empty = false;
+
+                console.log('resulttttt', res.pageData);
+                let usersData = res.pageData;
+                this.UserViewInfoObject = usersData.map((el) => {
+                  return {
+                    id: el['id'],
+                    name: el['title'],
+                    description: el['description'],
+                    group: el['group'],
+                    ticketType: el['ticketType'],
+                    initials: this.initials(el['team']),
+                    team: el['team'],
+                    isVisable: el['isVisable'],
+                  };
+                });
+                this.getRedMenuCharacters(this.usersName);
+
+                this.dataSource = new MatTableDataSource(
+                  this.UserViewInfoObject
+                );
+                this.setDataSourceAttributes();
+              } else {
+                this.dataLoaded = false;
+
+                this.showSpinner = false;
+              }
+            });
+        }
       } else {
-        this.http
-          .POST('RequestType/list', {
-            searchText: [],
-            pageSize: this.pageLength,
-            pageNumber: this.pageIndex,
-            isPrint: false,
-            filter: {},
-            sortValue: 0,
-          })
-          .subscribe((res) => {
-            if (res.totalCount !== 0) {
-              this.showSpinner = false;
-              this.spinner.setSpinnerValue(this.showSpinner);
-              this.dataLoaded = true;
-              this.pageLength = res.totalCount;
-              this.empty = false;
+        if (this.filterPreservingData != null) {
+          this.http
+            .POST('RequestType/list', {
+              searchText: [],
+              pageSize: this.pageLength,
+              pageNumber: this.pageIndex,
+              isPrint: false,
+              filter: {
+                team: this.filterPreservingData.team.value,
+                groupID: this.filterPreservingData.group.value,
+                severity: this.filterPreservingData.severity.value,
+                ticketType: this.filterPreservingData.ticketType.value,
+                priority: this.filterPreservingData.priority.value,
+              },
+              sortValue: 0,
+            })
+            .subscribe((res) => {
+              if (res.totalCount !== 0) {
+                this.showSpinner = false;
+                this.spinner.setSpinnerValue(this.showSpinner);
+                this.dataLoaded = true;
+                this.pageLength = res.totalCount;
+                this.empty = false;
 
-              console.log('resulttttt', res.pageData);
-              let usersData = res.pageData;
-              this.UserViewInfoObject = usersData.map((el) => {
-                return {
-                  id: el['id'],
-                  name: el['title'],
-                  description: el['description'],
-                  group: el['group'],
-                  ticketType: el['ticketType'],
-                  initials: this.initials(el['team']),
-                  team: el['team'],
-                  isVisable: el['isVisable'],
-                };
-              });
-              this.getRedMenuCharacters(this.usersName);
+                console.log('resulttttt', res.pageData);
+                let usersData = res.pageData;
+                this.UserViewInfoObject = usersData.map((el) => {
+                  return {
+                    id: el['id'],
+                    name: el['title'],
+                    description: el['description'],
+                    group: el['group'],
+                    ticketType: el['ticketType'],
+                    initials: this.initials(el['team']),
+                    team: el['team'],
+                    isVisable: el['isVisable'],
+                  };
+                });
+                this.getRedMenuCharacters(this.usersName);
 
-              this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-              this.setDataSourceAttributes();
-            } else {
-              this.dataLoaded = false;
+                this.dataSource = new MatTableDataSource(
+                  this.UserViewInfoObject
+                );
+                this.setDataSourceAttributes();
+              } else {
+                this.dataLoaded = false;
+                this.empty = true;
+                this.showSpinner = false;
+              }
+            });
+        } else {
+          this.http
+            .POST('RequestType/list', {
+              searchText: [],
+              pageSize: this.pageLength,
+              pageNumber: this.pageIndex,
+              isPrint: false,
+              filter: {},
+              sortValue: 0,
+            })
+            .subscribe((res) => {
+              if (res.totalCount !== 0) {
+                this.showSpinner = false;
+                this.spinner.setSpinnerValue(this.showSpinner);
+                this.dataLoaded = true;
+                this.pageLength = res.totalCount;
+                this.empty = false;
 
-              this.showSpinner = false;
-            }
-          });
+                console.log('resulttttt', res.pageData);
+                let usersData = res.pageData;
+                this.UserViewInfoObject = usersData.map((el) => {
+                  return {
+                    id: el['id'],
+                    name: el['title'],
+                    description: el['description'],
+                    group: el['group'],
+                    ticketType: el['ticketType'],
+                    initials: this.initials(el['team']),
+                    team: el['team'],
+                    isVisable: el['isVisable'],
+                  };
+                });
+                this.getRedMenuCharacters(this.usersName);
+
+                this.dataSource = new MatTableDataSource(
+                  this.UserViewInfoObject
+                );
+                this.setDataSourceAttributes();
+              } else {
+                this.dataLoaded = false;
+
+                this.showSpinner = false;
+              }
+            });
+        }
       }
     });
   }
