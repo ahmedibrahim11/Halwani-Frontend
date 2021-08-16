@@ -27,7 +27,7 @@ export function MSALInstanceFactory(): IPublicClientApplication {
   debugger;
   return new PublicClientApplication({
     auth: {
-      clientId: '17272d07-ae51-425d-a6e3-e0ca114adc47',
+      clientId: '35c2f7e6-ed49-45d9-9f12-f5373e0df0ca',
       authority:
         'https://login.microsoftonline.com/1213517f-fdb5-4592-9934-471910b55de2',
       redirectUri: 'https://halwani-frontend-live.azurewebsites.net/',
