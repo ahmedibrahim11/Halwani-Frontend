@@ -5,6 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Validators } from 'ngx-editor';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
+import { SupportTypes } from 'src/app/core/DTOs/userRequestViewModel';
+
 import { ToastMessageComponent } from 'src/app/ITPersonal/toast-message/toast-message.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -78,18 +80,41 @@ export class AskForSupportComponent implements OnInit {
     public dialog: MatDialog
   ) {}
 
+  filterHandler(value: any) {
+    let type = Number(
+      Object.keys(SupportTypes).find((s) => SupportTypes[s] === value.value)
+    );
+    console.log('men dh', type);
+  }
+
+  types = [];
   ngOnInit(): void {
     this.createReport = this.formBuilder.group({
-      text: ['', [Validators.required]],
+      supportType: ['', [Validators.required]],
+      text: [''],
     });
+    console.log('supppp', this.createReport.value.supportType);
+
+    const priVal = Object.keys(SupportTypes).filter(
+      (k) => typeof SupportTypes[k as any] === 'number'
+    );
+    const priKeys = Object.keys(SupportTypes).filter(
+      (k) => typeof SupportTypes[k as any] === 'string'
+    );
+    for (let i = 0; i < priVal.length; i++) {
+      this.types.push({ text: priVal[i], value: Number(priKeys[i]) });
+    }
   }
   durationInSeconds: any = 3;
   reportaBug() {
     this.createloader = true;
 
-    console.log(this.createReport.value);
+    console.log('form valuees', this.createReport.value);
     this.http
-      .PUT('UserRequest/AskForSupport', { text: this.createReport.value.text })
+      .PUT('UserRequest/AskForSupport', {
+        text: this.createReport.value.text,
+        userRequestType: this.createReport.value.supportType,
+      })
       .subscribe((res) => {
         this.createloader = false;
 

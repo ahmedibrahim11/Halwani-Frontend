@@ -1,0 +1,17 @@
+.mat-icon{
+    font-size: 60px;
+    margin-bottom: 5rem;
+    display: contents;
+    text-align: center;
+}
+.error-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    top: 20%;
+    left: 10%;
+    width: 70%;
+    padding: 50px;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+}

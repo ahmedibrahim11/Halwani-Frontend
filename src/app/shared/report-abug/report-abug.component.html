@@ -2,20 +2,82 @@
   <h1 mat-dialog-title class="Create-setting">Report A Bug</h1>
   <mat-icon (click)="closeModal()" class="icon">close</mat-icon>
 </div>
-<p style="opacity: 0.7; margin-bottom: 0.5rem; display: block">
+<!-- <p style="opacity: 0.7; margin-bottom: 0.5rem; display: block">
   If you're facing any troubles you can contact us for support
 </p>
 <p style="opacity: 0.7">
   The content written in the bellow text Area to be sent as Email Body for
   support team
-</p>
-<form [formGroup]="createReport">
+</p> -->
+<!-- <form [formGroup]="createReport">
   <mat-dialog-content class="mat-typography">
     <angular-editor
       [config]="editorConfig"
       formControlName="text"
     ></angular-editor>
   </mat-dialog-content>
+</form> -->
+<form
+  [formGroup]="createReport"
+  style="display: flex; flex-direction: column; width: 100%"
+>
+  <mat-label style="margin-top: 1rem"
+    >Overall Experience <span style="color: #ed1c24">*</span></mat-label
+  >
+  <div class="user-status-icons">
+    <img
+      src="assets/veryangry.svg"
+      class="image-feedback"
+      [ngClass]="firstStatusImg ? 'selected-img' : 'image-feedback'"
+      (click)="imageStatusHandler(0)"
+    />
+    <img
+      src="assets/angry.svg"
+      class="image-feedback"
+      [ngClass]="secondStatusImg ? 'selected-img' : 'image-feedback'"
+      (click)="imageStatusHandler(1)"
+    /><img
+      src="assets/good.svg"
+      class="image-feedback"
+      [ngClass]="thirdStatusImg ? 'selected-img' : 'image-feedback'"
+      (click)="imageStatusHandler(2)"
+    /><img
+      src="assets/happy.svg"
+      class="image-feedback"
+      [ngClass]="fourthStatusImg ? 'selected-img' : 'image-feedback'"
+      (click)="imageStatusHandler(3)"
+    /><img
+      src="assets/veryhappy.svg"
+      class="image-feedback"
+      [ngClass]="fifthStatusImg ? 'selected-img' : 'image-feedback'"
+      (click)="imageStatusHandler(4)"
+    />
+  </div>
+
+  <mat-label style="margin-top: 1rem"
+    >What are you reporting? <span style="color: #ed1c24">*</span></mat-label
+  >
+
+  <mat-form-field appearance="fill">
+    <mat-select
+      formControlName="supportType"
+      (selectionChange)="filterHandler($event)"
+    >
+      <mat-option *ngFor="let type of types" [value]="type['value']">{{
+        type["text"]
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-label style="margin-top: 1rem">Tell Us More</mat-label>
+  <mat-form-field appearance="fill" [style.width.%]="100">
+    <textarea rows="7" matInput formControlName="text"></textarea>
+  </mat-form-field>
+  <!-- <mat-dialog-content class="mat-typography">
+    <angular-editor
+      [config]="editorConfig"
+      formControlName="text"
+    ></angular-editor>
+  </mat-dialog-content> -->
 </form>
 
 <mat-dialog-actions align="end">
@@ -34,7 +96,7 @@
       mat-button
       class="send"
       type="button"
-      [disabled]="!createReport.valid"
+      [disabled]="!createReport.valid || choosenImg === -1"
       (click)="reportaBug()"
     >
       Send
