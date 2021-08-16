@@ -75,6 +75,7 @@ export class CreateTicketComponent implements OnInit {
         el.requestTypes
           .filter((x) => x.id === this.typeID)
           .map((el) => {
+            debugger;
             this.type = {
               id: el.id,
               name: el.text,
@@ -82,6 +83,8 @@ export class CreateTicketComponent implements OnInit {
               ticketType: el.ticketType,
               description: el.description,
               team: el.defaultTeam,
+              priority:el.priority,
+              ticketSeverity:el.ticketSeverity
             };
             console.log(this.type);
           })
@@ -180,6 +183,9 @@ export class CreateTicketComponent implements OnInit {
     this.createTicketDTO.teamName = this.type.team;
     this.createTicketDTO.requestTypeId =
       this.createTicketDTOFormGroup.value.ticketType;
+    this.createTicketDTO.priority=this.type.priority;
+    this.createTicketDTO.ticketSeverity=this.type.ticketSeverity;
+
     console.log('CreateTicket Dto', this.createTicketDTO);
     var requestData = JSON.stringify(this.createTicketDTO);
     this.formData.append('data', requestData);
