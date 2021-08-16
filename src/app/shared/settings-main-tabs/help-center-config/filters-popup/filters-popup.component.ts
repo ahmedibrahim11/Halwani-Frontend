@@ -37,23 +37,23 @@ export class FiltersPopupComponent implements OnInit {
     let key = filterKey;
 
     this.filterObject[key] = filterValue.value;
-   
-      // this.http
-      //   .POST('RequestType/list', {
-      //     searchText: [],
-      //     pageSize: this.pageSize,
-      //     pageNumber: this.pageIndex,
-      //     isPrint: false,
-      //     filter: this.filterObject,
-      //     sortValue: 0,
-      //   })
-      //   .subscribe((res) => {
-      //     console.log('wreeeeny', res);
-      //     this.common.sendUpdate(res);
-          
-      //   });
-   
-console.log(this.team)
+
+    // this.http
+    //   .POST('RequestType/list', {
+    //     searchText: [],
+    //     pageSize: this.pageSize,
+    //     pageNumber: this.pageIndex,
+    //     isPrint: false,
+    //     filter: this.filterObject,
+    //     sortValue: 0,
+    //   })
+    //   .subscribe((res) => {
+    //     console.log('wreeeeny', res);
+    //     this.common.sendUpdate(res);
+
+    //   });
+
+    console.log(this.team);
   }
 
   sendFiltersObject() {
@@ -111,7 +111,6 @@ console.log(this.team)
         console.log('wreeeeny', res);
         console.log('clearing', res);
         this.common.sendUpdate(res);
-        this.dialogRef.close(null);
       });
   }
 
