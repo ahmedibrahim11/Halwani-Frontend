@@ -504,7 +504,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-ddl">
+        <div class="col-ddl" *ngIf="showSecondCategory">
           <label class="Ticket-type" style="margin-bottom: 2.2rem"></label>
           <mat-form-field [style.width.%]="100" appearance="fill">
             <mat-label>{{ categoryName2 }}</mat-label>

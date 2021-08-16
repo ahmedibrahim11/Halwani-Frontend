@@ -213,7 +213,6 @@ export class AddSettingsComponent implements OnInit {
   }
   public submitCreateSetting() {
     this.createloader = true;
-
     debugger;
     console.log(this.createSettingsFormGroup.value);
     this.settingDTO.description =
@@ -221,7 +220,8 @@ export class AddSettingsComponent implements OnInit {
     this.settingDTO.name = this.createSettingsFormGroup.value.name;
     this.settingDTO.teamName = this.createSettingsFormGroup.value.team;
     this.settingDTO.priority = this.createSettingsFormGroup.value.priority;
-    this.settingDTO.severity = this.createSettingsFormGroup.value.severity;
+    this.settingDTO.severity = this.createSettingsFormGroup.value.sevirity;
+    debugger;
     this.settingDTO.ticketType = this.createSettingsFormGroup.value.type;
     this.settingDTO.groupIds = this.createSettingsFormGroup.value.groups;
     var requestData = JSON.stringify(this.settingDTO);
@@ -259,7 +259,7 @@ export class AddSettingsComponent implements OnInit {
     this.settingDTO.name = this.UpdateSettingsFormGroup.value.name;
     this.settingDTO.teamName = this.UpdateSettingsFormGroup.value.team;
     this.settingDTO.priority = this.UpdateSettingsFormGroup.value.priority;
-    this.settingDTO.severity = this.UpdateSettingsFormGroup.value.severity;
+    this.settingDTO.severity = this.UpdateSettingsFormGroup.value.sevirity;
     this.settingDTO.ticketType = this.UpdateSettingsFormGroup.value.type;
     this.settingDTO.groupIds = this.checkArray.value;
     this.settingDTO.id = this.settingID;
