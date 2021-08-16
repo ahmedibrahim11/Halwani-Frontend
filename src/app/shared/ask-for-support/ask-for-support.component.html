@@ -2,20 +2,41 @@
   <h1 mat-dialog-title class="Create-setting">Ask For Support</h1>
   <mat-icon (click)="closeModal()" class="icon">close</mat-icon>
 </div>
-<p style="opacity: 0.7; margin-bottom: 0.5rem; display: block">
+<!-- <p style="opacity: 0.7; margin-bottom: 0.5rem; display: block">
   If you need clarification for any feateure usage ,you can contact support team
 </p>
 <p style="opacity: 0.7">
   The content written in the bellow text Area to be sent as Email Body for
   support team
-</p>
-<form [formGroup]="createReport">
-  <mat-dialog-content class="mat-typography">
+</p> -->
+<form
+  [formGroup]="createReport"
+  style="display: flex; flex-direction: column; width: 100%"
+>
+  <mat-label style="margin-top: 1rem"
+    >Topic Of Support <span style="color: #ed1c24">*</span></mat-label
+  >
+
+  <mat-form-field appearance="fill">
+    <mat-select
+      formControlName="supportType"
+      (selectionChange)="filterHandler($event)"
+    >
+      <mat-option *ngFor="let type of types" [value]="type['value']">{{
+        type["text"]
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-label style="margin-top: 1rem">Tell Us More</mat-label>
+  <mat-form-field appearance="fill" [style.width.%]="100">
+    <textarea rows="7" matInput formControlName="text"></textarea>
+  </mat-form-field>
+  <!-- <mat-dialog-content class="mat-typography">
     <angular-editor
       [config]="editorConfig"
       formControlName="text"
     ></angular-editor>
-  </mat-dialog-content>
+  </mat-dialog-content> -->
 </form>
 <mat-dialog-actions align="end">
   <div *ngIf="createloader === true; then spinner; else btn"></div>
@@ -33,7 +54,7 @@
       mat-button
       class="send"
       type="button"
-      [disabled]="!createReport.valid"
+      [disabled]="createReport.value.supportType === ''"
       (click)="reportaBug()"
     >
       Send

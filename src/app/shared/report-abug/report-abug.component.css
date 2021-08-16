@@ -46,3 +46,18 @@
 .icon:hover {
   cursor: pointer;
 }
+.user-status-icons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.image-feedback{
+  cursor: pointer;
+}
+.image-feedback:active{
+  transform: scale(1.3);
+}
+.selected-img{
+  border: .2rem solid red;
+  border-radius: .2rem;
+}

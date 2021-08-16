@@ -17,6 +17,10 @@
   display: flex;
   flex-direction: row;
 }
+.sub-title-side {
+  font-size: 14px;
+  font-weight: bolder;
+}
 .icon-img {
   width: 24px;
   height: 24px;
