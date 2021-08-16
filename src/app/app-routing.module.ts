@@ -32,6 +32,7 @@ import { UserDetailsComponent } from './UserPersonal/user-details/user-details.c
 import { TicketEsclationsComponent } from './ITManager/ticket-esclations/ticket-esclations.component';
 import { MsalGuard } from '@azure/msal-angular';
 import { SharedComponent } from './shared/shared.component';
+import { ErrorMessageComponent } from './shared/error-message/error-message.component';
 const routes: Routes = [
   {
     path: 'itpersonal',
@@ -157,8 +158,7 @@ const routes: Routes = [
   },
   { path: '', component: SharedComponent, canActivate: [MsalGuard] },
   { path: 'login', component: LoginComponent },
-
-
+  { path: 'unauthorized', component: ErrorMessageComponent },
 ];
 
 @NgModule({

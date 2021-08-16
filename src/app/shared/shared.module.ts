@@ -27,6 +27,7 @@ import { AskForSupportComponent } from './ask-for-support/ask-for-support.compon
 import { UserManagementComponent } from './settings-main-tabs/user-management/user-management.component';
 import { SetInvisibleConfirmationComponent } from './settings-main-tabs/product-category-settings/set-invisible-confirmation/set-invisible-confirmation.component';
 import { SetVisibleConfirmationComponent } from './settings-main-tabs/product-category-settings/set-visible-confirmation/set-visible-confirmation.component';
+import { ErrorMessageComponent } from './error-message/error-message.component';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -48,6 +49,7 @@ import { SetVisibleConfirmationComponent } from './settings-main-tabs/product-ca
     UserManagementComponent,
     SetInvisibleConfirmationComponent,
     SetVisibleConfirmationComponent,
+    ErrorMessageComponent,
   ],
   imports: [
     CommonModule,
