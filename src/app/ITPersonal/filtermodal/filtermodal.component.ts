@@ -253,17 +253,17 @@ export class FiltermodalComponent implements OnInit {
         this.priorities.setValue(priorityValue);
         this.ticketDate = data.date;
         this.filterObject = {
-          location: data.location,
-          source: data.source === '' ? null : data.source,
+          location: data.location === '' ? undefined : data.location,
+          source: data.source === '' ? undefined : data.source,
           state:
-            this.status != null
+            this.status != undefined
               ? this.status
               : data.state === ''
-              ? null
+              ? undefined
               : data.state,
-          severity: data.severity === '' ? null : data.severity,
-          priority: data.priority === '' ? null : data.priority,
-          date: data.date === '' ? null : data.date,
+          severity: data.severity === '' ? undefined : data.severity,
+          priority: data.priority === '' ? undefined : data.priority,
+          date: data.date === '' ? undefined : data.date,
           submitterName: this.submitterName,
         };
       });

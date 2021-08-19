@@ -78,6 +78,7 @@ export class AllTableComponentComponent implements OnInit {
           ticketCategory: el['requestType']['ticketType'],
           ticketNumber: el['ticketNumber'],
           Sevirity: el['severity'],
+          status: this.getStatusKey(el),
         };
       });
       this.pageLength = data.totalCount;
