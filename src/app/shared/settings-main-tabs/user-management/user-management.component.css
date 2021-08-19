@@ -13,16 +13,21 @@
     justify-content: flex-start;
     width: 10%;
     height: 6%;
+    cursor: pointer;
     margin-left: 60%;
     flex-grow: unset;
     display: flex;
     flex-direction: row;
     justify-content: center;
     padding: 10px;
+    border: none;
     border-radius: 6px;
+    color: #c4161c;
+    margin-top: 1%;
+  }
+  .send:hover{
     background-color: #c4161c;
     color: white;
-    margin-top: 1%;
   }
   
   
