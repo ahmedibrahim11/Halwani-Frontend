@@ -10,6 +10,7 @@ import {
   TicketListingDTO,
   TicketCategoryEnum,
   SevirityEnum,
+  StatusEnum,
 } from '../../core/DTOs/ticketListingDTO';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
@@ -131,7 +132,7 @@ export class AllTableComponentComponent implements OnInit {
               createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['requestType']['name'],
               ticketNumber: el['ticketNumber'],
-
+              status: this.getStatusKey(el),
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
@@ -167,7 +168,7 @@ export class AllTableComponentComponent implements OnInit {
               createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['requestType']['name'],
               ticketNumber: el['ticketNumber'],
-
+              status: this.getStatusKey(el),
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
@@ -199,7 +200,7 @@ export class AllTableComponentComponent implements OnInit {
               name: el['rasiedBy']['name'],
               email: el['rasiedBy']['email'],
               ticketNumber: el['ticketNumber'],
-
+              status: this.getStatusKey(el),
               createdDate: cerationDate.toDateString(),
               createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['requestType']['name'],
@@ -284,7 +285,7 @@ export class AllTableComponentComponent implements OnInit {
             name: el['rasiedBy']['name'],
             email: el['rasiedBy']['email'],
             ticketNumber: el['ticketNumber'],
-
+            status: this.getStatusKey(el),
             createdDate: cerationDate.toDateString(),
             createdTime: cerationDate.toLocaleTimeString(),
             ticketTopic: el['requestType']['name'],
@@ -303,6 +304,7 @@ export class AllTableComponentComponent implements OnInit {
     'createdDate',
     'ticketCategory',
     'Sevirity',
+    'status',
     'ticketNumber',
     'Actions',
   ];
@@ -408,10 +410,11 @@ export class AllTableComponentComponent implements OnInit {
               email: el['rasiedBy']['email'],
               createdDate: cerationDate.toDateString(),
               createdTime: cerationDate.toLocaleTimeString(),
-              tticketTopic: el['requestType']['name'],
+              ticketTopic: el['requestType']['name'],
               ticketNumber: el['ticketNumber'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
+              status: this.getStatusKey(el),
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -429,7 +432,19 @@ export class AllTableComponentComponent implements OnInit {
       console.log(changes.ticketName.currentValue);
     }
   }
-
+  statusKey: any;
+  getStatusKey(list) {
+    const statVal = Object.keys(StatusEnum).filter(
+      (k) => typeof StatusEnum[k as any] === 'number'
+    );
+    const statKeys = Object.keys(StatusEnum).filter(
+      (k) => typeof StatusEnum[k as any] === 'string'
+    );
+    for (let i = 0; i < statKeys.length; i++) {
+      if (statKeys[i] == list.status) this.statusKey = statVal[i];
+    }
+    return this.statusKey;
+  }
   onSelectionChanged(event: MatAutocompleteSelectedEvent) {
     console.log('event: option selected is ', event.option.value);
     this.optionSelected.emit(event);
@@ -459,10 +474,10 @@ export class AllTableComponentComponent implements OnInit {
             name: el['rasiedBy']['name'],
             email: el['rasiedBy']['email'],
             ticketNumber: el['ticketNumber'],
-
+            status: this.getStatusKey(el),
             createdDate: cerationDate.toDateString(),
             createdTime: cerationDate.toLocaleTimeString(),
-            tticketTopic: el['requestType']['name'],
+            ticketTopic: el['requestType']['name'],
             ticketCategory: el['requestType']['ticketType'],
             Sevirity: el['severity'],
           };
@@ -533,7 +548,7 @@ export class AllTableComponentComponent implements OnInit {
                   ticketTopic: el['requestType']['name'],
                   ticketCategory: el['requestType']['ticketType'],
                   ticketNumber: el['ticketNumber'],
-
+                  status: this.getStatusKey(el),
                   Sevirity: el['severity'],
                 };
               });
@@ -586,7 +601,7 @@ export class AllTableComponentComponent implements OnInit {
                   ticketTopic: el['requestType']['name'],
                   ticketCategory: el['requestType']['ticketType'],
                   ticketNumber: el['ticketNumber'],
-
+                  status: this.getStatusKey(el),
                   Sevirity: el['severity'],
                 };
               });
