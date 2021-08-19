@@ -314,7 +314,6 @@ export class CreateTicketPopupComponent implements OnInit {
       this.createTicketDTOFormGroup.value.description;
     this.createTicketDTO.productCategoryName1 =
       this.createTicketDTOFormGroup.value.productCategoryName1.toString();
-      debugger;
       if( this.createTicketDTO.productCategoryName2!=undefined){
         this.createTicketDTO.productCategoryName2 =
         this.createTicketDTOFormGroup.value.productCategoryName2.toString();
@@ -395,6 +394,11 @@ export class CreateTicketPopupComponent implements OnInit {
       this.updateTicketDTOFormGroup.value.description;
     this.updateTicketDto.productCategoryName1 =
       this.updateTicketDTOFormGroup.value.categoryName1.toString();
+
+      if( this.updateTicketDto.productCategoryName2!=undefined){
+        this.updateTicketDto.productCategoryName2 =
+        this.updateTicketDTOFormGroup.value.productCategoryName2.toString();
+      }
     this.updateTicketDto.productCategoryName2 =
       this.updateTicketDTOFormGroup.value.categoryName2.toString();
     this.updateTicketDto.location =
