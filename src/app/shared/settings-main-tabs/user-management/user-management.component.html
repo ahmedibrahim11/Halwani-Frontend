@@ -1,11 +1,45 @@
-<div style="margin-left: 25%; margin-top: 5%;">
-  <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event, 0)" class="upload-drop-zone">
-    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+<div style="margin-left: 25%; margin-top: 5%">
+  <ngx-file-drop
+    dropZoneLabel="Drop files here"
+    (onFileDrop)="dropped($event, 0)"
+    class="upload-drop-zone"
+  >
+    <ng-template
+      ngx-file-drop-content-tmp
+      let-openFileSelector="openFileSelector"
+    >
       Drag and drop files, paste screenshots, or upload attachments
-      <button type="button" class="cancel" style="display: block; margin-top: 1.5rem" (click)="openFileSelector()">
+      <button
+        type="button"
+        class="cancel"
+        style="display: block; margin-top: 1.5rem"
+        (click)="openFileSelector()"
+      >
         Browse Files
       </button>
     </ng-template>
   </ngx-file-drop>
 </div>
-<button class="send" (click)="submitFile()">Manage Users</button>
+<div
+  style="
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 70%;
+  "
+>
+  <div *ngIf="createloader === true; then spinner; else btn"></div>
+  <ng-template #spinner>
+    <mat-spinner
+      style="display: flex; justify-content: center; text-align: center"
+      class="mt-5"
+      color="warn"
+      [diameter]="30"
+    ></mat-spinner>
+  </ng-template>
+  <ng-template #btn>
+    <button class="send" (click)="submitFile()">
+      Manage Users
+    </button></ng-template
+  >
+</div>
