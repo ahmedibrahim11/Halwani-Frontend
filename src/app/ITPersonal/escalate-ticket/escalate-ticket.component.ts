@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
+import { TicketCreationService } from 'src/app/core/services/ticket-creation.service';
 import { ToastMessageComponent } from '../toast-message/toast-message.component';
 
 @Component({
@@ -23,6 +24,7 @@ export class EscalateTicketComponent implements OnInit {
     public dialog: MatDialog,
     private share: SharingdataService,
     private http: HTTPMainServiceService,
+    private service: TicketCreationService,
     private _snackBar: MatSnackBar
   ) {}
 
@@ -49,7 +51,7 @@ export class EscalateTicketComponent implements OnInit {
       })
       .subscribe((res) => {
         this.createloader = false;
-
+        this.service.setValue(true);
         console.log(res);
         this._snackBar.openFromComponent(ToastMessageComponent, {
           duration: this.durationInSeconds * 1000,

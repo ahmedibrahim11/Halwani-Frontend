@@ -5,6 +5,7 @@ import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastMessageComponent } from '../toast-message/toast-message.component';
+import { TicketCreationService } from 'src/app/core/services/ticket-creation.service';
 
 @Component({
   selector: 'app-cancel-ticket',
@@ -18,6 +19,7 @@ export class CancelTicketComponent implements OnInit {
     private http: HTTPMainServiceService,
     private share: SharingdataService,
     public dialog: MatDialog,
+    private service: TicketCreationService,
     private _snackBar: MatSnackBar
   ) {}
 
@@ -36,7 +38,7 @@ export class CancelTicketComponent implements OnInit {
       })
       .subscribe((res) => {
         this.createloader = false;
-
+        this.service.setValue(true);
         console.log(res);
         this._snackBar.openFromComponent(ToastMessageComponent, {
           duration: this.durationInSeconds * 1000,

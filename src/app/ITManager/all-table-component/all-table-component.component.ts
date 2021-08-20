@@ -11,6 +11,7 @@ import {
   TicketListingDTO,
   TicketCategoryEnum,
   SevirityEnum,
+  StatusEnum,
 } from '../../core/DTOs/ticketListingDTO';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
@@ -77,6 +78,7 @@ export class AllTableComponentComponent implements OnInit {
           ticketCategory: el['requestType']['ticketType'],
           ticketNumber: el['ticketNumber'],
           Sevirity: el['severity'],
+          status: this.getStatusKey(el),
         };
       });
       this.pageLength = data.totalCount;
@@ -91,6 +93,19 @@ export class AllTableComponentComponent implements OnInit {
     this.subscriptionName.unsubscribe();
   }
 
+  statusKey: any;
+  getStatusKey(list) {
+    const statVal = Object.keys(StatusEnum).filter(
+      (k) => typeof StatusEnum[k as any] === 'number'
+    );
+    const statKeys = Object.keys(StatusEnum).filter(
+      (k) => typeof StatusEnum[k as any] === 'string'
+    );
+    for (let i = 0; i < statKeys.length; i++) {
+      if (statKeys[i] == list.status) this.statusKey = statVal[i];
+    }
+    return this.statusKey;
+  }
   pageLength: any = 5;
   pageSize: any = 5;
   pageIndex: any = 0;
@@ -116,6 +131,7 @@ export class AllTableComponentComponent implements OnInit {
           this.pageLength = res.totalCount;
           this.UserViewInfoObject = usersData.map((el) => {
             const cerationDate = new Date(el['creationDate']);
+
             return {
               id: el['id'],
               initials: this.initials(el['rasiedBy']['name']),
@@ -128,6 +144,7 @@ export class AllTableComponentComponent implements OnInit {
               teamName: el['teamName'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
+              status: this.getStatusKey(el),
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -164,6 +181,7 @@ export class AllTableComponentComponent implements OnInit {
               teamName: el['teamName'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
+              status: this.getStatusKey(el),
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -198,6 +216,7 @@ export class AllTableComponentComponent implements OnInit {
               teamName: el['teamName'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
+              status: this.getStatusKey(el),
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -282,6 +301,7 @@ export class AllTableComponentComponent implements OnInit {
             ticketCategory: el['requestType']['ticketType'],
             Sevirity: el['severity'],
             ticketNumber: el['ticketNumber'],
+            status: this.getStatusKey(el),
           };
         });
         console.log(this.UserViewInfoObject);
@@ -295,6 +315,7 @@ export class AllTableComponentComponent implements OnInit {
     'createdDate',
     'ticketCategory',
     'Sevirity',
+    'status',
     'ticketNumber',
     'Actions',
   ];
@@ -357,10 +378,11 @@ export class AllTableComponentComponent implements OnInit {
                   teamName: el['teamName'],
                   createdDate: cerationDate.toDateString(),
                   createdTime: cerationDate.toLocaleTimeString(),
-                  tticketTopic: el['requestType']['name'],
+                  ticketTopic: el['requestType']['name'],
                   ticketCategory: el['requestType']['ticketType'],
                   Sevirity: el['severity'],
                   ticketNumber: el['ticketNumber'],
+                  status: this.getStatusKey(el),
                 };
               });
               this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -409,9 +431,10 @@ export class AllTableComponentComponent implements OnInit {
               ticketNumber: el['ticketNumber'],
               teamName: el['teamName'],
               createdTime: cerationDate.toLocaleTimeString(),
-              tticketTopic: el['requestType']['name'],
+              ticketTopic: el['requestType']['name'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
+              status: this.getStatusKey(el),
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -477,11 +500,12 @@ export class AllTableComponentComponent implements OnInit {
               email: el['rasiedBy']['email'],
               createdDate: cerationDate.toDateString(),
               createdTime: cerationDate.toLocaleTimeString(),
-              tticketTopic: el['requestType']['name'],
+              ticketTopic: el['requestType']['name'],
               ticketNumber: el['ticketNumber'],
               teamName: el['teamName'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
+              status: this.getStatusKey(el),
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -532,6 +556,7 @@ export class AllTableComponentComponent implements OnInit {
 
             ticketCategory: el['requestType']['ticketType'],
             Sevirity: el['severity'],
+            status: this.getStatusKey(el),
           };
         });
         this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -602,6 +627,7 @@ export class AllTableComponentComponent implements OnInit {
                   ticketTopic: el['requestType']['name'],
                   ticketCategory: el['requestType']['ticketType'],
                   Sevirity: el['severity'],
+                  status: this.getStatusKey(el),
                 };
               });
               this.getRedMenuCharacters(this.usersName);
@@ -654,6 +680,7 @@ export class AllTableComponentComponent implements OnInit {
                   ticketCategory: el['requestType']['ticketType'],
                   ticketNumber: el['ticketNumber'],
                   Sevirity: el['severity'],
+                  status: this.getStatusKey(el),
                 };
               });
               this.getRedMenuCharacters(this.usersName);

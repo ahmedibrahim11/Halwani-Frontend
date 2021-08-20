@@ -1,4 +1,47 @@
 @import "~bootstrap/dist/css/bootstrap.css";
+::-webkit-input-placeholder {
+  /* WebKit browsers */
+
+  position: absolute;
+  top: 40%;
+  left: 2%;
+  position: 0 0;
+  height: 100px;
+  width: 400px;
+}
+
+:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+
+  position: absolute;
+ top: 40%;
+ left: 2%;
+  position: 0 0;
+  height: 100px;
+  width: 400px;
+}
+
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+
+  position: absolute;
+ top: 40%;
+ left: 2%;
+  position: 0 0;
+  height: 100px;
+  width: 400px;
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+
+  position: absolute;
+  top: 40%;
+  left: 2%;
+  position: 0 0;
+  height: 100px;
+  width: 400px;
+}
 .Welcome-to-our-help-center {
   font-family: Poppins;
   font-size: 36px;

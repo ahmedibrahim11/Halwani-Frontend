@@ -37,10 +37,16 @@
 .filter-icon {
   padding-right: 0.5rem;
 }
+
 .Rectangle-48 {
   width: 25rem;
   height: 2.45rem;
+  background-color: #ffffff;
   display: inline;
+  padding-top: 5%;
+  margin-top: 5%;
+  padding-left: 5%;
+  padding-bottom: 5%;
 }
 .search-icon {
   border: none;
@@ -59,7 +65,6 @@
   cursor: pointer;
   margin-top: 1%;
   margin-bottom: 1%;
-  margin-left: 61%;
 }
 
 .Empty-Table {
@@ -75,7 +80,6 @@
   cursor: pointer;
   margin-top: 1%;
   margin-bottom: 1%;
-  margin-left: 75%;
 }
 
 .Export-queue {
