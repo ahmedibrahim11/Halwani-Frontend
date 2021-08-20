@@ -1,0 +1,94 @@
+<div *ngIf="settingID === undefined; then create; else update">
+    here is ignored
+</div>
+<ng-template #create>
+    <form [formGroup]="createSettingsFormGroup">
+        <div style="display: flex; flex-direction: row; justify-content: space-between">
+            <h1 mat-dialog-title class="Create-setting">Create a new portal group</h1>
+            <mat-icon style="cursor: pointer" mat-dialog-close>close</mat-icon>
+        </div>
+
+        <mat-dialog-content class="mat-typography">
+            <label class="Ticket-type">Portal group <span class="mandatory"> *</span></label>
+
+            <mat-form-field [style.width.%]="97" appearance="fill">
+                <input matInput type="text" placeholder="Common Issues" formControlName="name" min="0" />
+              
+            </mat-form-field>
+            <label class="Ticket-type">Portal group description <span class="mandatory"> *</span></label>
+            
+           
+            <mat-form-field appearance="fill" [style.width.%]="100">
+                <input matInput placeholder="Get IT help, Set up VPN to the office, Request a new account, Report a system problem, Report broken hardware" formControlName="description" />
+            </mat-form-field>
+
+        </mat-dialog-content>
+        <mat-dialog-actions style="
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        width: 100%;
+      ">
+            <div *ngIf="createloader === true; then spinner; else btn"></div>
+            <ng-template #spinner>
+                <mat-spinner style="display: flex; justify-content: center; text-align: center" class="mt-2"
+                    color="warn" [diameter]="30"></mat-spinner>
+            </ng-template>
+            <ng-template #btn>
+                <button mat-button mat-dialog-close class="cancel">
+                    Cancel request
+                </button>
+                <button mat-button class="send" type="button" [disabled]="!createSettingsFormGroup.valid" (click)="submitCreatePC()">
+                    Save request
+                </button>
+            </ng-template>
+        </mat-dialog-actions>
+    </form>
+</ng-template>
+
+<ng-template #update>
+    <form [formGroup]="updateSettingsFormGroup">
+        <div style="display: flex; flex-direction: row; justify-content: space-between">
+            <h1 mat-dialog-title class="Create-setting">Update portal group</h1>
+            <mat-icon style="cursor: pointer" mat-dialog-close>close</mat-icon>
+        </div>
+
+        <mat-dialog-content class="mat-typography">
+        <label class="Ticket-type">Portal group <span class="mandatory"> *</span></label>
+        
+        <mat-form-field [style.width.%]="97" appearance="fill">
+            <input matInput type="text" placeholder="Common Issues" formControlName="name" min="0" [(ngModel)]="name" />
+        
+        </mat-form-field>
+        <label class="Ticket-type">Portal group description <span class="mandatory"> *</span></label>
+        
+        
+        <mat-form-field appearance="fill" [style.width.%]="100">
+            <input matInput
+                placeholder="Get IT help, Set up VPN to the office, Request a new account, Report a system problem, Report broken hardware"
+                formControlName="description"  [(ngModel)]="description" />
+        </mat-form-field>
+
+        </mat-dialog-content>
+        <mat-dialog-actions style="
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        width: 100%;
+      ">
+            <div *ngIf="createloader === true; then spinner; else btn"></div>
+            <ng-template #spinner>
+                <mat-spinner style="display: flex; justify-content: center; text-align: center" class="mt-2"
+                    color="warn" [diameter]="30"></mat-spinner>
+            </ng-template>
+            <ng-template #btn>
+                <button mat-button mat-dialog-close class="cancel">
+                    Cancel request
+                </button>
+                <button mat-button class="send" type="button" (click)="submitEditPC()">
+                    Save
+                </button>
+            </ng-template>
+        </mat-dialog-actions>
+    </form>
+</ng-template>

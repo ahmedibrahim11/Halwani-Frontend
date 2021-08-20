@@ -49,6 +49,18 @@ this.http
         this.dialogRef.close();
       });
 }
+else if(this.from==2)
+  {
+this.http
+      .GET(`Group/UpdateVisiblity?id=${this.id}&isVisible=${this.value}`)
+      .subscribe((data) => {
+        this._snackBar.openFromComponent(ToastMessageComponent, {
+          duration: this.durationInSeconds * 1000,
+        });
+        this.service.setValue(true);
+        this.dialogRef.close();
+      });
+}
 else
 {
   this.http
