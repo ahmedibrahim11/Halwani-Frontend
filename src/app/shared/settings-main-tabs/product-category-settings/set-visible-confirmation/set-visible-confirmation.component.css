@@ -76,9 +76,7 @@
 .checkBox {
   display: block;
 }
-.mat-dialog-content {
-  min-height: 22vh;
-}
+
 .createGroup {
   display: flex;
   justify-content: flex-end;

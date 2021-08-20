@@ -46,6 +46,7 @@ export class AddSettingsComponent implements OnInit {
   updateFormData: FormData = new FormData();
   checkArray: FormArray = new FormArray([]);
   teamSoruce: any = [];
+  groupSource:any=[];
   settingDTO: SettingDTO = new SettingDTO();
   durationInSeconds: any = 3;
   loading: any = true;
@@ -67,6 +68,13 @@ export class AddSettingsComponent implements OnInit {
         return { label: el.text, value: el.text };
       });
     });
+    this.http.GET('Group/getGroup').subscribe((data) => {
+      console.log(data)
+      this.groupSource = data.map((el) => {
+        return { label: el.text, value: el.id };
+      });
+    });
+   
     const sevKeys = Object.keys(SevirityEnum).filter(
       (k) => typeof SevirityEnum[k as any] === 'string'
     );
@@ -85,7 +93,7 @@ export class AddSettingsComponent implements OnInit {
       team: [0, [Validators.required]],
       priority: [0, [Validators.required]],
       sevirity: [0, [Validators.required]],
-      groups: this.formBuilder.array([]),
+      groups: ['', [Validators.required]],
       groupName: [''],
     });
     this.UpdateSettingsFormGroup = this.formBuilder.group({
@@ -95,7 +103,7 @@ export class AddSettingsComponent implements OnInit {
       team: [0, [Validators.required]],
       priority: [0, [Validators.required]],
       sevirity: [0, [Validators.required]],
-      groups: this.formBuilder.array([]),
+      groups: ['', [Validators.required]],
       groupName: [''],
     });
     if (this.settingID != undefined) {
@@ -109,20 +117,15 @@ export class AddSettingsComponent implements OnInit {
             team: [data.team, [Validators.required]],
             priority: [data.priority, [Validators.required]],
             sevirity: [data.sevirity, [Validators.required]],
-            groups: this.formBuilder.array([data.groupIDs]),
+            groups: [data.groupIDs.map((el) => parseInt(el)), [Validators.required]],
             groupName: [''],
           });
           this.loading = false;
           this.FileLinks.push(data.icon);
-          this.http
-            .POST(`Group/getGroupforTicketTypeEdit`, {
-              id: this.UpdateSettingsFormGroup.value.type,
-              rtid: this.settingID,
-            })
-            .subscribe((data) => {
-              this.groups = data;
+         
+              this.groups = data.groupIDs.map((el) => parseInt(el));
             });
-        });
+        
     }
   }
 
@@ -261,7 +264,7 @@ export class AddSettingsComponent implements OnInit {
     this.settingDTO.priority = this.UpdateSettingsFormGroup.value.priority;
     this.settingDTO.severity = this.UpdateSettingsFormGroup.value.sevirity;
     this.settingDTO.ticketType = this.UpdateSettingsFormGroup.value.type;
-    this.settingDTO.groupIds = this.checkArray.value;
+   this.settingDTO.groupIds = this.UpdateSettingsFormGroup.value.groups;
     this.settingDTO.id = this.settingID;
     var requestData = JSON.stringify(this.settingDTO);
     this.updateFormData.append('data', requestData);
