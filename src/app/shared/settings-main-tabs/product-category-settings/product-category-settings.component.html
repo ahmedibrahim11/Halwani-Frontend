@@ -109,15 +109,27 @@
             <mat-icon
               *ngIf="!topic.isVisible"
               (click)="setVisability(topic.id, true)"
+              class="visibility"
               >remove_red_eye</mat-icon
             >
+            <div class="hide">
+              <p>change visibility</p>
+            </div>
             <mat-icon
               *ngIf="topic.isVisible"
               (click)="setVisability(topic.id, false)"
+              class="visibility"
               >remove_circle</mat-icon
             >
-            <mat-icon class="icon" (click)="OpenEdit(topic.id)">edit</mat-icon>
-
+            <div class="hide">
+              <p>change visibility</p>
+            </div>
+            <mat-icon class="icon edit" (click)="OpenEdit(topic.id)"
+              >edit</mat-icon
+            >
+            <div class="hide">
+              <p>edit category</p>
+            </div>
             <!-- <img src="assets/PeopleError.svg" style="margin-right: 0.1rem" class="icon" /> -->
 
             <!-- <img (click)="openTicket(topic.id)" src="assets/Open.svg" style="margin-right: 0.1rem" class="icon" />
