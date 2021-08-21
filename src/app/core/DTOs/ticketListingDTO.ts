@@ -43,4 +43,5 @@ export enum StatusEnum {
   Resolved = 7,
   OverDue = 8,
   Canceled = 9,
+  Closed = 10,
 }
