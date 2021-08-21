@@ -85,7 +85,15 @@ export class AllTableComponentComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
     });
     let subscried = this.filteredObj.getUpdate().subscribe((data) => {
-      this.filtered = data;
+      console.log('filterd0', data);
+      this.filtered = {
+        location: data.location === '' ? undefined : data.location,
+        source: data.source === '' ? undefined : data.source,
+        state: data.state === '' ? undefined : data.state,
+        severity: data.severity === '' ? undefined : data.severity,
+        priority: data.priority === '' ? undefined : data.priority,
+        date: data.date === '' ? undefined : data.date,
+      };
     });
   }
 
@@ -123,7 +131,8 @@ export class AllTableComponentComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: this.filtered,
-          sortvalue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
@@ -160,7 +169,8 @@ export class AllTableComponentComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: this.filtered,
-          sortvalue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
@@ -195,7 +205,8 @@ export class AllTableComponentComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: this.filtered,
-          sortvalue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
@@ -236,44 +247,45 @@ export class AllTableComponentComponent implements OnInit {
     console.log('size', this.pageSize);
     console.log('len', this.pageLength);
     console.log('ind', this.pageIndex);
-    console.log(this.sort);
+    console.log('sooort', this.sort);
     this.dataSource.sort = this.sort;
   }
 
+  sortValue = 0;
+  sortDirec = 0;
   //sort server-side
   @HostListener('matSortChange', ['$event'])
   sortChange(sort) {
     debugger;
     // save cookie with table sort data here
     console.log(sort);
-    let sortValue = 0;
-    let sortDirec = 0;
+
     switch (sort.active) {
       case 'name':
-        sortValue = 1;
+        this.sortValue = 1;
         break;
       case 'createdDate':
-        sortValue = 0;
+        this.sortValue = 0;
         break;
       case 'ticketCategory':
-        sortValue = 2;
+        this.sortValue = 2;
         break;
       case 'Sevirity':
-        sortValue = 3;
+        this.sortValue = 3;
         break;
       case 'status':
-        sortValue = 4;
+        this.sortValue = 4;
         break;
     }
     switch (sort.direction) {
       case 'asc':
-        sortDirec = 0;
+        this.sortDirec = 0;
         break;
       case 'desc':
-        sortDirec = 1;
+        this.sortDirec = 1;
         break;
       default:
-        sortDirec = 0;
+        this.sortDirec = 0;
     }
     this.http
       .POST('ticket/list', {
@@ -282,8 +294,8 @@ export class AllTableComponentComponent implements OnInit {
         pageNumber: this.pageIndex,
         isPrint: false,
         filter: { ticketType: this.tab, State: this.Status },
-        sortvalue: sortValue,
-        sortDirection: sortDirec,
+        sortvalue: this.sortValue,
+        sortDirection: this.sortDirec,
       })
       .subscribe((res) => {
         console.log(res.pageData);
@@ -364,7 +376,8 @@ export class AllTableComponentComponent implements OnInit {
               pageNumber: this.pageIndex,
               isPrint: false,
               filter: { ticketType: this.tab, State: this.Status },
-              sortValue: 0,
+              sortvalue: this.sortValue,
+              sortDirection: this.sortDirec,
             })
             .subscribe((res) => {
               console.log('search remove rsut', res);
@@ -416,7 +429,8 @@ export class AllTableComponentComponent implements OnInit {
           pageNumber: this.pageIndex,
           isPrint: false,
           filter: { ticketType: this.tab, State: this.Status },
-          sortValue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log('search rsut', res);
@@ -487,7 +501,8 @@ export class AllTableComponentComponent implements OnInit {
           pageNumber: this.pageIndex,
           isPrint: false,
           filter: { ticketType: this.tab, State: this.Status },
-          sortValue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log('search rsut', res);
@@ -537,7 +552,8 @@ export class AllTableComponentComponent implements OnInit {
         pageNumber: this.pageIndex,
         isPrint: false,
         filter: { ticketType: this.tab, State: this.Status },
-        sortValue: 0,
+        sortvalue: this.sortValue,
+        sortDirection: this.sortDirec,
       })
       .subscribe((res) => {
         console.log('search rsut', res);
@@ -598,7 +614,8 @@ export class AllTableComponentComponent implements OnInit {
             pageNumber: this.pageIndex,
             isPrint: false,
             filter: { ticketType: this.tab, State: this.Status },
-            sortValue: null,
+            sortvalue: this.sortValue,
+            sortDirection: this.sortDirec,
           })
           .subscribe((res) => {
             this.pageLength = res.totalCount;
@@ -651,7 +668,8 @@ export class AllTableComponentComponent implements OnInit {
             pageNumber: this.pageIndex,
             isPrint: false,
             filter: { ticketType: this.tab, State: this.Status },
-            sortValue: null,
+            sortvalue: this.sortValue,
+            sortDirection: this.sortDirec,
           })
           .subscribe((res) => {
             debugger;

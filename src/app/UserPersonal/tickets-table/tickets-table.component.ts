@@ -31,6 +31,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { CancelTicketComponent } from 'src/app/ITManager/cancel-ticket/cancel-ticket.component';
 import { CreateTicketPopupComponent } from 'src/app/ITPersonal/create-ticket-popup/create-ticket-popup.component';
 import { CreatTicketPopupComponent } from '../creat-ticket-popup/creat-ticket-popup.component';
+import { FiltedredObjectService } from 'src/app/core/services/filtedred-object.service';
 @Component({
   selector: 'app-tickets-table',
   templateUrl: './tickets-table.component.html',
@@ -49,6 +50,7 @@ export class TicketsTableComponent implements OnInit {
   empty: boolean = true;
   userName: any;
   token: any;
+  filtered: any;
 
   constructor(
     private http: HTTPMainServiceService,
@@ -57,7 +59,8 @@ export class TicketsTableComponent implements OnInit {
     private share: SharingdataService,
     private router: Router,
     private common: CommonServiceService,
-    private spinner: SpinnerFlagService
+    private spinner: SpinnerFlagService,
+    private filteredObj: FiltedredObjectService
   ) {
     this.subscriptionName = this.common.getUpdate().subscribe((data) => {
       console.log('from subscribtion', data);
@@ -79,6 +82,17 @@ export class TicketsTableComponent implements OnInit {
       this.pageLength = data.totalCount;
 
       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+    });
+    let subscried = this.filteredObj.getUpdate().subscribe((data) => {
+      this.filtered = {
+        location: data.location === '' ? undefined : data.location,
+        source: data.source === '' ? undefined : data.source,
+        state: data.state === '' ? undefined : data.state,
+        severity: data.severity === '' ? undefined : data.severity,
+        priority: data.priority === '' ? undefined : data.priority,
+        date: data.date === '' ? undefined : data.date,
+        submitterName: this.userName === '' ? undefined : this.userName,
+      };
     });
   }
 
@@ -111,6 +125,9 @@ export class TicketsTableComponent implements OnInit {
   pageLength: any = 5;
   pageSize: any = 5;
   pageIndex: any = 0;
+  sortValue = 0;
+  sortDirec = 0;
+
   //handle pagination server side
   pageEvents(event: any) {
     console.log('wreeeny', event, this.pageSize);
@@ -123,11 +140,9 @@ export class TicketsTableComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: {
-            submitterName: this.userName,
-            State: this.Status,
-          },
-          sortvalue: 0,
+          filter: this.filtered,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
@@ -162,11 +177,9 @@ export class TicketsTableComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: {
-            submitterName: this.userName,
-            State: this.Status,
-          },
-          sortvalue: 0,
+          filter: this.filtered,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
@@ -200,10 +213,9 @@ export class TicketsTableComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: event.pageIndex,
           isPrint: false,
-          filter: {
-            submitterName: this.userName,
-          },
-          sortvalue: 0,
+          filter: this.filtered,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
@@ -251,31 +263,30 @@ export class TicketsTableComponent implements OnInit {
     debugger;
     // save cookie with table sort data here
     console.log(sort);
-    let sortValue = 0;
-    let sortDirec = 0;
+
     switch (sort.active) {
       case 'name':
-        sortValue = 1;
+        this.sortValue = 1;
         break;
       case 'createdDate':
-        sortValue = 0;
+        this.sortValue = 0;
         break;
       case 'ticketCategory':
-        sortValue = 2;
+        this.sortValue = 2;
         break;
       case 'Status':
-        sortValue = 4;
+        this.sortValue = 4;
         break;
     }
     switch (sort.direction) {
       case 'asc':
-        sortDirec = 0;
+        this.sortDirec = 0;
         break;
       case 'desc':
-        sortDirec = 1;
+        this.sortDirec = 1;
         break;
       default:
-        sortDirec = 0;
+        this.sortDirec = 0;
     }
     this.http
       .POST('ticket/list', {
@@ -283,12 +294,9 @@ export class TicketsTableComponent implements OnInit {
         pageSize: this.pageSize,
         pageNumber: this.pageIndex,
         isPrint: false,
-        filter: {
-          submitterName: this.userName,
-          State: this.Status,
-        },
-        sortvalue: sortValue,
-        sortDirection: sortDirec,
+        filter: this.filtered,
+        sortvalue: this.sortValue,
+        sortDirection: this.sortDirec,
       })
       .subscribe((res) => {
         console.log(res.pageData);
@@ -416,11 +424,8 @@ export class TicketsTableComponent implements OnInit {
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
-            filter: {
-              submitterName: this.userName,
-              State: this.Status,
-            },
-            sortValue: null,
+            filter: this.filtered,
+            sortvalue: null,
           })
           .subscribe((res) => {
             this.pageLength = res.totalCount;
@@ -470,11 +475,8 @@ export class TicketsTableComponent implements OnInit {
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
-            filter: {
-              submitterName: this.userName,
-              State: this.Status,
-            },
-            sortValue: null,
+            filter: this.filtered,
+            sortvalue: null,
           })
           .subscribe((res) => {
             this.pageLength = res.totalCount;

@@ -1,6 +1,14 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, EventEmitter, HostListener, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,7 +21,7 @@ import { CommonServiceService } from 'src/app/core/services/common-service.servi
 import { HelpCenterFilterService } from 'src/app/core/services/help-center-filter.service';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { SpinnerFlagService } from 'src/app/core/services/spinner-flag.service';
-import { PortalGroupListingDTO } from "src/app/core/DTOs/portalGroupListingDTO";
+import { PortalGroupListingDTO } from 'src/app/core/DTOs/portalGroupListingDTO';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { debounceTime, mergeMap, tap } from 'rxjs/operators';
 import { AddedMessageComponent } from 'src/app/UserPersonal/user-details/added-message/added-message.component';
@@ -25,10 +33,9 @@ import { SetVisibleConfirmationComponent } from '../product-category-settings/se
 @Component({
   selector: 'app-portal-groups',
   templateUrl: './portal-groups.component.html',
-  styleUrls: ['./portal-groups.component.css']
+  styleUrls: ['./portal-groups.component.css'],
 })
 export class PortalGroupsComponent implements OnInit {
-
   @ViewChild(MatSort) sort: MatSort;
   public flag: boolean;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -36,7 +43,8 @@ export class PortalGroupsComponent implements OnInit {
   private subscriptionName: Subscription;
   dataLoaded: boolean = false;
   empty: boolean = true;
-
+  sortValue = 1;
+  sortDirec = 0;
   constructor(
     private http: HTTPMainServiceService,
     public dialog: MatDialog,
@@ -44,13 +52,12 @@ export class PortalGroupsComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private common: CommonServiceService,
     private spinner: SpinnerFlagService
-  ) 
-  {
+  ) {
     this.subscriptionName = this.common.getUpdate().subscribe((data) => {
       this.UserViewInfoObject = data.pageData.map((el) => {
         return {
           id: el['id'],
-          description:el['description'],
+          description: el['description'],
           name: el['name'],
           topicCount: el['topicCount'],
           isVisable: el['isVisable'],
@@ -79,18 +86,19 @@ export class PortalGroupsComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {},
-          sortvalue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
             return {
-               id: el['id'],
-                description:el['description'],
-          name: el['name'],
-          topicCount: el['topicCount'],
-          isVisable: el['isVisable'],
+              id: el['id'],
+              description: el['description'],
+              name: el['name'],
+              topicCount: el['topicCount'],
+              isVisable: el['isVisable'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -105,18 +113,19 @@ export class PortalGroupsComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {},
-          sortvalue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
             return {
-                id: el['id'],
-                 description:el['description'],
-          name: el['name'],
-          topicCount: el['topicCount'],
-          isVisable: el['isVisable'],
+              id: el['id'],
+              description: el['description'],
+              name: el['name'],
+              topicCount: el['topicCount'],
+              isVisable: el['isVisable'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -130,18 +139,19 @@ export class PortalGroupsComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {},
-          sortvalue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
             return {
-               id: el['id'],
-                description:el['description'],
-          name: el['name'],
-          topicCount: el['topicCount'],
-          isVisable: el['isVisable'],
+              id: el['id'],
+              description: el['description'],
+              name: el['name'],
+              topicCount: el['topicCount'],
+              isVisable: el['isVisable'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -168,26 +178,24 @@ export class PortalGroupsComponent implements OnInit {
     debugger;
     // save cookie with table sort data here
     console.log(sort);
-    let sortValue = 0;
-    let sortDirec = 0;
+
     switch (sort.active) {
       case 'name':
-        sortValue = 0;
+        this.sortValue = 0;
         break;
       case 'topicCount':
-        sortValue = 1;
+        this.sortValue = 1;
         break;
-     
     }
     switch (sort.direction) {
       case 'asc':
-        sortDirec = 0;
+        this.sortDirec = 0;
         break;
       case 'desc':
-        sortDirec = 1;
+        this.sortDirec = 1;
         break;
       default:
-        sortDirec = 0;
+        this.sortDirec = 0;
     }
     this.http
       .POST('Group/list', {
@@ -196,8 +204,8 @@ export class PortalGroupsComponent implements OnInit {
         pageNumber: this.pageIndex,
         isPrint: false,
         filter: {},
-        sortvalue: sortValue,
-        sortDirection: sortDirec,
+        sortvalue: this.sortValue,
+        sortDirection: this.sortDirec,
       })
       .subscribe((res) => {
         console.log(res.pageData);
@@ -205,10 +213,10 @@ export class PortalGroupsComponent implements OnInit {
         this.UserViewInfoObject = usersData.map((el) => {
           return {
             id: el['id'],
-             description:el['description'],
-          name: el['name'],
-          topicCount: el['topicCount'],
-          isVisable: el['isVisable'],
+            description: el['description'],
+            name: el['name'],
+            topicCount: el['topicCount'],
+            isVisable: el['isVisable'],
           };
         });
         console.log(this.UserViewInfoObject);
@@ -216,13 +224,7 @@ export class PortalGroupsComponent implements OnInit {
       });
   }
 
-  displayedColumns: string[] = [
-    'select',
-    'name',
-    'topicCount',
-    
-    'Actions',
-  ];
+  displayedColumns: string[] = ['select', 'name', 'topicCount', 'Actions'];
   //check boxes part
   initialSelection = [];
   allowMultiSelect = true;
@@ -305,18 +307,19 @@ export class PortalGroupsComponent implements OnInit {
           pageNumber: this.pageIndex,
           isPrint: false,
           filter: {},
-          sortValue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log('search rsut', res);
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
             return {
-               id: el['id'],
-                description:el['description'],
-          name: el['name'],
-          topicCount: el['topicCount'],
-          isVisable: el['isVisable'],
+              id: el['id'],
+              description: el['description'],
+              name: el['name'],
+              topicCount: el['topicCount'],
+              isVisable: el['isVisable'],
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -347,8 +350,9 @@ export class PortalGroupsComponent implements OnInit {
         pageSize: 5,
         pageNumber: this.pageIndex,
         isPrint: false,
-        filter: { },
-        sortValue: 0,
+        filter: {},
+        sortvalue: this.sortValue,
+        sortDirection: this.sortDirec,
       })
       .subscribe((res) => {
         console.log('search rsut', res);
@@ -356,11 +360,11 @@ export class PortalGroupsComponent implements OnInit {
         this.UserViewInfoObject = usersData.map((el) => {
           const cerationDate = new Date(el['creationDate']);
           return {
-              id: el['id'],
-               description:el['description'],
-          name: el['name'],
-          topicCount: el['topicCount'],
-          isVisable: el['isVisable'],
+            id: el['id'],
+            description: el['description'],
+            name: el['name'],
+            topicCount: el['topicCount'],
+            isVisable: el['isVisable'],
           };
         });
         this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -380,7 +384,8 @@ export class PortalGroupsComponent implements OnInit {
         pageNumber: this.pageIndex,
         isPrint: true,
         filter: {},
-        sortValue: 0,
+        sortvalue: this.sortValue,
+        sortDirection: this.sortDirec,
       })
       .subscribe((res) => {
         res.pageData.map((d) => {
@@ -411,10 +416,9 @@ export class PortalGroupsComponent implements OnInit {
               pageSize: this.pageLength,
               pageNumber: this.pageIndex,
               isPrint: false,
-              filter: {
-             
-              },
-              sortValue: 0,
+              filter: {},
+              sortvalue: this.sortValue,
+              sortDirection: this.sortDirec,
             })
             .subscribe((res) => {
               if (res.totalCount !== 0) {
@@ -429,10 +433,10 @@ export class PortalGroupsComponent implements OnInit {
                 this.UserViewInfoObject = usersData.map((el) => {
                   return {
                     id: el['id'],
-                     description:el['description'],
-          name: el['name'],
-          topicCount: el['topicCount'],
-          isVisable: el['isVisable'],
+                    description: el['description'],
+                    name: el['name'],
+                    topicCount: el['topicCount'],
+                    isVisable: el['isVisable'],
                   };
                 });
                 this.getRedMenuCharacters(this.usersName);
@@ -455,7 +459,8 @@ export class PortalGroupsComponent implements OnInit {
               pageNumber: this.pageIndex,
               isPrint: false,
               filter: {},
-              sortValue: 0,
+              sortvalue: this.sortValue,
+              sortDirection: this.sortDirec,
             })
             .subscribe((res) => {
               if (res.totalCount !== 0) {
@@ -469,11 +474,11 @@ export class PortalGroupsComponent implements OnInit {
                 let usersData = res.pageData;
                 this.UserViewInfoObject = usersData.map((el) => {
                   return {
-                      id: el['id'],
-                       description:el['description'],
-          name: el['name'],
-          topicCount: el['topicCount'],
-          isVisable: el['isVisable'],
+                    id: el['id'],
+                    description: el['description'],
+                    name: el['name'],
+                    topicCount: el['topicCount'],
+                    isVisable: el['isVisable'],
                   };
                 });
                 this.getRedMenuCharacters(this.usersName);
@@ -497,10 +502,9 @@ export class PortalGroupsComponent implements OnInit {
               pageSize: this.pageLength,
               pageNumber: this.pageIndex,
               isPrint: false,
-              filter: {
-               
-              },
-              sortValue: 0,
+              filter: {},
+              sortvalue: this.sortValue,
+              sortDirection: this.sortDirec,
             })
             .subscribe((res) => {
               if (res.totalCount !== 0) {
@@ -514,11 +518,11 @@ export class PortalGroupsComponent implements OnInit {
                 let usersData = res.pageData;
                 this.UserViewInfoObject = usersData.map((el) => {
                   return {
-                      id: el['id'],
-                       description:el['description'],
-          name: el['name'],
-          topicCount: el['topicCount'],
-          isVisable: el['isVisable'],
+                    id: el['id'],
+                    description: el['description'],
+                    name: el['name'],
+                    topicCount: el['topicCount'],
+                    isVisable: el['isVisable'],
                   };
                 });
                 this.getRedMenuCharacters(this.usersName);
@@ -541,7 +545,8 @@ export class PortalGroupsComponent implements OnInit {
               pageNumber: this.pageIndex,
               isPrint: false,
               filter: {},
-              sortValue: 0,
+              sortvalue: this.sortValue,
+              sortDirection: this.sortDirec,
             })
             .subscribe((res) => {
               if (res.totalCount !== 0) {
@@ -555,11 +560,11 @@ export class PortalGroupsComponent implements OnInit {
                 let usersData = res.pageData;
                 this.UserViewInfoObject = usersData.map((el) => {
                   return {
-                      id: el['id'],
-                       description:el['description'],
-          name: el['name'],
-          topicCount: el['topicCount'],
-          isVisable: el['isVisable'],
+                    id: el['id'],
+                    description: el['description'],
+                    name: el['name'],
+                    topicCount: el['topicCount'],
+                    isVisable: el['isVisable'],
                   };
                 });
                 this.getRedMenuCharacters(this.usersName);
@@ -578,7 +583,6 @@ export class PortalGroupsComponent implements OnInit {
       }
     });
   }
-
 
   ngOnDestroy() {
     this.subscriptionName.unsubscribe();
@@ -610,7 +614,6 @@ export class PortalGroupsComponent implements OnInit {
     //   position: { top: '15%', left: '17%' },
     //   data: { filterData: this.filterPreservingData },
     // });
-
     // dialogRef.afterClosed().subscribe((result) => {
     //   console.log(`Dialog result: ${result}`);
     //   this.filterPreservingData = result;
@@ -629,7 +632,8 @@ export class PortalGroupsComponent implements OnInit {
         filter: {
           searchText: $event.target.value,
         },
-        sortValue: 0,
+        sortvalue: this.sortValue,
+        sortDirection: this.sortDirec,
       })
       .subscribe((res) => {
         if (res.totalCount !== 0) {
@@ -643,11 +647,11 @@ export class PortalGroupsComponent implements OnInit {
           let usersData = res.pageData;
           this.UserViewInfoObject = usersData.map((el) => {
             return {
-                id: el['id'],
-                 description:el['description'],
-          name: el['name'],
-          topicCount: el['topicCount'],
-          isVisable: el['isVisable'],
+              id: el['id'],
+              description: el['description'],
+              name: el['name'],
+              topicCount: el['topicCount'],
+              isVisable: el['isVisable'],
             };
           });
           this.getRedMenuCharacters(this.usersName);
@@ -687,8 +691,7 @@ export class PortalGroupsComponent implements OnInit {
   OpenEdit(settingID) {
     const dialogRef = this.dialog.open(AddPortalGroupComponent, {
       data: { updateValue: settingID },
-       width: '40vw',
-  
+      width: '40vw',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -705,5 +708,4 @@ export class PortalGroupsComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
-
 }

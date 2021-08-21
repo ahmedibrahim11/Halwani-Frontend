@@ -53,8 +53,7 @@ export class HelpCenterConfigComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private common: CommonServiceService,
     private spinner: SpinnerFlagService
-  ) 
-  {
+  ) {
     this.subscriptionName = this.common.getUpdate().subscribe((data) => {
       this.UserViewInfoObject = data.pageData.map((el) => {
         return {
@@ -91,7 +90,8 @@ export class HelpCenterConfigComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {},
-          sortvalue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
@@ -105,7 +105,6 @@ export class HelpCenterConfigComponent implements OnInit {
               ticketType: el['ticketType'],
               initials: this.initials(el['team']),
               team: el['team'],
-
               isVisable: el['isVisable'],
             };
           });
@@ -121,7 +120,8 @@ export class HelpCenterConfigComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {},
-          sortvalue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
@@ -149,7 +149,8 @@ export class HelpCenterConfigComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {},
-          sortvalue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
@@ -184,37 +185,38 @@ export class HelpCenterConfigComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+  sortValue = 1;
+  sortDirec = 0;
   //sort server-side
   @HostListener('matSortChange', ['$event'])
   sortChange(sort) {
     debugger;
     // save cookie with table sort data here
     console.log(sort);
-    let sortValue = 0;
-    let sortDirec = 0;
+
     switch (sort.active) {
       case 'name':
-        sortValue = 0;
+        this.sortValue = 0;
         break;
       case 'group':
-        sortValue = 1;
+        this.sortValue = 1;
         break;
       case 'ticketType':
-        sortValue = 2;
+        this.sortValue = 2;
         break;
       case 'team':
-        sortValue = 3;
+        this.sortValue = 3;
         break;
     }
     switch (sort.direction) {
       case 'asc':
-        sortDirec = 0;
+        this.sortDirec = 0;
         break;
       case 'desc':
-        sortDirec = 1;
+        this.sortDirec = 1;
         break;
       default:
-        sortDirec = 0;
+        this.sortDirec = 0;
     }
     this.http
       .POST('RequestType/list', {
@@ -223,8 +225,8 @@ export class HelpCenterConfigComponent implements OnInit {
         pageNumber: this.pageIndex,
         isPrint: false,
         filter: {},
-        sortvalue: sortValue,
-        sortDirection: sortDirec,
+        sortvalue: this.sortValue,
+        sortDirection: this.sortDirec,
       })
       .subscribe((res) => {
         console.log(res.pageData);
@@ -336,7 +338,8 @@ export class HelpCenterConfigComponent implements OnInit {
           pageNumber: this.pageIndex,
           isPrint: false,
           filter: {},
-          sortValue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log('search rsut', res);
@@ -382,7 +385,8 @@ export class HelpCenterConfigComponent implements OnInit {
         pageNumber: this.pageIndex,
         isPrint: false,
         filter: { SearchText: event.option.value },
-        sortValue: 0,
+        sortvalue: this.sortValue,
+        sortDirection: this.sortDirec,
       })
       .subscribe((res) => {
         console.log('search rsut', res);
@@ -417,7 +421,8 @@ export class HelpCenterConfigComponent implements OnInit {
         pageNumber: this.pageIndex,
         isPrint: true,
         filter: {},
-        sortValue: 0,
+        sortvalue: this.sortValue,
+        sortDirection: this.sortDirec,
       })
       .subscribe((res) => {
         res.pageData.map((d) => {
@@ -455,7 +460,8 @@ export class HelpCenterConfigComponent implements OnInit {
                 ticketType: this.filterPreservingData.ticketType.value,
                 priority: this.filterPreservingData.priority.value,
               },
-              sortValue: 0,
+              sortvalue: this.sortValue,
+              sortDirection: this.sortDirec,
             })
             .subscribe((res) => {
               if (res.totalCount !== 0) {
@@ -499,7 +505,8 @@ export class HelpCenterConfigComponent implements OnInit {
               pageNumber: this.pageIndex,
               isPrint: false,
               filter: {},
-              sortValue: 0,
+              sortvalue: this.sortValue,
+              sortDirection: this.sortDirec,
             })
             .subscribe((res) => {
               if (res.totalCount !== 0) {
@@ -551,7 +558,8 @@ export class HelpCenterConfigComponent implements OnInit {
                 ticketType: this.filterPreservingData.ticketType.value,
                 priority: this.filterPreservingData.priority.value,
               },
-              sortValue: 0,
+              sortvalue: this.sortValue,
+              sortDirection: this.sortDirec,
             })
             .subscribe((res) => {
               if (res.totalCount !== 0) {
@@ -595,7 +603,8 @@ export class HelpCenterConfigComponent implements OnInit {
               pageNumber: this.pageIndex,
               isPrint: false,
               filter: {},
-              sortValue: 0,
+              sortvalue: this.sortValue,
+              sortDirection: this.sortDirec,
             })
             .subscribe((res) => {
               if (res.totalCount !== 0) {
@@ -635,7 +644,6 @@ export class HelpCenterConfigComponent implements OnInit {
       }
     });
   }
-
 
   ngOnDestroy() {
     this.subscriptionName.unsubscribe();
@@ -686,7 +694,8 @@ export class HelpCenterConfigComponent implements OnInit {
         filter: {
           searchText: $event.target.value,
         },
-        sortValue: 0,
+        sortvalue: this.sortValue,
+        sortDirection: this.sortDirec,
       })
       .subscribe((res) => {
         if (res.totalCount !== 0) {

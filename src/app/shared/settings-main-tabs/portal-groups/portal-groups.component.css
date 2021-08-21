@@ -158,3 +158,23 @@ th {
   background: rgb(158, 156, 156);
   border-radius: 15px;
 }
+.hide {
+  z-index: 5;
+  opacity: 0;
+  display: none;
+  position: absolute;
+}
+
+.visibility:hover+.hide {
+  opacity: 1;
+  display: block;
+  color: #c4161c;
+  margin-top: 1.5rem;
+}
+
+.edit:hover+.hide {
+  opacity: 1;
+  display: block;
+  color: #c4161c;
+  margin-top: 1.5rem;
+}
