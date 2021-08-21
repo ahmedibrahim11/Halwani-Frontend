@@ -34,7 +34,7 @@ export class CancelTicketComponent implements OnInit {
     this.http
       .POST('ticket/UpdateStatus', {
         ticketId: this.ticketID,
-        status: 8,
+        status: 9,
       })
       .subscribe((res) => {
         this.createloader = false;

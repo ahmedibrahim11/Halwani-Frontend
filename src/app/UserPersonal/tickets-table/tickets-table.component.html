@@ -181,7 +181,10 @@
               Resolved
             </h3>
             <h3 *ngIf="topic.status == 8" class="Cancelled statusBubble">
-              Cancelled
+              OverDue
+            </h3>
+            <h3 *ngIf="topic.status == 9" class="Cancelled statusBubble">
+              OverDue
             </h3>
           </div>
         </td>
