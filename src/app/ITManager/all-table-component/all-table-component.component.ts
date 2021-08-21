@@ -613,7 +613,7 @@ export class AllTableComponentComponent implements OnInit {
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
-            filter: { ticketType: this.tab, State: this.Status },
+            filter: { ticketTabs: this.tab, State: this.Status },
             sortvalue: this.sortValue,
             sortDirection: this.sortDirec,
           })
@@ -667,7 +667,7 @@ export class AllTableComponentComponent implements OnInit {
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
-            filter: { ticketType: this.tab, State: this.Status },
+            filter: { ticketTabs: this.tab, State: this.Status },
             sortvalue: this.sortValue,
             sortDirection: this.sortDirec,
           })

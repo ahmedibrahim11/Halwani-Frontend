@@ -18,7 +18,7 @@
         class="Table-buttons-Export icon"
         (click)="exportTable()"
         *ngIf="!showSpinner"
-        style="align-items: center;"
+        style="align-items: center"
       >
         Export Table<mat-icon class="export-btn-icon">save_alt</mat-icon>
       </button>
@@ -39,18 +39,8 @@
           </div>
         </div>
       </mat-tab>
-      <mat-tab label="Service Requests">
+      <mat-tab label="Assigned to me">
         <div class="Rectangle-339" *ngIf="tabIndex === 1">
-          <div *ngIf="empty">
-            <app-no-more-tickets></app-no-more-tickets>
-          </div>
-          <div *ngIf="!empty">
-            <app-all-table-component [tab]="0"></app-all-table-component>
-          </div>
-        </div>
-      </mat-tab>
-      <mat-tab label="Incidents">
-        <div class="Rectangle-339" *ngIf="tabIndex === 2">
           <div *ngIf="empty">
             <app-no-more-tickets></app-no-more-tickets>
           </div>
@@ -59,17 +49,27 @@
           </div>
         </div>
       </mat-tab>
-      <mat-tab label="Problems">
+      <mat-tab label="In progress">
+        <div class="Rectangle-339" *ngIf="tabIndex === 2">
+          <div *ngIf="empty">
+            <app-no-more-tickets></app-no-more-tickets>
+          </div>
+          <div *ngIf="!empty">
+            <app-all-table-component [Status]="4"></app-all-table-component>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Overdue">
         <div class="Rectangle-339" *ngIf="tabIndex === 3">
           <div *ngIf="empty">
             <app-no-more-tickets></app-no-more-tickets>
           </div>
           <div *ngIf="!empty">
-            <app-all-table-component [tab]="2"></app-all-table-component>
+            <app-all-table-component [Status]="8"></app-all-table-component>
           </div>
         </div>
       </mat-tab>
-      <mat-tab label="Changes">
+      <!-- <mat-tab label="Changes">
         <div class="Rectangle-339" *ngIf="tabIndex === 4">
           <div *ngIf="empty">
             <app-no-more-tickets></app-no-more-tickets>
@@ -78,7 +78,7 @@
             <app-all-table-component [tab]="3"></app-all-table-component>
           </div>
         </div>
-      </mat-tab>
+      </mat-tab> -->
     </mat-tab-group>
   </div>
 </div>
