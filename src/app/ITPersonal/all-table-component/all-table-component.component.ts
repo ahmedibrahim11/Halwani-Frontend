@@ -248,6 +248,9 @@ export class AllTableComponentComponent implements OnInit {
       case 'Sevirity':
         sortValue = 3;
         break;
+      case 'status':
+        sortValue = 4;
+        break;
     }
     switch (sort.direction) {
       case 'asc':

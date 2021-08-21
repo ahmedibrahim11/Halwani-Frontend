@@ -264,7 +264,7 @@ export class TicketsTableComponent implements OnInit {
         sortValue = 2;
         break;
       case 'Status':
-        sortValue = 3;
+        sortValue = 4;
         break;
     }
     switch (sort.direction) {
