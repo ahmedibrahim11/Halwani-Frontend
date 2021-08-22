@@ -28,6 +28,8 @@ import { UserManagementComponent } from './settings-main-tabs/user-management/us
 import { SetInvisibleConfirmationComponent } from './settings-main-tabs/product-category-settings/set-invisible-confirmation/set-invisible-confirmation.component';
 import { SetVisibleConfirmationComponent } from './settings-main-tabs/product-category-settings/set-visible-confirmation/set-visible-confirmation.component';
 import { ErrorMessageComponent } from './error-message/error-message.component';
+import { PortalGroupsComponent } from './settings-main-tabs/portal-groups/portal-groups.component';
+import { AddPortalGroupComponent } from './settings-main-tabs/portal-groups/add-portal-group/add-portal-group.component';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -50,6 +52,8 @@ import { ErrorMessageComponent } from './error-message/error-message.component';
     SetInvisibleConfirmationComponent,
     SetVisibleConfirmationComponent,
     ErrorMessageComponent,
+    PortalGroupsComponent,
+    AddPortalGroupComponent,
   ],
   imports: [
     CommonModule,

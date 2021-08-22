@@ -144,96 +144,43 @@
               >
             </mat-select>
           </mat-form-field>
-        </div>
+         
+        <div class="col-ddl">
+          <label class="Ticket-type">Portal Group <span class="mandatory"> *</span></label>
+        
+          <mat-form-field [style.width.%]="97" appearance="fill">
+            <mat-select multiple formControlName="groups">
+              <mat-option *ngFor="let option of groupSource" [value]="option['value']">
+                {{ option["label"] }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+      </div>
       </div>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-      <button
-        mat-button
-        class="send"
-        type="button"
-        [disabled]="!createSettingsFormGroup.valid || FileLinks.length == 0"
-        (click)="getGroups()"
-      >
-        Next
-      </button>
+    <div style="
+              display: flex;
+              flex-direction: row;
+              justify-content: flex-end;
+              width: 100%;
+            ">
+      <div *ngIf="createloader === true; then spinner; else btn"></div>
+      <ng-template #spinner>
+        <mat-spinner style="display: flex; justify-content: center; text-align: center" class="mt-2" color="warn"
+          [diameter]="30"></mat-spinner>
+      </ng-template>
+      <ng-template #btn>
+        <button mat-button mat-dialog-close class="cancel">Cancel request</button>
+        <button mat-button class="send" [disabled]="!createSettingsFormGroup.valid"
+          (click)="submitCreateSetting()">
+          Submit
+        </button>
+      </ng-template>
+    </div>
     </mat-dialog-actions>
   </form>
-  <form [formGroup]="createSettingsFormGroup" *ngIf="secondPage">
-    <h1 mat-dialog-title class="Create-setting">Create Request Type</h1>
-    <mat-dialog-content class="mat-typography">
-      <div *ngFor="let Group of groups; let i = index">
-        <mat-checkbox
-          (change)="onCreateCheckboxChange($event)"
-          [checked]="Group.selected"
-          class="checkBox"
-          class="check-box"
-          [value]="Group.id"
-          >{{ Group.name }}
-        </mat-checkbox>
-      </div>
-      <div class="form-group" *ngIf="viewAdd">
-        <mat-checkbox
-          [checked]="true"
-          (change)="onCreateCheckboxChange($event)"
-          class="checkBox"
-          class="check-box"
-          ><input type="text" formControlName="groupName" />
-        </mat-checkbox>
-        <button
-          mat-button
-          type="button"
-          (click)="addGroup()"
-          style="color: green; padding: 0"
-        >
-          <mat-icon>done</mat-icon> save
-        </button>
-        <button
-          mat-button
-          type="button"
-          (click)="removeGroup()"
-          style="margin-left: 0.5rem; padding: 0"
-        >
-          <label style="color: red">- Remove</label>
-        </button>
-      </div>
-    </mat-dialog-content>
-
-    <mat-dialog-actions>
-      <span class="createGroup" (click)="viewAddGroup()"
-        ><label class="createGroupIcon">+</label> Create NewGroup</span
-      >
-      <div
-        style="
-          display: flex;
-          flex-direction: row;
-          justify-content: flex-end;
-          width: 100%;
-        "
-      >
-        <div *ngIf="createloader === true; then spinner; else btn"></div>
-        <ng-template #spinner>
-          <mat-spinner
-            style="display: flex; justify-content: center; text-align: center"
-            class="mt-2"
-            color="warn"
-            [diameter]="30"
-          ></mat-spinner>
-        </ng-template>
-        <ng-template #btn>
-          <button mat-button class="Back" (click)="goBack()">Back</button>
-          <button
-            mat-button
-            class="send"
-            [disabled]="createSettingsFormGroup.value.groups.length == 0"
-            (click)="submitCreateSetting()"
-          >
-            Submit
-          </button>
-        </ng-template>
-      </div>
-    </mat-dialog-actions>
-  </form>
+ 
 </ng-template>
 
 <ng-template #update>
@@ -369,95 +316,40 @@
               >
             </mat-select>
           </mat-form-field>
-        </div>
+      <div class="col-ddl">
+        <label class="Ticket-type">Portal Group <span class="mandatory"> *</span></label>
+      
+        <mat-form-field [style.width.%]="97" appearance="fill">
+          <mat-select multiple formControlName="groups" [(ngModel)]="groups">
+            <mat-option *ngFor="let option of groupSource" [value]="option['value']">
+              {{ option["label"] }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      </div>
       </div>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-      <button
-        mat-button
-        class="send"
-        type="button"
-        [disabled]="!UpdateSettingsFormGroup.valid || FileLinks.length == 0"
-        (click)="getGroups()"
-      >
-        Next
-      </button>
-    </mat-dialog-actions>
-  </form>
-  <form [formGroup]="UpdateSettingsFormGroup" *ngIf="secondPage">
-    <h1 mat-dialog-title class="Create-setting">Update Request Type</h1>
-    <mat-dialog-content class="mat-typography">
-      <div *ngFor="let Group of groups; let i = index">
-        <mat-checkbox
-          (change)="onCreateCheckboxChange($event)"
-          [checked]="Group.selected"
-          class="checkBox"
-          class="check-box"
-          [value]="Group.id"
-          >{{ Group.name }}
-        </mat-checkbox>
-      </div>
-      <div class="form-group" *ngIf="viewAdd">
-        <mat-checkbox
-          [checked]="true"
-          (change)="onCreateCheckboxChange($event)"
-          class="checkBox"
-          class="check-box"
-        >
-          <input type="text" formControlName="groupName" />
-        </mat-checkbox>
-        <button
-          mat-button
-          type="button"
-          (click)="addGroup()"
-          style="color: green; padding: 0"
-        >
-          <mat-icon>done</mat-icon> save
-        </button>
-        <button
-          mat-button
-          type="button"
-          (click)="removeGroup()"
-          style="margin-left: 0.5rem; padding: 0"
-        >
-          <label style="color: red">- Remove</label>
-        </button>
-      </div>
-    </mat-dialog-content>
-
-    <mat-dialog-actions>
-      <span class="createGroup" (click)="viewAddGroup()"
-        ><label class="createGroupIcon">+</label> Create NewGroup</span
-      >
-      <div
-        style="
-          display: flex;
-          flex-direction: row;
-          justify-content: flex-end;
-          width: 100%;
-        "
-      >
+      <div style="
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                width: 100%;
+              ">
         <div *ngIf="createloader === true; then spinner; else btn"></div>
         <ng-template #spinner>
-          <mat-spinner
-            style="display: flex; justify-content: center; text-align: center"
-            class="mt-2"
-            color="warn"
-            [diameter]="30"
-          ></mat-spinner>
+          <mat-spinner style="display: flex; justify-content: center; text-align: center" class="mt-2" color="warn"
+            [diameter]="30"></mat-spinner>
         </ng-template>
         <ng-template #btn>
           <button mat-button class="Back" (click)="goBack()">Back</button>
-          <button
-            mat-button
-            class="send"
-            [disabled]="UpdateSettingsFormGroup.value.groups.length == 0"
-            (click)="submitUpdateSetting()"
-          >
+          <button mat-button class="send" [disabled]="!UpdateSettingsFormGroup.valid"
+            (click)="submitUpdateSetting()">
             Submit
           </button>
         </ng-template>
       </div>
     </mat-dialog-actions>
   </form>
+ 
 </ng-template>

@@ -48,16 +48,16 @@ export class MainCardBodyManagerComponent implements OnInit {
 
     switch (e.index) {
       case 1:
-        this.tabs.setTabValue('ServiceRequest');
+        this.tabs.setTabValue('Assigned');
         break;
       case 2:
-        this.tabs.setTabValue('Incident');
+        this.tabs.setTabValue('InProgress');
         break;
       case 3:
-        this.tabs.setTabValue('Problems');
+        this.tabs.setTabValue('OverDue');
         break;
       case 4:
-        this.tabs.setTabValue('Change');
+        this.tabs.setTabValue('Completed');
         break;
       default:
         this.tabs.setTabValue(undefined);

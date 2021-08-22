@@ -37,10 +37,16 @@
 .filter-icon {
   padding-right: 0.5rem;
 }
+
 .Rectangle-48 {
   width: 25rem;
   height: 2.45rem;
+  background-color: #ffffff;
   display: inline;
+  padding-top: 5%;
+  margin-top: 5%;
+  padding-left: 5%;
+  padding-bottom: 5%;
 }
 .search-icon {
   border: none;
@@ -59,7 +65,6 @@
   cursor: pointer;
   margin-top: 1%;
   margin-bottom: 1%;
-  margin-left: 61%;
 }
 
 .Empty-Table {
@@ -75,7 +80,6 @@
   cursor: pointer;
   margin-top: 1%;
   margin-bottom: 1%;
-  margin-left: 75%;
 }
 
 .Export-queue {
@@ -190,4 +194,24 @@ th {
 ::-webkit-scrollbar-thumb {
   background: rgb(158, 156, 156);
   border-radius: 15px;
+}
+.hide {
+  z-index: 5;
+  opacity: 0;
+  display: none;
+  position: absolute;
+}
+
+.visibility:hover+.hide {
+  opacity: 1;
+  display: block;
+  color: #c4161c;
+  margin-top: 1.5rem;
+}
+
+.edit:hover+.hide {
+  opacity: 1;
+  display: block;
+  color: #c4161c;
+  margin-top: 1.5rem;
 }

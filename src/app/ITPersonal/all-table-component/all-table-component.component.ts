@@ -10,6 +10,7 @@ import {
   TicketListingDTO,
   TicketCategoryEnum,
   SevirityEnum,
+  StatusEnum,
 } from '../../core/DTOs/ticketListingDTO';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material/sort';
@@ -25,6 +26,7 @@ import { TicketCreationService } from 'src/app/core/services/ticket-creation.ser
 import { ResolveTicketComponent } from '../resolve-ticket/resolve-ticket.component';
 import { EscalateTicketComponent } from '../escalate-ticket/escalate-ticket.component';
 import { FiltedredObjectService } from 'src/app/core/services/filtedred-object.service';
+import { AssignSelfComponent } from '../assign-self/assign-self.component';
 
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { TicketOptionsComponent } from 'src/app/ITPersonal/ticket-options/ticket-options.component';
@@ -79,6 +81,7 @@ export class AllTableComponentComponent implements OnInit {
           ticketCategory: el['requestType']['ticketType'],
           ticketNumber: el['ticketNumber'],
           Sevirity: el['severity'],
+          status: this.getStatusKey(el),
         };
       });
       this.pageLength = data.totalCount;
@@ -86,7 +89,14 @@ export class AllTableComponentComponent implements OnInit {
       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
     });
     let subscried = this.filteredObj.getUpdate().subscribe((data) => {
-      this.filtered = data;
+      this.filtered = {
+        location: data.location === '' ? undefined : data.location,
+        source: data.source === '' ? undefined : data.source,
+        state: data.state === '' ? undefined : data.state,
+        severity: data.severity === '' ? undefined : data.severity,
+        priority: data.priority === '' ? undefined : data.priority,
+        date: data.date === '' ? undefined : data.date,
+      };
     });
   }
 
@@ -112,8 +122,8 @@ export class AllTableComponentComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: this.filtered,
-
-          sortvalue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
@@ -131,7 +141,7 @@ export class AllTableComponentComponent implements OnInit {
               createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['requestType']['name'],
               ticketNumber: el['ticketNumber'],
-
+              status: this.getStatusKey(el),
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
@@ -148,8 +158,8 @@ export class AllTableComponentComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: this.filtered,
-
-          sortvalue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
@@ -167,7 +177,7 @@ export class AllTableComponentComponent implements OnInit {
               createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['requestType']['name'],
               ticketNumber: el['ticketNumber'],
-
+              status: this.getStatusKey(el),
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
             };
@@ -183,8 +193,8 @@ export class AllTableComponentComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: this.filtered,
-
-          sortvalue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
@@ -199,7 +209,7 @@ export class AllTableComponentComponent implements OnInit {
               name: el['rasiedBy']['name'],
               email: el['rasiedBy']['email'],
               ticketNumber: el['ticketNumber'],
-
+              status: this.getStatusKey(el),
               createdDate: cerationDate.toDateString(),
               createdTime: cerationDate.toLocaleTimeString(),
               ticketTopic: el['requestType']['name'],
@@ -231,31 +241,33 @@ export class AllTableComponentComponent implements OnInit {
     debugger;
     // save cookie with table sort data here
     console.log(sort);
-    let sortValue = 0;
-    let sortDirec = 0;
+
     switch (sort.active) {
       case 'name':
-        sortValue = 1;
+        this.sortValue = 1;
         break;
       case 'createdDate':
-        sortValue = 0;
+        this.sortValue = 0;
         break;
       case 'ticketCategory':
-        sortValue = 2;
+        this.sortValue = 2;
         break;
       case 'Sevirity':
-        sortValue = 3;
+        this.sortValue = 3;
+        break;
+      case 'status':
+        this.sortValue = 4;
         break;
     }
     switch (sort.direction) {
       case 'asc':
-        sortDirec = 0;
+        this.sortDirec = 0;
         break;
       case 'desc':
-        sortDirec = 1;
+        this.sortDirec = 1;
         break;
       default:
-        sortDirec = 0;
+        this.sortDirec = 0;
     }
     this.http
       .POST('ticket/list', {
@@ -268,8 +280,8 @@ export class AllTableComponentComponent implements OnInit {
           state: this.Status,
           ticketType: this.from,
         },
-        sortvalue: sortValue,
-        sortDirection: sortDirec,
+        sortvalue: this.sortValue,
+        sortDirection: this.sortDirec,
       })
       .subscribe((res) => {
         console.log(res.pageData);
@@ -284,7 +296,7 @@ export class AllTableComponentComponent implements OnInit {
             name: el['rasiedBy']['name'],
             email: el['rasiedBy']['email'],
             ticketNumber: el['ticketNumber'],
-
+            status: this.getStatusKey(el),
             createdDate: cerationDate.toDateString(),
             createdTime: cerationDate.toLocaleTimeString(),
             ticketTopic: el['requestType']['name'],
@@ -296,13 +308,15 @@ export class AllTableComponentComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
       });
   }
-
+  sortValue = 0;
+  sortDirec = 0;
   displayedColumns: string[] = [
     'select',
     'name',
     'createdDate',
     'ticketCategory',
     'Sevirity',
+    'status',
     'ticketNumber',
     'Actions',
   ];
@@ -392,7 +406,8 @@ export class AllTableComponentComponent implements OnInit {
             state: this.Status,
             ticketType: this.from,
           },
-          sortValue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log('search rsut', res);
@@ -408,10 +423,11 @@ export class AllTableComponentComponent implements OnInit {
               email: el['rasiedBy']['email'],
               createdDate: cerationDate.toDateString(),
               createdTime: cerationDate.toLocaleTimeString(),
-              tticketTopic: el['requestType']['name'],
+              ticketTopic: el['requestType']['name'],
               ticketNumber: el['ticketNumber'],
               ticketCategory: el['requestType']['ticketType'],
               Sevirity: el['severity'],
+              status: this.getStatusKey(el),
             };
           });
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
@@ -423,13 +439,35 @@ export class AllTableComponentComponent implements OnInit {
       )
     );
   }
+  assignTicket(data: any) {
+    const dialogRef = this.dialog.open(AssignSelfComponent, {
+      position: { top: '15%', left: '22%' },
+      data: data.teamName,
+    });
+    this.share.setData(data.id);
 
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
   ngOnChanges(changes: SimpleChanges) {
     if (changes.ticketName) {
       console.log(changes.ticketName.currentValue);
     }
   }
-
+  statusKey: any;
+  getStatusKey(list) {
+    const statVal = Object.keys(StatusEnum).filter(
+      (k) => typeof StatusEnum[k as any] === 'number'
+    );
+    const statKeys = Object.keys(StatusEnum).filter(
+      (k) => typeof StatusEnum[k as any] === 'string'
+    );
+    for (let i = 0; i < statKeys.length; i++) {
+      if (statKeys[i] == list.status) this.statusKey = statVal[i];
+    }
+    return this.statusKey;
+  }
   onSelectionChanged(event: MatAutocompleteSelectedEvent) {
     console.log('event: option selected is ', event.option.value);
     this.optionSelected.emit(event);
@@ -444,7 +482,8 @@ export class AllTableComponentComponent implements OnInit {
           state: this.Status,
           ticketType: this.from,
         },
-        sortValue: 0,
+        sortvalue: this.sortValue,
+        sortDirection: this.sortDirec,
       })
       .subscribe((res) => {
         console.log('search rsut', res);
@@ -459,10 +498,10 @@ export class AllTableComponentComponent implements OnInit {
             name: el['rasiedBy']['name'],
             email: el['rasiedBy']['email'],
             ticketNumber: el['ticketNumber'],
-
+            status: this.getStatusKey(el),
             createdDate: cerationDate.toDateString(),
             createdTime: cerationDate.toLocaleTimeString(),
-            tticketTopic: el['requestType']['name'],
+            ticketTopic: el['requestType']['name'],
             ticketCategory: el['requestType']['ticketType'],
             Sevirity: el['severity'],
           };
@@ -475,6 +514,65 @@ export class AllTableComponentComponent implements OnInit {
     return ticket ? ticket : undefined;
   }
   ngOnInit(): void {
+    this.filteredObj.sendUpdate({});
+    this.filtered = {
+      state: this.Status !== undefined ? this.Status : undefined,
+      ticketTabs: this.tabData,
+      ticketType: this.from,
+    };
+
+    let subscried = this.filteredObj.getUpdate().subscribe((data) => {
+      console.log('filterd0', data);
+      this.filtered = {
+        location: data.location === '' ? undefined : data.location,
+        source: data.source === '' ? undefined : data.source,
+        state:
+          this.Status !== undefined
+            ? this.Status
+            : data.state === ''
+            ? undefined
+            : data.state,
+        severity: data.severity === '' ? undefined : data.severity,
+        priority: data.priority === '' ? undefined : data.priority,
+        date: data.date === '' ? undefined : data.date,
+        ticketTabs: this.tabData,
+        ticketType: this.from,
+      };
+      this.http
+        .POST('ticket/list', {
+          searchText: [],
+          pageSize: this.pageSize,
+          pageNumber: this.pageIndex,
+          isPrint: false,
+          filter: this.filtered,
+          sortValue: null,
+        })
+        .subscribe((res) => {
+          debugger;
+          console.log(res.pageData);
+          let usersData = res.pageData;
+          this.pageLength = res.totalCount;
+          this.UserViewInfoObject = usersData.map((el) => {
+            const cerationDate = new Date(el['creationDate']);
+
+            return {
+              id: el['id'],
+              initials: this.initials(el['rasiedBy']['name']),
+              name: el['rasiedBy']['name'],
+              email: el['rasiedBy']['email'],
+              createdDate: cerationDate.toDateString(),
+              createdTime: cerationDate.toLocaleTimeString(),
+              ticketTopic: el['requestType']['name'],
+              ticketNumber: el['ticketNumber'],
+              teamName: el['teamName'],
+              ticketCategory: el['requestType']['ticketType'],
+              Sevirity: el['severity'],
+              status: this.getStatusKey(el),
+            };
+          });
+          this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+        });
+    });
     this.http.GET('ticket/getTicketNumbers').subscribe((res) => {
       res.map((d) => {
         this.ticketsNO.push(d);
@@ -506,7 +604,7 @@ export class AllTableComponentComponent implements OnInit {
               state: this.Status,
               ticketType: this.from,
             },
-            sortValue: null,
+            sortvalue: null,
           })
           .subscribe((res) => {
             this.pageLength = res.totalCount;
@@ -533,7 +631,7 @@ export class AllTableComponentComponent implements OnInit {
                   ticketTopic: el['requestType']['name'],
                   ticketCategory: el['requestType']['ticketType'],
                   ticketNumber: el['ticketNumber'],
-
+                  status: this.getStatusKey(el),
                   Sevirity: el['severity'],
                 };
               });
@@ -559,7 +657,7 @@ export class AllTableComponentComponent implements OnInit {
               state: this.Status,
               ticketType: this.from,
             },
-            sortValue: null,
+            sortvalue: null,
           })
           .subscribe((res) => {
             this.pageLength = res.totalCount;
@@ -586,7 +684,7 @@ export class AllTableComponentComponent implements OnInit {
                   ticketTopic: el['requestType']['name'],
                   ticketCategory: el['requestType']['ticketType'],
                   ticketNumber: el['ticketNumber'],
-
+                  status: this.getStatusKey(el),
                   Sevirity: el['severity'],
                 };
               });

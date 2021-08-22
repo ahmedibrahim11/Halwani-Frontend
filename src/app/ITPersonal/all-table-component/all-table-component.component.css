@@ -173,7 +173,12 @@ table{
   color: #c4161c;
   margin-top: 1.5rem;
 }
-
+.assignDiv:hover+.hide{
+  opacity: 1;
+  display: block;
+  color: #c4161c;
+  margin-top: 1.5rem;
+}
 .detailsDiv:hover+.hide {
   opacity: 1;
   display: block;

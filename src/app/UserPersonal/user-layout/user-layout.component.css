@@ -1,7 +1,7 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
 .Rectangle-3 {
-  background-image: linear-gradient(to top, #1ced63, #165cc4);
+  background-image: linear-gradient(to left, #1ced63, #165cc4);
   height: 40vh;
 }
 .Ellipse-1 {

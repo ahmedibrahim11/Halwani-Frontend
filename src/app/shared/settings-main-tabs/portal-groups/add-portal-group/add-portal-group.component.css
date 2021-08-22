@@ -1,0 +1,131 @@
+.Create-setting {
+  width: 287px;
+  height: 50px;
+  flex-grow: 1;
+  margin: 0 153px 36px 0;
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.39;
+  letter-spacing: 1px;
+  text-align: left;
+  color: #14142b;
+}
+
+.Ticket-type {
+  width: 100%;
+  flex-grow: 0;
+  margin: 0 20rem 8px 0;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2;
+  letter-spacing: normal;
+  text-align: left;
+  color: #333333;
+  display: flex;
+  flex-direction: row;
+}
+.mandatory {
+  color: red;
+}
+.upload-drop-zone {
+  width: 100%;
+  height: 157px;
+  flex-grow: 0;
+  margin: 36px 0 8px;
+  border-radius: 4px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border: solid 2px #edebe9;
+  background-color: #f5f6f7;
+}
+.send {
+  width: 100px;
+  height: 44px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: #c4161c;
+  color: white;
+}
+.Back {
+  width: 100px;
+  height: 44px;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: silver;
+}
+.checkBox {
+  display: block;
+}
+/* .mat-dialog-content {
+  min-height: 65vh;
+} */
+.createGroup {
+  padding-right: 8.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+.createGroupIcon {
+  color: green;
+  font-size: 18px;
+}
+.row-ddl {
+  display: flex;
+  flex-direction: row;
+}
+
+.col-ddl {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.spinner-design {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding: 5%;
+}
+.Rectangle-9 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  border: solid 2px #edebe9;
+  background-color: #edebe9;
+}
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(158, 156, 156);
+  border-radius: 15px;
+}

@@ -181,7 +181,13 @@
               Resolved
             </h3>
             <h3 *ngIf="topic.status == 8" class="Cancelled statusBubble">
-              Cancelled
+              OverDue
+            </h3>
+            <h3 *ngIf="topic.status == 9" class="Cancelled statusBubble">
+              Canceled
+            </h3>
+            <h3 *ngIf="topic.status == 10" class="Cancelled statusBubble">
+              Closed
             </h3>
           </div>
         </td>
@@ -190,28 +196,39 @@
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let topic">
           <div class="menu">
-            <mat-icon (click)="cancelTicket(topic.id)" class="icon"
+            <mat-icon (click)="cancelTicket(topic.id)" class="icon cancel"
               >cancel</mat-icon
             >
+            <div class="hide">
+              <p>Cancel Ticket</p>
+            </div>
             <img
               (click)="escalateTicket(topic.id)"
               src="assets/PeopleError.svg"
               style="margin-right: 0.1rem"
-              class="icon"
+              class="icon escalate"
             />
+            <div class="hide">
+              <p>Escalate Ticket</p>
+            </div>
             <img
               (click)="openTicket(topic.id)"
               src="assets/Open.svg"
               style="margin-right: 0.1rem"
-              class="icon"
+              class="icon open"
             />
-
+            <div class="hide">
+              <p>Ticket Details</p>
+            </div>
             <img
               src="assets/More.svg"
-              class="icon"
+              class="icon options"
               [matMenuTriggerFor]="menu"
               mat-icon-button
             />
+            <div class="hide">
+              <p>Ticket Options</p>
+            </div>
             <mat-menu class="options-modal-container" #menu="matMenu">
               <div
                 class="edit-container"

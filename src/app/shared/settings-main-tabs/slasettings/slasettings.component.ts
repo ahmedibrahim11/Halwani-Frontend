@@ -113,7 +113,8 @@ export class SLASettingsComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {},
-          sortvalue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
@@ -154,7 +155,8 @@ export class SLASettingsComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {},
-          sortvalue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
@@ -194,7 +196,8 @@ export class SLASettingsComponent implements OnInit {
           pageNumber: event.pageIndex,
           isPrint: false,
           filter: {},
-          sortvalue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log(res.pageData);
@@ -241,37 +244,38 @@ export class SLASettingsComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+  sortValue = 1;
+  sortDirec = 0;
   //sort server-side
   @HostListener('matSortChange', ['$event'])
   sortChange(sort) {
     debugger;
     // save cookie with table sort data here
     console.log(sort);
-    let sortValue = 0;
-    let sortDirec = 0;
+
     switch (sort.active) {
       case 'slaType':
-        sortValue = 0;
+        this.sortValue = 0;
         break;
       case 'priority':
-        sortValue = 1;
+        this.sortValue = 1;
         break;
 
       case 'slaGoal':
-        sortValue = 3;
+        this.sortValue = 3;
       case 'TicketCategory':
-        sortValue = 4;
+        this.sortValue = 4;
         break;
     }
     switch (sort.direction) {
       case 'asc':
-        sortDirec = 0;
+        this.sortDirec = 0;
         break;
       case 'desc':
-        sortDirec = 1;
+        this.sortDirec = 1;
         break;
       default:
-        sortDirec = 0;
+        this.sortDirec = 0;
     }
     this.http
       .POST('SLA/List', {
@@ -280,8 +284,8 @@ export class SLASettingsComponent implements OnInit {
         pageNumber: this.pageIndex,
         isPrint: false,
         filter: {},
-        sortvalue: sortValue,
-        sortDirection: sortDirec,
+        sortvalue: this.sortValue,
+        sortDirection: this.sortDirec,
       })
       .subscribe((res) => {
         console.log(res.pageData);
@@ -405,7 +409,8 @@ export class SLASettingsComponent implements OnInit {
           pageNumber: this.pageIndex,
           isPrint: false,
           filter: {},
-          sortValue: 0,
+          sortvalue: this.sortValue,
+          sortDirection: this.sortDirec,
         })
         .subscribe((res) => {
           console.log('search rsut', res);
@@ -460,7 +465,8 @@ export class SLASettingsComponent implements OnInit {
         pageNumber: this.pageIndex,
         isPrint: false,
         filter: {},
-        sortValue: 0,
+        sortvalue: this.sortValue,
+        sortDirection: this.sortDirec,
       })
       .subscribe((res) => {
         console.log('search rsut', res);
@@ -520,7 +526,8 @@ export class SLASettingsComponent implements OnInit {
             pageNumber: this.pageIndex,
             isPrint: false,
             filter: {},
-            sortValue: 0,
+            sortvalue: this.sortValue,
+            sortDirection: this.sortDirec,
           })
           .subscribe((res) => {
             if (res.totalCount !== 0) {
@@ -574,7 +581,8 @@ export class SLASettingsComponent implements OnInit {
             pageNumber: this.pageIndex,
             isPrint: false,
             filter: {},
-            sortValue: 0,
+            sortvalue: this.sortValue,
+            sortDirection: this.sortDirec,
           })
           .subscribe((res) => {
             if (res.totalCount !== 0) {
@@ -658,7 +666,8 @@ export class SLASettingsComponent implements OnInit {
         filter: {
           searchText: $event.target.value,
         },
-        sortValue: 0,
+        sortvalue: this.sortValue,
+        sortDirection: this.sortDirec,
       })
       .subscribe((res) => {
         if (res.totalCount !== 0) {
