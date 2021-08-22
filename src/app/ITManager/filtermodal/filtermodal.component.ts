@@ -122,7 +122,7 @@ export class FiltermodalComponent implements OnInit {
   }
 
   clearFilters() {
-    this.createloader = true;
+    //this.createloader = true;
 
     this.filterObject = {};
     this.locations.setValue('');
@@ -131,26 +131,26 @@ export class FiltermodalComponent implements OnInit {
     this.severities.setValue('');
     this.priorities.setValue('');
     this.ticketDate = '';
+    this.filteredObject.sendUpdate({});
 
-    this.http.GET('ticket/getCount').subscribe((res) => {
-      this.pageLength = res;
-      this.http
-        .POST('ticket/list', {
-          searchText: [],
-          pageSize: this.pageSize,
-          pageNumber: this.pageIndex,
-          isPrint: false,
-          filter: {},
-          sortValue: 0,
-        })
-        .subscribe((res) => {
-          this.createloader = false;
+    // this.http.GET('ticket/getCount').subscribe((res) => {
+    //   this.pageLength = res;
+    //   this.http
+    //     .POST('ticket/list', {
+    //       searchText: [],
+    //       pageSize: this.pageSize,
+    //       pageNumber: this.pageIndex,
+    //       isPrint: false,
+    //       filter: {},
+    //       sortValue: 0,
+    //     })
+    //     .subscribe((res) => {
+    //       this.createloader = false;
 
-          console.log('wreeeeny', res);
-          this.filteredObject.sendUpdate({});
-          this.common.sendUpdate(res);
-        });
-    });
+    //       console.log('wreeeeny', res);
+    //       this.common.sendUpdate(res);
+    //     });
+    // });
   }
 
   constructor(

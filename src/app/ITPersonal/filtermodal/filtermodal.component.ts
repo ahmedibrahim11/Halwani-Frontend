@@ -86,27 +86,27 @@ export class FiltermodalComponent implements OnInit {
   }
 
   sendFiltersObject() {
-    this.createloader = true;
+    // this.createloader = true;
+    this.filteredObject.sendUpdate(this.filterObject);
 
-    this.http.GET('ticket/getCount').subscribe((res) => {
-      this.pageLength = res;
-      this.http
-        .POST('ticket/list', {
-          searchText: [],
-          pageSize: this.pageSize,
-          pageNumber: this.pageIndex,
-          isPrint: false,
-          filter: this.filterObject,
-          sortValue: 0,
-        })
-        .subscribe((res) => {
-          this.createloader = false;
+    // this.http.GET('ticket/getCount').subscribe((res) => {
+    //   this.pageLength = res;
+    //   this.http
+    //     .POST('ticket/list', {
+    //       searchText: [],
+    //       pageSize: this.pageSize,
+    //       pageNumber: this.pageIndex,
+    //       isPrint: false,
+    //       filter: this.filterObject,
+    //       sortValue: 0,
+    //     })
+    //     .subscribe((res) => {
+    //       this.createloader = false;
 
-          this.filteredObject.sendUpdate(this.filterObject);
-          console.log('wreeeeny', res);
-          this.common.sendUpdate(res);
-        });
-    });
+    //       console.log('wreeeeny', res);
+    //       this.common.sendUpdate(res);
+    //     });
+    // });
   }
 
   formatDate(date) {
@@ -128,7 +128,7 @@ export class FiltermodalComponent implements OnInit {
   }
 
   clearFilters() {
-    this.createloader = true;
+    //this.createloader = true;
 
     this.filterObject = {};
     this.locations.setValue('');
@@ -137,29 +137,29 @@ export class FiltermodalComponent implements OnInit {
     this.severities.setValue('');
     this.priorities.setValue('');
     this.ticketDate = '';
+    this.filteredObject.sendUpdate({});
 
-    this.http.GET('ticket/getCount').subscribe((res) => {
-      this.pageLength = res;
-      this.http
-        .POST('ticket/list', {
-          searchText: [],
-          pageSize: this.pageSize,
-          pageNumber: this.pageIndex,
-          isPrint: false,
-          filter: {
-            submitterName: this.submitterName,
-            state: this.status,
-          },
-          sortValue: 0,
-        })
-        .subscribe((res) => {
-          this.createloader = false;
+    // this.http.GET('ticket/getCount').subscribe((res) => {
+    //   this.pageLength = res;
+    //   this.http
+    //     .POST('ticket/list', {
+    //       searchText: [],
+    //       pageSize: this.pageSize,
+    //       pageNumber: this.pageIndex,
+    //       isPrint: false,
+    //       filter: {
+    //         submitterName: this.submitterName,
+    //         state: this.status,
+    //       },
+    //       sortValue: 0,
+    //     })
+    //     .subscribe((res) => {
+    //       this.createloader = false;
 
-          console.log('wreeeeny', res);
-          this.filteredObject.sendUpdate({});
-          this.common.sendUpdate(res);
-        });
-    });
+    //       console.log('wreeeeny', res);
+    //       this.common.sendUpdate(res);
+    //     });
+    // });
   }
   submitterName: any = null;
   status: any = null;

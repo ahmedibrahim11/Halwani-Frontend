@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import {
   SevirityEnum,
+  StatusEnum,
   TicketCategoryEnum,
   TicketListingDTO,
 } from 'src/app/core/DTOs/ticketListingDTO';
@@ -406,6 +407,56 @@ export class TicketsTableComponent implements OnInit {
   team: any;
 
   ngOnInit(): void {
+    this.filteredObj.sendUpdate({});
+    this.filtered = {
+      state: this.Status !== undefined ? this.Status : undefined,
+    };
+
+    let subscried = this.filteredObj.getUpdate().subscribe((data) => {
+      console.log('filterd0', data);
+      this.filtered = {
+        location: data.location === '' ? undefined : data.location,
+        source: data.source === '' ? undefined : data.source,
+        state: data.state === '' ? undefined : data.state,
+        severity: data.severity === '' ? undefined : data.severity,
+        priority: data.priority === '' ? undefined : data.priority,
+        date: data.date === '' ? undefined : data.date,
+      };
+      this.http
+        .POST('ticket/list', {
+          searchText: [],
+          pageSize: this.pageSize,
+          pageNumber: this.pageIndex,
+          isPrint: false,
+          filter: this.filtered,
+          sortValue: null,
+        })
+        .subscribe((res) => {
+          debugger;
+          console.log(res.pageData);
+          let usersData = res.pageData;
+          this.pageLength = res.totalCount;
+          this.UserViewInfoObject = usersData.map((el) => {
+            const cerationDate = new Date(el['creationDate']);
+
+            return {
+              id: el['id'],
+              initials: this.initials(el['rasiedBy']['name']),
+              name: el['rasiedBy']['name'],
+              email: el['rasiedBy']['email'],
+              createdDate: cerationDate.toDateString(),
+              createdTime: cerationDate.toLocaleTimeString(),
+              ticketTopic: el['requestType']['name'],
+              ticketNumber: el['ticketNumber'],
+              teamName: el['teamName'],
+              ticketCategory: el['requestType']['ticketType'],
+              Sevirity: el['severity'],
+              status: el['status'],
+            };
+          });
+          this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+        });
+    });
     if (this.withActions) {
       console.log('with', this.withActions);
       this.displayedColumns.push('Actions');
