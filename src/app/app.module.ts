@@ -16,6 +16,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { IPublicClientApplication, PublicClientApplication, InteractionType, BrowserCacheLocation, LogLevel } from '@azure/msal-browser';
 import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
 import { HomeComponent } from './home/home.component';
+import { SuperAdminModule} from "./super-admin/super-admin.module"
 
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1;
 
@@ -30,8 +31,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       clientId: '17272d07-ae51-425d-a6e3-e0ca114adc47',
       authority:
         'https://login.microsoftonline.com/1213517f-fdb5-4592-9934-471910b55de2',
-      redirectUri: 'https://halwani-frontend.azurewebsites.net/',
-      postLogoutRedirectUri: 'https://halwani-frontend.azurewebsites.net/',
+      redirectUri: 'http://localhost:4200/',
+      postLogoutRedirectUri: 'http://localhost:4200/',
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
@@ -77,6 +78,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     MatInputModule,
     ITpersonalModule,
     ITmanagerModule,
+    SuperAdminModule,
     FormsModule,
     ReactiveFormsModule,
     UserModule,

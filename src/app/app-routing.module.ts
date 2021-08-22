@@ -33,6 +33,7 @@ import { TicketEsclationsComponent } from './ITManager/ticket-esclations/ticket-
 import { MsalGuard } from '@azure/msal-angular';
 import { SharedComponent } from './shared/shared.component';
 import { ErrorMessageComponent } from './shared/error-message/error-message.component';
+import { SuperAdminComponent } from './super-admin/super-admin.component';
 const routes: Routes = [
   {
     path: 'itpersonal',
@@ -120,6 +121,19 @@ const routes: Routes = [
       {
         path: '',
         component: MainCardBodyManagerComponent,
+        canActivate: [MsalGuard],
+      },
+    ],
+  },
+
+  {
+    path: 'superadmin',
+    component: SuperAdminComponent,
+    canActivate: [MsalGuard],
+    children: [
+      {
+        path: 'settings',
+        component: SettingsMainTabsComponent,
         canActivate: [MsalGuard],
       },
     ],

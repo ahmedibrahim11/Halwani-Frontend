@@ -84,7 +84,7 @@ export class SharedComponent implements OnInit {
               break;
 
             case 3:
-              this.router.navigate(['/itmanager']);
+              this.router.navigate(['/superadmin/settings']);
               break;
           }
         },
