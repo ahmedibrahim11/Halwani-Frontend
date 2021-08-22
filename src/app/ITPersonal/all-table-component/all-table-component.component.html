@@ -247,6 +247,12 @@
             <div class="hide">
               <p>Escalate Ticket</p>
             </div>
+            <mat-icon (click)="assignTicket(topic)" class="icon assignDiv"
+              >group_add</mat-icon
+            >
+            <div class="hide">
+              <p>Assign Ticket</p>
+            </div>
             <img
               (click)="openTicket(topic.id)"
               src="assets/Open.svg"

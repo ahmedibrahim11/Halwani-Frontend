@@ -26,6 +26,7 @@ import { TicketCreationService } from 'src/app/core/services/ticket-creation.ser
 import { ResolveTicketComponent } from '../resolve-ticket/resolve-ticket.component';
 import { EscalateTicketComponent } from '../escalate-ticket/escalate-ticket.component';
 import { FiltedredObjectService } from 'src/app/core/services/filtedred-object.service';
+import { AssignSelfComponent } from '../assign-self/assign-self.component';
 
 import { SharingdataService } from 'src/app/core/services/sharingdata.service';
 import { TicketOptionsComponent } from 'src/app/ITPersonal/ticket-options/ticket-options.component';
@@ -438,7 +439,17 @@ export class AllTableComponentComponent implements OnInit {
       )
     );
   }
+  assignTicket(data: any) {
+    const dialogRef = this.dialog.open(AssignSelfComponent, {
+      position: { top: '15%', left: '22%' },
+      data: data.teamName,
+    });
+    this.share.setData(data.id);
 
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
   ngOnChanges(changes: SimpleChanges) {
     if (changes.ticketName) {
       console.log(changes.ticketName.currentValue);

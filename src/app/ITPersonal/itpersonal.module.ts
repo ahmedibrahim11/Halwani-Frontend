@@ -27,6 +27,7 @@ import { PersonalServiceRequestComponent } from './personal-service-request/pers
 import { PersonalProblemsComponent } from './personal-problems/personal-problems.component';
 import { PersonalIncidentsComponent } from './personal-incidents/personal-incidents.component';
 import { PersonalChangesComponent } from './personal-changes/personal-changes.component';
+import { AssignSelfComponent } from './assign-self/assign-self.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -47,6 +48,7 @@ import { PersonalChangesComponent } from './personal-changes/personal-changes.co
     PersonalProblemsComponent,
     PersonalIncidentsComponent,
     PersonalChangesComponent,
+    AssignSelfComponent,
   ],
   imports: [
     BrowserAnimationsModule,
