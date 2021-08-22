@@ -49,7 +49,7 @@ export class AllTableComponentComponent implements OnInit {
   public flag: boolean;
   @Input() withActions = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @Input() tab: number = 0;
+  @Input() tab: number;
   @Input() Status: number = undefined;
   empty: boolean = true;
   dataLoaded: boolean = false;
@@ -83,17 +83,6 @@ export class AllTableComponentComponent implements OnInit {
       });
       this.pageLength = data.totalCount;
       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-    });
-    let subscried = this.filteredObj.getUpdate().subscribe((data) => {
-      console.log('filterd0', data);
-      this.filtered = {
-        location: data.location === '' ? undefined : data.location,
-        source: data.source === '' ? undefined : data.source,
-        state: data.state === '' ? undefined : data.state,
-        severity: data.severity === '' ? undefined : data.severity,
-        priority: data.priority === '' ? undefined : data.priority,
-        date: data.date === '' ? undefined : data.date,
-      };
     });
   }
 
@@ -287,13 +276,14 @@ export class AllTableComponentComponent implements OnInit {
       default:
         this.sortDirec = 0;
     }
+
     this.http
       .POST('ticket/list', {
         searchText: [],
         pageSize: this.pageSize,
         pageNumber: this.pageIndex,
         isPrint: false,
-        filter: { ticketType: this.tab, State: this.Status },
+        filter: this.filtered,
         sortvalue: this.sortValue,
         sortDirection: this.sortDirec,
       })
@@ -375,7 +365,7 @@ export class AllTableComponentComponent implements OnInit {
               pageSize: 5,
               pageNumber: this.pageIndex,
               isPrint: false,
-              filter: { ticketType: this.tab, State: this.Status },
+              filter: { ticketTabs: this.tab, State: this.Status },
               sortvalue: this.sortValue,
               sortDirection: this.sortDirec,
             })
@@ -428,7 +418,7 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageLength,
           pageNumber: this.pageIndex,
           isPrint: false,
-          filter: { ticketType: this.tab, State: this.Status },
+          filter: { ticketTabs: this.tab, State: this.Status },
           sortvalue: this.sortValue,
           sortDirection: this.sortDirec,
         })
@@ -500,7 +490,7 @@ export class AllTableComponentComponent implements OnInit {
           pageSize: this.pageSize,
           pageNumber: this.pageIndex,
           isPrint: false,
-          filter: { ticketType: this.tab, State: this.Status },
+          filter: { ticketTabs: this.tab, State: this.Status },
           sortvalue: this.sortValue,
           sortDirection: this.sortDirec,
         })
@@ -551,7 +541,7 @@ export class AllTableComponentComponent implements OnInit {
         pageSize: 5,
         pageNumber: this.pageIndex,
         isPrint: false,
-        filter: { ticketType: this.tab, State: this.Status },
+        filter: { ticketTabs: this.tab, State: this.Status },
         sortvalue: this.sortValue,
         sortDirection: this.sortDirec,
       })
@@ -586,6 +576,64 @@ export class AllTableComponentComponent implements OnInit {
     return ticket ? ticket : undefined;
   }
   ngOnInit(): void {
+    debugger;
+    this.filteredObj.sendUpdate({});
+    this.filtered = {
+      state: this.Status !== undefined ? this.Status : undefined,
+      ticketTabs: this.tab,
+    };
+
+    let subscried = this.filteredObj.getUpdate().subscribe((data) => {
+      console.log('filterd0', data);
+      this.filtered = {
+        location: data.location === '' ? undefined : data.location,
+        source: data.source === '' ? undefined : data.source,
+        state:
+          this.Status !== undefined
+            ? this.Status
+            : data.state === ''
+            ? undefined
+            : data.state,
+        severity: data.severity === '' ? undefined : data.severity,
+        priority: data.priority === '' ? undefined : data.priority,
+        date: data.date === '' ? undefined : data.date,
+        ticketTabs: this.tab,
+      };
+      this.http
+        .POST('ticket/list', {
+          searchText: [],
+          pageSize: this.pageSize,
+          pageNumber: this.pageIndex,
+          isPrint: false,
+          filter: this.filtered,
+          sortValue: null,
+        })
+        .subscribe((res) => {
+          debugger;
+          console.log(res.pageData);
+          let usersData = res.pageData;
+          this.pageLength = res.totalCount;
+          this.UserViewInfoObject = usersData.map((el) => {
+            const cerationDate = new Date(el['creationDate']);
+
+            return {
+              id: el['id'],
+              initials: this.initials(el['rasiedBy']['name']),
+              name: el['rasiedBy']['name'],
+              email: el['rasiedBy']['email'],
+              createdDate: cerationDate.toDateString(),
+              createdTime: cerationDate.toLocaleTimeString(),
+              ticketTopic: el['requestType']['name'],
+              ticketNumber: el['ticketNumber'],
+              teamName: el['teamName'],
+              ticketCategory: el['requestType']['ticketType'],
+              Sevirity: el['severity'],
+              status: this.getStatusKey(el),
+            };
+          });
+          this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+        });
+    });
     this.http.GET('ticket/getTicketNumbers').subscribe((res) => {
       res.map((d) => {
         this.ticketsNO.push(d);
@@ -613,9 +661,8 @@ export class AllTableComponentComponent implements OnInit {
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
-            filter: { ticketTabs: this.tab, State: this.Status },
-            sortvalue: this.sortValue,
-            sortDirection: this.sortDirec,
+            filter: this.filtered,
+            sortvalue: null,
           })
           .subscribe((res) => {
             this.pageLength = res.totalCount;
@@ -667,9 +714,8 @@ export class AllTableComponentComponent implements OnInit {
             pageSize: this.pageLength,
             pageNumber: this.pageIndex,
             isPrint: false,
-            filter: { ticketTabs: this.tab, State: this.Status },
-            sortvalue: this.sortValue,
-            sortDirection: this.sortDirec,
+            filter: this.filtered,
+            sortvalue: null,
           })
           .subscribe((res) => {
             debugger;

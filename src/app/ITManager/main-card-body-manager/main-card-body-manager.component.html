@@ -55,7 +55,10 @@
             <app-no-more-tickets></app-no-more-tickets>
           </div>
           <div *ngIf="!empty">
-            <app-all-table-component [Status]="4"></app-all-table-component>
+            <app-all-table-component
+              [tab]="1"
+              [Status]="4"
+            ></app-all-table-component>
           </div>
         </div>
       </mat-tab>
@@ -65,7 +68,10 @@
             <app-no-more-tickets></app-no-more-tickets>
           </div>
           <div *ngIf="!empty">
-            <app-all-table-component [Status]="8"></app-all-table-component>
+            <app-all-table-component
+              [tab]="1"
+              [Status]="8"
+            ></app-all-table-component>
           </div>
         </div>
       </mat-tab>
