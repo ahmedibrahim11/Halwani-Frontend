@@ -368,22 +368,22 @@ export class ProductCategorySettingsComponent implements OnInit {
     return ticket ? ticket : undefined;
   }
   ngOnInit(): void {
-    this.http
-      .POST('Category/List', {
-        searchText: [],
-        pageSize: 10000,
-        pageNumber: this.pageIndex,
-        isPrint: true,
-        filter: {},
-        sortvalue: this.sortValue,
-        sortDirection: this.sortDirec,
-      })
-      .subscribe((res) => {
-        res.pageData.map((d) => {
-          this.ticketsNO.push(d['text']);
-        });
-        console.log(this.ticketsNO);
-      });
+    // this.http
+    //   .POST('Category/List', {
+    //     searchText: [],
+    //     pageSize: 10000,
+    //     pageNumber: this.pageIndex,
+    //     isPrint: true,
+    //     filter: {},
+    //     sortvalue: this.sortValue,
+    //     sortDirection: this.sortDirec,
+    //   })
+    //   .subscribe((res) => {
+    //     res.pageData.map((d) => {
+    //       this.ticketsNO.push(d['text']);
+    //     });
+    //     console.log(this.ticketsNO);
+    //   });
     this.filteredTickets = this.productCategory
       .get('name')
       .valueChanges.pipe(

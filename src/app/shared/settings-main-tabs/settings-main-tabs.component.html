@@ -1,31 +1,35 @@
 <div class="Rectangle-6">
-    <div class="mainTableHeader">
-        <div class="table-header">
-            <label class="Actions-Tickets-Queue"> configuration / settings </label>
-            <label class="Tickets-Queue">System configuration</label>
-        </div>
-       
+  <div class="mainTableHeader">
+    <div class="table-header">
+      <label class="Actions-Tickets-Queue"> configuration / settings </label>
+      <label class="Tickets-Queue">System configuration</label>
     </div>
-    <div class="tabs">
-        <mat-tab-group >
-            <mat-tab label="Profile settings">
-               <app-profile-settings ></app-profile-settings>
-            </mat-tab>
-            <mat-tab label="Help center settings">
-                <app-help-center-config></app-help-center-config>
-            </mat-tab>
-            <mat-tab label="SLA settings">
-                <app-slasettings></app-slasettings>
-            </mat-tab>
-            <mat-tab label="Portal Groups">
-                <app-portal-groups></app-portal-groups>
-            </mat-tab>
-            <mat-tab label="Products Categorization">
-                <app-product-category-settings></app-product-category-settings>
-            </mat-tab>
-            <mat-tab label="User Management">
-                <app-user-management></app-user-management>
-            </mat-tab>
-        </mat-tab-group>
-    </div>
+  </div>
+  <div class="tabs">
+    <mat-tab-group
+      [(selectedIndex)]="SelectedTabIndex"
+      (selectedTabChange)="onTabChanged($event)"
+    >
+      <mat-tab label="Profile settings">
+        <app-profile-settings *ngIf="tabIndex === 0"></app-profile-settings>
+      </mat-tab>
+      <mat-tab label="Help center settings">
+        <app-help-center-config *ngIf="tabIndex === 1"></app-help-center-config>
+      </mat-tab>
+      <mat-tab label="SLA settings">
+        <app-slasettings *ngIf="tabIndex === 2"></app-slasettings>
+      </mat-tab>
+      <mat-tab label="Portal Groups">
+        <app-portal-groups *ngIf="tabIndex === 3"></app-portal-groups>
+      </mat-tab>
+      <mat-tab label="Products Categorization">
+        <app-product-category-settings
+          *ngIf="tabIndex === 4"
+        ></app-product-category-settings>
+      </mat-tab>
+      <mat-tab label="User Management">
+        <app-user-management *ngIf="tabIndex === 5"></app-user-management>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
 </div>

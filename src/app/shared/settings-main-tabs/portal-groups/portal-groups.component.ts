@@ -377,22 +377,22 @@ export class PortalGroupsComponent implements OnInit {
   }
   helpcenter: FormGroup = new FormGroup({ name: new FormControl() });
   ngOnInit(): void {
-    this.http
-      .POST('Group/list', {
-        searchText: [],
-        pageSize: 10000,
-        pageNumber: this.pageIndex,
-        isPrint: true,
-        filter: {},
-        sortvalue: this.sortValue,
-        sortDirection: this.sortDirec,
-      })
-      .subscribe((res) => {
-        res.pageData.map((d) => {
-          this.ticketsNO.push(d['name']);
-        });
-        console.log(this.ticketsNO);
-      });
+    // this.http
+    //   .POST('Group/list', {
+    //     searchText: [],
+    //     pageSize: 10000,
+    //     pageNumber: this.pageIndex,
+    //     isPrint: true,
+    //     filter: {},
+    //     sortvalue: this.sortValue,
+    //     sortDirection: this.sortDirec,
+    //   })
+    //   .subscribe((res) => {
+    //     res.pageData.map((d) => {
+    //       this.ticketsNO.push(d['name']);
+    //     });
+    //     console.log(this.ticketsNO);
+    //   });
     this.filteredTickets = this.helpcenter
       .get('name')
       .valueChanges.pipe(
