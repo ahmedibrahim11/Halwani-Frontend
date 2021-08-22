@@ -414,22 +414,22 @@ export class HelpCenterConfigComponent implements OnInit {
   }
   helpcenter: FormGroup = new FormGroup({ name: new FormControl() });
   ngOnInit(): void {
-    // this.http
-    //   .POST('RequestType/list', {
-    //     searchText: [],
-    //     pageSize: 10000,
-    //     pageNumber: this.pageIndex,
-    //     isPrint: true,
-    //     filter: {},
-    //     sortvalue: this.sortValue,
-    //     sortDirection: this.sortDirec,
-    //   })
-    //   .subscribe((res) => {
-    //     res.pageData.map((d) => {
-    //       this.ticketsNO.push(d['title']);
-    //     });
-    //     console.log(this.ticketsNO);
-    //   });
+    this.http
+      .POST('RequestType/list', {
+        searchText: [],
+        pageSize: 10000,
+        pageNumber: this.pageIndex,
+        isPrint: true,
+        filter: {},
+        sortvalue: this.sortValue,
+        sortDirection: this.sortDirec,
+      })
+      .subscribe((res) => {
+        res.pageData.map((d) => {
+          this.ticketsNO.push(d['title']);
+        });
+        console.log(this.ticketsNO);
+      });
     this.filteredTickets = this.helpcenter
       .get('name')
       .valueChanges.pipe(
