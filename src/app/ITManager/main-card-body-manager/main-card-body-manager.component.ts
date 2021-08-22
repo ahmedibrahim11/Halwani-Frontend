@@ -56,6 +56,9 @@ export class MainCardBodyManagerComponent implements OnInit {
       case 3:
         this.tabs.setTabValue('OverDue');
         break;
+      case 4:
+        this.tabs.setTabValue('Completed');
+        break;
       default:
         this.tabs.setTabValue(undefined);
     }

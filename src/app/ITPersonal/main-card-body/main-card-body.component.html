@@ -68,6 +68,19 @@
           </div>
         </div>
       </mat-tab>
+      <mat-tab label="Completed">
+        <div class="Rectangle-339" *ngIf="tabIndex === 4">
+          <div *ngIf="empty">
+            <app-no-more-tickets></app-no-more-tickets>
+          </div>
+          <div *ngIf="!empty">
+            <app-all-table-component
+              [tab]="1"
+              [Status]="10"
+            ></app-all-table-component>
+          </div>
+        </div>
+      </mat-tab>
     </mat-tab-group>
   </div>
 </div>
