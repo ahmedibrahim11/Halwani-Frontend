@@ -4,7 +4,7 @@
 
 export const environment = {
   production: true,
-  serverURL: 'https://localhost:44345/',
+  serverURL: 'https://halwani-backend.azurewebsites.net/',
   signalR: 'https://halwani-backend.azurewebsites.net/hubs',
   // serverURL: 'https://localhost:44345/',
   // signalR: 'https://localhost:44345/hubs',
