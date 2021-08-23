@@ -2,7 +2,7 @@
   border-radius: 24px;
   background-color: #ffffff;
   width: 50vw;
-  height: 35vh;
+  height: 40vh;
   overflow-y: hidden;
   overflow-x: hidden;
 }
@@ -28,7 +28,7 @@
 
 .escalate-text {
   font-family: Poppins;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
