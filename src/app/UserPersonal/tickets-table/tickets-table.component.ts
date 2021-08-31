@@ -33,6 +33,7 @@ import { CancelTicketComponent } from 'src/app/ITManager/cancel-ticket/cancel-ti
 import { CreateTicketPopupComponent } from 'src/app/ITPersonal/create-ticket-popup/create-ticket-popup.component';
 import { CreatTicketPopupComponent } from '../creat-ticket-popup/creat-ticket-popup.component';
 import { FiltedredObjectService } from 'src/app/core/services/filtedred-object.service';
+import { TicketHistoryComponent } from '../ticket-history/ticket-history.component';
 @Component({
   selector: 'app-tickets-table',
   templateUrl: './tickets-table.component.html',
@@ -663,6 +664,17 @@ export class TicketsTableComponent implements OnInit {
     let updateStatus = this.share.getData();
     const dialogRef = this.dialog.open(CreatTicketPopupComponent, {
       data: { updateValue: updateStatus },
+    });
+    this.share.setData(id);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+    TicketHistory(id: any) {
+    let updateStatus = this.share.getData();
+    const dialogRef = this.dialog.open(TicketHistoryComponent, {
+      data: { ticketID: id },
     });
     this.share.setData(id);
 
