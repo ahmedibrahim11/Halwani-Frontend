@@ -5,22 +5,14 @@
         <a
           *ngIf="fragment !== undefined"
           [routerLink]="['/itpersonal', fragment]"
-          style="
-            background-color: rgb(71, 70, 70);
-            border-radius: 1rem;
-            height: 1.4rem;
-          "
+          style="background-color: #717171; border-radius: 1rem; height: 1.4rem"
         >
           <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
         <a
           *ngIf="fragment === undefined"
           [routerLink]="['/itpersonal']"
-          style="
-            background-color: rgb(71, 70, 70);
-            border-radius: 1rem;
-            height: 1.4rem;
-          "
+          style="background-color: #717171; border-radius: 1rem; height: 1.4rem"
         >
           <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
@@ -30,22 +22,14 @@
         <a
           *ngIf="fragment !== undefined"
           [routerLink]="['/itmanager', fragment]"
-          style="
-            background-color: rgb(71, 70, 70);
-            border-radius: 1rem;
-            height: 1.4rem;
-          "
+          style="background-color: #717171; border-radius: 1rem; height: 1.4rem"
         >
           <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
         <a
           *ngIf="fragment === undefined"
           [routerLink]="['/itmanager']"
-          style="
-            background-color: rgb(71, 70, 70);
-            border-radius: 1rem;
-            height: 1.4rem;
-          "
+          style="background-color: #717171; border-radius: 1rem; height: 1.4rem"
         >
           <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
@@ -62,7 +46,11 @@
         [userMessage]="msg"
       ></app-added-message>
     </div>
-    <form [formGroup]="newMessag" (ngSubmit)="submit()">
+    <form
+      [formGroup]="newMessag"
+      (ngSubmit)="submit()"
+      style="display: flex; flex-direction: column; width: fit-content"
+    >
       <div class="MessageAdd">
         <div class="Editor">
           <span class="Persona-container">
@@ -121,12 +109,14 @@
     </div>
     <div class="Ticket-ID">Ticket type</div>
     <div class="ticketdev" style="margin-bottom: 1rem">
-      <span>
+      <span
+        style="display: flex; flex-direction: row; justify-content: flex-start"
+      >
         <img
-          width="20px"
-          height="20px"
-          [src]="userMessage.ticketTypeIcon"
+          width="40px"
+          height="40px"
           style="margin-right: 0.25rem"
+          [src]="userMessage.ticketTypeIcon"
         />
         <label class="SR-103">{{ userMessage.ticketTypeName }}</label></span
       >
