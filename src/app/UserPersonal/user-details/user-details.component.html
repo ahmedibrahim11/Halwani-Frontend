@@ -16,7 +16,9 @@
         >
           <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
-        <label style="opacity: 0.5" class="HeaderLabel">Back to tickets queue</label>
+        <label style="opacity: 0.5" class="HeaderLabel"
+          >Back to tickets queue</label
+        >
       </div>
 
       <div class="Email-Login">
@@ -24,8 +26,13 @@
       </div>
     </div>
     <div class="MessageListing">
-      <app-usermessage-format [userMessage]="userMessage"></app-usermessage-format>
-      <app-useradded-message *ngFor="let msg of messageList" [userMessage]="msg"></app-useradded-message>
+      <app-usermessage-format
+        [userMessage]="userMessage"
+      ></app-usermessage-format>
+      <app-useradded-message
+        *ngFor="let msg of messageList"
+        [userMessage]="msg"
+      ></app-useradded-message>
     </div>
     <form
       [formGroup]="newMessag"
@@ -41,7 +48,10 @@
           </span>
           <div class="NgxEditor__Wrapper" style="width: fit-content">
             <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
-            <ngx-editor [editor]="editor" formControlName="mymessage"></ngx-editor>
+            <ngx-editor
+              [editor]="editor"
+              formControlName="mymessage"
+            ></ngx-editor>
           </div>
         </div>
       </div>
@@ -57,17 +67,17 @@
   </div>
   <div class="sideBar">
     <mat-form-field
-    class="ticket-details-status"
-    [ngStyle]="{ 'background-color': selectedColor }"
-    appearance="fill"
-  >
-    <mat-label style="color: white">{{ currentStatus }}</mat-label>
-    <mat-select (selectionChange)="changeStatus($event.source.value)">
-      <mat-option [value]="status['value']" *ngFor="let status of userStatus">
-        {{ status["title"] }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+      class="ticket-details-status mb-3"
+      [ngStyle]="{ 'background-color': selectedColor }"
+      appearance="fill"
+    >
+      <mat-label style="color: white">{{ currentStatus }}</mat-label>
+      <mat-select (selectionChange)="changeStatus($event.source.value)">
+        <mat-option [value]="status['value']" *ngFor="let status of userStatus">
+          {{ status["title"] }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
     <div class="Ticket-ID">Ticket ID</div>
     <div class="ticketdev">
@@ -83,7 +93,7 @@
         <label class="Ticket-ID">Reporter</label>
         <label class="asignee-container">{{
           userMessage.ReporterInitials
-          }}</label>
+        }}</label>
       </div>
     </div>
     <div class="Ticket-ID">Ticket type</div>
@@ -110,8 +120,10 @@
     </div>
     <div class="Ticket-ID">Product categorization</div>
     <div class="ticketdev">
-      <label class="SR-103">{{ userMessage.productCategoryName1 }} -
-        {{ userMessage.productCategoryName2 }}</label>
+      <label class="SR-103"
+        >{{ userMessage.productCategoryName1 }} -
+        {{ userMessage.productCategoryName2 }}</label
+      >
     </div>
     <div class="Ticket-ID">Metrics</div>
     <div class="ticketdev">
@@ -131,8 +143,11 @@
         >-</label
       >
     </div> -->
-    <div class="ticketdev" *ngFor="let ticketSLA of userMessage.ticketSlms"
-      style="margin-bottom: 2rem; margin-top: 2rem">
+    <div
+      class="ticketdev"
+      *ngFor="let ticketSLA of userMessage.ticketSlms"
+      style="margin-bottom: 2rem; margin-top: 2rem"
+    >
       <label class="Ticket-ID">SLA time:</label>
       <div style="display: flex; flex-direction: column">
         <label style="opacity: 0.7">Close Date: </label>
