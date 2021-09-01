@@ -510,7 +510,7 @@ export class TicketsTableComponent implements OnInit {
                   status: el['status'],
                 };
               });
-              this.getRedMenuCharacters(this.usersName);
+              this.initials(this.usersName);
 
               this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
               this.setDataSourceAttributes();
@@ -562,7 +562,7 @@ export class TicketsTableComponent implements OnInit {
                   status: el['status'],
                 };
               });
-              this.getRedMenuCharacters(this.usersName);
+              this.initials(this.usersName);
 
               this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
               this.setDataSourceAttributes();
@@ -593,6 +593,7 @@ export class TicketsTableComponent implements OnInit {
     initials = (
       (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
     ).toUpperCase();
+    this.firstCharacter = initials;
     return initials;
   }
 
@@ -671,7 +672,7 @@ export class TicketsTableComponent implements OnInit {
       console.log(`Dialog result: ${result}`);
     });
   }
-    TicketHistory(id: any) {
+  TicketHistory(id: any) {
     let updateStatus = this.share.getData();
     const dialogRef = this.dialog.open(TicketHistoryComponent, {
       data: { ticketID: id },

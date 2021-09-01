@@ -697,7 +697,7 @@ export class AllTableComponentComponent implements OnInit {
                   status: this.getStatusKey(el),
                 };
               });
-              this.getRedMenuCharacters(this.usersName);
+              this.initials(this.usersName);
 
               this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
               this.setDataSourceAttributes();
@@ -750,7 +750,7 @@ export class AllTableComponentComponent implements OnInit {
                   status: this.getStatusKey(el),
                 };
               });
-              this.getRedMenuCharacters(this.usersName);
+              this.initials(this.usersName);
               this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
               this.setDataSourceAttributes();
             } else {
@@ -780,6 +780,7 @@ export class AllTableComponentComponent implements OnInit {
     initials = (
       (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
     ).toUpperCase();
+    this.firstCharacter = initials;
     return initials;
   }
 

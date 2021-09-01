@@ -635,7 +635,7 @@ export class AllTableComponentComponent implements OnInit {
                   Sevirity: el['severity'],
                 };
               });
-              this.getRedMenuCharacters(this.usersName);
+              this.initials(this.usersName);
 
               this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
               this.setDataSourceAttributes();
@@ -688,7 +688,7 @@ export class AllTableComponentComponent implements OnInit {
                   Sevirity: el['severity'],
                 };
               });
-              this.getRedMenuCharacters(this.usersName);
+              this.initials(this.usersName);
 
               this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
               this.setDataSourceAttributes();
@@ -719,6 +719,8 @@ export class AllTableComponentComponent implements OnInit {
     initials = (
       (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
     ).toUpperCase();
+    console.log('7aarf', initials);
+    this.firstCharacter = initials;
     return initials;
   }
 
