@@ -6,8 +6,8 @@
 
 .Rectangle-343 {
   flex-grow: 0;
-  padding: 2px 4px;
-  border-radius: 4px;
+  padding: .3rem;
+  border-radius: 8px;
   background-color: #c4161c;
   color: white;
 }

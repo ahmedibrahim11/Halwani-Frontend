@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
   token: any;
   userName: any;
   userRole: any;
-  nameInitials:any;
+  nameInitials: any;
 
   getTokenPayloads() {
     this.token = localStorage.getItem('userData');
@@ -27,27 +27,23 @@ export class NavbarComponent implements OnInit {
         })
         .join('')
     );
-    this.userName = JSON.parse(jsonPayload)[
-      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
-    ];
-    this.userRole = JSON.parse(jsonPayload)[
-      'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
-    ];
+    this.userName =
+      JSON.parse(jsonPayload)[
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
+      ];
+    this.userRole =
+      JSON.parse(jsonPayload)[
+        'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+      ];
   }
 
-  getRedMenuCharacters() {
-    let allName = this.userName.split(' ');
-    this.nameInitials = this.initials(allName[0]);
-  
-  }
-  
   ngOnInit(): void {
     this.getTokenPayloads();
-    this.getRedMenuCharacters();
+    this.initials(this.userName);
   }
 
   initials(name) {
-    console.log(name)
+    console.log('nameeeeo', name);
     let rgx = new RegExp(/(\p{L}{1})\p{L}+/, 'gu');
 
     let initials = [...name.matchAll(rgx)] || [];
@@ -55,6 +51,7 @@ export class NavbarComponent implements OnInit {
     initials = (
       (initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')
     ).toUpperCase();
+    this.nameInitials = initials;
     return initials;
   }
 }

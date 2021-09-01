@@ -20,8 +20,9 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { NgxEditorModule } from 'ngx-editor';
 import { MessageFormatComponent } from "./user-details/message-format/message-format.component";
 import { AddedMessageComponent } from "./user-details/added-message/added-message.component";
+import { TicketHistoryComponent } from "./ticket-history/ticket-history.component";
 @NgModule({
-  declarations: [AddedMessageComponent,MessageFormatComponent,UserLayoutComponent, MainCategoriesComponent, GroupCategoryComponent, CreateTicketComponent, UserLayoutMainComponent, MyTicketsComponent, CreatTicketPopupComponent, TicketsTableComponent, TicketsHistoryComponent, MyEsclationsComponent, NomoreTicketsComponent, UserDetailsComponent],
+  declarations: [TicketHistoryComponent,AddedMessageComponent,MessageFormatComponent,UserLayoutComponent, MainCategoriesComponent, GroupCategoryComponent, CreateTicketComponent, UserLayoutMainComponent, MyTicketsComponent, CreatTicketPopupComponent, TicketsTableComponent, TicketsHistoryComponent, MyEsclationsComponent, NomoreTicketsComponent, UserDetailsComponent],
   imports: [
     BrowserAnimationsModule,
     ReactiveFormsModule,

@@ -1,0 +1,116 @@
+<div style="display: flex; flex-direction: row; justify-content: space-between">
+    <h1 mat-dialog-title class="Create-a-ticket">Ticket History</h1>
+    <mat-icon style="cursor: pointer" mat-dialog-close>close</mat-icon>
+</div>
+
+<mat-dialog-content class="mat-typography">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> Date Modified </th>
+        <td mat-cell *matCellDef="let element"> <div class="person-data-menu">
+            <h3>{{ element.modifiedDate }}</h3>
+            <p style="opacity: 0.7">{{ element.modifiedTime }}</p>
+        </div> </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> From Team </th>
+        <td mat-cell *matCellDef="let element"> {{element.fromTeam}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef> To Team </th>
+        <td mat-cell *matCellDef="let element"> {{element.toTeam}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef> Old Status </th>
+        <td mat-cell *matCellDef="let topic"> <div class="person-data-menu">
+            <h3 *ngIf="topic.oldStatus == 0 || topic.oldStatus == 1" class="Created statusBubble">
+                Created
+            </h3>
+            <h3 *ngIf="topic.oldStatus == 2 || topic.oldStatus == 3" class="Waiting statusBubble">
+                Waiting for responce
+            </h3>
+            <h3 *ngIf="topic.oldStatus == 4" class="InProgress statusBubble">
+                In Progress
+            </h3>
+            <h3 *ngIf="topic.oldStatus == 5" class="esclated statusBubble">
+                Ticket escelated
+            </h3>
+            <h3 *ngIf="topic.oldStatus == 6" class="reOpened statusBubble">
+                Ticket reopened
+            </h3>
+            <h3 *ngIf="topic.oldStatus == 7" class="resolved statusBubble">
+                Resolved
+            </h3>
+            <h3 *ngIf="topic.oldStatus == 8" class="Cancelled statusBubble">
+                OverDue
+            </h3>
+            <h3 *ngIf="topic.oldStatus == 9" class="Cancelled statusBubble">
+                Canceled
+            </h3>
+            <h3 *ngIf="topic.oldStatus == 10" class="Cancelled statusBubble">
+                Closed
+            </h3>
+        </div></td>
+    </ng-container>
+    <ng-container matColumnDef="symbol2">
+        <th mat-header-cell *matHeaderCellDef> New Status </th>
+        <td mat-cell *matCellDef="let topic"><div class="person-data-menu">
+            <h3 *ngIf="topic.newStatus == 0 || topic.newStatus == 1" class="Created statusBubble">
+                Created
+            </h3>
+            <h3 *ngIf="topic.newStatus == 2 || topic.newStatus == 3" class="Waiting statusBubble">
+                Waiting for responce
+            </h3>
+            <h3 *ngIf="topic.newStatus == 4" class="InProgress statusBubble">
+                In Progress
+            </h3>
+            <h3 *ngIf="topic.newStatus == 5" class="esclated statusBubble">
+                Ticket escelated
+            </h3>
+            <h3 *ngIf="topic.newStatus == 6" class="reOpened statusBubble">
+                Ticket reopened
+            </h3>
+            <h3 *ngIf="topic.newStatus == 7" class="resolved statusBubble">
+                Resolved
+            </h3>
+            <h3 *ngIf="topic.newStatus == 8" class="Cancelled statusBubble">
+                OverDue
+            </h3>
+            <h3 *ngIf="topic.newStatus == 9" class="Cancelled statusBubble">
+                Canceled
+            </h3>
+            <h3 *ngIf="topic.newStatus == 10" class="Cancelled statusBubble">
+                Closed
+            </h3>
+        </div> </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="start">
+    
+    <div class="buttons">
+       
+        <ng-template #btn>
+            <button mat-button mat-dialog-close class="cancel">
+                Close
+            </button>
+            
+        </ng-template>
+    </div>
+</mat-dialog-actions>
