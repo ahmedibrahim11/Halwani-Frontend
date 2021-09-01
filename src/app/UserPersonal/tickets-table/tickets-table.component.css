@@ -116,8 +116,14 @@
 .Created {
   background-color: rgb(42, 102, 42);
 }
+.assigned{
+  background-color: rgb(102, 42, 42);
+}
 .Waiting {
   background-color: #fae295;
+}
+.support{
+  background-color: rgb(4, 30, 70);
 }
 .InProgress {
   background-color: #a998fd;
