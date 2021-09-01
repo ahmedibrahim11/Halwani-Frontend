@@ -5,22 +5,14 @@
         <a
           *ngIf="fragment != null"
           [routerLink]="['/user', fragment]"
-          style="
-            background-color: rgb(71, 70, 70);
-            border-radius: 1rem;
-            height: 1.4rem;
-          "
+          style="background-color: #717171; border-radius: 1rem; height: 1.4rem"
         >
           <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
         <a
           *ngIf="fragment == null"
           [routerLink]="['/user']"
-          style="
-            background-color: rgb(71, 70, 70);
-            border-radius: 1rem;
-            height: 1.4rem;
-          "
+          style="background-color: #717171; border-radius: 1rem; height: 1.4rem"
         >
           <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
@@ -42,7 +34,11 @@
         [userMessage]="msg"
       ></app-useradded-message>
     </div>
-    <form [formGroup]="newMessag" (ngSubmit)="submit()">
+    <form
+      [formGroup]="newMessag"
+      (ngSubmit)="submit()"
+      style="display: flex; flex-direction: column; width: fit-content"
+    >
       <div class="MessageAdd">
         <div class="Editor">
           <span class="Persona-container">
@@ -50,7 +46,7 @@
               {{ userMessage.currentUserInitials }}
             </label>
           </span>
-          <div class="NgxEditor__Wrapper">
+          <div class="NgxEditor__Wrapper" style="width: fit-content">
             <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
             <ngx-editor
               [editor]="editor"
@@ -59,7 +55,6 @@
           </div>
         </div>
       </div>
-
       <button
         type="submit"
         class="Button"
@@ -237,7 +232,9 @@
     </div>
     <div class="Ticket-ID">Ticket type</div>
     <div class="ticketdev">
-      <span>
+      <span
+        style="display: flex; flex-direction: row; justify-content: flex-start"
+      >
         <img
           [src]="userMessage.ticketTypeIcon"
           width="40px"
