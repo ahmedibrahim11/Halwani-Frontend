@@ -2,31 +2,21 @@
   <div class="main-dev">
     <div class="componentHeader">
       <div class="backButton">
-        <a
-          *ngIf="fragment != null"
-          [routerLink]="['/user', fragment]"
-          style="
+        <a *ngIf="fragment != null" [routerLink]="['/user', fragment]" style="
             background-color: rgb(71, 70, 70);
             border-radius: 1rem;
             height: 1.4rem;
-          "
-        >
+          ">
           <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
-        <a
-          *ngIf="fragment == null"
-          [routerLink]="['/user']"
-          style="
+        <a *ngIf="fragment == null" [routerLink]="['/user']" style="
             background-color: rgb(71, 70, 70);
             border-radius: 1rem;
             height: 1.4rem;
-          "
-        >
+          ">
           <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
-        <label style="opacity: 0.5" class="HeaderLabel"
-          >Back to tickets queue</label
-        >
+        <label style="opacity: 0.5" class="HeaderLabel">Back to tickets queue</label>
       </div>
 
       <div class="Email-Login">
@@ -34,13 +24,8 @@
       </div>
     </div>
     <div class="MessageListing">
-      <app-usermessage-format
-        [userMessage]="userMessage"
-      ></app-usermessage-format>
-      <app-useradded-message
-        *ngFor="let msg of messageList"
-        [userMessage]="msg"
-      ></app-useradded-message>
+      <app-usermessage-format [userMessage]="userMessage"></app-usermessage-format>
+      <app-useradded-message *ngFor="let msg of messageList" [userMessage]="msg"></app-useradded-message>
     </div>
     <form [formGroup]="newMessag" (ngSubmit)="submit()">
       <div class="MessageAdd">
@@ -52,172 +37,30 @@
           </span>
           <div class="NgxEditor__Wrapper">
             <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
-            <ngx-editor
-              [editor]="editor"
-              formControlName="mymessage"
-            ></ngx-editor>
+            <ngx-editor [editor]="editor" formControlName="mymessage"></ngx-editor>
           </div>
         </div>
       </div>
 
-      <button
-        type="submit"
-        class="Button"
-        style="cursor: pointer"
-        [disabled]="!newMessag.valid"
-      >
+      <button type="submit" class="Button" style="cursor: pointer" [disabled]="!newMessag.valid">
         send reply
       </button>
     </form>
   </div>
   <div class="sideBar">
-    <div *ngIf="fragment != null" class="ticket-details-status">
-      <div
-        *ngIf="userMessage.ticketStatus === 0 || userMessage.ticketStatus === 1"
-      >
-        <p
-          class="statusButton"
-          style="background-color: darkgreen; color: white"
-        >
-          Created
-        </p>
-      </div>
-      <div
-        *ngIf="userMessage.ticketStatus === 2 || userMessage.ticketStatus === 3"
-      >
-        <p class="statusButton" style="background-color: #ffd23e; color: white">
-          Waiting for responce
-        </p>
-      </div>
-      <div *ngIf="userMessage.ticketStatus === 4">
-        <p class="statusButton" style="background-color: #7b61ff; color: white">
-          In Progress
-        </p>
-      </div>
-      <div *ngIf="userMessage.ticketStatus === 5">
-        <p class="statusButton" style="background-color: #ed1c24; color: white">
-          Ticket escelated
-        </p>
-      </div>
-      <div *ngIf="userMessage.ticketStatus === 6">
-        <p class="statusButton" style="background-color: #1793e8; color: white">
-          Ticket reopened
-        </p>
-      </div>
-      <div *ngIf="userMessage.ticketStatus === 7">
-        <p class="statusButton" style="background-color: #00b668; color: white">
-          Resolved
-        </p>
-      </div>
-      <div *ngIf="userMessage.ticketStatus === 8">
-        <p class="statusButton" style="background-color: darkred; color: white">
-          Cancelled
-        </p>
-      </div>
-    </div>
-    <div *ngIf="fragment == null">
-      <div *ngIf="userMessage.ticketStatus === 1">
-        <p
-          class="statusButton"
-          style="background-color: darkgreen; color: white"
-        >
-          Created
-        </p>
-      </div>
-      <div
-        *ngIf="userMessage.ticketStatus === 2 || userMessage.ticketStatus === 3"
-      >
-        <p class="statusButton" style="background-color: #ffd23e; color: white">
-          Waiting for responce
-        </p>
-      </div>
-      <div *ngIf="userMessage.ticketStatus === 4">
-        <p class="statusButton" style="background-color: #7b61ff; color: white">
-          In Progress
-        </p>
-      </div>
-      <div *ngIf="userMessage.ticketStatus === 7">
-        <p class="statusButton" style="background-color: #00b668; color: white">
-          Resolved
-        </p>
-      </div>
-      <div *ngIf="userMessage.ticketStatus === 8">
-        <button
-          mat-button
-          [matMenuTriggerFor]="menu"
-          class="statusButton"
-          style="background-color: darkred"
-        >
-          Cancelled
-          <mat-icon>keyboard_arrow_down</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="changeStatus(5)">
-            Ticket escelated
-          </button>
-          <button mat-menu-item (click)="changeStatus(6)">
-            Ticket reopened
-          </button>
-        </mat-menu>
-      </div>
-      <div *ngIf="userMessage.ticketStatus === 0">
-        <button
-          mat-button
-          [matMenuTriggerFor]="menu"
-          class="statusButton"
-          style="background-color: darkgreen"
-        >
-          Created
-          <mat-icon>keyboard_arrow_down</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="changeStatus(5)">
-            Ticket escelated
-          </button>
-          <button mat-menu-item (click)="changeStatus(6)">
-            Ticket reopened
-          </button>
+    <mat-form-field
+    class="ticket-details-status"
+    [ngStyle]="{ 'background-color': selectedColor }"
+    appearance="fill"
+  >
+    <mat-label style="color: white">{{ currentStatus }}</mat-label>
+    <mat-select (selectionChange)="changeStatus($event.source.value)">
+      <mat-option [value]="status['value']" *ngFor="let status of userStatus">
+        {{ status["title"] }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-          <button mat-menu-item (click)="changeStatus(8)">Cancelled</button>
-        </mat-menu>
-      </div>
-
-      <div *ngIf="userMessage.ticketStatus === 6">
-        <button
-          mat-button
-          [matMenuTriggerFor]="menu"
-          class="statusButton"
-          style="background-color: #1793e8"
-        >
-          Ticket reopened<mat-icon>keyboard_arrow_down</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="changeStatus(5)">
-            Ticket escelated
-          </button>
-
-          <button mat-menu-item (click)="changeStatus(8)">Cancelled</button>
-        </mat-menu>
-      </div>
-
-      <div *ngIf="userMessage.ticketStatus === 5">
-        <button
-          mat-button
-          [matMenuTriggerFor]="menu"
-          class="statusButton"
-          style="background-color: #ed1c24"
-        >
-          Ticket escelated <mat-icon>keyboard_arrow_down</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="changeStatus(6)">
-            Ticket reopened
-          </button>
-
-          <button mat-menu-item (click)="changeStatus(8)">Cancelled</button>
-        </mat-menu>
-      </div>
-    </div>
     <div class="Ticket-ID">Ticket ID</div>
     <div class="ticketdev">
       <label class="SR-103">{{ userMessage.ticketNumber }}</label>
@@ -240,20 +83,14 @@
         <label class="Ticket-ID">Reporter</label>
         <label class="asignee-container">{{
           userMessage.ReporterInitials
-        }}</label>
+          }}</label>
       </div>
     </div>
     <div class="Ticket-ID">Ticket type</div>
     <div class="ticketdev">
       <span>
-        <img
-          [src]="userMessage.ticketTypeIcon"
-          width="40px"
-          height="40px"
-          style="margin-right: 0.25rem"
-        />
-        <label class="SR-103">{{ userMessage.ticketTypeName }}</label></span
-      >
+        <img [src]="userMessage.ticketTypeIcon" width="40px" height="40px" style="margin-right: 0.25rem" />
+        <label class="SR-103">{{ userMessage.ticketTypeName }}</label></span>
     </div>
     <div class="Ticket-ID">Severity</div>
     <div class="ticketdev">
@@ -265,10 +102,8 @@
     </div>
     <div class="Ticket-ID">Product categorization</div>
     <div class="ticketdev">
-      <label class="SR-103"
-        >{{ userMessage.productCategoryName1 }} -
-        {{ userMessage.productCategoryName2 }}</label
-      >
+      <label class="SR-103">{{ userMessage.productCategoryName1 }} -
+        {{ userMessage.productCategoryName2 }}</label>
     </div>
     <div class="Ticket-ID">Metrics</div>
     <div class="ticketdev">
@@ -288,11 +123,8 @@
         >-</label
       >
     </div> -->
-    <div
-      class="ticketdev"
-      *ngFor="let ticketSLA of userMessage.ticketSlms"
-      style="margin-bottom: 2rem; margin-top: 2rem"
-    >
+    <div class="ticketdev" *ngFor="let ticketSLA of userMessage.ticketSlms"
+      style="margin-bottom: 2rem; margin-top: 2rem">
       <label class="Ticket-ID">SLA time:</label>
       <div style="display: flex; flex-direction: column">
         <label style="opacity: 0.7">Close Date: </label>

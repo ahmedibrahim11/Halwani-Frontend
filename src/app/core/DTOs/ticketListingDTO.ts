@@ -45,3 +45,11 @@ export enum StatusEnum {
   Canceled = 9,
   Closed = 10,
 }
+
+export enum UserStatusEnum {
+  Esclated = 5,
+  Reopened = 6,
+  Canceled = 9,
+}
+
+

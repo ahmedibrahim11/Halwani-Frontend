@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { getTicketDTO } from 'src/app/core/DTOs/getTicketDTO';
+
+import { StatusEnum,UserStatusEnum } from 'src/app/core/DTOs/ticketListingDTO';
+
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
@@ -24,13 +27,68 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   ticketID: string;
   newMessag: FormGroup;
   fragment: string = null;
+
+  status: any;
+  ticketStatusList: any;
+  selectedColor: string = '';
+  currentStatus: string = '';
+  userStatus:any;
+
   constructor(
     private formBuilder: FormBuilder,
     private actRoute: ActivatedRoute,
     private http: HTTPMainServiceService
   ) {}
 
+
+  enumSelector(definition) {
+    return Object.keys(definition)
+      .filter((k) => typeof StatusEnum[k as any] === 'number')
+      .map((key) => ({ value: definition[key], title: key }));
+  }
+  
+  async checkTicketStatusColor(status) {
+    debugger;
+    switch (Number(status)) {
+      case 0:
+        this.selectedColor = 'darkgreen';
+        break;
+      case 1:
+        this.selectedColor = 'green';
+        break;
+      case 2:
+        this.selectedColor = '#ffd23e';
+
+        break;
+      case 3:
+        this.selectedColor = 'green';
+
+        break;
+      case 4:
+        this.selectedColor = '#7b61ff';
+        break;
+      case 5:
+        this.selectedColor = '#ed1c24';
+        break;
+      case 6:
+        this.selectedColor = '#1793e8';
+        break;
+      case 7:
+        this.selectedColor = '#00b668';
+        break;
+      case 8:
+        this.selectedColor = 'darkred';
+
+        break;
+      default:
+        break;
+    }
+  }
   ngOnInit(): void {
+    this.status = this.enumSelector(StatusEnum);
+   this.userStatus= this.enumSelector(UserStatusEnum);
+    debugger;
+
     this.actRoute.fragment.subscribe((fragment) => {
       this.fragment = fragment;
     });
@@ -80,6 +138,13 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
           ticketSlms: data.ticketSlms,
         };
         this.isDataLoaded = true;
+        debugger;
+
+        this.checkTicketStatusColor(this.userMessage.ticketStatus);
+        this.currentStatus = this.status.find(
+          (s) => s.value === this.userMessage.ticketStatus
+        ).title;
+        debugger;
       });
     this.http
       .POST(`TicketMessage/getMessages`, { id: this.ticketID })
@@ -130,16 +195,33 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
         this.newMessag.setValue({ message: '', submitter: this.currentUser });
       });
   }
-  changeStatus(status) {
-    console.log(status);
-    this.http
+  // changeStatus(status) {
+  //   console.log(status);
+  //   this.http
+  //     .POST(`Ticket/UpdateStatus`, {
+  //       ticketId: parseInt(this.ticketID),
+  //       status: status,
+  //       resolveText: '',
+  //     })
+  //     .subscribe((data) => {
+  //       this.userMessage.ticketStatus = status;
+  //     });
+  // }
+
+  async changeStatus(status: any) {
+    debugger;
+    await this.http
       .POST(`Ticket/UpdateStatus`, {
         ticketId: parseInt(this.ticketID),
-        status: status,
+        status:parseInt(status),
         resolveText: '',
       })
       .subscribe((data) => {
-        this.userMessage.ticketStatus = status;
+        debugger;
+         var res=this.status;
+
+        this.currentStatus = this.status.find((s) => s.value === Number(status)).title;
+        this.checkTicketStatusColor(status);
       });
   }
 }
