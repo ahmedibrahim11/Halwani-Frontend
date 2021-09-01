@@ -1,13 +1,21 @@
 <div style="overflow-y: scroll; height: 100vh">
   <div class="main-card p-5 row">
     <div class="col-md-12 mt-1 main-card p-5" style="background-color: #ffffff">
-      <div class="col-md-12">
+      <div class="col-md-12 mb-5">
         <a
           [routerLink]="['/user/helpCenter']"
           class="row"
           style="text-decoration: none; color: black"
         >
-          <mat-icon>keyboard_arrow_left</mat-icon>
+          <mat-icon
+            style="
+              background-color: black;
+              border-radius: 1rem;
+              color: white;
+              margin-right: 0.5rem;
+            "
+            >keyboard_arrow_left</mat-icon
+          >
 
           <label class="Back-to-help-center mr-2">Back to help center</label>
         </a>
@@ -26,7 +34,7 @@
           class="col-sm-12"
         >
           <div class="col-md-12 p-0">
-            <label class="Ticket-type">Reporter</label>
+            <label class="Ticket-type mb-3">Reporter</label>
             <div class="col-md-12 Rectangle-5 p-3 pl-0">
               <div class="menu">
                 <div class="red-menu">{{ submitterInitials }}</div>

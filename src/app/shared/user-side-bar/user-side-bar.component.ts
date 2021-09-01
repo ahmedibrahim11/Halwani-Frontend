@@ -1,8 +1,18 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { MsalBroadcastService, MsalGuardConfiguration, MsalService, MSAL_GUARD_CONFIG } from '@azure/msal-angular';
-import { AuthenticationResult, EventMessage, EventType, InteractionType } from '@azure/msal-browser';
+import {
+  MsalBroadcastService,
+  MsalGuardConfiguration,
+  MsalService,
+  MSAL_GUARD_CONFIG,
+} from '@azure/msal-angular';
+import {
+  AuthenticationResult,
+  EventMessage,
+  EventType,
+  InteractionType,
+} from '@azure/msal-browser';
 import { filter } from 'rxjs/operators';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { AskForSupportComponent } from '../ask-for-support/ask-for-support.component';
@@ -10,7 +20,7 @@ import { ReportABugComponent } from '../report-abug/report-abug.component';
 @Component({
   selector: 'app-user-side-bar',
   templateUrl: './user-side-bar.component.html',
-  styleUrls: ['./user-side-bar.component.css']
+  styleUrls: ['./user-side-bar.component.css'],
 })
 export class UserSideBarComponent implements OnInit {
   constructor(
@@ -18,12 +28,14 @@ export class UserSideBarComponent implements OnInit {
     private authService: MsalService,
     private msalBroadcastService: MsalBroadcastService,
     private http: HTTPMainServiceService,
-    private router: Router, public dialog: MatDialog) { }
-    loginDisplay = false;
+    private router: Router,
+    public dialog: MatDialog
+  ) {}
+  loginDisplay = false;
   ngOnInit(): void {
     this.msalBroadcastService.msalSubject$
       .pipe(
-        filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS),
+        filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS)
       )
       .subscribe((result: EventMessage) => {
         debugger;
@@ -33,7 +45,6 @@ export class UserSideBarComponent implements OnInit {
       });
 
     this.setLoginDisplay();
-
   }
 
   setLoginDisplay() {
@@ -47,30 +58,33 @@ export class UserSideBarComponent implements OnInit {
     return window.location.href.includes('/itmanager');
   }
 
-
   userLogout() {
     localStorage.clear();
     if (this.msalGuardConfig.interactionType === InteractionType.Popup) {
       this.authService.logoutPopup({
-        postLogoutRedirectUri: "https://halwani-frontend-live.azurewebsites.net/",
-        mainWindowRedirectUri: "https://halwani-frontend-live.azurewebsites.net"
+        postLogoutRedirectUri: '/',
+        mainWindowRedirectUri: '/',
       });
     } else {
       this.authService.logoutRedirect({
-        postLogoutRedirectUri: "https://halwani-frontend-live.azurewebsites.net/",
+        postLogoutRedirectUri: '/',
       });
     }
   }
 
   reportABug() {
-    const dialogRef = this.dialog.open(ReportABugComponent, { disableClose: true });
+    const dialogRef = this.dialog.open(ReportABugComponent, {
+      disableClose: true,
+    });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
   }
   askForSupport() {
-    const dialogRef = this.dialog.open(AskForSupportComponent, { disableClose: true });
+    const dialogRef = this.dialog.open(AskForSupportComponent, {
+      disableClose: true,
+    });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
