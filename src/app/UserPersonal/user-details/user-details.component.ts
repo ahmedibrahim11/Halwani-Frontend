@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HTTPMainServiceService } from 'src/app/core/services/httpmain-service.service';
 import { getTicketDTO } from 'src/app/core/DTOs/getTicketDTO';
 
-import { StatusEnum,UserStatusEnum } from 'src/app/core/DTOs/ticketListingDTO';
+import { StatusEnum, UserStatusEnum } from 'src/app/core/DTOs/ticketListingDTO';
 
 @Component({
   selector: 'app-user-details',
@@ -32,7 +32,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   ticketStatusList: any;
   selectedColor: string = '';
   currentStatus: string = '';
-  userStatus:any;
+  userStatus: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,13 +40,12 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     private http: HTTPMainServiceService
   ) {}
 
-
   enumSelector(definition) {
     return Object.keys(definition)
       .filter((k) => typeof StatusEnum[k as any] === 'number')
       .map((key) => ({ value: definition[key], title: key }));
   }
-  
+
   async checkTicketStatusColor(status) {
     debugger;
     switch (Number(status)) {
@@ -86,7 +85,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
     this.status = this.enumSelector(StatusEnum);
-   this.userStatus= this.enumSelector(UserStatusEnum);
+    this.userStatus = this.enumSelector(UserStatusEnum);
     debugger;
 
     this.actRoute.fragment.subscribe((fragment) => {
@@ -208,19 +207,27 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   //     });
   // }
 
+  createloader: Boolean = false;
+
   async changeStatus(status: any) {
+    this.createloader = true;
+
     debugger;
     await this.http
       .POST(`Ticket/UpdateStatus`, {
         ticketId: parseInt(this.ticketID),
-        status:parseInt(status),
+        status: parseInt(status),
         resolveText: '',
       })
       .subscribe((data) => {
-        debugger;
-         var res=this.status;
+        this.createloader = false;
 
-        this.currentStatus = this.status.find((s) => s.value === Number(status)).title;
+        debugger;
+        var res = this.status;
+
+        this.currentStatus = this.status.find(
+          (s) => s.value === Number(status)
+        ).title;
         this.checkTicketStatusColor(status);
       });
   }
