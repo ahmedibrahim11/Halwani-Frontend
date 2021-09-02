@@ -263,7 +263,6 @@ export class CreatTicketPopupComponent implements OnInit {
         this.FileLinks !== undefined ? this.FileLinks.toString() : '';
       this.createTicketDTO.description =
         this.createTicketDTOFormGroup.value.description;
-
       this.createTicketDTO.submitterTeam = this.submitterTeam;
       this.createTicketDTO.submitterEmail = this.reporter;
       this.createTicketDTO.submitterName = this.submitterName;
@@ -275,6 +274,7 @@ export class CreatTicketPopupComponent implements OnInit {
         this.createTicketDTOFormGroup.value.ticketType;
       var requestData = JSON.stringify(this.createTicketDTO);
       this.formData.append('data', requestData);
+      debugger;
       this.http.POST('Ticket/CreateTicket', this.formData).subscribe((data) => {
         this.createloader = false;
 
@@ -307,6 +307,7 @@ export class CreatTicketPopupComponent implements OnInit {
             (x) => x.id === this.updateTicketDTOFormGroup.value.ticketType
           )
           .map((el) => {
+            debugger;
             this.type = {
               id: el.id,
               name: el.text,
@@ -317,6 +318,7 @@ export class CreatTicketPopupComponent implements OnInit {
             };
           })
       );
+
       this.updateTicketDto.attachement =
         this.FileLinks !== undefined ? this.FileLinks.toString() : '';
       this.updateTicketDto.description =
@@ -324,7 +326,8 @@ export class CreatTicketPopupComponent implements OnInit {
       this.updateTicketDto.submitterTeam = this.submitterTeam;
       this.updateTicketDto.submitterEmail = this.reporter;
       this.updateTicketDto.submitterName = this.submitterName;
-
+      this.updateTicketDto.reportedSource=this.reporter;
+      this.updateTicketDto.id=this.ticketID;
       this.updateTicketDto.summary =
         this.updateTicketDTOFormGroup.value.summary;
       this.updateTicketDto.teamName = this.type.team;
