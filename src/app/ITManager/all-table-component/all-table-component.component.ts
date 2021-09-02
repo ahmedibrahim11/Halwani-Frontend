@@ -697,7 +697,7 @@ export class AllTableComponentComponent implements OnInit {
                   status: this.getStatusKey(el),
                 };
               });
-              this.initials(this.usersName);
+              this.getRedMenuCharacters(this.usersName);
 
               this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
               this.setDataSourceAttributes();
@@ -750,7 +750,7 @@ export class AllTableComponentComponent implements OnInit {
                   status: this.getStatusKey(el),
                 };
               });
-              this.initials(this.usersName);
+              this.getRedMenuCharacters(this.usersName);
               this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
               this.setDataSourceAttributes();
             } else {

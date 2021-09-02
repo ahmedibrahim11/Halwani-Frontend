@@ -635,7 +635,7 @@ export class AllTableComponentComponent implements OnInit {
                   Sevirity: el['severity'],
                 };
               });
-              this.initials(this.usersName);
+              this.getRedMenuCharacters(this.usersName);
 
               this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
               this.setDataSourceAttributes();
@@ -688,7 +688,7 @@ export class AllTableComponentComponent implements OnInit {
                   Sevirity: el['severity'],
                 };
               });
-              this.initials(this.usersName);
+              this.getRedMenuCharacters(this.usersName);
 
               this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
               this.setDataSourceAttributes();
