@@ -51,18 +51,6 @@ export class MyTicketsComponent implements OnInit {
     this.service.getValue().subscribe((value) => {
       this.flag = value;
       debugger;
-
-      this.http
-        .POST('Ticket/List', {
-          pageSize: 10,
-          filter: {
-            submitterName: this.userName,
-          },
-        })
-        .subscribe((res) => {
-          console.log(res);
-          res.totalCount === 0 ? (this.empty = true) : (this.empty = false);
-        });
     });
 
     this.tabs.setTabValue(undefined);

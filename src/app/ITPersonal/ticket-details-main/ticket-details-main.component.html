@@ -85,11 +85,22 @@
       appearance="fill"
     >
       <mat-label style="color: white">{{ currentStatus }}</mat-label>
-      <mat-select (selectionChange)="changeStatus($event.source.value)">
-        <mat-option [value]="status['value']" *ngFor="let status of status">
-          {{ status["title"] }}
-        </mat-option>
-      </mat-select>
+
+      <div *ngIf="createloader === true; then spinner; else btn"></div>
+      <ng-template #spinner>
+        <mat-spinner
+          style="margin-left: 4rem"
+          class="mt-2 mat-spinner-color"
+          [diameter]="30"
+        ></mat-spinner>
+      </ng-template>
+      <ng-template #btn>
+        <mat-select (selectionChange)="changeStatus($event.source.value)">
+          <mat-option [value]="status['value']" *ngFor="let status of status">
+            {{ status["title"] }}
+          </mat-option>
+        </mat-select></ng-template
+      >
     </mat-form-field>
     <div class="Ticket-ID" style="margin-top: 1rem">Ticket ID</div>
     <div class="ticketdev" style="margin-bottom: 1rem">

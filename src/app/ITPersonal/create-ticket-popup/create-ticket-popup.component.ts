@@ -116,10 +116,10 @@ export class CreateTicketPopupComponent implements OnInit {
       data.map((el) => {
         var object: any = {};
         object['label'] = el.text;
-        object['initials'] = this.initials(el.text)
-        object['label1'] = el.email
+        object['initials'] = this.initials(el.text);
+        object['label1'] = el.email;
         this.reporterDatasource.push(object);
-      })
+      });
     });
     //update
     this.ticketID = this.share.getData();
@@ -192,7 +192,7 @@ export class CreateTicketPopupComponent implements OnInit {
       sevirity: [0, [Validators.required]],
       priority: [0, [Validators.required]],
       productCategoryName1: [0, [Validators.required]],
-      productCategoryName2: [0, [Validators.required]],
+      productCategoryName2: [0],
       saveAndOpenAnother: [false],
     });
     const sevKeys = Object.keys(SevirityEnum).filter(
@@ -250,54 +250,61 @@ export class CreateTicketPopupComponent implements OnInit {
       });
     });
 
-
-
     this.http.GET('Category/getCategory').subscribe((data) => {
       this.productCategoryName1 = data.map((el) => {
         return { label: el.text, value: el.id };
       });
     });
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value))
+    );
   }
 
   fireSnackBar(message: string, action, classType: string) {
     this._snackBar.open(message, action, {
       duration: 3000,
       panelClass: [classType],
-      horizontalPosition: "right"
+      horizontalPosition: 'right',
     });
   }
 
   private _filter(value: string) {
     const filterValue = value.toLowerCase();
     debugger;
-    return this.reporterDatasource.filter(option => option['label'].toLowerCase().includes(filterValue));
+    return this.reporterDatasource.filter((option) =>
+      option['label'].toLowerCase().includes(filterValue)
+    );
   }
-
 
   productCategoryOne(event) {
     this.http.GET('Category/getCategory').subscribe((data) => {
       debugger;
 
-      this.productCategoryName2 = data.find((s => {
+      this.productCategoryName2 = data.find((s) => {
         return s.text === event.value;
-      }));
+      });
       if (this.productCategoryName2.children.length > 0) {
-        this.productCategoryName2.children.map((el) => {
-          debugger;
-          this.createTicketDTOFormGroup.controls['productCategoryName2'].setValidators([Validators.required]);
-          this.createTicketDTOFormGroup.controls['productCategoryName2'].updateValueAndValidity();
-          this.showSecondCategory = true;
-          return { label: el.text, value: el.id };
-        });
-      }
-      else {
-        this.createTicketDTOFormGroup.controls['productCategoryName2'].clearValidators();
-        this.createTicketDTOFormGroup.controls['productCategoryName2'].updateValueAndValidity();
+        this.productCategoryName2 = this.productCategoryName2.children.map(
+          (el) => {
+            debugger;
+            this.createTicketDTOFormGroup.controls[
+              'productCategoryName2'
+            ].setValidators([Validators.required]);
+            this.createTicketDTOFormGroup.controls[
+              'productCategoryName2'
+            ].updateValueAndValidity();
+            this.showSecondCategory = true;
+            return { label: el.text, value: el.id };
+          }
+        );
+      } else {
+        this.createTicketDTOFormGroup.controls[
+          'productCategoryName2'
+        ].clearValidators();
+        this.createTicketDTOFormGroup.controls[
+          'productCategoryName2'
+        ].updateValueAndValidity();
         this.showSecondCategory = false;
       }
     });
@@ -314,10 +321,10 @@ export class CreateTicketPopupComponent implements OnInit {
       this.createTicketDTOFormGroup.value.description;
     this.createTicketDTO.productCategoryName1 =
       this.createTicketDTOFormGroup.value.productCategoryName1.toString();
-      if( this.createTicketDTO.productCategoryName2!=undefined){
-        this.createTicketDTO.productCategoryName2 =
+    if (this.createTicketDTO.productCategoryName2 != undefined) {
+      this.createTicketDTO.productCategoryName2 =
         this.createTicketDTOFormGroup.value.productCategoryName2.toString();
-      }
+    }
     this.createTicketDTO.location =
       this.createTicketDTOFormGroup.value.location;
     this.createTicketDTO.summary = this.createTicketDTOFormGroup.value.summary;
@@ -343,22 +350,14 @@ export class CreateTicketPopupComponent implements OnInit {
         this.createloader = false;
 
         console.log('create tickeet');
-        this.fireSnackBar(
-          "Ticket Submitted Successfully..",
-          "x",
-          "success"
-        );
+        this.fireSnackBar('Ticket Submitted Successfully..', 'x', 'success');
         this.dialog.closeAll();
 
         this.service.setValue(true);
       },
       (error) => {
         this.createloader = false;
-        this.fireSnackBar(
-          "Failed To Submit Ticket",
-          "x",
-          "error"
-        );
+        this.fireSnackBar('Failed To Submit Ticket', 'x', 'error');
         this.dialog.closeAll();
         console.log(error);
       },
@@ -395,12 +394,11 @@ export class CreateTicketPopupComponent implements OnInit {
     this.updateTicketDto.productCategoryName1 =
       this.updateTicketDTOFormGroup.value.categoryName1.toString();
 
-      if( this.updateTicketDto.productCategoryName2!=undefined){
-        this.updateTicketDto.productCategoryName2 =
+    if (this.updateTicketDto.productCategoryName2 != undefined) {
+      this.updateTicketDto.productCategoryName2 =
         this.updateTicketDTOFormGroup.value.productCategoryName2.toString();
-      }
-    this.updateTicketDto.productCategoryName2 =
-      this.updateTicketDTOFormGroup.value.categoryName2.toString();
+    }
+
     this.updateTicketDto.location =
       this.updateTicketDTOFormGroup.value.location;
     this.updateTicketDto.summary = this.updateTicketDTOFormGroup.value.summary;
@@ -421,33 +419,26 @@ export class CreateTicketPopupComponent implements OnInit {
 
     var updated = JSON.stringify(this.updateTicketDto);
     this.updateFormData.append('data', updated);
-    this.http.PUT('Ticket/UpdateTic/', this.updateFormData).subscribe((res) => {
-      this.createloader = false;
+    this.http.PUT('Ticket/UpdateTic/', this.updateFormData).subscribe(
+      (res) => {
+        this.createloader = false;
 
-      this.fireSnackBar(
-        "Ticket Updated Successfully..",
-        "x",
-        "success"
-      );
-      this.dialog.closeAll();
+        this.fireSnackBar('Ticket Updated Successfully..', 'x', 'success');
+        this.dialog.closeAll();
 
-      this.service.setValue(true);
-    },
-    (error) => {
-      this.createloader = false;
-      this.fireSnackBar(
-        "Failed To Updated Ticket..",
-        "x",
-        "error"
-      );
-      this.dialog.closeAll();
-      console.log(error);
-    },
-    () => {
-      this.dialogRef.afterClosed().subscribe((result) => {
-        console.log(`Dialog result: ${result}`);
-      });
-    }
+        this.service.setValue(true);
+      },
+      (error) => {
+        this.createloader = false;
+        this.fireSnackBar('Failed To Updated Ticket..', 'x', 'error');
+        this.dialog.closeAll();
+        console.log(error);
+      },
+      () => {
+        this.dialogRef.afterClosed().subscribe((result) => {
+          console.log(`Dialog result: ${result}`);
+        });
+      }
     );
   }
 

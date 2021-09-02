@@ -156,17 +156,17 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
         <td mat-cell *matCellDef="let topic">
           <div class="person-data-menu">
-            <h3
-              *ngIf="topic.status == 0 || topic.status == 1"
-              class="Created statusBubble"
-            >
+            <h3 *ngIf="topic.status == 0" class="Created statusBubble">
               Created
             </h3>
-            <h3
-              *ngIf="topic.status == 2 || topic.status == 3"
-              class="Waiting statusBubble"
-            >
+            <h3 *ngIf="topic.status == 1" class="assigned statusBubble">
+              Assigned
+            </h3>
+            <h3 *ngIf="topic.status == 2" class="Waiting statusBubble">
               Waiting for responce
+            </h3>
+            <h3 *ngIf="topic.status == 3" class="support statusBubble">
+              Waiting Support
             </h3>
             <h3 *ngIf="topic.status == 4" class="InProgress statusBubble">
               In Progress
@@ -238,7 +238,11 @@
                 <mat-icon>edit</mat-icon>
                 <label class="icon"> Edit Ticket </label>
               </div>
-              <div class="edit-container" (click)="TicketHistory(topic.id)" mat-menu-item>
+              <div
+                class="edit-container"
+                (click)="TicketHistory(topic.id)"
+                mat-menu-item
+              >
                 <mat-icon>av_timer</mat-icon>
                 <label class="icon"> Ticket History </label>
               </div>

@@ -171,7 +171,11 @@ export class TicketDetailsMainComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.editor.destroy();
   }
+  createloader: Boolean = false;
+
   async changeStatus(status: any) {
+    this.createloader = true;
+
     await this.http
       .POST(`Ticket/UpdateStatus`, {
         ticketId: parseInt(this.ticketID),
@@ -179,6 +183,8 @@ export class TicketDetailsMainComponent implements OnInit, OnDestroy {
         resolveText: '',
       })
       .subscribe((data) => {
+        this.createloader = false;
+
         this.currentStatus = this.status.find((s) => s.value === status).title;
         this.checkTicketStatusColor(status);
       });
