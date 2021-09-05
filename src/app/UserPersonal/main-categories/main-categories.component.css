@@ -54,7 +54,10 @@
   color: #ffffff;
 }
 .Rectangle-4 {
-  padding: 3% 37%;
+  width: 99%;
+  height: 4rem;
+  text-align: left;
+  padding: 2%;
   border-radius: 8px;
   background-color: #ffffff;
 }

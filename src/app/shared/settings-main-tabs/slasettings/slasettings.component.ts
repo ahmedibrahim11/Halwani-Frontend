@@ -250,9 +250,6 @@ export class SLASettingsComponent implements OnInit {
   @HostListener('matSortChange', ['$event'])
   sortChange(sort) {
     debugger;
-    // save cookie with table sort data here
-    console.log(sort);
-
     switch (sort.active) {
       case 'slaType':
         this.sortValue = 0;
@@ -263,7 +260,7 @@ export class SLASettingsComponent implements OnInit {
 
       case 'slaGoal':
         this.sortValue = 3;
-      case 'TicketCategory':
+      case 'ticketCategory':
         this.sortValue = 4;
         break;
     }
