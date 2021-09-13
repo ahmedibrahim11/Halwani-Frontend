@@ -391,13 +391,14 @@ export class CreateTicketPopupComponent implements OnInit {
     this.updateTicketDto.id = this.ticketID;
     this.updateTicketDto.description =
       this.updateTicketDTOFormGroup.value.description;
+     if( this.updateTicketDTOFormGroup.value.categoryName1!=null){
     this.updateTicketDto.productCategoryName1 =
       this.updateTicketDTOFormGroup.value.categoryName1.toString();
-
-    if (this.updateTicketDto.productCategoryName2 != undefined) {
-      this.updateTicketDto.productCategoryName2 =
-        this.updateTicketDTOFormGroup.value.productCategoryName2.toString();
-    }
+      }
+      if( this.updateTicketDTOFormGroup.value.categoryName2!=null){
+        this.updateTicketDto.productCategoryName2 =
+        this.updateTicketDTOFormGroup.value.categoryName2.toString();
+      }
 
     this.updateTicketDto.location =
       this.updateTicketDTOFormGroup.value.location;
