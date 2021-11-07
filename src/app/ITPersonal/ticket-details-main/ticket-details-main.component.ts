@@ -18,6 +18,8 @@ enum tikcetStatus {
   Reopened,
   Resolved,
   OverDue,
+  Canceled,
+  Closed
 }
 
 @Component({
@@ -47,7 +49,7 @@ export class TicketDetailsMainComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private actRoute: ActivatedRoute,
     private http: HTTPMainServiceService
-  ) {}
+  ) { }
 
   enumSelector(definition) {
     return Object.keys(definition)
@@ -85,7 +87,14 @@ export class TicketDetailsMainComponent implements OnInit, OnDestroy {
         break;
       case 8:
         this.selectedColor = 'darkred';
+        break;
 
+      case 9:
+        this.selectedColor = '#7e82fc';
+        break;
+
+      case 10:
+        this.selectedColor = '#7e82fc';
         break;
       default:
         break;

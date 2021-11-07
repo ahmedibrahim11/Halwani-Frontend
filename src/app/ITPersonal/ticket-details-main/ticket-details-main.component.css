@@ -33,6 +33,15 @@
   color: #000000;
   margin-left: 0.5rem;
 }
+
+  .Current-status-White{
+    color: #f5f6f7;
+  }
+
+  .Current-status-Black{
+  color: #000000;
+  }
+
 .IT-Peronal---Inside-ticket {
   width: 1440px;
   height: 974px;

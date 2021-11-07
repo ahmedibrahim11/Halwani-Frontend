@@ -2,35 +2,23 @@
   <div class="main-dev">
     <div class="componentHeader">
       <div class="backButton" *ngIf="!fromManager()">
-        <a
-          *ngIf="fragment !== undefined"
-          [routerLink]="['/itpersonal', fragment]"
-          style="background-color: #717171; border-radius: 1rem; height: 1.4rem"
-        >
+        <a *ngIf="fragment !== undefined" [routerLink]="['/itpersonal', fragment]"
+          style="background-color: #717171; border-radius: 1rem; height: 1.4rem">
           <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
-        <a
-          *ngIf="fragment === undefined"
-          [routerLink]="['/itpersonal']"
-          style="background-color: #717171; border-radius: 1rem; height: 1.4rem"
-        >
+        <a *ngIf="fragment === undefined" [routerLink]="['/itpersonal']"
+          style="background-color: #717171; border-radius: 1rem; height: 1.4rem">
           <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
         <label class="HeaderLabel">Back to tickets queue</label>
       </div>
       <div class="backButton" *ngIf="fromManager()">
-        <a
-          *ngIf="fragment !== undefined"
-          [routerLink]="['/itmanager', fragment]"
-          style="background-color: #717171; border-radius: 1rem; height: 1.4rem"
-        >
+        <a *ngIf="fragment !== undefined" [routerLink]="['/itmanager', fragment]"
+          style="background-color: #717171; border-radius: 1rem; height: 1.4rem">
           <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
-        <a
-          *ngIf="fragment === undefined"
-          [routerLink]="['/itmanager']"
-          style="background-color: #717171; border-radius: 1rem; height: 1.4rem"
-        >
+        <a *ngIf="fragment === undefined" [routerLink]="['/itmanager']"
+          style="background-color: #717171; border-radius: 1rem; height: 1.4rem">
           <mat-icon style="color: white">keyboard_arrow_left</mat-icon>
         </a>
         <label class="HeaderLabel">Back to tickets queue</label>
@@ -41,16 +29,10 @@
     </div>
     <div class="MessageListing">
       <app-message-format [userMessage]="userMessage"></app-message-format>
-      <app-added-message
-        *ngFor="let msg of messageList"
-        [userMessage]="msg"
-      ></app-added-message>
+      <app-added-message *ngFor="let msg of messageList" [userMessage]="msg"></app-added-message>
     </div>
-    <form
-      [formGroup]="newMessag"
-      (ngSubmit)="submit()"
-      style="display: flex; flex-direction: column; width: fit-content"
-    >
+    <form [formGroup]="newMessag" (ngSubmit)="submit()"
+      style="display: flex; flex-direction: column; width: fit-content">
       <div class="MessageAdd">
         <div class="Editor">
           <span class="Persona-container">
@@ -60,47 +42,32 @@
           </span>
           <div class="NgxEditor__Wrapper">
             <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
-            <ngx-editor
-              [editor]="editor"
-              formControlName="message"
-            ></ngx-editor>
+            <ngx-editor [editor]="editor" formControlName="message"></ngx-editor>
           </div>
         </div>
       </div>
 
-      <button
-        type="submit"
-        class="Button"
-        style="cursor: pointer"
-        [disabled]="!newMessag.valid"
-      >
+      <button type="submit" class="Button" style="cursor: pointer" [disabled]="!newMessag.valid">
         send reply
       </button>
     </form>
   </div>
   <div class="sideBar">
-    <mat-form-field
-      class="ticket-details-status"
-      [ngStyle]="{ 'background-color': selectedColor }"
-      appearance="fill"
-    >
-      <mat-label style="color: white">{{ currentStatus }}</mat-label>
+    <mat-form-field class="ticket-details-status" [ngStyle]="{ 'background-color': selectedColor }" appearance="fill">
+
+      <mat-label>{{ currentStatus }}</mat-label>
 
       <div *ngIf="createloader === true; then spinner; else btn"></div>
       <ng-template #spinner>
-        <mat-spinner
-          style="margin-left: 4rem"
-          class="mt-2 mat-spinner-color"
-          [diameter]="30"
-        ></mat-spinner>
+        <mat-spinner style="margin-left: 4rem" class="mt-2 mat-spinner-color" [diameter]="30"></mat-spinner>
       </ng-template>
       <ng-template #btn>
         <mat-select (selectionChange)="changeStatus($event.source.value)">
           <mat-option [value]="status['value']" *ngFor="let status of status">
             {{ status["title"] }}
           </mat-option>
-        </mat-select></ng-template
-      >
+        </mat-select>
+      </ng-template>
     </mat-form-field>
     <div class="Ticket-ID" style="margin-top: 1rem">Ticket ID</div>
     <div class="ticketdev" style="margin-bottom: 1rem">
@@ -115,22 +82,14 @@
         <label class="Ticket-ID">Reporter</label>
         <label class="asignee-container">{{
           userMessage.ReporterInitials
-        }}</label>
+          }}</label>
       </div>
     </div>
     <div class="Ticket-ID">Ticket type</div>
     <div class="ticketdev" style="margin-bottom: 1rem">
-      <span
-        style="display: flex; flex-direction: row; justify-content: flex-start"
-      >
-        <img
-          width="40px"
-          height="40px"
-          style="margin-right: 0.25rem"
-          [src]="userMessage.ticketTypeIcon"
-        />
-        <label class="SR-103">{{ userMessage.ticketTypeName }}</label></span
-      >
+      <span style="display: flex; flex-direction: row; justify-content: flex-start">
+        <img width="40px" height="40px" style="margin-right: 0.25rem" [src]="userMessage.ticketTypeIcon" />
+        <label class="SR-103">{{ userMessage.ticketTypeName }}</label></span>
     </div>
     <div class="Ticket-ID">Severity</div>
     <div class="ticketdev" style="margin-bottom: 1rem">
@@ -142,10 +101,8 @@
     </div>
     <div class="Ticket-ID">Product categorization</div>
     <div class="ticketdev" style="margin-bottom: 1rem">
-      <label class="SR-103"
-        >{{ userMessage.productCategoryName1 }} -
-        {{ userMessage.productCategoryName2 }}</label
-      >
+      <label class="SR-103">{{ userMessage.productCategoryName1 }} -
+        {{ userMessage.productCategoryName2 }}</label>
     </div>
     <div class="Ticket-ID">Metrics</div>
     <div class="ticketdev" style="margin-bottom: 1rem">
@@ -165,11 +122,8 @@
         >-</label
       >
     </div> -->
-    <div
-      class="ticketdev"
-      *ngFor="let ticketSLA of userMessage.ticketSlms"
-      style="margin-bottom: 2rem; margin-top: 2rem"
-    >
+    <div class="ticketdev" *ngFor="let ticketSLA of userMessage.ticketSlms"
+      style="margin-bottom: 2rem; margin-top: 2rem">
       <label class="Ticket-ID">SLA time:</label>
       <div style="display: flex; flex-direction: column">
         <label style="opacity: 0.7">Close Date: </label>
