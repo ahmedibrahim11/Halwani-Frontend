@@ -521,58 +521,58 @@ export class AllTableComponentComponent implements OnInit {
       ticketType: this.from,
     };
 
-    let subscried = this.filteredObj.getUpdate().subscribe((data) => {
-      console.log('filterd0', data);
-      this.filtered = {
-        location: data.location === '' ? undefined : data.location,
-        source: data.source === '' ? undefined : data.source,
-        state:
-          this.Status !== undefined
-            ? this.Status
-            : data.state === ''
-            ? undefined
-            : data.state,
-        severity: data.severity === '' ? undefined : data.severity,
-        priority: data.priority === '' ? undefined : data.priority,
-        date: data.date === '' ? undefined : data.date,
-        ticketTabs: this.tabData,
-        ticketType: this.from,
-      };
-      this.http
-        .POST('ticket/list', {
-          searchText: [],
-          pageSize: this.pageSize,
-          pageNumber: this.pageIndex,
-          isPrint: false,
-          filter: this.filtered,
-          sortValue: null,
-        })
-        .subscribe((res) => {
-          debugger;
-          console.log(res.pageData);
-          let usersData = res.pageData;
-          this.pageLength = res.totalCount;
-          this.UserViewInfoObject = usersData.map((el) => {
-            const cerationDate = new Date(el['creationDate']);
+    // let subscried = this.filteredObj.getUpdate().subscribe((data) => {
+    //   console.log('filterd0', data);
+    //   this.filtered = {
+    //     location: data.location === '' ? undefined : data.location,
+    //     source: data.source === '' ? undefined : data.source,
+    //     state:
+    //       this.Status !== undefined
+    //         ? this.Status
+    //         : data.state === ''
+    //         ? undefined
+    //         : data.state,
+    //     severity: data.severity === '' ? undefined : data.severity,
+    //     priority: data.priority === '' ? undefined : data.priority,
+    //     date: data.date === '' ? undefined : data.date,
+    //     ticketTabs: this.tabData,
+    //     ticketType: this.from,
+    //   };
+    //   this.http
+    //     .POST('ticket/list', {
+    //       searchText: [],
+    //       pageSize: this.pageSize,
+    //       pageNumber: this.pageIndex,
+    //       isPrint: false,
+    //       filter: this.filtered,
+    //       sortValue: null,
+    //     })
+    //     .subscribe((res) => {
+    //       debugger;
+    //       console.log(res.pageData);
+    //       let usersData = res.pageData;
+    //       this.pageLength = res.totalCount;
+    //       this.UserViewInfoObject = usersData.map((el) => {
+    //         const cerationDate = new Date(el['creationDate']);
 
-            return {
-              id: el['id'],
-              initials: this.initials(el['rasiedBy']['name']),
-              name: el['rasiedBy']['name'],
-              email: el['rasiedBy']['email'],
-              createdDate: cerationDate.toDateString(),
-              createdTime: cerationDate.toLocaleTimeString(),
-              ticketTopic: el['requestType']['name'],
-              ticketNumber: el['ticketNumber'],
-              teamName: el['teamName'],
-              ticketCategory: el['requestType']['ticketType'],
-              Sevirity: el['severity'],
-              status: this.getStatusKey(el),
-            };
-          });
-          this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-        });
-    });
+    //         return {
+    //           id: el['id'],
+    //           initials: this.initials(el['rasiedBy']['name']),
+    //           name: el['rasiedBy']['name'],
+    //           email: el['rasiedBy']['email'],
+    //           createdDate: cerationDate.toDateString(),
+    //           createdTime: cerationDate.toLocaleTimeString(),
+    //           ticketTopic: el['requestType']['name'],
+    //           ticketNumber: el['ticketNumber'],
+    //           teamName: el['teamName'],
+    //           ticketCategory: el['requestType']['ticketType'],
+    //           Sevirity: el['severity'],
+    //           status: this.getStatusKey(el),
+    //         };
+    //       });
+    //       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
+    //     });
+    // });
     this.http.GET('ticket/getTicketNumbers').subscribe((res) => {
       res.map((d) => {
         this.ticketsNO.push(d);
