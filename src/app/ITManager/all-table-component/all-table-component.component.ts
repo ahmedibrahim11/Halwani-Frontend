@@ -598,6 +598,7 @@ export class AllTableComponentComponent implements OnInit {
         priority: data.priority === '' ? undefined : data.priority,
         date: data.date === '' ? undefined : data.date,
         ticketType: this.tab,
+        ticketTabs: this.tab,
       };
       this.http
         .POST('ticket/list', {
