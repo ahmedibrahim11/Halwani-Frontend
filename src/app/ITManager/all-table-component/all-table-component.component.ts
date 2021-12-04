@@ -50,6 +50,7 @@ export class AllTableComponentComponent implements OnInit {
   @Input() withActions = true;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() tab: number;
+  @Input() sideTab: number;
   @Input() Status: number = undefined;
   empty: boolean = true;
   dataLoaded: boolean = false;
@@ -581,7 +582,7 @@ export class AllTableComponentComponent implements OnInit {
     this.filtered = {
       state: this.Status !== undefined ? this.Status : undefined,
       ticketTabs: this.tab,
-      ticketType: this.tab,
+      ticketType: this.sideTab,
     };
 
     let subscried = this.filteredObj.getUpdate().subscribe((data) => {
@@ -598,7 +599,7 @@ export class AllTableComponentComponent implements OnInit {
         severity: data.severity === '' ? undefined : data.severity,
         priority: data.priority === '' ? undefined : data.priority,
         date: data.date === '' ? undefined : data.date,
-        ticketType: this.tab,
+        ticketType: this.sideTab,
         ticketTabs: this.tab,
       };
       this.http
