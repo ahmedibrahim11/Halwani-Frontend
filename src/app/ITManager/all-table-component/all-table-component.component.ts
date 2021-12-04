@@ -581,6 +581,7 @@ export class AllTableComponentComponent implements OnInit {
     this.filtered = {
       state: this.Status !== undefined ? this.Status : undefined,
       ticketTabs: this.tab,
+      ticketType: this.tab,
     };
 
     let subscried = this.filteredObj.getUpdate().subscribe((data) => {
