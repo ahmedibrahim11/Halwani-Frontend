@@ -46,6 +46,7 @@ export class SidebarComponent implements OnInit {
 
   userLogout() {
     localStorage.clear();
+    this.router.navigate([''])
   }
   reportABug() {
     const dialogRef = this.dialog.open(ReportABugComponent, {

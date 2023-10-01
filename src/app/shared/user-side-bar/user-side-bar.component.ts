@@ -50,6 +50,7 @@ export class UserSideBarComponent implements OnInit {
 
   userLogout() {
     localStorage.clear();
+    this.router.navigate(['']);
   }
 
   reportABug() {

@@ -146,7 +146,7 @@ const routes: Routes = [
       { path: '', component: MyTicketsComponent },
     ],
   },
-  { path: '', component: SharedComponent },
+  { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'unauthorized', component: ErrorMessageComponent },
 ];

@@ -21,6 +21,7 @@ export class UserMenuComponent implements OnInit {
 
   userLogout() {
     localStorage.clear();
+    this.router.navigate(['']);
   }
 
   ngOnInit(): void {
