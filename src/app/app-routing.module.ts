@@ -30,7 +30,6 @@ import { TicketsHistoryComponent } from './UserPersonal/tickets-history/tickets-
 import { MyEsclationsComponent } from './UserPersonal/my-esclations/my-esclations.component';
 import { UserDetailsComponent } from './UserPersonal/user-details/user-details.component';
 import { TicketEsclationsComponent } from './ITManager/ticket-esclations/ticket-esclations.component';
-import { MsalGuard } from '@azure/msal-angular';
 import { SharedComponent } from './shared/shared.component';
 import { ErrorMessageComponent } from './shared/error-message/error-message.component';
 import { SuperAdminComponent } from './super-admin/super-admin.component';
@@ -38,90 +37,73 @@ const routes: Routes = [
   {
     path: 'itpersonal',
     component: HomeComponent,
-    canActivate: [MsalGuard],
     children: [
       {
         path: 'esclated',
         component: TicketEsclationsComponent,
-        canActivate: [MsalGuard],
       },
       {
         path: 'settings',
         component: SettingsMainTabsComponent,
-        canActivate: [MsalGuard],
       },
       {
         path: 'changes',
         component: PersonalChangesComponent,
-        canActivate: [MsalGuard],
       },
       {
         path: 'problems',
         component: PersonalProblemsComponent,
-        canActivate: [MsalGuard],
       },
       {
         path: 'incidents',
         component: PersonalIncidentsComponent,
-        canActivate: [MsalGuard],
       },
       {
         path: 'servicerequests',
         component: PersonalServiceRequestComponent,
-        canActivate: [MsalGuard],
       },
       {
         path: 'details/:id',
         component: TicketDetailsMainComponent,
-        canActivate: [MsalGuard],
       },
-      { path: '', component: MainCardBodyComponent, canActivate: [MsalGuard] },
+      { path: '', component: MainCardBodyComponent },
     ],
   },
   {
     path: 'itmanager',
     component: ManagerhomeComponent,
-    canActivate: [MsalGuard],
     children: [
       {
         path: 'esclated',
         component: TicketEsclationsComponent,
-        canActivate: [MsalGuard],
       },
       {
         path: 'settings',
         component: SettingsMainTabsComponent,
-        canActivate: [MsalGuard],
       },
       {
         path: 'changes',
         component: ChangesComponent,
-        canActivate: [MsalGuard],
       },
       {
         path: 'problems',
         component: ProblemsComponent,
-        canActivate: [MsalGuard],
       },
       {
         path: 'incidents',
         component: IncidentsComponent,
-        canActivate: [MsalGuard],
       },
       {
         path: 'servicerequests',
         component: ServiceRequestsComponent,
-        canActivate: [MsalGuard],
       },
       {
         path: 'details/:id',
         component: TicketDetailsMainComponent,
-        canActivate: [MsalGuard],
       },
       {
         path: '',
         component: MainCardBodyManagerComponent,
-        canActivate: [MsalGuard],
       },
     ],
   },
@@ -129,12 +111,10 @@ const routes: Routes = [
   {
     path: 'superadmin',
     component: SuperAdminComponent,
-    canActivate: [MsalGuard],
     children: [
       {
         path: 'settings',
         component: SettingsMainTabsComponent,
-        canActivate: [MsalGuard],
       },
     ],
   },
@@ -150,27 +130,23 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserLayoutMainComponent,
-    canActivate: [MsalGuard],
     children: [
       {
         path: 'details/:id',
         component: UserDetailsComponent,
-        canActivate: [MsalGuard],
       },
       {
         path: 'myesclations',
         component: MyEsclationsComponent,
-        canActivate: [MsalGuard],
       },
       {
         path: 'ticketshistory',
         component: TicketsHistoryComponent,
-        canActivate: [MsalGuard],
       },
-      { path: '', component: MyTicketsComponent, canActivate: [MsalGuard] },
+      { path: '', component: MyTicketsComponent },
     ],
   },
-  { path: '', component: SharedComponent, canActivate: [MsalGuard] },
+  { path: '', component: SharedComponent },
   { path: 'login', component: LoginComponent },
   { path: 'unauthorized', component: ErrorMessageComponent },
 ];

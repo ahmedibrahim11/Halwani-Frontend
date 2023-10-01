@@ -85,17 +85,6 @@ export class TicketsTableComponent implements OnInit {
 
       this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
     });
-    let subscried = this.filteredObj.getUpdate().subscribe((data) => {
-      this.filtered = {
-        location: data.location === '' ? undefined : data.location,
-        source: data.source === '' ? undefined : data.source,
-        state: data.state === '' ? undefined : data.state,
-        severity: data.severity === '' ? undefined : data.severity,
-        priority: data.priority === '' ? undefined : data.priority,
-        date: data.date === '' ? undefined : data.date,
-        submitterName: this.userName === '' ? undefined : this.userName,
-      };
-    });
   }
 
   ngOnDestroy() {
@@ -115,11 +104,11 @@ export class TicketsTableComponent implements OnInit {
     );
     this.userName =
       JSON.parse(jsonPayload)[
-        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
       ];
     this.email =
       JSON.parse(jsonPayload)[
-        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
+      'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
       ];
     this.team = JSON.parse(jsonPayload)['Teams'];
   }
@@ -245,18 +234,6 @@ export class TicketsTableComponent implements OnInit {
         });
     }
     // The code that you want to execute on clicking on next and previous buttons will be written here.
-  }
-  setDataSourceAttributes() {
-    this.dataSource.paginator = this.paginator;
-    this.pageSize = this.paginator.pageSize;
-    this.pageIndex = this.paginator.pageIndex;
-    this.pageLength = this.paginator.length;
-    console.log('daaaaaat');
-    console.log('size', this.pageSize);
-    console.log('len', this.pageLength);
-    console.log('ind', this.pageIndex);
-    console.log(this.sort);
-    this.dataSource.sort = this.sort;
   }
 
   //sort server-side
@@ -402,18 +379,19 @@ export class TicketsTableComponent implements OnInit {
   public sevirity = SevirityEnum;
 
   dataSource: any;
-  showSpinner: Boolean = true;
+  showSpinner: Boolean = false;
   usersName: any = [];
   email: any;
   team: any;
 
   ngOnInit(): void {
+    debugger;
     this.filteredObj.sendUpdate({});
     this.filtered = {
       state: this.Status !== undefined ? this.Status : undefined,
     };
-
     let subscried = this.filteredObj.getUpdate().subscribe((data) => {
+      debugger;
       console.log('filterd0', data);
       this.filtered = {
         location: data.location === '' ? undefined : data.location,
@@ -458,14 +436,17 @@ export class TicketsTableComponent implements OnInit {
           this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
         });
     });
+
     if (this.withActions) {
       console.log('with', this.withActions);
       this.displayedColumns.push('Actions');
     }
     this.getTokenPayloads();
+    debugger;
     console.log('Tab', this.tabData);
-    this.spinner.setSpinnerValue(this.showSpinner);
+    // this.spinner.setSpinnerValue(this.showSpinner);
     this.service.getValue().subscribe((value) => {
+      debugger;
       console.log(value);
       this.flag == value;
       if (this.flag === true) {
@@ -481,7 +462,6 @@ export class TicketsTableComponent implements OnInit {
           })
           .subscribe((res) => {
             this.pageLength = res.totalCount;
-
             if (res.totalCount !== 0) {
               this.showSpinner = false;
               this.spinner.setSpinnerValue(this.showSpinner);
@@ -510,17 +490,16 @@ export class TicketsTableComponent implements OnInit {
                   status: el['status'],
                 };
               });
-              this.initials(this.usersName);
-
+              this.getRedMenuCharacters(this.usersName);
               this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-              this.setDataSourceAttributes();
             } else {
               this.dataLoaded = false;
               this.empty = true;
               this.showSpinner = false;
             }
           });
-      } else {
+      }
+      else {
         this.http
           .POST('ticket/list', {
             searchText: [],
@@ -531,21 +510,18 @@ export class TicketsTableComponent implements OnInit {
             sortvalue: null,
           })
           .subscribe((res) => {
+            debugger;
+            this.showSpinner = false;
+            this.spinner.setSpinnerValue(this.showSpinner);
+            this.empty = false; 
+            this.dataLoaded = true;
+            debugger;
             this.pageLength = res.totalCount;
-
             if (res.totalCount !== 0) {
-              this.showSpinner = false;
-              this.spinner.setSpinnerValue(this.showSpinner);
-              this.dataLoaded = true;
               this.pageLength = res.totalCount;
-              this.empty = false;
-
               let usersData = res.pageData;
-
               this.UserViewInfoObject = usersData.map((el) => {
-                console.log(this.usersName);
                 this.usersName.push(el['rasiedBy']['name']);
-
                 const cerationDate = new Date(el['creationDate']);
                 return {
                   id: el['id'],
@@ -556,17 +532,15 @@ export class TicketsTableComponent implements OnInit {
                   createdTime: cerationDate.toLocaleTimeString(),
                   ticketTopic: el['requestType']['name'],
                   ticketNumber: el['ticketNumber'],
-
                   ticketCategory: el['requestType']['ticketType'],
                   Sevirity: el['severity'],
                   status: el['status'],
                 };
               });
-              this.initials(this.usersName);
-
+              this.getRedMenuCharacters(this.usersName);
               this.dataSource = new MatTableDataSource(this.UserViewInfoObject);
-              this.setDataSourceAttributes();
-            } else {
+            }
+            else {
               this.dataLoaded = false;
               this.empty = true;
               this.showSpinner = false;

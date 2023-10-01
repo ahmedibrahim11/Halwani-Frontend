@@ -1,11 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import {
-  MsalService,
-  MsalBroadcastService,
-  MSAL_GUARD_CONFIG,
-  MsalGuardConfiguration,
-  MsalCustomNavigationClient,
-} from '@azure/msal-angular';
+
 import {
   AuthenticationResult,
   InteractionStatus,

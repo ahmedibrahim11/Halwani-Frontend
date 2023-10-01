@@ -165,7 +165,6 @@ export class AllTableComponentComponent implements OnInit {
           console.log(res.pageData);
           let usersData = res.pageData;
           this.pageLength = res.totalCount;
-
           this.UserViewInfoObject = usersData.map((el) => {
             const cerationDate = new Date(el['creationDate']);
             return {
